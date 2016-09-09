@@ -1,0 +1,20 @@
+﻿<div class="align-right margin-right-10 margin-top-2">
+    <button class="btn btn-primary btn-xs">Collapse All</button>
+</div>
+
+<div class="inner-body-content">
+    <div class="fat-header">Templates</div>
+    <div class="margin-bottom-20" style="width: 430px;">
+        <span class="margin-left-5 margin-top-5 float-right"><i class="fa fa-times-circle-o gray-5 font-1-80"></i></span>
+        <input type="text" placeholder="Template Name..." style="width: 400px;" [(ngModel)]="searchTemplateName" (ngModelChange)="searchTemplateNameChanged($event)" />
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="template-list">
+                <li *ngFor="let template of searchResults; let i = index" (click)="runbookTemplateClicked(template)">
+                    <i class="fa fa-cog margin-right-5 opacity-50"></i> {{ template.Name }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

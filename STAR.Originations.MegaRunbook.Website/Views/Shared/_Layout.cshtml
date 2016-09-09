@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    <title>MRC - Mega Runbook Creator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="~/app/content/css/site.min.css" rel="stylesheet" />
+
+    <!-- core-js: Polyfill(s) for older browsers -->
+    <script src="~/node_modules/core-js/client/shim.min.js"></script>
+
+    <!-- zone.js: A Zone is an execution context that persists across ASYNC tasks. This is not Angular, but Angular needs this. -->
+    <script src="~/node_modules/zone.js/dist/zone.js"></script>
+
+    <!-- reflect.js: A JavaScript (ES3 compatible) implementation of Mozilla's Parser API. Angular needs this. -->
+    <script src="~/node_modules/reflect-metadata/Reflect.js"></script>
+
+    <!-- system.js: A module loader. Angular needs this. -->
+    <script src="~/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function(err) { console.error(err); });
+    </script>
+</head>
+
+<body>
+    <mrc-app>
+
+        <div class="splash-loading">
+            <div style="margin-top: 200px;">
+                <img src="../../app/content/images/Mega-Runbook-Creator-Button-01.png" alt="Runbooks" />
+            </div>
+            <div class="app-initializing">initializing</div>
+        </div>
+
+    </mrc-app>
+
+    @RenderBody()
+
+</body>
+</html>

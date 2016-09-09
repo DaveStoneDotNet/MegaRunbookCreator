@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Originations.MegaRunbook.Website", "STAR.Originations.MegaRunbook.Website\STAR.Originations.MegaRunbook.Website.csproj", "{186058C4-8A90-46FA-933B-58D7B68000FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Originations.MegaRunbook.Contracts", "STAR.Originations.MegaRunbook.Contracts\STAR.Originations.MegaRunbook.Contracts.csproj", "{9D69834D-7130-473D-AA2E-9D63E67F0B8F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{186058C4-8A90-46FA-933B-58D7B68000FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{186058C4-8A90-46FA-933B-58D7B68000FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{186058C4-8A90-46FA-933B-58D7B68000FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{186058C4-8A90-46FA-933B-58D7B68000FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D69834D-7130-473D-AA2E-9D63E67F0B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D69834D-7130-473D-AA2E-9D63E67F0B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D69834D-7130-473D-AA2E-9D63E67F0B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D69834D-7130-473D-AA2E-9D63E67F0B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

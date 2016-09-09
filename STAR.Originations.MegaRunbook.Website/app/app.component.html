@@ -1,0 +1,30 @@
+﻿
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" routerLink="/">MRC</a>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <div class="float-right">
+                <i class="fa fa-info-circle gray-5 font-1-40" style="margin-top: 16px;"></i>
+            </div>
+
+            <ul class="nav navbar-nav">
+                <li><a routerLink="/">Home</a></li>
+                <li><a src="/runbook/runbook">Runbooks</a></li>
+                <li><a routerLink="/templates">Templates</a></li>
+                <li><a src="/builds/builds">Builds</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container body-content">
+    <router-outlet></router-outlet>
+</div>

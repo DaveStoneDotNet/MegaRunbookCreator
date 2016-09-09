@@ -1,0 +1,58 @@
+﻿<div class="top-fixed-menu-buttons">
+    <button class="btn btn-primary btn-sm">Collapse All</button><button class="btn btn-primary btn-sm">Add Runbook Step</button>
+</div>
+
+<div class="inner-body-content">
+    <div class="normal-header">
+        <div *ngIf="runbookTemplate">{{ runbookTemplate.Name }}</div>
+    </div>
+    <div class="table bordered" *ngIf="runbookTemplate">
+        <div class="thead">
+            <div class="th">&nbsp;</div>
+            <div class="th align-right">Group</div>
+            <div class="th align-right">Step</div>
+            <div class="th">Team</div>
+            <div class="th">Description</div>
+            <div class="th">Developer</div>
+            <div class="th">PBI</div>
+            <div class="th">Notes</div>
+            <div class="th">Time</div>
+            <div class="th">Duration</div>
+            <div class="th">Resource</div>
+            <div class="th">&nbsp;</div>
+            <div class="th">&nbsp;</div>
+            <div class="th">&nbsp;</div>
+            <div class="th">&nbsp;</div>
+            <div class="th">Status</div>
+        </div>
+        <div class="tr" *ngFor="let step of runbookTemplate.Steps; let i = index">
+            <div class="td">&nbsp;</div>
+            <div class="td align-right">{{ step.GroupNumber }}</div>
+            <div class="td align-right">{{ step.StepNumber }}</div>
+            <div class="td">{{ step.Team }}</div>
+            <div class="td fixed-font">
+                <pre>{{ step.Description }}</pre>
+            </div>
+            <div class="td nowrap">{{ step.Developer }}</div>
+            <div class="td">{{ step.PBI }}</div>
+            <div class="td">{{ step.Notes }}</div>
+            <div class="td nowrap">{{ step.Time }}</div>
+            <div class="td nowrap">{{ step.Duration }}</div>
+            <div class="td nowrap">{{ step.Resource }}</div>
+            <div class="td align-center"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></button>
+            </div>
+            <div class="td align-center"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+            </div>
+            <div class="td align-center"><button type="button" class="btn btn-success btn-xs"><i class="fa fa-rocket"></i></button>
+            </div>
+            <div class="td align-center"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-arrow-down"></i></button>
+            </div>
+            <div class="td"><select class="runbook"><option>Started</option><option>Delayed</option><option>Finished</option></select>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-xs btn-primary" title="Add Runbook Step"><i class="fa fa-plus"></i></button>
+    </div>
+</div>
+

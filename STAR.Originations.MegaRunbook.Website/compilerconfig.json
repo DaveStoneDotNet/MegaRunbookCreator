@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "app/content/css/site.css",
+    "inputFile": "app/content/css/site.scss"
+  },
+  {
+    "outputFile": "app/templates/template-list.component.css",
+    "inputFile": "app/templates/template-list.component.scss"
+  }
+]

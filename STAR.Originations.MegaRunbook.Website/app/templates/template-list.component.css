@@ -1,0 +1,19 @@
+﻿ul.template-list {
+  list-style: none; }
+  ul.template-list li {
+    color: #337ab7;
+    padding: 5px 5px 5px 10px;
+    border: solid 1px rgba(255, 255, 255, 0); }
+    ul.template-list li a:hover {
+      text-decoration: none;
+      color: #ffffff;
+      opacity: 0.75; }
+  ul.template-list li:hover {
+    cursor: pointer;
+    border: solid 1px rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.25); }
+    ul.template-list li:hover a {
+      color: #ffffff;
+      opacity: 0.75; }
+
