@@ -890,17 +890,28 @@ pre {
     background-color: $maingray;
     border: solid 1px $maingray;
     color: $gray-c;
-    white-space: pre-wrap !important;
+    padding-top: 0px;
+    white-space: pre-line;
+}
+
+code {
+    background-color: $maingray;
+    border: solid 1px $maingray;
+    color: $gray-c;
+    padding-top: 0px;
+    white-space: pre-line;
 }
 
 textarea {
     width: 100%;
     background-color: $gray-3;
-    border: solid 1px $gray-6;
+    border: solid 1px $gray-4;
     color: $gray-c;
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
     font-size: 0.90em;
     padding: 10px;
+    resize: none;
+    overflow: auto;
 }
 
 // ----------------------------------------------------------------------
@@ -1242,7 +1253,7 @@ table.runbook-table {
 .col      { display: table-column; }
 .colgroup { display: table-column-group; }
 .th       { display: table-cell; border-top: solid 1px $gray-6; border-bottom: solid 1px $gray-6; padding: 5px; color: $muted-blue; font-weight: bold; cursor: pointer; }
-.td       { display: table-cell;  padding: 5px; max-height: 20px; }
+.td       { display: table-cell; padding: 5px; max-height: 20px; vertical-align: top; }
 .caption  { display: table-caption; }
 
 .table.bordered .td { border-bottom: solid 1px $gray-6; }

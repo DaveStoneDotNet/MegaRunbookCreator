@@ -1,18 +1,24 @@
 ﻿
+import { PBI } from './pbi.entity';
+import { Developer } from './developer.entity';
+import { Lookup } from './lookup.entity';
+
 export class RunbookStep {
-    GroupNumber: Number;
-    StepNumber: Number;
-    PBI: Number;
-    Duration: Number;
+    GroupNumber: number;
+    StepNumber: number;
+    Duration: number;
 
-    Team: String;
-    Description: String;
-    Developer: String;
-    Notes: String;
-    Resource: String;
-    StatusCode: String;
-    StatusDescription: String;
-    FormattedTime: String;
+    Team: string;
+    Description: string;
+    Notes: string;
+    Resource: string;
+    FormattedTime: string;
 
-    Time: String;
+    Time: string;
+
+    StatusLookup: Lookup;
+    PBI: PBI[];
+    Developers: Developer[];
+
+    IsNotCollapsed: boolean;
 }

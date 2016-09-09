@@ -1,9 +1,9 @@
 ﻿
 export class EntityBase {
 
-    public IsSuccessful: Boolean;
-    public IsAuthenticated: Boolean;
+    IsSuccessful: boolean;
+    IsAuthenticated: boolean;
 
-    public ReturnMessage: string[];
-    public ValidationErrors: any[];
+    ReturnMessage: string[];
+    ValidationErrors: any[];
 }

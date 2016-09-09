@@ -261,7 +261,10 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
+    <TypeScriptCompile Include="app\entities\developer.entity.ts" />
     <TypeScriptCompile Include="app\entities\entity-base.entity.ts" />
+    <TypeScriptCompile Include="app\entities\lookup.entity.ts" />
+    <TypeScriptCompile Include="app\entities\pbi.entity.ts" />
     <TypeScriptCompile Include="app\entities\runbook-step.entity.ts" />
     <TypeScriptCompile Include="app\entities\runbook-template.entity.ts" />
     <TypeScriptCompile Include="app\entities\user-profile.entity.ts" />

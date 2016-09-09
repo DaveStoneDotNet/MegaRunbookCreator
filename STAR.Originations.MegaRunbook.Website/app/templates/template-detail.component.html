@@ -1,5 +1,7 @@
 ﻿<div class="top-fixed-menu-buttons">
-    <button class="btn btn-primary btn-sm">Collapse All</button><button class="btn btn-primary btn-sm">Add Runbook Step</button>
+    <button class="btn btn-primary btn-sm">Add Runbook Step</button>
+    <button class="btn btn-info btn-sm" title="reload" (click)="reloadTemplate()"><i class="fa fa-refresh"></i></button>
+    <button class="btn btn-success btn-sm" (click)="toggleCollapseAll()" [title]="isNotCollapsed ? 'collapse all' : 'expand all'"><i class="fa" [class.fa-chevron-down]="isNotCollapsed" [class.fa-chevron-up]="!isNotCollapsed"></i></button>
 </div>
 
 <div class="inner-body-content">
@@ -14,7 +16,7 @@
             <div class="th">Team</div>
             <div class="th">Description</div>
             <div class="th">Developer</div>
-            <div class="th">PBI</div>
+            <div class="th">PBIs</div>
             <div class="th">Notes</div>
             <div class="th">Time</div>
             <div class="th">Duration</div>
@@ -26,28 +28,65 @@
             <div class="th">Status</div>
         </div>
         <div class="tr" *ngFor="let step of runbookTemplate.Steps; let i = index">
-            <div class="td">&nbsp;</div>
-            <div class="td align-right">{{ step.GroupNumber }}</div>
-            <div class="td align-right">{{ step.StepNumber }}</div>
-            <div class="td">{{ step.Team }}</div>
-            <div class="td fixed-font">
-                <pre>{{ step.Description }}</pre>
+            <div style="width: 2%;" class="td align-right">
+                <div class="pad-top-5"><button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button></div>
             </div>
-            <div class="td nowrap">{{ step.Developer }}</div>
-            <div class="td">{{ step.PBI }}</div>
-            <div class="td">{{ step.Notes }}</div>
-            <div class="td nowrap">{{ step.Time }}</div>
-            <div class="td nowrap">{{ step.Duration }}</div>
-            <div class="td nowrap">{{ step.Resource }}</div>
-            <div class="td align-center"><button type="button" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></button>
+            <div style="width: 3%;" class="td align-right">
+                <div class="pad-top-5">{{ step.GroupNumber }}</div>
             </div>
-            <div class="td align-center"><button type="button" class="btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+            <div style="width: 3%;" class="td align-right">
+                <div class="pad-top-5">{{ step.StepNumber }}</div>
             </div>
-            <div class="td align-center"><button type="button" class="btn btn-success btn-xs"><i class="fa fa-rocket"></i></button>
+            <div style="width: 5%;" class="td">
+                <div class="pad-top-5">{{ step.Team }}</div>
             </div>
-            <div class="td align-center"><button type="button" class="btn btn-warning btn-xs"><i class="fa fa-arrow-down"></i></button>
+            <div style="width: 23%;" class="td">
+                <div class="pad-top-5">
+                    <code *ngIf="step.IsNotCollapsed">{{ step.Description }}</code>
+                </div>
             </div>
-            <div class="td"><select class="runbook"><option>Started</option><option>Delayed</option><option>Finished</option></select>
+            <div style="width: 5%;" class="td nowrap">
+                <div class="pad-top-5"><ul *ngIf="step.IsNotCollapsed" style="padding-left: 0;"><li *ngFor="let developer of step.Developers; let i = index" style="list-style-type: none;">{{ developer.Name }}</li></ul></div>
+            </div>
+            <div style="width: 3%;" class="td">
+                <div class="pad-top-5"><ul *ngIf="step.IsNotCollapsed" style="padding-left: 0;"><li *ngFor="let pbi of step.PBIs; let i = index" style="list-style-type: none;">{{ pbi.Number }}</li></ul></div>
+            </div>
+            <div style="width: 23%;" class="td">
+                <div class="pad-top-5">
+                    <code *ngIf="step.IsNotCollapsed">{{ step.Notes }}</code>
+                </div>
+            </div>
+            <div style="width: 6%;" class="td nowrap">
+                <div class="pad-top-5">{{ step.Time }}</div>
+            </div>
+            <div style="width: 5%;" class="td nowrap">
+                <div class="pad-top-5">{{ step.Duration }}</div>
+            </div>
+            <div style="width: 5%;" class="td nowrap">
+                <div class="pad-top-5">{{ step.Resource }}</div>
+            </div>
+            <div style="width: 2%;" class="td align-center">
+                <div class="pad-top-5">
+                    <button type="button" class="btn btn-info btn-xs"><i class="fa fa-edit"></i></button>
+                </div>
+            </div>
+            <div style="width: 2%;" class="td align-center">
+                <div class="pad-top-5">
+                    <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div style="width: 2%;" class="td align-center">
+                <div class="pad-top-5">
+                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-rocket"></i></button>
+                </div>
+            </div>
+            <div style="width: 2%;" class="td align-center">
+                <div class="pad-top-5">
+                    <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-arrow-down"></i></button>
+                </div>
+            </div>
+            <div style="width: 7%;" class="td">
+                <select class="runbook"><option>Started</option><option>Delayed</option><option>Finished</option></select>
             </div>
         </div>
     </div>

@@ -11,29 +11,27 @@
         "GroupNumber": 1,
         "StepNumber": 1,
         "Team": "DevOps",
-        "Description": "Execute Powershell Script at \\\\vrsccm01\\apps$\\Chef\\Install-Chef.ps1 with the following parameters\r\n-Hosts:\r\n  - vrwebsoa01\r\n  - vrapssoa01\r\n  - crencwebprd01\r\n  - crenctskprd01\r\n  - crgfswebprd01\r\n  - crdmzwebprd01\r\n  - vrweborig01\r\n  - crnetwebprd01\r\n  - crwebsrv01\r\n  - vrapscont01\r\n  - vrapsedc01\r\n  - vrapslog01\r\n-Environment prod\r\n-Runlist recipe[nsm_tag_app]",
-        "Developer": "Matt Clark",
-        "PBI": 95551,
+        "Description": "Execute Powershell Script at \\\\vrsccm01\\apps$\\Chef\\Install-Chef.ps1 with the following parameters\r\n-Hosts:\r\n  -vrwebsoa01\r\n  -vrapssoa01\r\n  -crencwebprd01\r\n  -crenctskprd01\r\n  -crgfswebprd01\r\n  -crdmzwebprd01\r\n  -vrweborig01\r\n  -crnetwebprd01\r\n  -crwebsrv01\r\n  -vrapscont01\r\n  -vrapsedc01\r\n  -vrapslog01\r\n\r\n-Environment prod\r\n-Runlist recipe[nsm_tag_app]",
+        "Developers": [ { "Name":  "Matt Clark" } ],
+        "PBIs": [{ "Number": 99669 }, { "Number": 99671 }, { "Number": 99650 }],
         "Notes": "This Powershell script bootstraps the server with the Chef client and sets the environment and runlist for the node.",
         "Time": "08:00 PM CST",
         "Duration": 5,
         "Resource": "Matt Clark",
-        "StatusCode": "01",
-        "StatusDescription": "Started"
+        "StatusLookup": { "Code": "01", "Description": "Started" }
       }, 
       {
         "GroupNumber": 1,
         "StepNumber": 2,
         "Team": "DevOps",
-        "Description": "Validation:\r\n  - Ensure that the Chef client service is installed and running on the server\r\n  - The server shows up in the Chef management console at https://crcheftstlnx01/organizations/nsm/nodes\r\n  - The assigned runlist and environment are set\r\n",
-        "Developer": "Matt Clark",
-        "PBI": 95551,
+        "Description": "Validation:\r\n  -Ensure that the Chef client service is installed and running on the server\r\n  -The server shows up in the Chef management console at https://crcheftstlnx01/organizations/nsm/nodes\r\n  -The assigned runlist and environment are set",
+        "Developers": [ { "Name":  "Matt Clark" } ],
+        "PBIs": [{ "Number": 99669 }, { "Number": 99671 }, { "Number": 99650 }],
         "Notes": "",
         "Time": "08:05 PM CST",
         "Duration": 5,
         "Resource": "Matt Clark",
-        "StatusCode": "01",
-        "StatusDescription": ""
+        "StatusLookup": { "Code": "01", "Description": "Started" }
       }
     ]
   }

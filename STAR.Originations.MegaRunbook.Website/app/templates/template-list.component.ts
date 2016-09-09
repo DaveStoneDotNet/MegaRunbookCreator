@@ -8,18 +8,18 @@ import { RunbookTemplate } from '../entities/runbook-template.entity';
 
 @Component({
     templateUrl: 'app/templates/template-list.component.html',
-    styleUrls:   ['app/templates/template-list.component.css'], 
-    providers:   [TemplateService]
+    styleUrls: ['app/templates/template-list.component.css'],
+    providers: [TemplateService]
 })
 
 export class TemplateListComponent implements OnInit {
 
-    runningSearch: Boolean;
+    runningSearch: boolean;
 
     runbookTemplates: RunbookTemplate[];
     searchResults: RunbookTemplate[];
-    delaySearch: Boolean;
-    searchTemplateName: String;
+    delaySearch: boolean;
+    searchTemplateName: string;
 
     constructor(private templateService: TemplateService, private router: Router) { }
 
@@ -59,12 +59,12 @@ export class TemplateListComponent implements OnInit {
 
         setTimeout(() => {
 
-                this.templateService.searchTemplates()
-                    .subscribe(
-                        response => this.getTemplatesOnSuccess(response),
-                        response => this.getTemplatesOnError(response));
+            this.templateService.searchTemplates()
+                .subscribe(
+                response => this.getTemplatesOnSuccess(response),
+                response => this.getTemplatesOnError(response));
 
-            },
+        },
             miliseconds);
     }
 
