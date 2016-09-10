@@ -1,6 +1,6 @@
 ﻿<div class="pad-20 white">
     <div class="home-brand-button-block">
-        <a routerLink="/templates"><img src="../app/content/images/Mega-Runbook-Creator-Button-04.png" style="cursor: pointer;" title="Runbooks" /></a>
+        <a routerLink="/templatelist"><img src="../app/content/images/Mega-Runbook-Creator-Button-04.png" style="cursor: pointer;" title="Runbooks" /></a>
         <div class="home-date-block">
             <div>{{ today | date:'fullDate' }} {{ today | date:'h:m:s a' }}</div>
             <div *ngIf="userProfile" class="opacity-50">{{ userProfile.UserDisplayName }}</div>

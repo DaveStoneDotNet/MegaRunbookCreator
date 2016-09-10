@@ -1010,17 +1010,23 @@ textarea {
 .navbar-inverse .navbar-brand {
     font-family: BebasNeue;
     font-size: 2.0em;
-    color: #ffffff !important;
+    color: $pure-white !important;
     background-color: #EB8428;
 }
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-    color: #ffffff !important;
+    color: $pure-white !important;
     background-color: #EB8428 !important;
 }
 
 .navbar-nav > li > a {
+    border-bottom: solid 2px #2d2d30;
+}
+
+.navbar-nav > li > a.active {
+    color: $pure-white !important;
+    border-bottom: solid 2px #EB8428;
 }
 
 .navbar-nav > li > a:hover {
@@ -1300,12 +1306,12 @@ table.runbook-table {
     border: solid 1px transparent;
 }
 #toast-container > :hover {
-    -moz-box-shadow: 0 0 12px #ffffff !important;
-    -webkit-box-shadow: 0 0 12px #ffffff !important;
-    box-shadow: 0 0 12px #ffffff !important;
+    -moz-box-shadow: 0 0 12px $pure-white !important;
+    -webkit-box-shadow: 0 0 12px $pure-white !important;
+    box-shadow: 0 0 12px $pure-white !important;
     opacity: 1;
     cursor: pointer;
-    border: solid 1px #ffffff;
+    border: solid 1px $pure-white;
 }
 
 #toast-container > .toast-info:before {

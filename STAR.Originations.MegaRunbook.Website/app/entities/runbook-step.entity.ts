@@ -4,6 +4,7 @@ import { Developer } from './developer.entity';
 import { Lookup } from './lookup.entity';
 
 export class RunbookStep {
+    ID: number;
     GroupNumber: number;
     StepNumber: number;
     Duration: number;

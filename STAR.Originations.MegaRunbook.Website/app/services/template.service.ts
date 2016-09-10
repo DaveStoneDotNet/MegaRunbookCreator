@@ -18,4 +18,12 @@ export class TemplateService {
     getRunbookTemplate(id: Number): Observable<any> {
         return this.httpService.httpPost({ id: id }, 'api/GetRunbookTemplate');
     }
+
+    getRunbookSteps(): Observable<any> {
+        return this.httpService.httpGet('api/GetRunbookSteps');
+    }
+
+    getRunbookStep(id: Number): Observable<any> {
+        return this.httpService.httpPost({ id: id }, 'api/GetRunbookStep');
+    }
 }

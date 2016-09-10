@@ -1,9 +1,10 @@
 ﻿
-import { Component }      from '@angular/core';
-import { OnInit }         from '@angular/core';
-import { Input }          from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Params }         from '@angular/router';
+import { Component }       from '@angular/core';
+import { OnInit }          from '@angular/core';
+import { Input }           from '@angular/core';
+import { ActivatedRoute }  from '@angular/router';
+import { Params }          from '@angular/router';
+import { Router }          from '@angular/router';
 
 import { TemplateService } from '../services/template.service';
 import { RunbookTemplate } from '../entities/runbook-template.entity';
@@ -17,11 +18,11 @@ import { RunbookStep }     from '../entities/runbook-step.entity';
 export class TemplateDetailComponent implements OnInit {
 
     runningSearch: boolean;
-    isNotCollapsed: boolean = false;
+    isNotCollapsed: boolean;
 
     runbookTemplate: RunbookTemplate;
 
-    constructor(private templateService: TemplateService, private route: ActivatedRoute) { }
+    constructor(private templateService: TemplateService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit() {
 
@@ -44,6 +45,11 @@ export class TemplateDetailComponent implements OnInit {
 
     reloadTemplate() {
         this.executeSearch();
+    }
+
+    editRunbookStep(step: RunbookStep): void {
+        let link = ['/templateform', step.ID];
+        this.router.navigate(link);
     }
 
     // Data Access

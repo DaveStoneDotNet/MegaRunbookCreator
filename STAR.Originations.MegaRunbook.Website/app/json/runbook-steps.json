@@ -1,12 +1,4 @@
 ﻿[
-  {
-    "ID": 0,
-    "Number": 10363,
-    "Name": "Chef Installation",
-    "ContactName": "Aaron Crothers",
-    "ContactPhone": "817-233-7415",
-    "Time": "08:00 PM CST",
-    "Steps": [
       {
         "ID": 1, 
         "GroupNumber": 1,
@@ -42,6 +34,4 @@
         "Resource": "Matt Clark",
         "StatusLookup": { "Code": "01", "Description": "Started" }
       }
-    ]
-  }
 ]

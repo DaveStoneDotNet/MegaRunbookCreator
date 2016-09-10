@@ -27,7 +27,6 @@ export class TemplateListComponent implements OnInit {
         this.executeSearch();
     }
 
-
     searchTemplateNameChanged(newValue): void {
 
         this.delaySearch = true;
@@ -41,7 +40,7 @@ export class TemplateListComponent implements OnInit {
     }
 
     runbookTemplateClicked(selectedRunbookTemplate: RunbookTemplate): void {
-        let link = ['/template', selectedRunbookTemplate.ID];
+        let link = ['/templatedetail', selectedRunbookTemplate.ID];
         this.router.navigate(link);
     }
 

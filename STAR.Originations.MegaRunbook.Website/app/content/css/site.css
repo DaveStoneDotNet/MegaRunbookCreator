@@ -703,6 +703,13 @@ textarea {
   color: #ffffff !important;
   background-color: #EB8428 !important; }
 
+.navbar-nav > li > a {
+  border-bottom: solid 2px #2d2d30; }
+
+.navbar-nav > li > a.active {
+  color: #ffffff !important;
+  border-bottom: solid 2px #EB8428; }
+
 .btn-default {
   background-color: #333333 !important;
   color: #666666 !important;
