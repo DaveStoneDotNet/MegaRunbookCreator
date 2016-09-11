@@ -4,6 +4,11 @@
 <div class="inner-body-content">
     <div class="fat-header">{{ Title }}</div>
     <div>
-
+        <ul class="items">
+            <li *ngFor="let hero of heroes"
+                (click)="onSelect(hero)">
+                <span class="badge">{{hero.id}}</span> {{hero.name}}
+            </li>
+        </ul>
     </div>
 </div>

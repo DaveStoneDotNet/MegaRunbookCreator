@@ -28,7 +28,7 @@ const appRoutes: Routes = [
     { path: 'runbooks',           component: RunbooksComponent }, 
 
     { path: 'crisis-center',      component: CrisisCenterComponent }, 
-    { path: 'heroes',             component: HeroListComponent,            data: { Title: 'Hero List' } }, 
+    { path: 'heroes',             component: HeroListComponent, 
     { path: 'hero/:id',           component: HeroDetailComponent }, 
     { path: '**',                 component: PageNotFoundComponent }
 ];

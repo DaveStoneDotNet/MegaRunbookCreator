@@ -1026,10 +1026,35 @@ textarea {
 
 .navbar-nav > li > a.active {
     color: $pure-white !important;
-    border-bottom: solid 2px #EB8428;
+    border-bottom: solid 2px #EB8428 !important;
 }
 
 .navbar-nav > li > a:hover {
+}
+
+.navbar-nav > li.open > a {
+    background-color: $gray-4 !important;
+    border-bottom-color: #EB8428 !important;
+}
+
+.navbar-nav > li.open > a:hover {
+}
+
+.navbar-nav ul.dropdown-menu {
+    color: $gray-e !important;
+    background-color: $gray-4 !important;
+    box-shadow: 3px 3px 12px rgba(255, 255, 255, .10);
+    border-left-color: $gray-6;
+    border-right-color: $gray-6;
+    border-bottom-color: $gray-6;
+}
+
+.navbar-nav ul.dropdown-menu a {
+    color: $gray-c !important;
+}
+
+.navbar-nav ul.dropdown-menu a:hover {
+    background-color: $gray-3 !important;
 }
 
 .btn-default {

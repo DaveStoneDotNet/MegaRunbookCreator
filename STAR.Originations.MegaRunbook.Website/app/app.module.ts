@@ -32,7 +32,7 @@ import { BlockUIService }           from './services/blockui.service';
 @NgModule({
     imports:      [BrowserModule, FormsModule, HttpModule, routing],
     declarations: [AppComponent, HomeComponent, TemplateListComponent, TemplateDetailComponent, RunbookStepFormComponent, AdminComponent, BuildsComponent, RunbooksComponent, CrisisCenterComponent, HeroListComponent, HeroDetailComponent, PageNotFoundComponent],
-    providers: [HttpService, UserService, TemplateService, BlockUIService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
+    providers:    [HttpService, UserService, TemplateService, BlockUIService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
 })
 export class AppModule { }

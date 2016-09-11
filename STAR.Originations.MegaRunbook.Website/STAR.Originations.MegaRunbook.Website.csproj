@@ -283,6 +283,10 @@
     <TypeScriptCompile Include="app\heroes\crisis-center.component.ts" />
     <TypeScriptCompile Include="app\heroes\hero-detail.component.ts" />
     <TypeScriptCompile Include="app\heroes\hero-list.component.ts" />
+    <TypeScriptCompile Include="app\heroes\hero.service.ts" />
+    <TypeScriptCompile Include="app\heroes\hero.ts" />
+    <TypeScriptCompile Include="app\heroes\heroes.module.ts" />
+    <TypeScriptCompile Include="app\heroes\heroes.routing.ts" />
     <TypeScriptCompile Include="app\heroes\page-not-found.component.ts" />
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />

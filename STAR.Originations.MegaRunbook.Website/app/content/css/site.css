@@ -708,7 +708,25 @@ textarea {
 
 .navbar-nav > li > a.active {
   color: #ffffff !important;
-  border-bottom: solid 2px #EB8428; }
+  border-bottom: solid 2px #EB8428 !important; }
+
+.navbar-nav > li.open > a {
+  background-color: #444444 !important;
+  border-bottom-color: #EB8428 !important; }
+
+.navbar-nav ul.dropdown-menu {
+  color: #eeeeee !important;
+  background-color: #444444 !important;
+  box-shadow: 3px 3px 12px rgba(255, 255, 255, 0.1);
+  border-left-color: #666666;
+  border-right-color: #666666;
+  border-bottom-color: #666666; }
+
+.navbar-nav ul.dropdown-menu a {
+  color: #cccccc !important; }
+
+.navbar-nav ul.dropdown-menu a:hover {
+  background-color: #333333 !important; }
 
 .btn-default {
   background-color: #333333 !important;
