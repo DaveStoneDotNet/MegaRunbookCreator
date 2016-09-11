@@ -181,12 +181,13 @@
     <Content Include="app\heroes\crisis-center.component.html" />
     <Content Include="app\heroes\hero-detail.component.html" />
     <Content Include="app\heroes\hero-list.component.html" />
-    <Content Include="app\heroes\page-not-found.component.html" />
+    <Content Include="app\common\page-not-found.component.html" />
     <Content Include="app\home\home.component.html" />
     <Content Include="app\templates\template-detail.component.html" />
     <Content Include="app\json\runbook-steps.json" />
     <Content Include="app\runbooks\runbooks.component.html" />
     <Content Include="app\builds\builds.component.html" />
+    <Content Include="app\json\heroes\heroes.json" />
     <None Include="app\templates\template-list.component.scss" />
     <Content Include="app\templates\runbook-step-form.component.html" />
     <Content Include="app\templates\template-list.component.css">
@@ -287,7 +288,7 @@
     <TypeScriptCompile Include="app\heroes\hero.ts" />
     <TypeScriptCompile Include="app\heroes\heroes.module.ts" />
     <TypeScriptCompile Include="app\heroes\heroes.routing.ts" />
-    <TypeScriptCompile Include="app\heroes\page-not-found.component.ts" />
+    <TypeScriptCompile Include="app\common\page-not-found.component.ts" />
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.component.ts" />

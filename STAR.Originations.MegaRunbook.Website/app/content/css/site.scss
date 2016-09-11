@@ -1082,53 +1082,51 @@ textarea {
 // ----------------------------------------------------------------------
 
 .items {
-    margin: 0 0 2em 0;
+    margin: 0px 0px 0px 40px;
     list-style-type: none;
-    padding: 0;
+    padding: 0px 0px 0px 0px;
     width: 24em;
 }
 
 .items li {
+    height: 1.8em;
+    line-height: 1em;
+    font-size: 1em;
     cursor: pointer;
     position: relative;
-    left: 0;
-    background-color: #EEE;
-    margin: .5em;
-    padding: .3em 0;
-    height: 1.6em;
-    border-radius: 0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.items li span.item-text {
+    margin-left: 1em;
 }
 
 .items li:hover {
-    color: #607D8B;
-    background-color: #DDD;
-    left: .1em;
+    color: $pure-white;
 }
 
 .items li.selected:hover {
-    background-color: #BBD8DC;
+    background-color: $muted-blue;
     color: white;
 }
 
-.items .text {
-    position: relative;
-    top: -3px;
-}
-
-.items .badge {
-    display: inline-block;
-    font-size: small;
-    color: white;
-    padding: 0.8em 0.7em 0 0.7em;
-    background-color: #607D8B;
-    line-height: 1em;
-    position: relative;
-    left: -1px;
-    top: -4px;
+.items .indicator {
     height: 1.8em;
-    margin-right: .8em;
-    border-radius: 0px 0 0 4px;
+    line-height: 1em;
+    font-size: 1em;
+    display: inline-block;
+    color: white;
+    padding: 0px 0px 0px 0px;
+    background-color: #607D8B;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    margin-right: 0px;
+    border-radius: 0px;
 }
+
+// ----------------------------------------------------------------------
 
 table.contacts-table {
     width: 100%;

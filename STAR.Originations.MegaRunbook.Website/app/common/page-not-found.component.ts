@@ -4,7 +4,7 @@ import { OnInit }          from '@angular/core';
 import { Router }          from '@angular/router';
 
 @Component({
-    templateUrl: 'app/heroes/page-not-found.component.html',
+    templateUrl: 'app/common/page-not-found.component.html',
     providers: []
 })
 

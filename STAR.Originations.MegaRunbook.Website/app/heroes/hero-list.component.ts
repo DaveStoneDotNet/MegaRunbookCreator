@@ -28,24 +28,29 @@ export class HeroListComponent implements OnInit, OnDestroy {
     constructor(private router: Router, private route: ActivatedRoute, private service: HeroService) { }
 
     ngOnInit() {
-        //this.sub = this.route
-        //    .params
-        //    .subscribe(params => {
-        //        this.selectedId = +params['id'];
-        //        this.service.getHeroes()
-        //            .then(heroes => this.heroes = heroes);
-        //    });
+        this.sub = this.route
+            .params
+            .subscribe(params => {
+                this.selectedId = +params['id'];
+                this.service.getHeroes()
+                    .then(heroes => this.onHeroesSuccessful(heroes));
+            });
     }
 
     ngOnDestroy() {
-        //this.sub.unsubscribe();
+        this.sub.unsubscribe();
     }
 
     onSelect(hero: Hero) {
-        this.router.navigate(['/hero', hero.id]);
+        this.router.navigate(['/hero', hero.Id]);
     }
 
     isSelected(hero: Hero) {
-        return hero.id === this.selectedId;
+        return hero.Id === this.selectedId;
     }
+
+    private onHeroesSuccessful(response: Hero[]) {
+        this.heroes = response;
+    }
+
 }

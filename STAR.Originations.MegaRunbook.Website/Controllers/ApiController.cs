@@ -102,5 +102,19 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             }
         }
         #endregion LoadJson
+
+        // ---
+
+        #region GetHeroes
+        [System.Web.Http.HttpGet]
+        public async Task<JsonResult> GetHeroes()
+        {
+            var heroes = await this.LoadJson<Hero>(@"heroes/heroes.json");
+
+            return this.Json(heroes);
+        }
+        #endregion GetHeroes
+
+
     }
 }

@@ -13,9 +13,7 @@ import { BuildsComponent }          from './builds/builds.component'
 import { RunbooksComponent }        from './runbooks/runbooks.component'
 
 import { CrisisCenterComponent }    from './heroes/crisis-center.component'
-import { HeroListComponent }        from './heroes/hero-list.component'
-import { HeroDetailComponent }      from './heroes/hero-detail.component'
-import { PageNotFoundComponent }    from './heroes/page-not-found.component'
+import { PageNotFoundComponent }    from './common/page-not-found.component'
 
 const appRoutes: Routes = [
     { path: '',                   component: HomeComponent }, 
@@ -28,8 +26,6 @@ const appRoutes: Routes = [
     { path: 'runbooks',           component: RunbooksComponent }, 
 
     { path: 'crisis-center',      component: CrisisCenterComponent }, 
-    { path: 'heroes',             component: HeroListComponent, 
-    { path: 'hero/:id',           component: HeroDetailComponent }, 
     { path: '**',                 component: PageNotFoundComponent }
 ];
 

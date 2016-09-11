@@ -7,9 +7,9 @@ import { HeroListComponent }        from './hero-list.component'
 import { HeroDetailComponent }      from './hero-detail.component'
 
 const heroesRoutes: Routes = [
-    { path: 'heroes', component: HeroListComponent, data: { Title: 'Hero List' } },
+    { path: 'heroes',   component: HeroListComponent, data: { Title: 'Hero List' } },
     { path: 'hero/:id', component: HeroDetailComponent }
 ];
 
-export const heroesRouting: ModuleWithProviders = RouterModule.forRoot(heroesRoutes);
+export const heroesRouting: ModuleWithProviders = RouterModule.forChild(heroesRoutes);
 

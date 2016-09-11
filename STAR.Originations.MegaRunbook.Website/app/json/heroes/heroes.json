@@ -1,0 +1,10 @@
+﻿[
+  { "ID": 1, "Name": "Albert Einstein" }, 
+  { "ID": 2, "Name": "Leonardo Da Vinci" }, 
+  { "ID": 3, "Name": "Edwin Hubble" }, 
+  { "ID": 4, "Name": "Carl Sagan" }, 
+  { "ID": 5, "Name": "Isaac Newton" }, 
+  { "ID": 6, "Name": "Galileo Galilei" }, 
+  { "ID": 7, "Name": "James Clerk Maxwell"
+  }
+]
