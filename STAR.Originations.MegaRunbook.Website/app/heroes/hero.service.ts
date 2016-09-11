@@ -1,8 +1,9 @@
 ﻿
-import { Injectable } from '@angular/core';
-import { Headers }    from '@angular/http';
-import { Http }       from '@angular/http';
-import { Response }   from '@angular/http';
+import { Injectable }     from '@angular/core';
+import { Headers }        from '@angular/http';
+import { Http }           from '@angular/http';
+import { Response }       from '@angular/http';
+import { RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -13,8 +14,14 @@ export class HeroService {
 
     private headers = new Headers({ 'Content-Type': 'application/json' });
     private heroesUrl = 'api';
+    private jsonHeaders: Headers;
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+
+        this.jsonHeaders = new Headers();
+        this.jsonHeaders.append('Content-Type', 'application/json');
+        this.jsonHeaders.append('Accept', 'q=0.8;application/json;q=0.9');
+    }
 
     getHeroes(): Promise<Hero[]> {
         return this.http.get('api/GetHeroes')
@@ -28,9 +35,21 @@ export class HeroService {
         return response.json() as Hero[];
     }
 
-    getHero(id: number): Promise<Hero> {
-        return this.getHeroes()
-            .then(heroes => heroes.find(hero => hero.Id === id));
+    getHero(object: any): Promise<Hero> {
+
+        let body = JSON.stringify(object);
+
+        let options = new RequestOptions({ headers: this.jsonHeaders });
+
+        return this.http.post('api/GetHero', body, options)
+            .toPromise()
+            .then(response => this.onHeroSuccessful(response))
+            .catch(this.handleError);
+    }
+
+    private onHeroSuccessful(response: Response) {
+        let a = response.json();
+        return response.json() as Hero;
     }
 
     delete(id: number): Promise<void> {

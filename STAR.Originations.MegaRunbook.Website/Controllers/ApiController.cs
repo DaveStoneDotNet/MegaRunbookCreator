@@ -110,11 +110,19 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         public async Task<JsonResult> GetHeroes()
         {
             var heroes = await this.LoadJson<Hero>(@"heroes/heroes.json");
-
             return this.Json(heroes);
         }
         #endregion GetHeroes
 
+        #region GetHero
+        [System.Web.Http.HttpGet]
+        public async Task<JsonResult> GetHero(int id)
+        {
+            var heroes = await this.LoadJson<Hero>(@"heroes/heroes.json");
+            var hero = (from o in heroes where o.Id == id select o).FirstOrDefault();
+            return this.Json(hero);
+        }
+        #endregion GetHero
 
     }
 }

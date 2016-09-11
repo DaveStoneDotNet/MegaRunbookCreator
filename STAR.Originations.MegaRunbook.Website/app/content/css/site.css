@@ -767,9 +767,11 @@ textarea {
 .items li:hover {
   color: #ffffff; }
 
+.items li.selected {
+  color: #ffffff; }
+
 .items li.selected:hover {
-  background-color: #5f7d99;
-  color: white; }
+  color: #f0ad4e; }
 
 .items .indicator {
   height: 1.8em;

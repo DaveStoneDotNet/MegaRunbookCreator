@@ -1106,9 +1106,12 @@ textarea {
     color: $pure-white;
 }
 
+.items li.selected {
+    color: $pure-white;
+}
+
 .items li.selected:hover {
-    background-color: $muted-blue;
-    color: white;
+    color: $muted-orange;
 }
 
 .items .indicator {

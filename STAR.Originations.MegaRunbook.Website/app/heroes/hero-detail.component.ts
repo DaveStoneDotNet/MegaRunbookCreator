@@ -30,12 +30,24 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
         // (+) converts string 'id' to a number
         this.sub = this.route.params.subscribe(params => {
             let id = +params['id'];
-            this.service.getHero(id).then(hero => this.hero = hero);
+            this.service.getHero({ id: id }).then(hero => this.onHeroSuccessful(hero));
         });
     }
 
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+
+    gotoHeroes() {
+
+        let heroId = this.hero ? this.hero.Id : null;
+
+        // Pass along the hero id if available so that the HeroList component can select that hero.
+        this.router.navigate(['/heroes', { id: heroId }]);
+    }
+
+    private onHeroSuccessful(hero: Hero) {
+        this.hero = hero;
     }
 
 }

@@ -15,7 +15,7 @@ export class TemplateService {
         return this.httpService.httpGet('api/GetRunbookTemplates');
     }
 
-    getRunbookTemplate(id: Number): Observable<any> {
+    getRunbookTemplate(id: number): Observable<any> {
         return this.httpService.httpPost({ id: id }, 'api/GetRunbookTemplate');
     }
 
@@ -23,7 +23,7 @@ export class TemplateService {
         return this.httpService.httpGet('api/GetRunbookSteps');
     }
 
-    getRunbookStep(id: Number): Observable<any> {
+    getRunbookStep(id: number): Observable<any> {
         return this.httpService.httpPost({ id: id }, 'api/GetRunbookStep');
     }
 }

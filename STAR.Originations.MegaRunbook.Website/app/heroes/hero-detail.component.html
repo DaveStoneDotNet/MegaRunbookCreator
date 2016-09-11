@@ -2,8 +2,13 @@
     <button class="btn btn-primary btn-xs">Button</button>
 </div>
 <div class="inner-body-content">
-    <div class="fat-header">{{ Title }}</div>
-    <div>
-
+    <div *ngIf="hero">
+        <div class="fat-header">{{ hero.Name }}</div>
+        <pre class="gray-6">
+            {{ hero | json }}
+        </pre>
+        <div>
+            <button class="btn btn-primary" (click)="gotoHeroes()">Back</button>
+        </div>
     </div>
 </div>

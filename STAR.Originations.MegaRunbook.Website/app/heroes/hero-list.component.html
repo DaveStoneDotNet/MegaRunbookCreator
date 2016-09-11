@@ -6,6 +6,7 @@
     <div>
         <ul class="items">
             <li *ngFor="let hero of heroes"
+                [class.selected]="isSelected(hero)"
                 (click)="onSelect(hero)">
                 <span class="badge">{{hero.Id}}</span><span class="item-text">{{hero.Name}}</span>
             </li>
