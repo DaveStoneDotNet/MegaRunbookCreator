@@ -32,11 +32,12 @@ import { BlockUIService }           from './services/blockui.service';
 import { DialogService }            from './services/dialog.service';
 import { CanDeactivateGuard }       from './services/can-deactivate-guard.service';
 import { AuthGuard }                from './services/auth-guard.service';
+import { AuthService }              from './services/auth.service';
 
 @NgModule({
     imports:      [BrowserModule, FormsModule, HttpModule, routing, HeroesModule, CrisisCenterModule],
     declarations: [AppComponent, HomeComponent, TemplateListComponent, TemplateDetailComponent, RunbookStepFormComponent, AdminComponent, BuildsComponent, RunbooksComponent, PageNotFoundComponent],
-    providers: [HttpService, UserService, TemplateService, BlockUIService, DialogService, CanDeactivateGuard, AuthGuard, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
+    providers:    [HttpService, UserService, TemplateService, BlockUIService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
 })
 export class AppModule { }

@@ -18,7 +18,7 @@ const crisisCenterRoutes: Routes = [
         component: CrisisCenterComponent,
         children:  [
                     {
-                        path:          'admin',
+                        path:          'crisis-admin',
                         component:     CrisisAdminComponent,
                         canActivate:   [AuthGuard]
                     },

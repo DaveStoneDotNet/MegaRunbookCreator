@@ -11,6 +11,8 @@ import 'rxjs/add/operator/map';
 })
 export class CrisisAdminComponent implements OnInit {
 
+    Title = "Crisis Center Administration";
+
     sessionId: Observable<string>;
     token: Observable<string>;
 
