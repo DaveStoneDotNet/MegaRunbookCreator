@@ -10,7 +10,7 @@ import { DialogService }  from '../services/dialog.service';
 import { Observable }     from 'rxjs/Observable';
 
 @Component({
-    templateUrl: './crisis-detail.component.html',
+    templateUrl: 'app/crisis-center/crisis-detail.component.html',
 })
 
 export class CrisisDetailComponent implements OnInit {
@@ -18,11 +18,9 @@ export class CrisisDetailComponent implements OnInit {
     crisis: Crisis;
     editName: string;
 
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        public dialogService: DialogService
-    ) { }
+    constructor(private route: ActivatedRoute, private router: Router, public dialogService: DialogService) {
+        
+    }
 
     ngOnInit() {
         this.route.data.forEach((data: { crisis: Crisis }) => {
@@ -32,17 +30,17 @@ export class CrisisDetailComponent implements OnInit {
     }
 
     cancel() {
-        this.gotoCrises();
+        this.gotoCrisises();
     }
 
     save() {
         this.crisis.Name = this.editName;
-        this.gotoCrises();
+        this.gotoCrisises();
     }
 
     canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
 
-        // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+        // Allow synchronous navigation ('true') if no crisis or the crisis is unchanged
         if (!this.crisis || this.crisis.Name === this.editName) {
             return true;
         }
@@ -52,14 +50,12 @@ export class CrisisDetailComponent implements OnInit {
         return this.dialogService.confirm('Discard changes?');
     }
 
-    gotoCrises() {
+    gotoCrisises() {
 
         let crisisId = this.crisis ? this.crisis.Id : null;
 
-        // Pass along the hero id if available
-        // so that the CrisisListComponent can select that hero.
-        // Add a totally useless `foo` parameter for kicks.
-        // Absolute link
+        // Pass along the hero id if available so that the CrisisListComponent can select that hero.
+        // Add a totally useless 'foo' parameter for kicks. Absolute link.
         this.router.navigate(['/crisis-center', { id: crisisId, foo: 'foo' }]);
     }
 }

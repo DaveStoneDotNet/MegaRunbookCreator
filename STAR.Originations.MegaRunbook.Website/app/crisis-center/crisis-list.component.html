@@ -1,15 +1,10 @@
-﻿<div class="align-right margin-right-10 margin-top-2">
-    <button class="btn btn-primary btn-xs">Button</button>
-</div>
-<div class="inner-body-content">
-    <div class="fat-header">{{ Title }}</div>
-    <div>
-        <ul class="items">
-            <li *ngFor="let crisis of crisises"
-                [class.selected]="isSelected(crisis)"
-                (click)="onSelect(crisis)">
-                <span class="badge">{{crisis.Id}}</span><span class="item-text">{{crisis.Name}}</span>
-            </li>
-        </ul>
-    </div>
+﻿
+<div>
+    <ul class="items">
+        <li *ngFor="let crisis of criseses"
+            [class.selected]="isSelected(crisis)"
+            (click)="onSelect(crisis)">
+            <span class="badge">{{ crisis.Id }}</span><span class="item-text">{{ crisis.Name }}</span>
+        </li>
+    </ul>
 </div>

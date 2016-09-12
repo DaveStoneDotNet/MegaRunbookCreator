@@ -18,7 +18,9 @@ export class CrisisService {
 
     static nextCrisisId = 100;
 
-    getCrisises() { return crisesPromise; }
+    getCrisises() {
+        return crisesPromise;
+    }
 
     getCrisis(id: number | string) {
         return crisesPromise

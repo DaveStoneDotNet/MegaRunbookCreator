@@ -14,27 +14,25 @@ import { AuthGuard }             from '../services/auth-guard.service';
 
 const crisisCenterRoutes: Routes = [
     {
-        path: '',
+        path:      'crisis-center',
         component: CrisisCenterComponent,
-        children: [
-            {
-                path:        'admin',
-                component:   CrisisAdminComponent,
-                canActivate: [AuthGuard]
-            },
-            {
-                path:          ':id',
-                component:     CrisisDetailComponent,
-                canDeactivate: [CanDeactivateGuard],
-                resolve: {
-                    crisis: CrisisDetailResolve
-                }
-            },
-            {
-                path: '',
-                component: CrisisListComponent
-            }
-        ]
+        children:  [
+                    {
+                        path:          'admin',
+                        component:     CrisisAdminComponent,
+                        canActivate:   [AuthGuard]
+                    },
+                    {
+                        path:          ':id',
+                        component:     CrisisDetailComponent,
+                        canDeactivate: [CanDeactivateGuard],
+                        resolve:       { crisis: CrisisDetailResolve }
+                    },
+                    {
+                        path:          '',
+                        component:     CrisisListComponent
+                    }
+                   ]
     }
 ];
 

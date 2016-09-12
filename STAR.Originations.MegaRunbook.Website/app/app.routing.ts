@@ -12,7 +12,6 @@ import { AdminComponent }           from './admin/admin.component'
 import { BuildsComponent }          from './builds/builds.component'
 import { RunbooksComponent }        from './runbooks/runbooks.component'
 
-import { CrisisCenterComponent }    from './heroes/crisis-center.component'
 import { PageNotFoundComponent }    from './common/page-not-found.component'
 
 const appRoutes: Routes = [
@@ -25,7 +24,6 @@ const appRoutes: Routes = [
     { path: 'builds',             component: BuildsComponent }, 
     { path: 'runbooks',           component: RunbooksComponent }, 
 
-    { path: 'crisis-center',      component: CrisisCenterComponent }, 
     { path: '**',                 component: PageNotFoundComponent }
 ];
 

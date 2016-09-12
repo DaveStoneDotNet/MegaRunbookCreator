@@ -11,6 +11,7 @@ import { routing }                  from './app.routing';
 import { appRoutingProviders }      from './app.routing';
 
 import { HeroesModule }             from './heroes/heroes.module';
+import { CrisisCenterModule }       from './crisis-center/crisis-center.module';
 
 import { AppComponent }             from './app.component';
 import { HomeComponent }            from './home/home.component';
@@ -22,19 +23,20 @@ import { AdminComponent }           from './admin/admin.component'
 import { BuildsComponent }          from './builds/builds.component'
 import { RunbooksComponent }        from './runbooks/runbooks.component'
 
-import { CrisisCenterComponent }    from './heroes/crisis-center.component'
-
 import { PageNotFoundComponent }    from './common/page-not-found.component'
 
 import { HttpService }              from './services/http.service';
 import { UserService }              from './services/user.service';
 import { TemplateService }          from './services/template.service';
 import { BlockUIService }           from './services/blockui.service';
+import { DialogService }            from './services/dialog.service';
+import { CanDeactivateGuard }       from './services/can-deactivate-guard.service';
+import { AuthGuard }                from './services/auth-guard.service';
 
 @NgModule({
-    imports:      [BrowserModule, FormsModule, HttpModule, routing, HeroesModule],
-    declarations: [AppComponent, HomeComponent, TemplateListComponent, TemplateDetailComponent, RunbookStepFormComponent, AdminComponent, BuildsComponent, RunbooksComponent, CrisisCenterComponent, PageNotFoundComponent],
-    providers:    [HttpService, UserService, TemplateService, BlockUIService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
+    imports:      [BrowserModule, FormsModule, HttpModule, routing, HeroesModule, CrisisCenterModule],
+    declarations: [AppComponent, HomeComponent, TemplateListComponent, TemplateDetailComponent, RunbookStepFormComponent, AdminComponent, BuildsComponent, RunbooksComponent, PageNotFoundComponent],
+    providers: [HttpService, UserService, TemplateService, BlockUIService, DialogService, CanDeactivateGuard, AuthGuard, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
 })
 export class AppModule { }

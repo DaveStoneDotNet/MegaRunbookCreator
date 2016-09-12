@@ -11,12 +11,13 @@ import { CrisisService }  from './crisis.service';
 import { Subscription }   from 'rxjs/Subscription';
 
 @Component({
-    templateUrl: './crisis-list.component.html',
+    templateUrl: 'app/crisis-center/crisis-list.component.html',
 })
 
 export class CrisisListComponent implements OnInit, OnDestroy {
 
-    crises: Crisis[];
+    Title = "Crisis List";
+    criseses: Crisis[];
 
     private selectedId: number;
     private sub: Subscription;
@@ -35,7 +36,7 @@ export class CrisisListComponent implements OnInit, OnDestroy {
             .subscribe(params => {
                 this.selectedId = +params['id'];
                 this.service.getCrisises()
-                    .then(crises => this.crises = crises);
+                    .then(crises => this.criseses = crises);
             });
     }
 
@@ -49,5 +50,9 @@ export class CrisisListComponent implements OnInit, OnDestroy {
 
         // Navigate with Absolute link
         this.router.navigate(['/crisis-center', crisis.Id]);
+    }
+
+    private onCrisisSuccessful(response: Crisis[]) {
+        this.criseses = response;
     }
 }

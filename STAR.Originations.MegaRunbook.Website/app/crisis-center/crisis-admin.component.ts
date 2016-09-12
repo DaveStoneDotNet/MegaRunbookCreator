@@ -7,7 +7,7 @@ import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Component({
-    templateUrl: './crisis-admin.component.html',
+    templateUrl: 'app/crisis-center/crisis-admin.component.html',
 })
 export class CrisisAdminComponent implements OnInit {
 
