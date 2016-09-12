@@ -124,5 +124,23 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         }
         #endregion GetHero
 
+        #region GetCrisises
+        [System.Web.Http.HttpGet]
+        public async Task<JsonResult> GetCrisises()
+        {
+            var crisises = await this.LoadJson<Hero>(@"heroes/crisises.json");
+            return this.Json(crisises);
+        }
+        #endregion GetCrisises
+
+        #region GetCrisis
+        [System.Web.Http.HttpGet]
+        public async Task<JsonResult> GetCrisis(int id)
+        {
+            var crisises = await this.LoadJson<Hero>(@"heroes/crisises.json");
+            var crisis = (from o in crisises where o.Id == id select o).FirstOrDefault();
+            return this.Json(crisis);
+        }
+        #endregion GetCrisis
     }
 }

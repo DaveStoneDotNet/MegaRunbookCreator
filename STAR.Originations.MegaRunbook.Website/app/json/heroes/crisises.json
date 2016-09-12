@@ -1,0 +1,10 @@
+﻿[
+  { "ID": 1, "Name": "Relativity" }, 
+  { "ID": 2, "Name": "Painting" }, 
+  { "ID": 3, "Name": "Astronomy" }, 
+  { "ID": 4, "Name": "Cosmos" }, 
+  { "ID": 5, "Name": "Gravity" }, 
+  { "ID": 6, "Name": "Telescope" }, 
+  { "ID": 7, "Name": "Electromagnetism"
+  }
+]

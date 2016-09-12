@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AppInfo.cs" />
     <Compile Include="Developer.cs" />
+    <Compile Include="Heroes\Crisis.cs" />
     <Compile Include="Heroes\Hero.cs" />
     <Compile Include="Lookup.cs" />
     <Compile Include="PBI.cs" />

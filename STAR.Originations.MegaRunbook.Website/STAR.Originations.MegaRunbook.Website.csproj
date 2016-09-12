@@ -147,6 +147,10 @@
     <Content Include="app\content\images\Mega-Runbook-Creator-Button-02.png" />
     <Content Include="app\content\images\Mega-Runbook-Creator-Button-03.png" />
     <Content Include="app\content\images\Mega-Runbook-Creator-Button-04.png" />
+    <Content Include="app\crisis-center\crisis-admin.component.html" />
+    <Content Include="app\crisis-center\crisis-center.component.html" />
+    <Content Include="app\crisis-center\crisis-detail.component.html" />
+    <Content Include="app\crisis-center\crisis-list.component.html" />
     <Content Include="app\heroes\crisis-center.component.html" />
     <Content Include="app\heroes\hero-detail.component.html" />
     <Content Include="app\heroes\hero-list.component.html" />
@@ -157,6 +161,7 @@
     <Content Include="app\runbooks\runbooks.component.html" />
     <Content Include="app\builds\builds.component.html" />
     <Content Include="app\json\heroes\heroes.json" />
+    <Content Include="app\json\heroes\crisises.json" />
     <None Include="app\templates\template-list.component.scss" />
     <Content Include="app\templates\runbook-step-form.component.html" />
     <Content Include="app\templates\template-list.component.css">
@@ -234,6 +239,14 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\builds\builds.component.ts" />
+    <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />
+    <TypeScriptCompile Include="app\crisis-center\crisis-center.component.ts" />
+    <TypeScriptCompile Include="app\crisis-center\crisis-center.module.ts" />
+    <TypeScriptCompile Include="app\crisis-center\crisis-center.routing.ts" />
+    <TypeScriptCompile Include="app\crisis-center\crisis-detail-resolve.service.ts" />
+    <TypeScriptCompile Include="app\crisis-center\crisis-detail.component.ts" />
+    <TypeScriptCompile Include="app\crisis-center\crisis-list.component.ts" />
+    <TypeScriptCompile Include="app\crisis-center\crisis.service.ts" />
     <TypeScriptCompile Include="app\entities\developer.entity.ts" />
     <TypeScriptCompile Include="app\entities\entity-base.entity.ts" />
     <TypeScriptCompile Include="app\entities\lookup.entity.ts" />
@@ -252,7 +265,11 @@
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.component.ts" />
+    <TypeScriptCompile Include="app\services\auth-guard.service.ts" />
+    <TypeScriptCompile Include="app\services\auth.service.ts" />
     <TypeScriptCompile Include="app\services\blockui.service.ts" />
+    <TypeScriptCompile Include="app\services\can-deactivate-guard.service.ts" />
+    <TypeScriptCompile Include="app\services\dialog.service.ts" />
     <TypeScriptCompile Include="app\services\http.service.ts" />
     <TypeScriptCompile Include="app\services\template.service.ts" />
     <TypeScriptCompile Include="app\services\user.service.ts" />
