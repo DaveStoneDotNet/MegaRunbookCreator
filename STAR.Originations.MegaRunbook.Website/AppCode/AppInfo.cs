@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Reflection;
 
-using STAR.Framework.Utility;
-
 using contracts = STAR.Originations.MegaRunbook.Contracts;
 
 namespace STAR.Originations.MegaRunbook.Website.AppCode
@@ -25,7 +23,7 @@ namespace STAR.Originations.MegaRunbook.Website.AppCode
 
                 var informationalVersionAttribute = Attribute.GetCustomAttribute(assembly, typeof(AssemblyInformationalVersionAttribute)) as AssemblyInformationalVersionAttribute;
                 appInfo.InformationalVersion = informationalVersionAttribute != null ? informationalVersionAttribute.InformationalVersion : String.Empty;
-                appInfo.MachineName = Text.GetString(Environment.MachineName);
+                appInfo.MachineName = AppInfo.GetString(Environment.MachineName);
             }
             catch (Exception ex)
             {
@@ -117,5 +115,54 @@ namespace STAR.Originations.MegaRunbook.Website.AppCode
             return memoryText;
         }
         #endregion GetMemorySafely
+
+        #region GetString
+        /// <summary>
+        /// Called to avoid null reference exceptions. 
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        /// <remarks>
+        ///     - Checks if the 'text' parameter is null. 
+        ///     - If not null then Trims the 'text' parameter.
+        ///     - If not null after trimming then returns the original 'text' parameter.
+        ///     - Otherwise returns the 'defaultValue' parameter.
+        /// </remarks>
+        public static string GetString(string text, string defaultValue = "")
+        {
+            var defaultText = defaultValue;
+            if (!String.IsNullOrEmpty(text?.Trim()))
+            {
+                defaultText = text.Trim();
+            }
+            return defaultText;
+        }
+        #endregion GetString
+
+        #region GetStringInfo
+        /// <summary>
+        /// Useful for debugging. Returns the word 'NULL', 'EMPTY', 
+        /// or the actual value of the 'text' parameter.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        public static string GetStringInfo(string text)
+        {
+            var defaultText = text;
+            if (text == null)
+            {
+                defaultText = "NULL";
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(text))
+                {
+                    defaultText = "EMPTY";
+                }
+            }
+            return defaultText;
+        }
+        #endregion GetStringInfo
     }
 }

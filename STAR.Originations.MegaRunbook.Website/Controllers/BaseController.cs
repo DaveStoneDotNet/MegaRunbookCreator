@@ -2,8 +2,6 @@
 using System.Diagnostics;
 using System.Web.Mvc;
 
-using STAR.Framework.Utility;
-
 using STAR.Originations.MegaRunbook.Website.AppCode;
 
 namespace STAR.Originations.MegaRunbook.Website.Controllers
@@ -24,7 +22,7 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         #region OnAuthorization
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
-            this.ViewBag.WelcomeMessage = String.Format("Good {0} {1}", Format.DayTime(), "Dave Stone");
+            this.ViewBag.WelcomeMessage = String.Format("Good {0} {1}", BaseController.DayTime(), "Dave Stone");
             this.ViewBag.TodaysDate = String.Format("Today is {0}", DateTime.Now.ToLongDateString());
             base.OnAuthorization(filterContext);
         }
@@ -68,6 +66,23 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             };
         }
         #endregion JsonDateResult
+
+        #region DayTime
+        public static string DayTime()
+        {
+            var dayTime = String.Empty;
+            var hour = DateTime.Now.Hour;
+            if (hour < 12)
+            {
+                dayTime = "morning";
+            }
+            else
+            {
+                dayTime = hour < 18 ? "afternoon" : "evening";
+            }
+            return dayTime;
+        }
+        #endregion DayTime
 
         #endregion Methods
     }
