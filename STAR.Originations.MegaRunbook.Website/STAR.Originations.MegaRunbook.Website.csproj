@@ -277,6 +277,8 @@
     <TypeScriptCompile Include="app\templates\template-detail.component.ts" />
     <TypeScriptCompile Include="app\templates\runbook-step-form.component.ts" />
     <TypeScriptCompile Include="app\templates\template-list.component.ts" />
+    <TypeScriptCompile Include="app\templates\templates.module.ts" />
+    <TypeScriptCompile Include="app\templates\templates.routing.ts" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\STAR.Originations.MegaRunbook.Contracts\STAR.Originations.MegaRunbook.Contracts.csproj">

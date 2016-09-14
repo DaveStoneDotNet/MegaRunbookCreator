@@ -11,12 +11,10 @@ import { routing }                  from './app.routing';
 import { appRoutingProviders }      from './app.routing';
 
 import { HeroesModule }             from './heroes/heroes.module';
+import { TemplatesModule }          from './templates/templates.module';
 
 import { AppComponent }             from './app.component';
 import { HomeComponent }            from './home/home.component';
-import { TemplateListComponent }    from './templates/template-list.component';
-import { TemplateDetailComponent }  from './templates/template-detail.component'
-import { RunbookStepFormComponent } from './templates/runbook-step-form.component'
 
 import { AdminComponent }           from './admin/admin.component'
 import { BuildsComponent }          from './builds/builds.component'
@@ -35,8 +33,8 @@ import { AuthGuard }                from './services/auth-guard.service';
 import { AuthService }              from './services/auth.service';
 
 @NgModule({
-    imports:      [BrowserModule, FormsModule, HttpModule, routing, HeroesModule],
-    declarations: [AppComponent, HomeComponent, TemplateListComponent, TemplateDetailComponent, RunbookStepFormComponent, AdminComponent, BuildsComponent, RunbooksComponent, PageNotFoundComponent, NotAuthorizedComponent],
+    imports:      [BrowserModule, FormsModule, HttpModule, routing, HeroesModule, TemplatesModule],
+    declarations: [AppComponent, HomeComponent, AdminComponent, BuildsComponent, RunbooksComponent, PageNotFoundComponent, NotAuthorizedComponent],
     providers:    [HttpService, UserService, TemplateService, BlockUIService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
 })

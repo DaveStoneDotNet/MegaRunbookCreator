@@ -4,9 +4,6 @@ import { Routes }                   from '@angular/router';
 import { RouterModule }             from '@angular/router';
 
 import { HomeComponent }            from './home/home.component'
-import { TemplateListComponent }    from './templates/template-list.component'
-import { TemplateDetailComponent }  from './templates/template-detail.component'
-import { RunbookStepFormComponent } from './templates/runbook-step-form.component'
 
 import { AdminComponent }           from './admin/admin.component'
 import { BuildsComponent }          from './builds/builds.component'
@@ -21,9 +18,6 @@ import { AuthService }              from './services/auth.service';
 const mrcRoutes: Routes = [
     { path: '',                   component: HomeComponent }, 
     { path: 'home',               component: HomeComponent }, 
-    { path: 'templatelist',       component: TemplateListComponent },
-    { path: 'templatedetail/:id', component: TemplateDetailComponent }, 
-    { path: 'templateform/:id',   component: RunbookStepFormComponent }, 
     { path: 'admin',              component: AdminComponent }, 
     { path: 'builds',             component: BuildsComponent }, 
     { path: 'runbooks',           component: RunbooksComponent }
