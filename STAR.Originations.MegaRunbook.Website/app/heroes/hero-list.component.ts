@@ -18,17 +18,16 @@ import { Subscription }   from 'rxjs/Subscription';
 
 export class HeroListComponent implements OnInit, OnDestroy {
 
-    Title = "Hero List";
-
+    Title = "Heroes";
     heroes: Hero[];
 
     private selectedId: number;
-    private sub: Subscription;
+    private subscription: Subscription;
 
     constructor(private router: Router, private route: ActivatedRoute, private service: HeroService) { }
 
     ngOnInit() {
-        this.sub = this.route
+        this.subscription = this.route
             .params
             .subscribe(params => {
                 this.selectedId = +params['id'];
@@ -38,7 +37,7 @@ export class HeroListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.sub.unsubscribe();
+        this.subscription.unsubscribe();
     }
 
     onSelect(hero: Hero) {

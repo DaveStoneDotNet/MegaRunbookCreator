@@ -1114,6 +1114,11 @@ textarea {
     color: $muted-orange;
 }
 
+.items li.selected span.badge {
+    background-color: $pure-white;
+    color: $gray-3;
+}
+
 .items .indicator {
     height: 1.8em;
     line-height: 1em;
@@ -1121,7 +1126,6 @@ textarea {
     display: inline-block;
     color: white;
     padding: 0px 0px 0px 0px;
-    background-color: #607D8B;
     position: relative;
     left: 0px;
     top: 0px;

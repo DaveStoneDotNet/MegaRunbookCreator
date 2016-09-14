@@ -1,30 +1,35 @@
 ﻿
 import { Component }       from '@angular/core';
 import { OnInit }          from '@angular/core';
+import { OnDestroy }       from '@angular/core';
 import { Router }          from '@angular/router';
 import { ActivatedRoute }  from '@angular/router';
+
+import { Subscription }    from 'rxjs/Subscription';
 
 @Component({
     templateUrl: 'app/common/not-authorized.component.html',
     providers:   []
 })
 
-export class NotAuthorizedComponent implements OnInit {
+export class NotAuthorizedComponent implements OnInit, OnDestroy {
 
     Title = "NOT AUTHORIZED";
     originalUrl: string;
 
+    private subscription: Subscription;
+
     constructor(private router: Router, private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.route.data.forEach((data: { crisis: any }) => {
-            this.route.queryParams.subscribe(p => this.onQueryParameter(p));
-        });
+
+        this.subscription = this.route
+            .queryParams
+            .subscribe(p => this.onQueryParameterEmitted(p));
     }
 
-    private onQueryParameter(p) {
-
-        this.originalUrl = p['origin'];
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     goBack() {
@@ -35,4 +40,8 @@ export class NotAuthorizedComponent implements OnInit {
         }
     }
 
+    private onQueryParameterEmitted(p) {
+
+        this.originalUrl = p['origin'];
+    }
 }
