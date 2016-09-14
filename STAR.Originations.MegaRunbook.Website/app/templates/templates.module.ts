@@ -12,9 +12,9 @@ import { TemplateService }          from '../services/template.service';
 import { templatesRouting }         from './templates.routing';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, templatesRouting],
+    imports:      [CommonModule, FormsModule, templatesRouting],
     declarations: [RunbookStepFormComponent, TemplateDetailComponent, TemplateListComponent],
-    providers: [TemplateService]
+    providers:    [TemplateService]
 })
 
 export class TemplatesModule { }

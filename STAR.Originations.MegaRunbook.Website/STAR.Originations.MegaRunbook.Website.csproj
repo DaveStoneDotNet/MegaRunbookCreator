@@ -235,10 +235,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\admin\admin.component.ts" />
+    <TypeScriptCompile Include="app\admin\admin.module.ts" />
+    <TypeScriptCompile Include="app\admin\admin.routing.ts" />
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\builds\builds.component.ts" />
+    <TypeScriptCompile Include="app\builds\builds.module.ts" />
+    <TypeScriptCompile Include="app\builds\builds.routing.ts" />
     <TypeScriptCompile Include="app\common\not-authorized.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-center.component.ts" />
@@ -266,6 +270,8 @@
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.component.ts" />
+    <TypeScriptCompile Include="app\runbooks\runbooks.module.ts" />
+    <TypeScriptCompile Include="app\runbooks\runbooks.routing.ts" />
     <TypeScriptCompile Include="app\services\auth-guard.service.ts" />
     <TypeScriptCompile Include="app\services\auth.service.ts" />
     <TypeScriptCompile Include="app\services\blockui.service.ts" />
