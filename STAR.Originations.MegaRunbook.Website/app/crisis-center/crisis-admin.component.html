@@ -1,13 +1,32 @@
-﻿<div class="align-right margin-right-10 margin-top-2">
-    <button class="btn btn-primary btn-xs">Button</button>
-</div>
+﻿
 <div class="inner-body-content">
     <div class="fat-header">{{ Title }}</div>
     <div>
-        <p>Manage your crises here</p>
-        <p>Session ID: {{ sessionId | async }}</p>
+        <div>Session ID: {{ sessionId | async }}</div>
+
         <a id="anchor"></a>
-        <p>Token: {{ token | async }}</p>
+
+        <div>Token: {{ token | async }}</div>
+    </div>
+    <div class="pad-20" *ngIf="userProfile">
+        <div>
+            Hey there, you must be {{ userProfile.UserDisplayName }}. You are in the following Roles:
+        </div>
+        <ul>
+            <li *ngFor="let role of userProfile.RoleNames">{{ role }}</li>
+        </ul>
+        <div>
+            If you're an <span class="bold">Administrator</span>, you'll see a super-secret Administrator message below.
+        </div>
+        <div class="pad-20 margin-10 border" *ngIf="isAdministrator">
+            HELLO SUPER-SECRET ADMIN
+        </div>
+        <div>
+            If you're a <span class="bold">Monkey</span>, you'll see a super-secret Monkey message below.
+        </div>
+        <div class="pad-20 margin-10 border" *ngIf="isMonkey">
+            HELLO SUPER-SECRET MONKEY
+        </div>
     </div>
 </div>
 

@@ -7,8 +7,7 @@ import { UserProfile } from '../entities/user-profile.entity';
 
 @Component({
     selector:    'mrc-home',
-    templateUrl: 'app/home/home.component.html', 
-    providers:   [UserService]
+    templateUrl: 'app/home/home.component.html' 
 })
 
 export class HomeComponent implements OnInit {

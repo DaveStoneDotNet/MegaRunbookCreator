@@ -24,6 +24,7 @@ import { BuildsComponent }          from './builds/builds.component'
 import { RunbooksComponent }        from './runbooks/runbooks.component'
 
 import { PageNotFoundComponent }    from './common/page-not-found.component'
+import { NotAuthorizedComponent }   from './common/not-authorized.component'
 
 import { HttpService }              from './services/http.service';
 import { UserService }              from './services/user.service';
@@ -36,7 +37,7 @@ import { AuthService }              from './services/auth.service';
 
 @NgModule({
     imports:      [BrowserModule, FormsModule, HttpModule, routing, HeroesModule, CrisisCenterModule],
-    declarations: [AppComponent, HomeComponent, TemplateListComponent, TemplateDetailComponent, RunbookStepFormComponent, AdminComponent, BuildsComponent, RunbooksComponent, PageNotFoundComponent],
+    declarations: [AppComponent, HomeComponent, TemplateListComponent, TemplateDetailComponent, RunbookStepFormComponent, AdminComponent, BuildsComponent, RunbooksComponent, PageNotFoundComponent, NotAuthorizedComponent],
     providers:    [HttpService, UserService, TemplateService, BlockUIService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
 })

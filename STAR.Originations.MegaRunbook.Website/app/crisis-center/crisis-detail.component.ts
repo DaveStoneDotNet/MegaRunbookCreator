@@ -1,19 +1,22 @@
 ﻿
-import { Component }      from '@angular/core';
-import { OnInit }         from '@angular/core';
-import { Router }         from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { Component }              from '@angular/core';
+import { OnInit }                 from '@angular/core';
+import { Router }                 from '@angular/router';
+import { ActivatedRoute }         from '@angular/router';
 
-import { Crisis }         from './crisis.service';
-import { DialogService }  from '../services/dialog.service';
+import { Crisis }                 from './crisis.service';
 
-import { Observable }     from 'rxjs/Observable';
+import { CanComponentDeactivate} from '../interfaces/i-can-component-deactivate'
+
+import { DialogService }          from '../services/dialog.service';
+
+import { Observable }             from 'rxjs/Observable';
 
 @Component({
     templateUrl: 'app/crisis-center/crisis-detail.component.html',
 })
 
-export class CrisisDetailComponent implements OnInit {
+export class CrisisDetailComponent implements OnInit, CanComponentDeactivate {
 
     crisis: Crisis;
     editName: string;

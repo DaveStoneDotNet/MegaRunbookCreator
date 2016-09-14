@@ -7,32 +7,39 @@ import { RouterStateSnapshot }    from '@angular/router';
 import { NavigationExtras }       from '@angular/router';
 
 import { AuthService }            from './auth.service';
+import { UserService }            from './user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-        if (this.authService.isLoggedIn) {
-             return true;
+        let routeCanNavigate = false;
+
+        // Going away from the Developer Guide here since this site is using Windows Auth.
+
+        let isAuthenticated = false;
+        let authenticatedUser = this.userService.getAuthenticatedUser();
+        if (authenticatedUser) {
+            isAuthenticated = authenticatedUser.IsAuthenticated;
         }
 
-        // Store the attempted URL for redirecting
-        this.authService.redirectUrl = state.url;
+        if (isAuthenticated) {
+            routeCanNavigate = true;
+        } else {
 
-        // Create a dummy session id
-        let sessionId = 123456789;
+            // Set our navigation extras object that contains our global query params and fragment
+            let navigationExtras: NavigationExtras = {
+                queryParams: { 'origin': this.router.url },
+                fragment: 'anchor'
+            };
 
-        // Set our navigation extras object that contains our global query params and fragment
-        let navigationExtras: NavigationExtras = {
-            queryParams: { 'session_id': sessionId },
-            fragment: 'anchor'
-        };
+            // Navigate to the login page with extras
+            this.router.navigate(['/notauthorized'], navigationExtras);
+        }
 
-        // Navigate to the login page with extras
-        this.router.navigate(['/login'], navigationExtras);
-        return false;
+        return routeCanNavigate;
     }
 }

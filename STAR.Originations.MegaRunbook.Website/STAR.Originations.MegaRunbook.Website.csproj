@@ -131,6 +131,7 @@
     <Content Include=".gitignore" />
     <Content Include="app\admin\admin.component.html" />
     <Content Include="app\app.component.html" />
+    <Content Include="app\common\not-authorized.component.html" />
     <Content Include="app\content\css\site.css">
       <DependentUpon>site.scss</DependentUpon>
     </Content>
@@ -238,6 +239,7 @@
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
     <TypeScriptCompile Include="app\builds\builds.component.ts" />
+    <TypeScriptCompile Include="app\common\not-authorized.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-center.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-center.module.ts" />
@@ -246,6 +248,7 @@
     <TypeScriptCompile Include="app\crisis-center\crisis-detail.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-list.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis.service.ts" />
+    <TypeScriptCompile Include="app\interfaces\i-can-component-deactivate.ts" />
     <TypeScriptCompile Include="app\entities\developer.entity.ts" />
     <TypeScriptCompile Include="app\entities\entity-base.entity.ts" />
     <TypeScriptCompile Include="app\entities\lookup.entity.ts" />

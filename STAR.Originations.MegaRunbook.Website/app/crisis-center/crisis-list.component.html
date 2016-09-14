@@ -1,5 +1,6 @@
 ﻿
 <div>
+    <div class="fat-header">{{ Title }}</div>
     <ul class="items">
         <li *ngFor="let crisis of criseses"
             [class.selected]="isSelected(crisis)"

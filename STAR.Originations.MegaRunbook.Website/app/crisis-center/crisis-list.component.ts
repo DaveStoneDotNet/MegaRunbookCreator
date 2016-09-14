@@ -16,14 +16,14 @@ import { Subscription }   from 'rxjs/Subscription';
 
 export class CrisisListComponent implements OnInit, OnDestroy {
 
-    Title = "Crisis List";
+    Title = "Crisis Hotline";
     criseses: Crisis[];
 
     private selectedId: number;
     private sub: Subscription;
 
     constructor(private service: CrisisService, private route: ActivatedRoute, private router: Router) {
-        
+
     }
 
     isSelected(crisis: Crisis) {
@@ -36,7 +36,7 @@ export class CrisisListComponent implements OnInit, OnDestroy {
             .subscribe(params => {
                 this.selectedId = +params['id'];
                 this.service.getCrisises()
-                    .then(crises => this.criseses = crises);
+                    .then(crises => this.onCrisisSuccessful(crises));
             });
     }
 

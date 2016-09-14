@@ -13,6 +13,7 @@ import { BuildsComponent }          from './builds/builds.component'
 import { RunbooksComponent }        from './runbooks/runbooks.component'
 
 import { PageNotFoundComponent }    from './common/page-not-found.component'
+import { NotAuthorizedComponent }   from './common/not-authorized.component'
 
 const appRoutes: Routes = [
     { path: '',                   component: HomeComponent }, 
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
     { path: 'admin',              component: AdminComponent }, 
     { path: 'builds',             component: BuildsComponent }, 
     { path: 'runbooks',           component: RunbooksComponent }, 
+    { path: 'notauthorized',      component: NotAuthorizedComponent }, 
 
     { path: '**',                 component: PageNotFoundComponent }
 ];

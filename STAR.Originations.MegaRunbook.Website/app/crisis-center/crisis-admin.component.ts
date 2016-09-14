@@ -4,6 +4,9 @@ import { OnInit }         from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable }     from 'rxjs/Observable';
 
+import { UserService }    from '../services/user.service';
+import { UserProfile }    from '../entities/user-profile.entity';
+
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -16,9 +19,19 @@ export class CrisisAdminComponent implements OnInit {
     sessionId: Observable<string>;
     token: Observable<string>;
 
-    constructor(private route: ActivatedRoute) { }
+    userProfile: UserProfile;
+
+    isAdministrator: boolean;
+    isMonkey: boolean;
+
+    constructor(private route: ActivatedRoute, private userService: UserService) { }
 
     ngOnInit() {
+
+        this.isAdministrator = this.userService.getUserIsInRole('Administrator');
+        this.isMonkey = this.userService.getUserIsInRole('Monkey');
+
+        this.userProfile = this.userService.getAuthenticatedUser();
 
         // Capture the session ID if available
         this.sessionId = this.route

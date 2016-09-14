@@ -30,7 +30,8 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
                 PrimaryRoleName = "Administrator", 
                 RoleNames = new []{ "Administrator" }, 
                 UserInitials = "LDS",
-                IsSuccessful = true
+                IsSuccessful = true, 
+                IsAuthenticated = true
             };
 
             return this.Json(userProfile);
