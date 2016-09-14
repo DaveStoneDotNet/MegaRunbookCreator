@@ -14,7 +14,7 @@ import { AuthGuard }             from '../services/auth-guard.service';
 
 const crisisCenterRoutes: Routes = [
     {
-        path:      'crisis-center',
+        path:      '',
         component: CrisisCenterComponent,
         children:  [
                     {

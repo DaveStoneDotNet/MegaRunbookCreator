@@ -11,7 +11,6 @@ import { routing }                  from './app.routing';
 import { appRoutingProviders }      from './app.routing';
 
 import { HeroesModule }             from './heroes/heroes.module';
-import { CrisisCenterModule }       from './crisis-center/crisis-center.module';
 
 import { AppComponent }             from './app.component';
 import { HomeComponent }            from './home/home.component';
@@ -36,7 +35,7 @@ import { AuthGuard }                from './services/auth-guard.service';
 import { AuthService }              from './services/auth.service';
 
 @NgModule({
-    imports:      [BrowserModule, FormsModule, HttpModule, routing, HeroesModule, CrisisCenterModule],
+    imports:      [BrowserModule, FormsModule, HttpModule, routing, HeroesModule],
     declarations: [AppComponent, HomeComponent, TemplateListComponent, TemplateDetailComponent, RunbookStepFormComponent, AdminComponent, BuildsComponent, RunbooksComponent, PageNotFoundComponent, NotAuthorizedComponent],
     providers:    [HttpService, UserService, TemplateService, BlockUIService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
