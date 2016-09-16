@@ -12,3 +12,188 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div [hidden]="submitted">
+        <h1>Hero Form</h1>
+        <form *ngIf="active" (ngSubmit)="onSubmit()" #heroForm="ngForm" class="mrc-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name"
+                       name="name"
+                       type="text"
+                       class="form-control"
+                       required
+                       [(ngModel)]="model.Name" 
+                       #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="required-input">
+                    Name is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="alterEgo">Alter Ego</label>
+                <input id="alterEgo"
+                       name="alterEgo"
+                       type="text" 
+                       class="form-control" 
+                       [(ngModel)]="model.AlterEgo">
+            </div>
+            <div class="form-group">
+                <label for="power">Hero Power</label>
+                <select id="power"
+                        name="power"
+                        class="form-control" 
+                        required
+                        [(ngModel)]="model.Power" 
+                        #power="ngModel">
+                    <option *ngFor="let p of powers" [value]="p">{{p}}</option>
+                </select>
+                <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
+                    Power is required
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default" [disabled]="!heroForm.form.valid">Submit</button>
+            <button type="button" class="btn btn-default" (click)="newHero()">New Hero</button>
+            <!-- NOT SHOWN IN DOCS -->
+            <div>
+                <hr>
+                Name via form.controls = {{showFormControls(heroForm)}}
+            </div>
+            <!-- - -->
+        </form>
+    </div>
+    <div [hidden]="!submitted">
+        <h2>You submitted the following:</h2>
+        <div class="row">
+            <div class="col-xs-3">Name</div>
+            <div class="col-xs-9  pull-left">{{ model.Name }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">Alter Ego</div>
+            <div class="col-xs-9 pull-left">{{ model.AlterEgo }}</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">Power</div>
+            <div class="col-xs-9 pull-left">{{ model.Power }}</div>
+        </div>
+        <br>
+        <button class="btn btn-default" (click)="submitted=false">Edit</button>
+    </div>
+</div>
+<!-- ====================================================  -->
+<div>
+    <form>
+        <!-- ... all of the form ... -->
+    </form>
+</div>
+<!-- ====================================================  -->
+<hr>
+<style>
+    .no-style .ng-valid {
+        border-left: 1px solid #CCC;
+    }
+
+    .no-style .ng-invalid {
+        border-left: 1px solid #CCC;
+    }
+</style>
+<div class="no-style" style="margin-left: 4px">
+    <div class="container">
+        <h1>Hero Form</h1>
+        <form>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name"
+                       type="text"
+                       class="form-control" 
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="alterEgo">Alter Ego</label>
+                <input id="alterEgo"
+                       type="text" 
+                       class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="power">Hero Power</label>
+                <select id="power"
+                        class="form-control" 
+                        required>
+                    <option *ngFor="let p of powers" [value]="p">{{p}}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <!-- ====================================================  -->
+    <hr>
+    <div class="container">
+        <h1>Hero Form</h1>
+        <form>
+            {{diagnostic}}
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input id="name"
+                       name="name"
+                       type="text" 
+                       class="form-control" 
+                       required
+                       [(ngModel)]="model.Name">
+            </div>
+            <div class="form-group">
+                <label for="alterEgo">Alter Ego</label>
+                <input id="alterEgo"
+                       name="alterEgo"
+                       type="text" 
+                       class="form-control" 
+                       [(ngModel)]="model.AlterEgo">
+            </div>
+            <div class="form-group">
+                <label for="power">Hero Power</label>
+                <select id="power"
+                        name="power"
+                        class="form-control" 
+                        required
+                        [(ngModel)]="model.Power">
+                    <option *ngFor="let p of powers" [value]="p">{{p}}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    <!-- EXTRA MATERIAL FOR DOCUMENTATION -->
+    <hr>
+    <input id="name"
+           name="name"
+           type="text" 
+           class="form-control" 
+           required
+           [(ngModel)]="model.Name">
+    TODO: remove this: {{model.Name}}
+    <hr>
+    <input id="name"
+           name="name"
+           type="text" 
+           class="form-control" 
+           required
+           [ngModel]="model.Name" 
+           (ngModelChange)="model.Name = $event">
+    TODO: remove this: {{model.Name}}
+    <hr>
+    <form *ngIf="active">
+        <input id="name"
+               name="name"
+               type="text" 
+               class="form-control" 
+               required
+               [(ngModel)]="model.Name">
+        <hr>
+        <input id="name"
+               name="name"
+               type="text" class="form-control" 
+               required
+               [(ngModel)]="model.Name" 
+               #spy>
+        <br>TODO: remove this: {{spy.className}}
+    </form>
+</div>

@@ -10,6 +10,8 @@ namespace STAR.Originations.MegaRunbook.Contracts
     {
         [DataMember] public int Id { get; set; }
         [DataMember] public string Name { get; set; }
+        [DataMember] public string Power { get; set; }
+        [DataMember] public string AlterEgo { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string DebuggerDisplay => String.Format("Name: {0}", this.Name);

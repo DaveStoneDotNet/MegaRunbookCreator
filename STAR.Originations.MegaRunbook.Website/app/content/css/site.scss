@@ -836,11 +836,50 @@ body {
     width: 300px;
 }
 
-input {
-    background-color: $gray-3;
-    border: solid 1px $gray-4;
-    padding: 5px;
+
+.container {
+
+    input.ng-valid[required], input.ng-valid  {
+        border-left: 5px solid $gray-4;
+    }
+
+    select.ng-valid[required], select.ng-valid.required  {
+        border-left: 5px solid #42A948;
+    }
+
+    input.ng-invalid:not(form)  {
+        border-left: 5px solid #a94442;
+    }
+
+
+    input {
+        color: $gray-9;
+        background-color: $gray-3;
+        border: solid 1px $gray-4;
+        padding: 5px;
+
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    select {
+        border: solid 1px $gray-4;
+        background-color: $gray-3;
+        color: $gray-a;
+        padding: 5px;
+        font-family: Arial, Helvetica, sans-serif;
+        height: 34px !important;
+        margin-top: 2px;
+
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .required-input {
+        color: red;
+    }
 }
+
 
 input.search {
     border: none;
@@ -849,17 +888,6 @@ input.search {
     background-color: $gray-3;
     font-family: Arial, Helvetica, sans-serif;
     color: $gray-9;
-}
-
-select {
-    border: solid 1px $gray-4;
-    background-color: $gray-3;
-    color: $gray-a;
-    padding: 5px;
-    font-family: Arial, Helvetica, sans-serif;
-    width: 100px;
-    height: 34px !important;
-    margin-top: 2px;
 }
 
 h1 {
