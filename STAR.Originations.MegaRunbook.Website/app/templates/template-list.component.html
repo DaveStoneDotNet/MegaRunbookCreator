@@ -3,9 +3,19 @@
 </div>
 <div class="inner-body-content">
     <div class="fat-header">Templates</div>
-    <div class="margin-bottom-20" style="width: 430px;">
-        <span class="margin-left-5 margin-top-5 float-right"><i class="fa fa-times-circle-o gray-5 font-1-80"></i></span>
-        <input type="text" placeholder="Template Name..." style="width: 400px;" [(ngModel)]="searchTemplateName" (ngModelChange)="searchTemplateNameChanged($event)" />
+    <div class="row">
+        <div class="col-md-3">
+            <div class="table">
+                <div class="tr">
+                    <div class="td">
+                        <input type="text" class="search" placeholder="Search Template Name..." style="width: 400px;" [(ngModel)]="searchTemplateName" (ngModelChange)="searchTemplateNameChanged($event)" />
+                    </div>
+                    <div class="td">
+                        <button class="btn btn-default" (click)="clearSearchTemplateClicked()">clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-4">

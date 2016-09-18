@@ -44,6 +44,11 @@ export class TemplateListComponent implements OnInit {
         this.router.navigate(link);
     }
 
+    clearSearchTemplateClicked(): void {
+        this.searchTemplateName = '';
+        this.searchTemplateNameChanged('');
+    }
+
     private executeSearch(): void {
 
         if (this.runningSearch) return;

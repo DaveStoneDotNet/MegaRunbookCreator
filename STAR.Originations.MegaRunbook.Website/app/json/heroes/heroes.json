@@ -1,9 +1,9 @@
 ﻿[
-  { "ID": 1, "Name": "Albert Einstein", "Power":  "P1", "AlterEgo": "A1" }, 
-  { "ID": 2, "Name": "Leonardo Da Vinci", "Power":  "P1", "AlterEgo": "A1" }, 
-  { "ID": 3, "Name": "Edwin Hubble", "Power":  "P1", "AlterEgo": "A1" }, 
-  { "ID": 4, "Name": "Carl Sagan", "Power":  "P1", "AlterEgo": "A1" }, 
-  { "ID": 5, "Name": "Isaac Newton", "Power":  "P1", "AlterEgo": "A1" }, 
-  { "ID": 6, "Name": "Galileo Galilei", "Power":  "P1", "AlterEgo": "A1" }, 
-  { "ID": 7, "Name": "James Clerk Maxwell", "Power":  "P1", "AlterEgo": "A1" }
+  { "ID": 1, "Name": "Albert Einstein",     "Power": "Smart",         "AlterEgo": "Al",        "RayType":"Alpha", "IsFavorite":true,  "Notes":"Einstien Notes" }, 
+  { "ID": 2, "Name": "Leonardo Da Vinci",   "Power": "Creative",      "AlterEgo": "Leo",       "RayType":"Beta",  "IsFavorite":false, "Notes":"DaVinci Notes" }, 
+  { "ID": 3, "Name": "Edwin Hubble",        "Power": "Talented",      "AlterEgo": "Ed",        "RayType":"Gamma", "IsFavorite":false, "Notes":"Hubble Notes" }, 
+  { "ID": 4, "Name": "Carl Sagan",          "Power": "Inspirational", "AlterEgo": "Big C",     "RayType":"Alpha", "IsFavorite":false, "Notes":"Sagan Notes" }, 
+  { "ID": 5, "Name": "Isaac Newton",        "Power": "Smart",         "AlterEgo": "Super Fly", "RayType":"Beta",  "IsFavorite":false, "Notes":"Newton Notes" }, 
+  { "ID": 6, "Name": "Galileo Galilei",     "Power": "Creative",      "AlterEgo": "G Man",     "RayType":"Gamma", "IsFavorite":false, "Notes":"Galileo Notes" }, 
+  { "ID": 7, "Name": "James Clerk Maxwell", "Power": "Inspirational", "AlterEgo": "Jimmy",     "RayType":"Alpha", "IsFavorite":false, "Notes":"Maxweill Notes" }
 ]

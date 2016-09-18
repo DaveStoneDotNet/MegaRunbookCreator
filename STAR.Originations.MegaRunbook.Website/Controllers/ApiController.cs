@@ -93,8 +93,8 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
                 using (var streamReader = new StreamReader(path))
                 {
                     var json = await streamReader.ReadToEndAsync();
-                    var runbookTemplates = JsonConvert.DeserializeObject<List<T>>(json);
-                    return runbookTemplates;
+                    var list = JsonConvert.DeserializeObject<List<T>>(json);
+                    return list;
                 }
             }
             else

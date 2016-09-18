@@ -400,19 +400,19 @@
   white-space: nowrap; }
 
 .border {
-  border: solid 1px #cccccc; }
+  border: solid 1px #444444; }
 
 .border-bottom {
-  border-bottom: solid 1px #cccccc; }
+  border-bottom: solid 1px #444444; }
 
 .border-top {
-  border-top: solid 1px #cccccc; }
+  border-top: solid 1px #444444; }
 
 .border-left {
-  border-left: solid 1px #cccccc; }
+  border-left: solid 1px #444444; }
 
 .border-right {
-  border-right: solid 1px #cccccc; }
+  border-right: solid 1px #444444; }
 
 .pad-0 {
   padding: 0px; }
@@ -562,44 +562,183 @@ body {
   color: #ffffff;
   width: 300px; }
 
-.container input.ng-valid[required], .container input.ng-valid {
-  border-left: 5px solid #444444; }
+.mrc-forms td {
+  padding: 5px 5px 5px 5px; }
 
-.container select.ng-valid[required], .container select.ng-valid.required {
-  border-left: 5px solid #42A948; }
-
-.container input.ng-invalid:not(form) {
-  border-left: 5px solid #a94442; }
-
-.container input {
+.mrc-forms input {
   color: #999999;
   background-color: #333333;
   border: solid 1px #444444;
-  padding: 5px;
+  padding: 5px 10px 5px 10px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px; }
 
-.container select {
-  border: solid 1px #444444;
+.mrc-forms input.ng-untouched.ng-pristine.ng-valid {
+  border-left: 10px solid #444444;
+  border-right: 1px solid #444444;
+  border-top: 1px solid #444444;
+  border-bottom: 1px solid #444444; }
+
+.mrc-forms input.ng-untouched.ng-pristine.ng-valid:focus {
+  border-left: 10px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc; }
+
+.mrc-forms input.ng-untouched.ng-pristine.ng-invalid {
+  border-left: 10px solid #f88529;
+  border-right: 1px solid #f88529;
+  border-top: 1px solid #f88529;
+  border-bottom: 1px solid #f88529; }
+
+.mrc-forms input.ng-untouched.ng-pristine.ng-invalid:focus {
+  border-left: 10px solid #f88529;
+  border-right: 1px solid #f88529;
+  border-top: 1px solid #f88529;
+  border-bottom: 1px solid #f88529;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(248, 133, 41, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(248, 133, 41, 0.6); }
+
+.mrc-forms input.ng-touched.ng-pristine.ng-valid {
+  border-left: 10px solid #666666;
+  border-right: 1px solid #666666;
+  border-top: 1px solid #666666;
+  border-bottom: 1px solid #666666; }
+
+.mrc-forms input.ng-touched.ng-pristine.ng-valid:focus {
+  border-left: 10px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc; }
+
+.mrc-forms input.ng-touched.ng-dirty.ng-valid {
+  border-left: 10px solid #42a948;
+  border-right: 1px solid #42a948;
+  border-top: 1px solid #42a948;
+  border-bottom: 1px solid #42a948; }
+
+.mrc-forms input.ng-touched.ng-dirty.ng-valid:focus {
+  border-left: 10px solid #42a948;
+  border-right: 1px solid #42a948;
+  border-top: 1px solid #42a948;
+  border-bottom: 1px solid #42a948; }
+
+.mrc-forms input.ng-invalid {
+  border-left: 10px solid #a94442;
+  border-right: 1px solid #a94442;
+  border-top: 1px solid #a94442;
+  border-bottom: 1px solid #a94442; }
+
+.mrc-forms input.ng-touched.ng-dirty.ng-invalid:focus {
+  border-left: 10px solid #a94442;
+  border-right: 1px solid #a94442;
+  border-top: 1px solid #a94442;
+  border-bottom: 1px solid #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(169, 68, 66, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(169, 68, 66, 0.6); }
+
+.mrc-forms input.ng-untouched.ng-dirty.ng-invalid:focus {
+  border-left: 10px solid #a94442;
+  border-right: 1px solid #a94442;
+  border-top: 1px solid #a94442;
+  border-bottom: 1px solid #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(169, 68, 66, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(169, 68, 66, 0.6); }
+
+.mrc-forms input::selection {
+  background: #999999;
+  color: #ffffff; }
+
+.mrc-forms select {
+  color: #999999;
   background-color: #333333;
-  color: #aaaaaa;
-  padding: 5px;
-  font-family: Arial, Helvetica, sans-serif;
-  height: 34px !important;
-  margin-top: 2px;
+  border: solid 1px #444444;
+  padding: 5px 10px 5px 10px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px; }
 
-.container .required-input {
-  color: red; }
+.mrc-forms select.ng-untouched.ng-pristine.ng-valid {
+  border-left: 10px solid #444444;
+  border-right: 1px solid #444444;
+  border-top: 1px solid #444444;
+  border-bottom: 1px solid #444444; }
+
+.mrc-forms select.ng-untouched.ng-pristine.ng-valid:focus {
+  border-left: 10px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc; }
+
+.mrc-forms select.ng-untouched.ng-pristine.ng-invalid {
+  border-left: 10px solid #f88529;
+  border-right: 1px solid #f88529;
+  border-top: 1px solid #f88529;
+  border-bottom: 1px solid #f88529; }
+
+.mrc-forms select.ng-untouched.ng-pristine.ng-invalid:focus {
+  border-left: 10px solid #f88529;
+  border-right: 1px solid #f88529;
+  border-top: 1px solid #f88529;
+  border-bottom: 1px solid #f88529; }
+
+.mrc-forms select.ng-touched.ng-pristine.ng-valid {
+  border-left: 10px solid #666666;
+  border-right: 1px solid #666666;
+  border-top: 1px solid #666666;
+  border-bottom: 1px solid #666666; }
+
+.mrc-forms select.ng-touched.ng-dirty.ng-valid {
+  border-left: 10px solid #42a948;
+  border-right: 1px solid #42a948;
+  border-top: 1px solid #42a948;
+  border-bottom: 1px solid #42a948; }
+
+.mrc-forms select.ng-touched.ng-dirty.ng-valid:focus {
+  border-left: 10px solid #42a948;
+  border-right: 1px solid #42a948;
+  border-top: 1px solid #42a948;
+  border-bottom: 1px solid #42a948; }
+
+.mrc-forms select.ng-invalid {
+  border-left: 10px solid #a94442;
+  border-right: 1px solid #a94442;
+  border-top: 1px solid #a94442;
+  border-bottom: 1px solid #a94442; }
+
+.mrc-forms select.ng-touched.ng-dirty.ng-invalid:focus {
+  border-left: 10px solid #a94442;
+  border-right: 1px solid #a94442;
+  border-top: 1px solid #a94442;
+  border-bottom: 1px solid #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(169, 68, 66, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(169, 68, 66, 0.6); }
+
+.mrc-forms select.ng-untouched.ng-dirty.ng-invalid:focus {
+  border-left: 10px solid #a94442;
+  border-right: 1px solid #a94442;
+  border-top: 1px solid #a94442;
+  border-bottom: 1px solid #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(169, 68, 66, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(169, 68, 66, 0.6); }
+
+.mrc-forms .required-input {
+  color: #cccccc;
+  padding: 5px 5px 5px 10px;
+  font-size: 0.85em;
+  font-variant: small-caps; }
 
 input.search {
-  border: none;
-  padding: 5px;
+  border: solid #444444 1px;
+  padding: 5px 10px 5px 10px;
   width: 200px;
   background-color: #333333;
   font-family: Arial, Helvetica, sans-serif;
   color: #999999; }
+
+input.search:focus {
+  border: solid #428bca 1px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
 
 h1 {
   color: #dcdcdc;
@@ -911,6 +1050,13 @@ table.runbook-table {
   font-size: 250%;
   border-bottom: dotted 1px #666666;
   margin-bottom: 20px; }
+
+.footer {
+  padding: 10px 10px 10px 10px;
+  border-top: solid 1px #444444;
+  border-bottom: solid 1px #444444;
+  width: 100%;
+  background-color: rgba(51, 51, 51, 0.9); }
 
 .table {
   display: table;

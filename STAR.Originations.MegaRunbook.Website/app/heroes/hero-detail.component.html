@@ -1,199 +1,275 @@
 ﻿<div class="align-right margin-right-10 margin-top-2">
-    <button class="btn btn-primary btn-xs">Button</button>
+    <button class="btn btn-primary btn-sm" (click)=gotoHeroes()>Heroes</button>
 </div>
 <div class="inner-body-content">
-    <div *ngIf="hero">
-        <div class="fat-header">{{ hero.Name }}</div>
-        <pre class="gray-6">
-            {{ hero | json }}
-        </pre>
-        <div>
-            <button class="btn btn-primary" (click)="gotoHeroes()">Back</button>
-        </div>
-    </div>
-</div>
+    <div class="mrc-forms">
 
-<div class="container">
-    <div [hidden]="submitted">
-        <h1>Hero Form</h1>
-        <form *ngIf="active" (ngSubmit)="onSubmit()" #heroForm="ngForm" class="mrc-form">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input id="name"
-                       name="name"
-                       type="text"
-                       class="form-control"
-                       required
-                       [(ngModel)]="model.Name" 
-                       #name="ngModel">
-                <div [hidden]="name.valid || name.pristine" class="required-input">
-                    Name is required
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="alterEgo">Alter Ego</label>
-                <input id="alterEgo"
-                       name="alterEgo"
-                       type="text" 
-                       class="form-control" 
-                       [(ngModel)]="model.AlterEgo">
-            </div>
-            <div class="form-group">
-                <label for="power">Hero Power</label>
-                <select id="power"
-                        name="power"
-                        class="form-control" 
-                        required
-                        [(ngModel)]="model.Power" 
-                        #power="ngModel">
-                    <option *ngFor="let p of powers" [value]="p">{{p}}</option>
-                </select>
-                <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
-                    Power is required
-                </div>
-            </div>
-            <button type="submit" class="btn btn-default" [disabled]="!heroForm.form.valid">Submit</button>
-            <button type="button" class="btn btn-default" (click)="newHero()">New Hero</button>
-            <!-- NOT SHOWN IN DOCS -->
-            <div>
-                <hr>
-                Name via form.controls = {{showFormControls(heroForm)}}
-            </div>
-            <!-- - -->
-        </form>
-    </div>
-    <div [hidden]="!submitted">
-        <h2>You submitted the following:</h2>
         <div class="row">
-            <div class="col-xs-3">Name</div>
-            <div class="col-xs-9  pull-left">{{ model.Name }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">Alter Ego</div>
-            <div class="col-xs-9 pull-left">{{ model.AlterEgo }}</div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3">Power</div>
-            <div class="col-xs-9 pull-left">{{ model.Power }}</div>
-        </div>
-        <br>
-        <button class="btn btn-default" (click)="submitted=false">Edit</button>
-    </div>
-</div>
-<!-- ====================================================  -->
-<div>
-    <form>
-        <!-- ... all of the form ... -->
-    </form>
-</div>
-<!-- ====================================================  -->
-<hr>
-<style>
-    .no-style .ng-valid {
-        border-left: 1px solid #CCC;
-    }
 
-    .no-style .ng-invalid {
-        border-left: 1px solid #CCC;
-    }
-</style>
-<div class="no-style" style="margin-left: 4px">
-    <div class="container">
-        <h1>Hero Form</h1>
-        <form>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input id="name"
-                       type="text"
-                       class="form-control" 
-                       required>
+            <form id="heroForm" name="heroForm" #heroForm="ngForm"
+                  class="mrc-form"
+                  *ngIf="active"
+                  (ngSubmit)="onSubmit()">
+
+                <div class="col-md-4 border-right">
+
+                    <div class="float-right margin-top-20">
+                        <button type="button" class="btn btn-sm btn-success" (click)="newHero()"><i class="fa fa-plus"></i> Add New Hero</button>
+                    </div>
+
+                    <h1>{{ hero.Name }}</h1>
+
+                    <table>
+
+                        <tr>
+                            <td class="align-right"><label for="name">Name</label></td>
+                            <td>
+                                <input id="name" name="name" #name="ngModel" #nameTag
+                                       type="text"
+                                       class="form-control"
+                                       autocomplete="off"
+                                       required
+                                       [(ngModel)]="hero.Name">
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr [hidden]="name.valid || name.pristine">
+                            <td></td>
+                            <td class="td required-input">
+                                <i class="fa fa-arrow-up float-left pad-right-5"></i> Name is required
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td class="align-right"><label for="alterEgo">Alter Ego</label></td>
+                            <td>
+                                <input id="alterEgo" name="alterEgo" #alterEgo="ngModel"
+                                       type="text"
+                                       class="form-control"
+                                       [(ngModel)]="hero.AlterEgo">
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td class="align-right"><label for="power">Power</label></td>
+                            <td>
+                                <select id="power" name="power" #power="ngModel"
+                                        class="form-control"
+                                        required
+                                        [(ngModel)]="hero.Power">
+                                    <option></option>
+                                    <option *ngFor="let p of powers" [value]="p">{{p}}</option>
+                                </select>
+                            </td>
+                            <td title="Power Tip"><span class="badge">?</span></td>
+                        </tr>
+
+                        <tr [hidden]="power.valid || power.pristine">
+                            <td></td>
+                            <td class="td required-input">
+                                <i class="fa fa-arrow-up float-left pad-right-5"></i> Power is required
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td class="align-right">
+                                <label>Ray Type</label>
+                            </td>
+                            <td>
+                                <div class="border pad-10 gray-3-bg">
+                                    <input id="radio-a" name="radio-group" value="Alpha" [(ngModel)]="hero.RayType" type="radio" checked="checked" /><label for="radio-a" class="margin-left-5 margin-right-10">Alpha</label>
+                                    <input id="radio-b" name="radio-group" value="Beta" [(ngModel)]="hero.RayType" type="radio" /><label for="radio-b" class="margin-left-5 margin-right-10">Beta</label>
+                                    <input id="radio-c" name="radio-group" value="Gamma" [(ngModel)]="hero.RayType" type="radio" /><label for="radio-c" class="margin-left-5 margin-right-10">Gamma</label>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td class="align-right">
+                                <label>Favorite</label>
+                            </td>
+                            <td>
+                                <div class="pad-10 border gray-3-bg">
+                                    <input id="checkbox-a" name="checkbox-a" type="checkbox" [(ngModel)]="hero.IsFavorite" />
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td class="align-right">
+                                <label>Notes</label>
+                            </td>
+                            <td>
+                                <textarea id="notes" name="notes" [(ngModel)]="hero.Notes"></textarea>
+                            </td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td class="align-right">
+                                <button type="button" class="btn btn-default" (click)=gotoHeroes()>Cancel</button>
+                                <button type="submit" class="btn btn-primary" [disabled]="!heroForm.form.valid">Submit</button>
+                            </td>
+                            <td><span *ngIf="!heroForm.form.valid" class="badge" title="The Form has Issues">?</span></td>
+                        </tr>
+
+                    </table>
+
+                    <!-- SUBMITTED -->
+
+                    <div [hidden]="!submitted">
+
+                        <h2>You submitted the following:</h2>
+
+                        <div class="row">
+                            <div class="col-xs-3 align-right bold border-right">Name</div>
+                            <div class="col-xs-9  pull-left">{{ hero.Name }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-3 align-right bold border-right">Alter Ego</div>
+                            <div class="col-xs-9 pull-left">{{ hero.AlterEgo }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-3 align-right bold border-right">Power</div>
+                            <div class="col-xs-9 pull-left">{{ hero.Power }}</div>
+                        </div>
+
+                        <br>
+
+                        <button class="btn btn-default" (click)="submitted=false">Edit</button>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="pad-5">
+                        Form Elements
+                    </div>
+
+                    <div class="pad-10 margin-bottom-20">
+                        <table>
+                            <tr>
+                                <td class="border-bottom gray-2-bg border-right">Name</td>
+                                <td class="border-bottom gray-2-bg">Valid</td>
+                                <td class="border-bottom gray-2-bg">Pristine</td>
+                                <td class="border-bottom gray-2-bg">Touched</td>
+                                <td class="border-bottom gray-2-bg">Value</td>
+                                <td class="border-bottom gray-2-bg">CSS</td>
+                            </tr>
+                            <tr>
+                                <td class="align-center border-right border-bottom">
+                                    FORM
+                                </td>
+                                <td class="border-bottom">
+                                    {{ heroForm.valid }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ heroForm.pristine }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ heroForm.touched }}
+                                </td>
+                                <td class="border-bottom">
+                                    <pre class="font-0-75">{{ heroForm.value | json }}</pre>
+                                </td>
+                                <td class="border-bottom">
+                                    <pre class="font-0-75">{{ nameTag.className }}</pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-right border-right border-bottom">
+                                    {{ name.name }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ name.valid }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ name.pristine }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ name.touched }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ name.value }}
+                                </td>
+                                <td class="border-bottom">
+                                    <pre class="font-0-75">{{ nameTag.className }}</pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-right border-right border-bottom">
+                                    {{ alterEgo.name }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ alterEgo.valid }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ alterEgo.pristine }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ alterEgo.touched }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ alterEgo.value }}
+                                </td>
+                                <td class="border-bottom">
+                                    <pre class="font-0-75">{{ nameTag.className }}</pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-right border-right border-bottom">
+                                    {{ power.name }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ power.valid }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ power.pristine }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ power.touched }}
+                                </td>
+                                <td class="border-bottom">
+                                    {{ power.value }}
+                                </td>
+                                <td class="border-bottom">
+                                    <pre class="font-0-75">{{ nameTag.className }}</pre>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="pad-5">
+                        Model
+                    </div>
+
+                    <div class="pad-10">
+                        <pre class="muted-green">{{ hero | json }}</pre>
+                    </div>
+
+                </div>
+
+            </form>
+
+            <!-- Form 02 -->
+
+            <div class="col-md-2">
+
+
             </div>
-            <div class="form-group">
-                <label for="alterEgo">Alter Ego</label>
-                <input id="alterEgo"
-                       type="text" 
-                       class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="power">Hero Power</label>
-                <select id="power"
-                        class="form-control" 
-                        required>
-                    <option *ngFor="let p of powers" [value]="p">{{p}}</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+
+        </div>
+
     </div>
-    <!-- ====================================================  -->
-    <hr>
-    <div class="container">
-        <h1>Hero Form</h1>
-        <form>
-            {{diagnostic}}
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input id="name"
-                       name="name"
-                       type="text" 
-                       class="form-control" 
-                       required
-                       [(ngModel)]="model.Name">
-            </div>
-            <div class="form-group">
-                <label for="alterEgo">Alter Ego</label>
-                <input id="alterEgo"
-                       name="alterEgo"
-                       type="text" 
-                       class="form-control" 
-                       [(ngModel)]="model.AlterEgo">
-            </div>
-            <div class="form-group">
-                <label for="power">Hero Power</label>
-                <select id="power"
-                        name="power"
-                        class="form-control" 
-                        required
-                        [(ngModel)]="model.Power">
-                    <option *ngFor="let p of powers" [value]="p">{{p}}</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-    </div>
-    <!-- EXTRA MATERIAL FOR DOCUMENTATION -->
-    <hr>
-    <input id="name"
-           name="name"
-           type="text" 
-           class="form-control" 
-           required
-           [(ngModel)]="model.Name">
-    TODO: remove this: {{model.Name}}
-    <hr>
-    <input id="name"
-           name="name"
-           type="text" 
-           class="form-control" 
-           required
-           [ngModel]="model.Name" 
-           (ngModelChange)="model.Name = $event">
-    TODO: remove this: {{model.Name}}
-    <hr>
-    <form *ngIf="active">
-        <input id="name"
-               name="name"
-               type="text" 
-               class="form-control" 
-               required
-               [(ngModel)]="model.Name">
-        <hr>
-        <input id="name"
-               name="name"
-               type="text" class="form-control" 
-               required
-               [(ngModel)]="model.Name" 
-               #spy>
-        <br>TODO: remove this: {{spy.className}}
-    </form>
 </div>

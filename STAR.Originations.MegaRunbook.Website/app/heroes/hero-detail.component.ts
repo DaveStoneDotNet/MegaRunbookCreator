@@ -18,37 +18,36 @@ import { Subscription }   from 'rxjs/Subscription';
 
 export class HeroDetailComponent implements OnInit, OnDestroy {
 
-    powers = ['Really Smart', 'Super Flexible', 'Super Hot', 'Weather Changer'];
+    powers = ['Smart', 'Creative', 'Inspirational', 'Talented'];
 
-    model = new Hero(18, 'Dr IQ', this.powers[0], 'Chuck Overstreet');
+    hero: Hero = new Hero(0, '', '', '');
 
+    active = true;
     submitted = false;
 
     onSubmit() { this.submitted = true; }
 
-    // TODO: Remove this when we're done
-    get diagnostic() { return JSON.stringify(this.model); }
-
-    // Reset the form with a new hero AND restore 'pristine' class state
-    // by toggling 'active' flag which causes the form
-    // to be removed/re-added in a tick via NgIf
-    // TODO: Workaround until NgForm has a reset method (#6822)
-    active = true;
+    get diagnostic() { return JSON.stringify(this.hero); }
 
     newHero() {
-        this.model = new Hero(42, '', '');
+
+        this.hero = new Hero(0, '', '');
+
+        // Reset the form with a new hero and restore the 'pristine' state by toggling the 'active' flag.
+        // The NgIf reference in the HTML causes the form to be removed from the DOM and then immediately re-added 
+        // which has the effect of changing the form state back to 'pristine'.
+
+        // This a temporary hack until a proper form reset feature is added to Angular.
+
         this.active = false;
         setTimeout(() => this.active = true, 0);
-    }
-    //////// NOT SHOWN IN DOCS ////////
 
-    // Reveal in html:
-    //   Name via form.controls = {{showFormControls(heroForm)}}
+    }
+
     showFormControls(form: any) {
 
         return form && form.controls['name'] && form.controls['name'].value;
     }
-
 
     // ----------------------------------------------------------------------------------------------
 
@@ -79,6 +78,10 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
 
         // Pass along the hero id if available so that the HeroList component can select that hero.
         this.router.navigate(['/heroes', { id: heroId }]);
+    }
+
+    formIsValid() {
+        return true;
     }
 
     private onHeroSuccessful(hero: Hero) {
