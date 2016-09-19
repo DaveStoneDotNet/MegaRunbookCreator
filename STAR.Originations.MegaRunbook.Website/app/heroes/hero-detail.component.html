@@ -9,7 +9,7 @@
             <form id="heroForm" name="heroForm" #heroForm="ngForm"
                   class="mrc-form"
                   *ngIf="active"
-                  (ngSubmit)="onSubmit()">
+                  (ngSubmit)="onSubmit(heroForm.value)">
 
                 <div class="col-md-4 border-right">
 

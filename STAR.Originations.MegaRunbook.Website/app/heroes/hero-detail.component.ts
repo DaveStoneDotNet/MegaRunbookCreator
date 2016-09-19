@@ -25,7 +25,10 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     active = true;
     submitted = false;
 
-    onSubmit() { this.submitted = true; }
+    onSubmit(form: any) {
+        this.submitted = true;
+        console.log(form.name);
+    }
 
     get diagnostic() { return JSON.stringify(this.hero); }
 
@@ -53,7 +56,6 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
 
 
     Title = "Hero Detail";
-    hero: Hero;
 
     private sub: Subscription;
 

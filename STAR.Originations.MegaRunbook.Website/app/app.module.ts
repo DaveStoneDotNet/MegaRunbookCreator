@@ -2,6 +2,7 @@
 import { NgModule }                 from '@angular/core';
 import { BrowserModule }            from '@angular/platform-browser';
 import { FormsModule }              from '@angular/forms';
+import { ReactiveFormsModule }      from '@angular/forms';
 import { HttpModule }               from '@angular/http';
                                  
 import { LocationStrategy }         from '@angular/common';
@@ -32,7 +33,7 @@ import { AuthGuard }                from './services/auth-guard.service';
 import { AuthService }              from './services/auth.service';
 
 @NgModule({
-    imports:      [BrowserModule, FormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule],
+    imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule],
     declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent],
     providers:    [HttpService, UserService, TemplateService, BlockUIService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
