@@ -6,72 +6,77 @@
 // DARK
 // ----------------------------------------------------------------------
 
-$bright-green: #43c83c;
-$muted-green: #8e8c4c;
-$light-muted-green: #99aa99;
-$super-light-green: #ebf9d5;
+$bright-green:       #43c83c;
+$muted-green:        #8e8c4c;
+$light-muted-green:  #99aa99;
+$super-light-green:  #ebf9d5;
+$primary-green:      #42a948;
 
-$purple: #6639b6;
-$muted-purple: #7c6ebc;
-$bright-purple: #932ab6;
-$light-purple: #adaabd;
+$purple:             #6639b6;
+$muted-purple:       #7c6ebc;
+$bright-purple:      #932ab6;
+$light-purple:       #adaabd;
 $super-light-purple: #e2d7f2;
 
-$muted-blue: #5f7d99;
-$dark-blue: #1171a3;
+$muted-blue:         #5f7d99;
+$dark-blue:          #1171a3;
 $muted-primary-blue: #93a1ad;
-$primary-blue: #428bca;
-$middle-blue: #428ace;
-$light-blue: #7ac0da;
-$info-blue: #5bc0de;
-$muted-info-blue: #90ccde;
-$super-light-blue: #eeeeff;
-$medium-light-blue: #dfe5eb;
+$primary-blue:       #428bca;
+$middle-blue:        #428ace;
+$light-blue:         #7ac0da;
+$info-blue:          #5bc0de;
+$muted-info-blue:    #90ccde;
+$super-light-blue:   #eeeeff;
+$medium-light-blue:  #dfe5eb;
 
-$dark-red: #991f1f;
-$bright-red: #ff3333;
-$soft-red: #d9534f;
-$super-light-red: #ffeeee;
-$dark-muted-red: #ad7771;
-$pink: #ff7d99;
-$muted-pink: #e91e63;
-$form-red: #a94442;
+$dark-red:           #991f1f;
+$bright-red:         #ff3333;
+$soft-red:           #d9534f;
+$super-light-red:    #ffeeee;
+$dark-muted-red:     #ad7771;
+$pink:               #ff7d99;
+$muted-pink:         #e91e63;
+$form-red:           #a94442;
 
-$dark-orange: #dc6226;
-$orange: #f88529;
-$medium-orange: #fe9700;
-$bright-orange: #eb9316;
-$muted-orange: #f0ad4e;
-$amber: #ffc107;
-$light-orange: #f0cd9c;
-$soft-yellow: #fffddd;
+$darker-orange:      #d4652f;
+$dark-orange:        #dc6226;
+$orange:             #f88529;
+$medium-orange:      #fe9700;
+$bright-orange:      #eb9316;
+$primary-orange:     #eb8428;
+$muted-orange:       #f0ad4e;
+$amber:              #ffc107;
+$light-orange:       #f0cd9c;
+$soft-yellow:        #fffddd;
 
-$primary: #3f51b5;
-$success: #4caf50;
-$warning: #fe9700;
-$info: #2095f2;
-$danger: #f34235;
+$primary:            #3f51b5;
+$success:            #4caf50;
+$warning:            #fe9700;
+$info:               #2095f2;
+$danger:             #f34235;
 
-$pure-white: #ffffff;
-$pure-black: #000000;
-$pure-red: #ff0000;
-$pure-green: #00ff00;
-$pure-blue: #0000ff;
+$pure-white:         #ffffff;
+$pure-black:         #000000;
+$pure-red:           #ff0000;
+$pure-green:         #00ff00;
+$pure-blue:          #0000ff;
 
-$gray-2: #222222;
-$gray-3: #333333;
-$gray-4: #444444;
-$gray-5: #555555;
-$gray-6: #666666;
-$gray-9: #999999;
-$gray-a: #aaaaaa;
-$gray-b: #bbbbbb;
-$gray-c: #cccccc;
-$gray-d: #dddddd;
-$gray-e: #eeeeee;
+$gray-2:             #222222;
+$gray-3:             #333333;
+$gray-4:             #444444;
+$gray-5:             #555555;
+$gray-6:             #666666;
+$gray-9:             #999999;
+$gray-a:             #aaaaaa;
+$gray-b:             #bbbbbb;
+$gray-c:             #cccccc;
+$gray-d:             #dddddd;
+$gray-e:             #eeeeee;
 
-$graystone: #e1e1f2;
-$maingray: #2d2d30;
+$maingray:           #2d2d30;
+$primary-gray:       #bdbebf;
+$graystone:          #e1e1f2;
+$header-gray:        #dcdcdc;
 
 // ----------------------------------------------------------------------
 // COLORS
@@ -499,8 +504,6 @@ $maingray: #2d2d30;
 // FONTS
 // ----------------------------------------------------------------------
 
-@import url("//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
-
 @font-face {
     font-family: BebasNeue;
     src: url(//:) format("no404"), url(../fonts/bebasneue-webfont.woff) format("woff"), url(../fonts/bebasneue-webfont.ttf) format("truetype"), url(../fonts/bebasneue-webfont.svg#webfontegZ8JL6X) format("svg");
@@ -603,6 +606,19 @@ $maingray: #2d2d30;
 // ----------------------------------------------------------------------
 // BORDERS
 // ----------------------------------------------------------------------
+
+@mixin border-radius($radius) {
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin form-border($color) {
+    border-left:  10px solid $color;
+    border-right:  1px solid $color;
+    border-top:    1px solid $color;
+    border-bottom: 1px solid $color;
+}
 
 .border {
     border: solid 1px $gray-4;
@@ -810,6 +826,26 @@ $maingray: #2d2d30;
 }
 
 // ----------------------------------------------------------------------
+// SHADOWS
+// ----------------------------------------------------------------------
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: '') {
+    -webkit-box-shadow: $top $left $blur $color #{$inset};
+       -moz-box-shadow: $top $left $blur $color #{$inset};
+            box-shadow: $top $left $blur $color #{$inset};
+}
+
+@mixin out-box-shadow($top, $left, $blur, $color, $outTop, $outLeft, $outBlur, $outColor) {
+  -webkit-box-shadow: inset $top $left $blur $color, $outTop $outLeft $outBlur $outColor;
+     -moz-box-shadow: inset $top $left $blur $color, $outTop $outLeft $outBlur $outColor;
+          box-shadow: inset $top $left $blur $color, $outTop $outLeft $outBlur $outColor;
+}
+
+.shadow {
+    @include box-shadow(0px, 3px, 10px, $gray-d);
+}
+
+// ----------------------------------------------------------------------
 // DOM
 // ----------------------------------------------------------------------
 
@@ -817,8 +853,8 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     font-family: Arial, Helvetica, sans-serif;
-    color: #bdbebf !important;
-    background-color: #2d2d30 !important;
+    color: $primary-gray !important;
+    background-color: $maingray !important;
 }
 
 // Override the default bootstrap behavior where horizontal description lists
@@ -855,86 +891,50 @@ body {
     }
 
     input.ng-untouched.ng-pristine.ng-valid {
-        border-left: 10px solid $gray-4;
-        border-right: 1px solid $gray-4;
-        border-top: 1px solid $gray-4;
-        border-bottom: 1px solid $gray-4;
+        @include form-border($gray-4);
     }
 
     input.ng-untouched.ng-pristine.ng-valid:focus {
-        border-left: 10px solid $gray-c;
-        border-right: 1px solid $gray-c;
-        border-top: 1px solid $gray-c;
-        border-bottom: 1px solid $gray-c;
+        @include form-border($gray-c);
     }
 
     input.ng-untouched.ng-pristine.ng-invalid {
-        border-left: 10px solid $orange;
-        border-right: 1px solid $orange;
-        border-top: 1px solid $orange;
-        border-bottom: 1px solid $orange;
+        @include form-border($orange);
     }
 
     input.ng-untouched.ng-pristine.ng-invalid:focus {
-        border-left: 10px solid $orange;
-        border-right: 1px solid $orange;
-        border-top: 1px solid $orange;
-        border-bottom: 1px solid $orange;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(248, 133, 41, .6);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(248, 133, 41, .6);
+        @include form-border($orange);
+        @include out-box-shadow(0, 1px, 1px, rgba(0, 0, 0, .075), 0, 0, 8px, rgba(248, 133, 41, 0.6));
     }
 
     input.ng-touched.ng-pristine.ng-valid {
-        border-left: 10px solid $gray-6;
-        border-right: 1px solid $gray-6;
-        border-top: 1px solid $gray-6;
-        border-bottom: 1px solid $gray-6;
+        @include form-border($gray-6);
     }
 
     input.ng-touched.ng-pristine.ng-valid:focus {
-        border-left: 10px solid $gray-c;
-        border-right: 1px solid $gray-c;
-        border-top: 1px solid $gray-c;
-        border-bottom: 1px solid $gray-c;
+        @include form-border($gray-c);
     }
 
     input.ng-touched.ng-dirty.ng-valid {
-        border-left: 10px solid #42a948;
-        border-right: 1px solid #42a948;
-        border-top: 1px solid #42a948;
-        border-bottom: 1px solid #42a948;
+        @include form-border($primary-green);
     }
 
     input.ng-touched.ng-dirty.ng-valid:focus {
-        border-left: 10px solid #42a948;
-        border-right: 1px solid #42a948;
-        border-top: 1px solid #42a948;
-        border-bottom: 1px solid #42a948;
+        @include form-border($primary-green);
     }
 
     input.ng-invalid {
-        border-left: 10px solid $form-red;
-        border-right: 1px solid $form-red;
-        border-top: 1px solid $form-red;
-        border-bottom: 1px solid $form-red;
+        @include form-border($form-red);
     }
 
     input.ng-touched.ng-dirty.ng-invalid:focus {
-        border-left: 10px solid $form-red;
-        border-right: 1px solid $form-red;
-        border-top: 1px solid $form-red;
-        border-bottom: 1px solid $form-red;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169, 68, 66, .6);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169, 68, 66, .6);
+        @include form-border($form-red);
+        @include out-box-shadow(0, 1px, 1px, rgba(0, 0, 0, .075), 0, 0, 8px, rgba(169, 68, 66, 0.6));
     }
 
     input.ng-untouched.ng-dirty.ng-invalid:focus {
-        border-left: 10px solid $form-red;
-        border-right: 1px solid $form-red;
-        border-top: 1px solid $form-red;
-        border-bottom: 1px solid $form-red;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169, 68, 66, .6);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169, 68, 66, .6);
+        @include form-border($form-red);
+        @include out-box-shadow(0, 1px, 1px, rgba(0, 0, 0, .075), 0, 0, 8px, rgba(169, 68, 66, 0.6));
     }
 
     input::selection {
@@ -953,77 +953,45 @@ body {
     }
 
     select.ng-untouched.ng-pristine.ng-valid {
-        border-left: 10px solid $gray-4;
-        border-right: 1px solid $gray-4;
-        border-top: 1px solid $gray-4;
-        border-bottom: 1px solid $gray-4;
+        @include form-border($gray-4);
     }
 
     select.ng-untouched.ng-pristine.ng-valid:focus {
-        border-left: 10px solid $gray-c;
-        border-right: 1px solid $gray-c;
-        border-top: 1px solid $gray-c;
-        border-bottom: 1px solid $gray-c;
+        @include form-border($gray-c);
     }
 
     select.ng-untouched.ng-pristine.ng-invalid {
-        border-left: 10px solid $orange;
-        border-right: 1px solid $orange;
-        border-top: 1px solid $orange;
-        border-bottom: 1px solid $orange;
+        @include form-border($orange);
     }
 
     select.ng-untouched.ng-pristine.ng-invalid:focus {
-        border-left: 10px solid $orange;
-        border-right: 1px solid $orange;
-        border-top: 1px solid $orange;
-        border-bottom: 1px solid $orange;
+        @include form-border($orange);
     }
 
     select.ng-touched.ng-pristine.ng-valid {
-        border-left: 10px solid $gray-6;
-        border-right: 1px solid $gray-6;
-        border-top: 1px solid $gray-6;
-        border-bottom: 1px solid $gray-6;
+        @include form-border($gray-c);
     }
 
     select.ng-touched.ng-dirty.ng-valid {
-        border-left: 10px solid #42a948;
-        border-right: 1px solid #42a948;
-        border-top: 1px solid #42a948;
-        border-bottom: 1px solid #42a948;
+        @include form-border($primary-green);
     }
 
     select.ng-touched.ng-dirty.ng-valid:focus {
-        border-left: 10px solid #42a948;
-        border-right: 1px solid #42a948;
-        border-top: 1px solid #42a948;
-        border-bottom: 1px solid #42a948;
+        @include form-border($primary-green);
     }
 
     select.ng-invalid {
-        border-left: 10px solid $form-red;
-        border-right: 1px solid $form-red;
-        border-top: 1px solid $form-red;
-        border-bottom: 1px solid $form-red;
+        @include form-border($form-red);
     }
 
     select.ng-touched.ng-dirty.ng-invalid:focus {
-        border-left: 10px solid $form-red;
-        border-right: 1px solid $form-red;
-        border-top: 1px solid $form-red;
-        border-bottom: 1px solid $form-red;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169, 68, 66, .6);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169, 68, 66, .6);
+        @include form-border($form-red);
+        @include out-box-shadow(0, 1px, 1px, rgba(0, 0, 0, .075), 0, 0, 8px, rgba(169, 68, 66, 0.6));
     }
 
     select.ng-untouched.ng-dirty.ng-invalid:focus {
-        border-left: 10px solid $form-red;
-        border-right: 1px solid $form-red;
-        border-top: 1px solid $form-red;
-        border-bottom: 1px solid $form-red;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169, 68, 66, .6);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(169, 68, 66, .6);
+        @include form-border($form-red);
+        @include out-box-shadow(0, 1px, 1px, rgba(0, 0, 0, .075), 0, 0, 8px, rgba(169, 68, 66, 0.6));
     }
 
     .required-input {
@@ -1045,12 +1013,11 @@ input.search {
 
 input.search:focus {
     border: solid $primary-blue 1px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
-          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    @include out-box-shadow(0, 1px, 1px, rgba(0, 0, 0, .075), 0, 0, 8px, rgba(102, 175, 233, 0.6));
 }
 
 h1 {
-    color: #dcdcdc;
+    color: $gray-d;
     font-family: BebasNeue !important;
     font-size: 250%;
     border-bottom: dotted 1px $gray-6;
@@ -1058,7 +1025,7 @@ h1 {
 }
 
 h2, h3 {
-    color: #569cd6;
+    color: $primary-blue;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
 }
@@ -1071,7 +1038,6 @@ a {
     outline: 0 !important;
     cursor: pointer;
 }
-
 
 pre {
     background-color: $maingray;
@@ -1149,16 +1115,6 @@ textarea {
     display: none;
 }
 
-@mixin box-shadow($top, $left, $blur, $color, $inset: '') {
-    -webkit-box-shadow: $top $left $blur $color #{$inset};
-    -moz-box-shadow: $top $left $blur $color #{$inset};
-    box-shadow: $top $left $blur $color #{$inset};
-}
-
-.shadow {
-    @include box-shadow(0px, 3px, 10px, $gray-d);
-}
-
 .top-fixed-menu-buttons {
     position: fixed;
     right: 100px;
@@ -1188,32 +1144,33 @@ textarea {
 }
 
 .navbar-inverse {
-    background-color: #2d2d30;
-    border-top: solid 4px #D4652F;
+    background-color: $maingray;
+    border-top: solid 4px $darker-orange;
     border-bottom: solid 1px $gray-6;
     box-shadow: rgba(255, 255, 255, 0.25) 0px 0px 40px;
+    @include box-shadow(0, 0, 40px, rgba(255, 255, 255, 0.25));
 }
 
 .navbar-inverse .navbar-brand {
     font-family: BebasNeue;
     font-size: 2.0em;
     color: $pure-white !important;
-    background-color: #EB8428;
+    background-color: $primary-orange;
 }
 
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
     color: $pure-white !important;
-    background-color: #EB8428 !important;
+    background-color: $primary-orange !important;
 }
 
 .navbar-nav > li > a {
-    border-bottom: solid 2px #2d2d30;
+    border-bottom: solid 2px $maingray;
 }
 
 .navbar-nav > li > a.active {
     color: $pure-white !important;
-    border-bottom: solid 2px #EB8428 !important;
+    border-bottom: solid 2px $primary-orange !important;
 }
 
 .navbar-nav > li > a:hover {
@@ -1221,7 +1178,7 @@ textarea {
 
 .navbar-nav > li.open > a {
     background-color: $gray-4 !important;
-    border-bottom-color: #EB8428 !important;
+    border-bottom-color: $primary-orange !important;
 }
 
 .navbar-nav > li.open > a:hover {
@@ -1230,10 +1187,10 @@ textarea {
 .navbar-nav ul.dropdown-menu {
     color: $gray-e !important;
     background-color: $gray-4 !important;
-    box-shadow: 3px 3px 12px rgba(255, 255, 255, .10);
     border-left-color: $gray-6;
     border-right-color: $gray-6;
     border-bottom-color: $gray-6;
+    @include box-shadow(3, 3, 12px, rgba(255, 255, 255, 0.10));
 }
 
 .navbar-nav ul.dropdown-menu a {
@@ -1317,7 +1274,7 @@ textarea {
     left: 0px;
     top: 0px;
     margin-right: 0px;
-    border-radius: 0px;
+    @include border-radius(0px);
 }
 
 // ----------------------------------------------------------------------
@@ -1391,7 +1348,7 @@ table.runbook-table {
 }
 
 .inner-body-content {
-    background-color: #2d2d30;
+    background-color: $maingray;
     padding: 20px 20px 20px 20px;
 }
 
@@ -1400,7 +1357,7 @@ table.runbook-table {
 }
 
 .splash-loading {
-    background-color: #2d2d30;
+    background-color: $maingray;
     position: absolute;
     left: 0;
     right: 0;
@@ -1430,7 +1387,7 @@ table.runbook-table {
     padding: 10px 10px 10px 10px;
     position: fixed;
     left: 40px; right: 40px; bottom: 40px;
-    border-radius: 8px;
+    @include border-radius(8px);
 }
 
 
@@ -1449,7 +1406,7 @@ table.runbook-table {
 }
 
 .fat-header {
-    color: #dcdcdc;
+    color: $header-gray;
     font-family: BebasNeue;
     font-size: 250%;
     border-bottom: dotted 1px $gray-6;
@@ -1524,19 +1481,15 @@ table.runbook-table {
     bottom: 40px !important;
 }
 #toast-container > div {
-    -moz-border-radius: 0px 0px 0px 0px !important;
-    -webkit-border-radius: 0px 0px 0px 0px !important;
-    border-radius: 0px 0px 0px 0px !important;
     text-align: center !important;
     border: solid 1px transparent;
+    @include border-radius(0px);
 }
 #toast-container > :hover {
-    -moz-box-shadow: 0 0 12px $pure-white !important;
-    -webkit-box-shadow: 0 0 12px $pure-white !important;
-    box-shadow: 0 0 12px $pure-white !important;
     opacity: 1;
     cursor: pointer;
     border: solid 1px $pure-white;
+    @include box-shadow(0, 0, 12px, rgba(255, 255, 255, 1.0));
 }
 
 #toast-container > .toast-info:before {

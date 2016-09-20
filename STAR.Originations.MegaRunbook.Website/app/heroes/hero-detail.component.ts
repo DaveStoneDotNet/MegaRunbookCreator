@@ -34,7 +34,7 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
 
     newHero() {
 
-        this.hero = new Hero(0, '', '');
+        this.hero = new Hero(0, '', '', '');
 
         // Reset the form with a new hero and restore the 'pristine' state by toggling the 'active' flag.
         // The NgIf reference in the HTML causes the form to be removed from the DOM and then immediately re-added 
