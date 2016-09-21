@@ -1208,3 +1208,34 @@ table.runbook-table {
 .toast-info {
   background-color: rgba(255, 255, 255, 0.5); }
 
+.expand-o-line {
+  position: relative;
+  color: #ffffff;
+  text-decoration: none; }
+
+.expand-o-line:hover {
+  color: #ffffff;
+  text-decoration: none; }
+
+.expand-o-line:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ffffff;
+  visibility: hidden;
+  -moz-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  -o-transform: scaleX(0);
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s; }
+
+.expand-o-line:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1); }
+
