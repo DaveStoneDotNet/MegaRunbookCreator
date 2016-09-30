@@ -11,9 +11,11 @@ import { TemplateService }          from '../services/template.service';
 
 import { templatesRouting }         from './templates.routing';
 
+import { PluralPipe }               from '../pipes/plural.pipe';
+
 @NgModule({
     imports:      [CommonModule, FormsModule, templatesRouting],
-    declarations: [RunbookStepFormComponent, TemplateDetailComponent, TemplateListComponent],
+    declarations: [RunbookStepFormComponent, TemplateDetailComponent, TemplateListComponent, PluralPipe],
     providers:    [TemplateService]
 })
 

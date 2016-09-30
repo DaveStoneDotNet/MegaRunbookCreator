@@ -17,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>STAR.Originations.MegaRunbook.Website</RootNamespace>
     <AssemblyName>STAR.Originations.MegaRunbook.Website</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/50ce54bf-9257-444f-a2db-dcff13796cc8/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/STAR.Originations.MegaRunbook.Website</ApplicationInsightsResourceId>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,6 +52,14 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -65,6 +74,7 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -76,8 +86,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -115,13 +123,13 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
@@ -170,6 +178,10 @@
     <Content Include="app\templates\template-list.component.html" />
     <Content Include="app\templates\template-list.component.min.css">
       <DependentUpon>template-list.component.css</DependentUpon>
+    </Content>
+    <Content Include="App_Data\MRC.mdf" />
+    <Content Include="App_Data\MRC_log.ldf">
+      <DependentUpon>MRC.mdf</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config">
@@ -252,6 +264,12 @@
     <TypeScriptCompile Include="app\crisis-center\crisis-detail.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-list.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis.service.ts" />
+    <TypeScriptCompile Include="app\entities\contact.entity.ts" />
+    <TypeScriptCompile Include="app\entities\paged-base.ts" />
+    <TypeScriptCompile Include="app\entities\paged-runbook-template.entity.ts" />
+    <TypeScriptCompile Include="app\entities\runbook-step-pbi.entity.ts" />
+    <TypeScriptCompile Include="app\entities\sort-info.entity.ts" />
+    <TypeScriptCompile Include="app\entities\team.entity.ts" />
     <TypeScriptCompile Include="app\interfaces\i-can-component-deactivate.ts" />
     <TypeScriptCompile Include="app\entities\developer.entity.ts" />
     <TypeScriptCompile Include="app\entities\entity-base.entity.ts" />
@@ -269,6 +287,7 @@
     <TypeScriptCompile Include="app\common\page-not-found.component.ts" />
     <TypeScriptCompile Include="app\home\home.component.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\pipes\plural.pipe.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.component.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.module.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.routing.ts" />
@@ -290,6 +309,10 @@
     <ProjectReference Include="..\STAR.Originations.MegaRunbook.Contracts\STAR.Originations.MegaRunbook.Contracts.csproj">
       <Project>{9d69834d-7130-473d-aa2e-9d63e67f0b8f}</Project>
       <Name>STAR.Originations.MegaRunbook.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\STAR.Originations.MRC.DataAccess\STAR.Originations.MRC.DataAccess.csproj">
+      <Project>{0eea4435-d75d-42df-b309-ce9ea5e4e440}</Project>
+      <Name>STAR.Originations.MRC.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

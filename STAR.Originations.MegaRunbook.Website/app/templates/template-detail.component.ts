@@ -12,7 +12,7 @@ import { RunbookStep }     from '../entities/runbook-step.entity';
 
 @Component({
     templateUrl: 'app/templates/template-detail.component.html',
-    providers: [TemplateService]
+    providers:   [TemplateService]
 })
 
 export class TemplateDetailComponent implements OnInit {
@@ -33,8 +33,8 @@ export class TemplateDetailComponent implements OnInit {
 
     toggleCollapseAll() {
         this.isNotCollapsed = !this.isNotCollapsed;
-        if (this.runbookTemplate && this.runbookTemplate.Steps) {
-            this.runbookTemplate.Steps.forEach(s => s.IsNotCollapsed = this.isNotCollapsed);
+        if (this.runbookTemplate && this.runbookTemplate.RunbookSteps) {
+            this.runbookTemplate.RunbookSteps.forEach(s => s.IsNotCollapsed = this.isNotCollapsed);
         }
     }
 
@@ -81,9 +81,9 @@ export class TemplateDetailComponent implements OnInit {
         // If *ALL* of the collapsibles are collapsed then sync the 'global' IsNotCollapsed to collapsed.
         // If *ALL* of the collapsibles are NOT collapsed then sync the 'global' IsNotCollapsed to not collapsed.
 
-        let numerics: number[] = new Array(this.runbookTemplate.Steps.length);
-        for (var i = 0; i < this.runbookTemplate.Steps.length; i++) {
-            if (this.runbookTemplate.Steps[i].IsNotCollapsed) {
+        let numerics: number[] = new Array(this.runbookTemplate.RunbookSteps.length);
+        for (var i = 0; i < this.runbookTemplate.RunbookSteps.length; i++) {
+            if (this.runbookTemplate.RunbookSteps[i].IsNotCollapsed) {
                 numerics[i] = 1;
             } else {
                 numerics[i] = 0;
@@ -95,10 +95,10 @@ export class TemplateDetailComponent implements OnInit {
         numerics.forEach(n => { if (n == 0) isnot = isnot + 1 });
         numerics.forEach(n => { if (n == 1) is = is + 1 });
 
-        if (isnot == this.runbookTemplate.Steps.length) {
+        if (isnot == this.runbookTemplate.RunbookSteps.length) {
             this.isNotCollapsed = false;
         }
-        if (is == this.runbookTemplate.Steps.length) {
+        if (is == this.runbookTemplate.RunbookSteps.length) {
             this.isNotCollapsed = true;
         }
     }

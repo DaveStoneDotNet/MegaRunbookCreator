@@ -1,5 +1,5 @@
 ﻿
-namespace STAR.Originations.MegaRunbook.Contracts
+namespace STAR.Originations.MegaRunbook.Contracts.Data
 {
     public class UserProfile
     {

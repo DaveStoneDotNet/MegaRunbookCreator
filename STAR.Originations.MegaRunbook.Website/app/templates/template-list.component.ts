@@ -1,10 +1,11 @@
 ﻿
-import { Component }       from '@angular/core';
-import { OnInit }          from '@angular/core';
-import { Router }          from '@angular/router';
-
-import { TemplateService } from '../services/template.service';
-import { RunbookTemplate } from '../entities/runbook-template.entity';
+import { Component }            from '@angular/core';
+import { OnInit }               from '@angular/core';
+import { Router }               from '@angular/router';
+                                
+import { TemplateService }      from '../services/template.service';
+import { RunbookTemplate }      from '../entities/runbook-template.entity';
+import { PagedRunbookTemplate } from '../entities/paged-runbook-template.entity';
 
 @Component({
     templateUrl: 'app/templates/template-list.component.html',
@@ -72,10 +73,10 @@ export class TemplateListComponent implements OnInit {
             miliseconds);
     }
 
-    private getTemplatesOnSuccess(response: RunbookTemplate[]): void {
+    private getTemplatesOnSuccess(response: PagedRunbookTemplate): void {
 
-        this.runbookTemplates = response;
-        this.searchResults = response;
+        this.runbookTemplates = response.Items;
+        this.searchResults = response.Items;
 
         this.runningSearch = false;
     }

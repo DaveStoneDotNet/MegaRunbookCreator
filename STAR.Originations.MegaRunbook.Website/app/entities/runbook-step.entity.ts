@@ -1,7 +1,7 @@
 ﻿
-import { PBI } from './pbi.entity';
-import { Developer } from './developer.entity';
-import { Lookup } from './lookup.entity';
+import { RunbookStepPbi } from './runbook-step-pbi.entity';
+import { Contact }        from './contact.entity';
+import { Team }           from './team.entity';
 
 export class RunbookStep {
     ID: number;
@@ -9,17 +9,22 @@ export class RunbookStep {
     StepNumber: number;
     Duration: number;
 
+    Name: string;
     Team: string;
     Description: string;
     Notes: string;
-    Resource: string;
     FormattedTime: string;
+    RunbookStepStatusCode: string;
+    RunbookStepTypeCode: string;
 
-    Time: string;
+    Time: Date;
 
-    StatusLookup: Lookup;
-    PBI: PBI[];
-    Developers: Developer[];
+    RunbookStepPbis: RunbookStepPbi[];
+    Developers: Contact[];
+    Resources: Contact[];
 
+    Teams: string[];
+
+    IsHtml: boolean;
     IsNotCollapsed: boolean;
 }

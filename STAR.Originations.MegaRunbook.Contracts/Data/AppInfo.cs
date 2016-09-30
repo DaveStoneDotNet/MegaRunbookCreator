@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
-namespace STAR.Originations.MegaRunbook.Contracts
+namespace STAR.Originations.MegaRunbook.Contracts.Data
 {
     [DataContract(Namespace = "http://services.nationstarmtg.net/Capital/Markets/2014/09")]
     [DebuggerDisplay("{DebuggerDisplay}")]

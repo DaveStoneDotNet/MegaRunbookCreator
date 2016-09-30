@@ -1,0 +1,591 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MrcDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ApplicationGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RunbookStepStatus">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="RunbookStepType">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RunbookStep">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TemplateId" Type="int" />
+          <Property Name="GroupNumber" Type="int" />
+          <Property Name="StepNumber" Type="int" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="varchar" MaxLength="2000" />
+          <Property Name="Notes" Type="varchar" MaxLength="2000" />
+          <Property Name="Time" Type="datetimeoffset" Precision="7" />
+          <Property Name="IsHtml" Type="bit" />
+          <Property Name="RunbookStepTypeCode" Type="varchar" MaxLength="20" />
+          <Property Name="RunbookStepStatusCode" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="RunbookStepDeveloper">
+          <Key>
+            <PropertyRef Name="RunbookStepId" />
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="RunbookStepId" Type="int" Nullable="false" />
+          <Property Name="ContactId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RunbookStepPbi">
+          <Key>
+            <PropertyRef Name="RunbookStepId" />
+            <PropertyRef Name="PbiNumber" />
+          </Key>
+          <Property Name="RunbookStepId" Type="int" Nullable="false" />
+          <Property Name="PbiNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RunbookStepResource">
+          <Key>
+            <PropertyRef Name="RunbookStepId" />
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="RunbookStepId" Type="int" Nullable="false" />
+          <Property Name="ContactId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RunbookStepTeam">
+          <Key>
+            <PropertyRef Name="RunbookStepId" />
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="RunbookStepId" Type="int" Nullable="false" />
+          <Property Name="TeamId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RunbookTemplate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="RunbookStep_RunbookStepStatus_FK">
+          <End Role="RunbookStepStatus" Type="Self.RunbookStepStatus" Multiplicity="0..1" />
+          <End Role="RunbookStep" Type="Self.RunbookStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookStepStatus">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="RunbookStep">
+              <PropertyRef Name="RunbookStepStatusCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStep_RunbookStepType_FK">
+          <End Role="RunbookStepType" Type="Self.RunbookStepType" Multiplicity="0..1" />
+          <End Role="RunbookStep" Type="Self.RunbookStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookStepType">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="RunbookStep">
+              <PropertyRef Name="RunbookStepTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStep_RunbookTemplate_FK">
+          <End Role="RunbookTemplate" Type="Self.RunbookTemplate" Multiplicity="0..1" />
+          <End Role="RunbookStep" Type="Self.RunbookStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookTemplate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStep">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStepDeveloper_Contact_FK">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="1" />
+          <End Role="RunbookStepDeveloper" Type="Self.RunbookStepDeveloper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStepDeveloper">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStepDeveloper_RunbookStep_FK">
+          <End Role="RunbookStep" Type="Self.RunbookStep" Multiplicity="1" />
+          <End Role="RunbookStepDeveloper" Type="Self.RunbookStepDeveloper" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStepDeveloper">
+              <PropertyRef Name="RunbookStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStepPbi_RunbookStep_FK">
+          <End Role="RunbookStep" Type="Self.RunbookStep" Multiplicity="1" />
+          <End Role="RunbookStepPbi" Type="Self.RunbookStepPbi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStepPbi">
+              <PropertyRef Name="RunbookStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStepResource_Contact_FK">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="1" />
+          <End Role="RunbookStepResource" Type="Self.RunbookStepResource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStepResource">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStepResource_RunbookStep_FK">
+          <End Role="RunbookStep" Type="Self.RunbookStep" Multiplicity="1" />
+          <End Role="RunbookStepResource" Type="Self.RunbookStepResource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStepResource">
+              <PropertyRef Name="RunbookStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStepTeam_RunbookStep_FK">
+          <End Role="RunbookStep" Type="Self.RunbookStep" Multiplicity="1" />
+          <End Role="RunbookStepTeam" Type="Self.RunbookStepTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStepTeam">
+              <PropertyRef Name="RunbookStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStepTeam_Team_FK">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="RunbookStepTeam" Type="Self.RunbookStepTeam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStepTeam">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MrcDataModelStoreContainer">
+          <EntitySet Name="ApplicationGroup" EntityType="Self.ApplicationGroup" Schema="Links" store:Type="Tables" />
+          <EntitySet Name="RunbookStepStatus" EntityType="Self.RunbookStepStatus" Schema="Lookup" store:Type="Tables" />
+          <EntitySet Name="RunbookStepType" EntityType="Self.RunbookStepType" Schema="Lookup" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="People" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="People" store:Type="Tables" />
+          <EntitySet Name="RunbookStep" EntityType="Self.RunbookStep" Schema="Runbook" store:Type="Tables" />
+          <EntitySet Name="RunbookStepDeveloper" EntityType="Self.RunbookStepDeveloper" Schema="Runbook" store:Type="Tables" />
+          <EntitySet Name="RunbookStepPbi" EntityType="Self.RunbookStepPbi" Schema="Runbook" store:Type="Tables" />
+          <EntitySet Name="RunbookStepResource" EntityType="Self.RunbookStepResource" Schema="Runbook" store:Type="Tables" />
+          <EntitySet Name="RunbookStepTeam" EntityType="Self.RunbookStepTeam" Schema="Runbook" store:Type="Tables" />
+          <EntitySet Name="RunbookTemplate" EntityType="Self.RunbookTemplate" Schema="Runbook" store:Type="Tables" />
+          <AssociationSet Name="RunbookStep_RunbookStepStatus_FK" Association="Self.RunbookStep_RunbookStepStatus_FK">
+            <End Role="RunbookStepStatus" EntitySet="RunbookStepStatus" />
+            <End Role="RunbookStep" EntitySet="RunbookStep" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStep_RunbookStepType_FK" Association="Self.RunbookStep_RunbookStepType_FK">
+            <End Role="RunbookStepType" EntitySet="RunbookStepType" />
+            <End Role="RunbookStep" EntitySet="RunbookStep" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStep_RunbookTemplate_FK" Association="Self.RunbookStep_RunbookTemplate_FK">
+            <End Role="RunbookTemplate" EntitySet="RunbookTemplate" />
+            <End Role="RunbookStep" EntitySet="RunbookStep" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStepDeveloper_Contact_FK" Association="Self.RunbookStepDeveloper_Contact_FK">
+            <End Role="Contact" EntitySet="Contact" />
+            <End Role="RunbookStepDeveloper" EntitySet="RunbookStepDeveloper" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStepDeveloper_RunbookStep_FK" Association="Self.RunbookStepDeveloper_RunbookStep_FK">
+            <End Role="RunbookStep" EntitySet="RunbookStep" />
+            <End Role="RunbookStepDeveloper" EntitySet="RunbookStepDeveloper" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStepPbi_RunbookStep_FK" Association="Self.RunbookStepPbi_RunbookStep_FK">
+            <End Role="RunbookStep" EntitySet="RunbookStep" />
+            <End Role="RunbookStepPbi" EntitySet="RunbookStepPbi" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStepResource_Contact_FK" Association="Self.RunbookStepResource_Contact_FK">
+            <End Role="Contact" EntitySet="Contact" />
+            <End Role="RunbookStepResource" EntitySet="RunbookStepResource" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStepResource_RunbookStep_FK" Association="Self.RunbookStepResource_RunbookStep_FK">
+            <End Role="RunbookStep" EntitySet="RunbookStep" />
+            <End Role="RunbookStepResource" EntitySet="RunbookStepResource" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStepTeam_RunbookStep_FK" Association="Self.RunbookStepTeam_RunbookStep_FK">
+            <End Role="RunbookStep" EntitySet="RunbookStep" />
+            <End Role="RunbookStepTeam" EntitySet="RunbookStepTeam" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStepTeam_Team_FK" Association="Self.RunbookStepTeam_Team_FK">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="RunbookStepTeam" EntitySet="RunbookStepTeam" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MrcDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MrcDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="RunbookTemplates" EntityType="MrcDataModel.RunbookTemplate" />
+          <EntitySet Name="RunbookStepStatus" EntityType="MrcDataModel.RunbookStepStatus" />
+          <EntitySet Name="RunbookSteps" EntityType="MrcDataModel.RunbookStep" />
+          <AssociationSet Name="RunbookStep_RunbookStepStatus_FK" Association="MrcDataModel.RunbookStep_RunbookStepStatus_FK">
+            <End Role="RunbookStepStatu" EntitySet="RunbookStepStatus" />
+            <End Role="RunbookStep" EntitySet="RunbookSteps" />
+          </AssociationSet>
+          <EntitySet Name="RunbookStepPbis" EntityType="MrcDataModel.RunbookStepPbi" />
+          <AssociationSet Name="RunbookStepPbi_RunbookStep_FK" Association="MrcDataModel.RunbookStepPbi_RunbookStep_FK">
+            <End Role="RunbookStep" EntitySet="RunbookSteps" />
+            <End Role="RunbookStepPbi" EntitySet="RunbookStepPbis" />
+          </AssociationSet>
+          <EntitySet Name="RunbookStepTypes" EntityType="MrcDataModel.RunbookStepType" />
+          <AssociationSet Name="RunbookStep_RunbookStepType_FK" Association="MrcDataModel.RunbookStep_RunbookStepType_FK">
+            <End Role="RunbookStepType" EntitySet="RunbookStepTypes" />
+            <End Role="RunbookStep" EntitySet="RunbookSteps" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStep_RunbookTemplate_FK" Association="MrcDataModel.RunbookStep_RunbookTemplate_FK">
+            <End Role="RunbookTemplate" EntitySet="RunbookTemplates" />
+            <End Role="RunbookStep" EntitySet="RunbookSteps" />
+          </AssociationSet>
+          <EntitySet Name="ApplicationGroups" EntityType="MrcDataModel.ApplicationGroup" />
+          <EntitySet Name="Teams" EntityType="MrcDataModel.Team" />
+          <AssociationSet Name="RunbookStepTeam" Association="MrcDataModel.RunbookStepTeam">
+            <End Role="RunbookStep" EntitySet="RunbookSteps" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <EntitySet Name="Contacts" EntityType="MrcDataModel.Contact" />
+          <AssociationSet Name="RunbookStepDeveloper" Association="MrcDataModel.RunbookStepDeveloper">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="RunbookStep" EntitySet="RunbookSteps" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStepResource" Association="MrcDataModel.RunbookStepResource">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="RunbookStep" EntitySet="RunbookSteps" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="RunbookTemplate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RunbookSteps" Relationship="MrcDataModel.RunbookStep_RunbookTemplate_FK" FromRole="RunbookTemplate" ToRole="RunbookStep" />
+        </EntityType>
+        <EntityType Name="RunbookStepStatus">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="RunbookSteps" Relationship="MrcDataModel.RunbookStep_RunbookStepStatus_FK" FromRole="RunbookStepStatu" ToRole="RunbookStep" />
+        </EntityType>
+        <EntityType Name="RunbookStep">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupNumber" Type="Int32" />
+          <Property Name="StepNumber" Type="Int32" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Time" Type="DateTimeOffset" Precision="7" />
+          <Property Name="RunbookStepStatusCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RunbookStepStatuses" Relationship="MrcDataModel.RunbookStep_RunbookStepStatus_FK" FromRole="RunbookStep" ToRole="RunbookStepStatu" />
+          <NavigationProperty Name="RunbookStepPbis" Relationship="MrcDataModel.RunbookStepPbi_RunbookStep_FK" FromRole="RunbookStep" ToRole="RunbookStepPbi" />
+          <Property Name="RunbookStepTypeCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RunbookStepType" Relationship="MrcDataModel.RunbookStep_RunbookStepType_FK" FromRole="RunbookStep" ToRole="RunbookStepType" />
+          <Property Name="TemplateId" Type="Int32" />
+          <NavigationProperty Name="RunbookTemplate" Relationship="MrcDataModel.RunbookStep_RunbookTemplate_FK" FromRole="RunbookStep" ToRole="RunbookTemplate" />
+          <Property Name="IsHtml" Type="Boolean" />
+          <NavigationProperty Name="Teams" Relationship="MrcDataModel.RunbookStepTeam" FromRole="RunbookStep" ToRole="Team" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Developers" Relationship="MrcDataModel.RunbookStepDeveloper" FromRole="RunbookStep" ToRole="Contact" />
+          <NavigationProperty Name="Resources" Relationship="MrcDataModel.RunbookStepResource" FromRole="RunbookStep" ToRole="Contact" />
+        </EntityType>
+        <Association Name="RunbookStep_RunbookStepStatus_FK">
+          <End Type="MrcDataModel.RunbookStepStatus" Role="RunbookStepStatu" Multiplicity="0..1" />
+          <End Type="MrcDataModel.RunbookStep" Role="RunbookStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookStepStatu">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="RunbookStep">
+              <PropertyRef Name="RunbookStepStatusCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RunbookStepPbi">
+          <Key>
+            <PropertyRef Name="RunbookStepId" />
+            <PropertyRef Name="PbiNumber" />
+          </Key>
+          <Property Name="RunbookStepId" Type="Int32" Nullable="false" />
+          <Property Name="PbiNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RunbookStep" Relationship="MrcDataModel.RunbookStepPbi_RunbookStep_FK" FromRole="RunbookStepPbi" ToRole="RunbookStep" />
+        </EntityType>
+        <Association Name="RunbookStepPbi_RunbookStep_FK">
+          <End Type="MrcDataModel.RunbookStep" Role="RunbookStep" Multiplicity="1" />
+          <End Type="MrcDataModel.RunbookStepPbi" Role="RunbookStepPbi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookStep">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStepPbi">
+              <PropertyRef Name="RunbookStepId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RunbookStepType">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="RunbookSteps" Relationship="MrcDataModel.RunbookStep_RunbookStepType_FK" FromRole="RunbookStepType" ToRole="RunbookStep" />
+        </EntityType>
+        <Association Name="RunbookStep_RunbookStepType_FK">
+          <End Type="MrcDataModel.RunbookStepType" Role="RunbookStepType" Multiplicity="0..1" />
+          <End Type="MrcDataModel.RunbookStep" Role="RunbookStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookStepType">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="RunbookStep">
+              <PropertyRef Name="RunbookStepTypeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStep_RunbookTemplate_FK">
+          <End Type="MrcDataModel.RunbookTemplate" Role="RunbookTemplate" Multiplicity="0..1" />
+          <End Type="MrcDataModel.RunbookStep" Role="RunbookStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RunbookTemplate">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStep">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ApplicationGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RunbookSteps" Relationship="MrcDataModel.RunbookStepTeam" FromRole="Team" ToRole="RunbookStep" />
+        </EntityType>
+        <Association Name="RunbookStepTeam">
+          <End Type="MrcDataModel.RunbookStep" Role="RunbookStep" Multiplicity="*" />
+          <End Type="MrcDataModel.Team" Role="Team" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RunbookStepDevelopers" Relationship="MrcDataModel.RunbookStepDeveloper" FromRole="Contact" ToRole="RunbookStep" />
+          <NavigationProperty Name="RunbookStepResources" Relationship="MrcDataModel.RunbookStepResource" FromRole="Contact" ToRole="RunbookStep" />
+        </EntityType>
+        <Association Name="RunbookStepDeveloper">
+          <End Type="MrcDataModel.Contact" Role="Contact" Multiplicity="*" />
+          <End Type="MrcDataModel.RunbookStep" Role="RunbookStep" Multiplicity="*" />
+        </Association>
+        <Association Name="RunbookStepResource">
+          <End Type="MrcDataModel.Contact" Role="Contact" Multiplicity="*" />
+          <End Type="MrcDataModel.RunbookStep" Role="RunbookStep" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MrcDataModelStoreContainer" CdmEntityContainer="MrcDataEntities">
+          <EntitySetMapping Name="RunbookTemplates">
+            <EntityTypeMapping TypeName="MrcDataModel.RunbookTemplate">
+              <MappingFragment StoreEntitySet="RunbookTemplate">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RunbookStepStatus">
+            <EntityTypeMapping TypeName="MrcDataModel.RunbookStepStatus">
+              <MappingFragment StoreEntitySet="RunbookStepStatus">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RunbookSteps">
+            <EntityTypeMapping TypeName="MrcDataModel.RunbookStep">
+              <MappingFragment StoreEntitySet="RunbookStep">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsHtml" ColumnName="IsHtml" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="RunbookStepTypeCode" ColumnName="RunbookStepTypeCode" />
+                <ScalarProperty Name="RunbookStepStatusCode" ColumnName="RunbookStepStatusCode" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="StepNumber" ColumnName="StepNumber" />
+                <ScalarProperty Name="GroupNumber" ColumnName="GroupNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RunbookStepPbis">
+            <EntityTypeMapping TypeName="MrcDataModel.RunbookStepPbi">
+              <MappingFragment StoreEntitySet="RunbookStepPbi">
+                <ScalarProperty Name="PbiNumber" ColumnName="PbiNumber" />
+                <ScalarProperty Name="RunbookStepId" ColumnName="RunbookStepId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RunbookStepTypes">
+            <EntityTypeMapping TypeName="MrcDataModel.RunbookStepType">
+              <MappingFragment StoreEntitySet="RunbookStepType">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicationGroups">
+            <EntityTypeMapping TypeName="MrcDataModel.ApplicationGroup">
+              <MappingFragment StoreEntitySet="ApplicationGroup">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="MrcDataModel.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="RunbookStepTeam" TypeName="MrcDataModel.RunbookStepTeam" StoreEntitySet="RunbookStepTeam">
+            <EndProperty Name="Team">
+              <ScalarProperty Name="Id" ColumnName="TeamId" />
+            </EndProperty>
+            <EndProperty Name="RunbookStep">
+              <ScalarProperty Name="Id" ColumnName="RunbookStepId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="MrcDataModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="RunbookStepDeveloper" TypeName="MrcDataModel.RunbookStepDeveloper" StoreEntitySet="RunbookStepDeveloper">
+            <EndProperty Name="RunbookStep">
+              <ScalarProperty Name="Id" ColumnName="RunbookStepId" />
+            </EndProperty>
+            <EndProperty Name="Contact">
+              <ScalarProperty Name="Id" ColumnName="ContactId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RunbookStepResource" TypeName="MrcDataModel.RunbookStepResource" StoreEntitySet="RunbookStepResource">
+            <EndProperty Name="RunbookStep">
+              <ScalarProperty Name="Id" ColumnName="RunbookStepId" />
+            </EndProperty>
+            <EndProperty Name="Contact">
+              <ScalarProperty Name="Id" ColumnName="ContactId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

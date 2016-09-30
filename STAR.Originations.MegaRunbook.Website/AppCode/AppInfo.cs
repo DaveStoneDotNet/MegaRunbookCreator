@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Reflection;
 
-using contracts = STAR.Originations.MegaRunbook.Contracts;
+using STAR.Originations.MegaRunbook.Contracts;
+
+using contracts = STAR.Originations.MegaRunbook.Contracts.Data;
 
 namespace STAR.Originations.MegaRunbook.Website.AppCode
 {
     public class AppInfo
     {
         #region GetSystemInfo
-        public static contracts::AppInfo GetSystemInfo()
+        public static Contracts.Data.AppInfo GetSystemInfo()
         {
-            var appInfo = new contracts::AppInfo { Sprint = contracts::SharedConstants.CurrentSprint };
+            var appInfo = new contracts::AppInfo { Sprint = SharedConstants.CurrentSprint };
 
             try
             {
@@ -35,9 +37,9 @@ namespace STAR.Originations.MegaRunbook.Website.AppCode
         #endregion GetSystemInfo
 
         #region GetExtendedSystemInfo
-        public static contracts::AppInfo GetExtendedSystemInfo()
+        public static Contracts.Data.AppInfo GetExtendedSystemInfo()
         {
-            var appInfo = new contracts.AppInfo();
+            var appInfo = new Contracts.Data.AppInfo();
 
             try
             {

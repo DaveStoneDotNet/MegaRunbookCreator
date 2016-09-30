@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>STAR.Originations.MegaRunbook.Contracts</RootNamespace>
     <AssemblyName>STAR.Originations.MegaRunbook.Contracts</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,18 +42,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppInfo.cs" />
-    <Compile Include="Developer.cs" />
+    <Compile Include="Data\AppInfo.cs" />
+    <Compile Include="Data\ApplicationGroup.cs" />
+    <Compile Include="Data\Contact.cs" />
+    <Compile Include="Data\Developer.cs" />
+    <Compile Include="Data\RequestBase.cs" />
+    <Compile Include="Data\RunbookStepDeveloper.cs" />
+    <Compile Include="Data\RunbookStepPbi.cs" />
+    <Compile Include="Data\RunbookStepResource.cs" />
+    <Compile Include="Data\RunbookStepStatus.cs" />
+    <Compile Include="Data\RunbookStepTeam.cs" />
+    <Compile Include="Data\RunbookStepType.cs" />
+    <Compile Include="Data\Team.cs" />
     <Compile Include="Heroes\Crisis.cs" />
     <Compile Include="Heroes\Hero.cs" />
-    <Compile Include="Lookup.cs" />
-    <Compile Include="PBI.cs" />
+    <Compile Include="Data\Lookup.cs" />
+    <Compile Include="PagingModels\Page.cs" />
+    <Compile Include="PagingModels\Paging.cs" />
+    <Compile Include="PagingModels\SortInfo.cs" />
+    <Compile Include="PagingModels\SortOrder.cs" />
+    <Compile Include="Data\PBI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RunbookStep.cs" />
-    <Compile Include="RunbookTemplate.cs" />
+    <Compile Include="Data\RunbookStep.cs" />
+    <Compile Include="Data\RunbookTemplate.cs" />
     <Compile Include="SharedConstants.cs" />
-    <Compile Include="UserProfile.cs" />
+    <Compile Include="Data\UserProfile.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

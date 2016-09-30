@@ -5,5 +5,5 @@ export class RunbookTemplate {
     ID: number;
     Number: number;
     Name: string;
-    Steps: RunbookStep[];
+    RunbookSteps: RunbookStep[];
 }
