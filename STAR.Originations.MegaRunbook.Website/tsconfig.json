@@ -10,5 +10,10 @@
     "noImplicitAny":                  false,
     "suppressImplicitAnyIndexErrors": true
   },
+  "exclude": [
+    "typings",
+    "typings",
+    "node_modules"
+  ], 
   "compileOnSave": true
 }

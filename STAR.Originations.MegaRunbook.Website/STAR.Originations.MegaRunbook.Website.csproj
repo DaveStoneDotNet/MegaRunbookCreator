@@ -139,6 +139,7 @@
     <Content Include=".gitignore" />
     <Content Include="app\admin\admin.component.html" />
     <Content Include="app\app.component.html" />
+    <Content Include="app\common\is-working.component.html" />
     <Content Include="app\common\not-authorized.component.html" />
     <Content Include="app\content\css\site.css">
       <DependentUpon>site.scss</DependentUpon>
@@ -164,6 +165,7 @@
     <Content Include="app\heroes\hero-list.component.html" />
     <Content Include="app\common\page-not-found.component.html" />
     <Content Include="app\home\home.component.html" />
+    <Content Include="app\links\link-list.component.html" />
     <Content Include="app\templates\template-detail.component.html" />
     <Content Include="app\json\runbook-steps.json" />
     <Content Include="app\runbooks\runbooks.component.html" />
@@ -255,6 +257,7 @@
     <TypeScriptCompile Include="app\builds\builds.component.ts" />
     <TypeScriptCompile Include="app\builds\builds.module.ts" />
     <TypeScriptCompile Include="app\builds\builds.routing.ts" />
+    <TypeScriptCompile Include="app\common\is-working.component.ts" />
     <TypeScriptCompile Include="app\common\not-authorized.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-center.component.ts" />
@@ -265,9 +268,11 @@
     <TypeScriptCompile Include="app\crisis-center\crisis-list.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis.service.ts" />
     <TypeScriptCompile Include="app\entities\contact.entity.ts" />
+    <TypeScriptCompile Include="app\entities\link.entity.ts" />
     <TypeScriptCompile Include="app\entities\paged-base.ts" />
     <TypeScriptCompile Include="app\entities\paged-runbook-template.entity.ts" />
     <TypeScriptCompile Include="app\entities\runbook-step-pbi.entity.ts" />
+    <TypeScriptCompile Include="app\entities\service-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\sort-info.entity.ts" />
     <TypeScriptCompile Include="app\entities\team.entity.ts" />
     <TypeScriptCompile Include="app\interfaces\i-can-component-deactivate.ts" />
@@ -286,6 +291,10 @@
     <TypeScriptCompile Include="app\heroes\heroes.routing.ts" />
     <TypeScriptCompile Include="app\common\page-not-found.component.ts" />
     <TypeScriptCompile Include="app\home\home.component.ts" />
+    <TypeScriptCompile Include="app\links\link-list.component.ts" />
+    <TypeScriptCompile Include="app\links\link.module.ts" />
+    <TypeScriptCompile Include="app\links\link.routing.ts" />
+    <TypeScriptCompile Include="app\links\link.service.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\pipes\plural.pipe.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.component.ts" />
@@ -297,6 +306,7 @@
     <TypeScriptCompile Include="app\services\can-deactivate-guard.service.ts" />
     <TypeScriptCompile Include="app\services\dialog.service.ts" />
     <TypeScriptCompile Include="app\services\http.service.ts" />
+    <TypeScriptCompile Include="app\services\is-working.service.ts" />
     <TypeScriptCompile Include="app\services\template.service.ts" />
     <TypeScriptCompile Include="app\services\user.service.ts" />
     <TypeScriptCompile Include="app\templates\template-detail.component.ts" />

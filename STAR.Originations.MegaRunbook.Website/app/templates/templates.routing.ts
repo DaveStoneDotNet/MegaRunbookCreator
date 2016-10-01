@@ -8,9 +8,9 @@ import { TemplateDetailComponent }  from './template-detail.component';
 import { TemplateListComponent }    from './template-list.component';
 
 const templatesRoutes: Routes = [
-    { path: 'templatelist',       component: TemplateListComponent },
-    { path: 'templatedetail/:id', component: TemplateDetailComponent }, 
-    { path: 'templateform/:id',   component: RunbookStepFormComponent }, 
+    { path: 'templatelist',        component: TemplateListComponent },
+    { path: 'templatedetail/:id',  component: TemplateDetailComponent }, 
+    { path: 'runbookStepForm/:id', component: RunbookStepFormComponent }, 
 ];
 
 export const templatesRouting: ModuleWithProviders = RouterModule.forChild(templatesRoutes);

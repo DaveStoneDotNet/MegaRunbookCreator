@@ -48,7 +48,7 @@ export class TemplateDetailComponent implements OnInit {
     }
 
     editRunbookStep(step: RunbookStep): void {
-        let link = ['/templateform', step.ID];
+        let link = ['/runbookStepForm', step.ID];
         this.router.navigate(link);
     }
 
