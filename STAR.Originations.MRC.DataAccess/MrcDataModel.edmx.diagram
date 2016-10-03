@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f6969db5a19a455bbaed7e9e138a4357" Name="Diagram1" ZoomLevel="74">
+      <Diagram DiagramId="f6969db5a19a455bbaed7e9e138a4357" Name="Diagram1" ZoomLevel="78">
         <EntityTypeShape EntityType="MrcDataModel.RunbookTemplate" Width="2" PointX="0.5" PointY="2.625" />
         <EntityTypeShape EntityType="MrcDataModel.RunbookStepStatus" Width="2.125" PointX="6.25" PointY="5.625" IsExpanded="false" />
         <EntityTypeShape EntityType="MrcDataModel.RunbookStep" Width="2.25" PointX="3.125" PointY="2.625" />
@@ -14,13 +14,23 @@
         <EntityTypeShape EntityType="MrcDataModel.RunbookStepType" Width="2.125" PointX="6.25" PointY="5.125" IsExpanded="false" />
         <AssociationConnector Association="MrcDataModel.RunbookStep_RunbookStepType_FK" />
         <AssociationConnector Association="MrcDataModel.RunbookStep_RunbookTemplate_FK" />
-        <EntityTypeShape EntityType="MrcDataModel.ApplicationGroup" Width="2" PointX="0.5" PointY="5.75" />
         <EntityTypeShape EntityType="MrcDataModel.Team" Width="2.125" PointX="6.25" PointY="6.25" IsExpanded="false" />
         <AssociationConnector Association="MrcDataModel.RunbookStepTeam" />
         <EntityTypeShape EntityType="MrcDataModel.Contact" Width="2.125" PointX="3.25" PointY="7.875" />
         <AssociationConnector Association="MrcDataModel.RunbookStepDeveloper" />
         <AssociationConnector Association="MrcDataModel.RunbookStepResource" />
-      </Diagram>
+        <EntityTypeShape EntityType="MrcDataModel.Server" Width="1.5" PointX="20.125" PointY="5.125" />
+        <AssociationConnector Association="MrcDataModel.Server_Environment_FK" />
+        <EntityTypeShape EntityType="MrcDataModel.ApplicationLink" Width="1.75" PointX="12.75" PointY="5.125" />
+        <EntityTypeShape EntityType="MrcDataModel.EnvironmentLink" Width="2" PointX="17.25" PointY="5.125" />
+        <EntityTypeShape EntityType="MrcDataModel.ServiceLink" Width="1.5" PointX="15.125" PointY="5.125" />
+        <AssociationConnector Association="MrcDataModel.ServiceLink_ApplicationLink_FK" />
+        <AssociationConnector Association="MrcDataModel.EnvironmentLink_Server_FK" />
+        <AssociationConnector Association="MrcDataModel.EnvironmentLink_ServiceLink_FK" />
+        <EntityTypeShape EntityType="MrcDataModel.ApplicationGroup" Width="2.375" PointX="9.75" PointY="5.125" />
+        <EntityTypeShape EntityType="MrcDataModel.Environment" Width="2.375" PointX="22.5" PointY="5.125" />
+        <AssociationConnector Association="MrcDataModel.ApplicationLink_ApplicationGroup_FK" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

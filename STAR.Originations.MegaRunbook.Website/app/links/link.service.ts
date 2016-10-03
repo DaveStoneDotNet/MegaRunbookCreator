@@ -7,8 +7,8 @@ import { RequestOptions }   from '@angular/http';
 
 import { IsWorkingService } from '../services/is-working.service';
 
-import { ServiceLink }      from '../entities/service-link.entity';
-import { Link }             from '../entities/link.entity';
+import { ApplicationLink }  from '../entities/application-link.entity';
+import { EnvironmentLink }  from '../entities/environment-link.entity';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -26,9 +26,9 @@ export class LinkService {
         this.jsonHeaders.append('Accept', 'q=0.8;application/json;q=0.9');
     }
 
-    getServiceLinks(): Promise<ServiceLink[]> {
+    getApplicationLinks(): Promise<ApplicationLink[]> {
         this.isWorkingService.startWorking('Working...');
-        return this.http.get('api/GetServiceLinks')
+        return this.http.get('api/GetApplicationLinks')
             .toPromise()
             .then(response => this.onServiceLinksSuccessful(response))
             .catch(this.handleError);
@@ -37,10 +37,10 @@ export class LinkService {
     private onServiceLinksSuccessful(response: Response) {
         this.isWorkingService.stopWorking();
         let a = response.json();
-        return response.json() as ServiceLink[];
+        return response.json() as ApplicationLink[];
     }
 
-    getServiceLink(object: any): Promise<ServiceLink> {
+    getServiceLink(object: any): Promise<ApplicationLink> {
 
         let body = JSON.stringify(object);
 
@@ -54,7 +54,7 @@ export class LinkService {
 
     private onServiceLinkSuccessful(response: Response) {
         let a = response.json();
-        return response.json() as ServiceLink;
+        return response.json() as ApplicationLink;
     }
 
     delete(id: number): Promise<void> {
@@ -65,7 +65,7 @@ export class LinkService {
             .catch(this.handleError);
     }
 
-    create(name: string): Promise<ServiceLink> {
+    create(name: string): Promise<ApplicationLink> {
         return this.http
             .post(this.serviceLinkUrl, JSON.stringify({ name: name }), { headers: this.headers })
             .toPromise()
@@ -73,12 +73,12 @@ export class LinkService {
             .catch(this.handleError);
     }
 
-    update(hero: ServiceLink): Promise<ServiceLink> {
-        const url = '${this.serviceLinkUrl}/${hero.id}';
+    update(applicationLink: ApplicationLink): Promise<ApplicationLink> {
+        const url = '${this.serviceLinkUrl}/${applicationLink.id}';
         return this.http
-            .put(url, JSON.stringify(hero), { headers: this.headers })
+            .put(url, JSON.stringify(applicationLink), { headers: this.headers })
             .toPromise()
-            .then(() => hero)
+            .then(() => applicationLink)
             .catch(this.handleError);
     }
 

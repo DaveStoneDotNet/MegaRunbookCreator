@@ -451,9 +451,34 @@ body {
         background-color: $gray-3;
         border: solid 1px $gray-4;
         padding: 5px 10px 5px 10px;
-
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
+    }
+
+    input[type="number"] {
+        width: 5em;
+    }
+
+    input[type="checkbox"] {
+        outline: none;
+        border: none;
+        width: 2em;
+        height: 2em;
+    }
+    input[type="checkbox"]:focus {
+        outline: none;
+        border: none;
+        box-shadow: none;
+        outline-color: transparent;
+        outline-style: none;
+        width: 2em;
+    }
+
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
 
     input.ng-untouched.ng-pristine.ng-valid {
@@ -505,7 +530,7 @@ body {
 
     input::selection {
         background: $gray-9;
-        color: $pure-white; 
+        color: $pure-white;
     }
 
     select {
@@ -513,7 +538,6 @@ body {
         background-color: $gray-3;
         border: solid 1px $gray-4;
         padding: 5px 10px 5px 10px;
-
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
     }
@@ -558,6 +582,16 @@ body {
     select.ng-untouched.ng-dirty.ng-invalid:focus {
         @include form-border($form-red);
         @include out-box-shadow(0, 1px, 1px, rgba(0, 0, 0, .075), 0, 0, 8px, rgba(169, 68, 66, 0.6));
+    }
+
+    textarea {
+        color: $gray-9;
+        background-color: $gray-3;
+        border: solid 1px $gray-4;
+        padding: 5px 10px 5px 10px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        font-family: Consolas,Lucida Console,Courier New, monospace;
     }
 
     .required-input {
@@ -1189,3 +1223,4 @@ table.runbook-table {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
+

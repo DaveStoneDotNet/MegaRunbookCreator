@@ -14,7 +14,16 @@ namespace STAR.Originations.MRC.DataAccess
     
     public partial class ApplicationGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ApplicationGroup()
+        {
+            this.ApplicationLinks = new HashSet<ApplicationLink>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ApplicationLink> ApplicationLinks { get; set; }
     }
 }

@@ -12,6 +12,50 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="ApplicationLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationGroupId" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="Notes" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="Environment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="5" />
+          <Property Name="SortOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="EnvironmentLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceLinkId" Type="int" />
+          <Property Name="ServerId" Type="int" />
+          <Property Name="Url" Type="varchar" MaxLength="500" />
+          <Property Name="FolderPath" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Server">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="EnvironmentId" Type="int" />
+        </EntityType>
+        <EntityType Name="ServiceLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationLinkId" Type="int" Nullable="false" />
+          <Property Name="ServiceName" Type="varchar" MaxLength="50" />
+          <Property Name="FolderName" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="RunbookStepStatus">
           <Key>
             <PropertyRef Name="Code" />
@@ -99,6 +143,42 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="ApplicationLink_ApplicationGroup_FK">
+          <End Role="ApplicationGroup" Type="Self.ApplicationGroup" Multiplicity="0..1" />
+          <End Role="ApplicationLink" Type="Self.ApplicationLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationLink">
+              <PropertyRef Name="ApplicationGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EnvironmentLink_Server_FK">
+          <End Role="Server" Type="Self.Server" Multiplicity="0..1" />
+          <End Role="EnvironmentLink" Type="Self.EnvironmentLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Server">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EnvironmentLink">
+              <PropertyRef Name="ServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EnvironmentLink_ServiceLink_FK">
+          <End Role="ServiceLink" Type="Self.ServiceLink" Multiplicity="0..1" />
+          <End Role="EnvironmentLink" Type="Self.EnvironmentLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceLink">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EnvironmentLink">
+              <PropertyRef Name="ServiceLinkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="RunbookStep_RunbookStepStatus_FK">
           <End Role="RunbookStepStatus" Type="Self.RunbookStepStatus" Multiplicity="0..1" />
           <End Role="RunbookStep" Type="Self.RunbookStep" Multiplicity="*" />
@@ -219,8 +299,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Server_Environment_FK">
+          <End Role="Environment" Type="Self.Environment" Multiplicity="0..1" />
+          <End Role="Server" Type="Self.Server" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Environment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Server">
+              <PropertyRef Name="EnvironmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ServiceLink_ApplicationLink_FK">
+          <End Role="ApplicationLink" Type="Self.ApplicationLink" Multiplicity="1" />
+          <End Role="ServiceLink" Type="Self.ServiceLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationLink">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceLink">
+              <PropertyRef Name="ApplicationLinkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MrcDataModelStoreContainer">
           <EntitySet Name="ApplicationGroup" EntityType="Self.ApplicationGroup" Schema="Links" store:Type="Tables" />
+          <EntitySet Name="ApplicationLink" EntityType="Self.ApplicationLink" Schema="Links" store:Type="Tables" />
+          <EntitySet Name="Environment" EntityType="Self.Environment" Schema="Links" store:Type="Tables" />
+          <EntitySet Name="EnvironmentLink" EntityType="Self.EnvironmentLink" Schema="Links" store:Type="Tables" />
+          <EntitySet Name="Server" EntityType="Self.Server" Schema="Links" store:Type="Tables" />
+          <EntitySet Name="ServiceLink" EntityType="Self.ServiceLink" Schema="Links" store:Type="Tables" />
           <EntitySet Name="RunbookStepStatus" EntityType="Self.RunbookStepStatus" Schema="Lookup" store:Type="Tables" />
           <EntitySet Name="RunbookStepType" EntityType="Self.RunbookStepType" Schema="Lookup" store:Type="Tables" />
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="People" store:Type="Tables" />
@@ -231,6 +340,18 @@
           <EntitySet Name="RunbookStepResource" EntityType="Self.RunbookStepResource" Schema="Runbook" store:Type="Tables" />
           <EntitySet Name="RunbookStepTeam" EntityType="Self.RunbookStepTeam" Schema="Runbook" store:Type="Tables" />
           <EntitySet Name="RunbookTemplate" EntityType="Self.RunbookTemplate" Schema="Runbook" store:Type="Tables" />
+          <AssociationSet Name="ApplicationLink_ApplicationGroup_FK" Association="Self.ApplicationLink_ApplicationGroup_FK">
+            <End Role="ApplicationGroup" EntitySet="ApplicationGroup" />
+            <End Role="ApplicationLink" EntitySet="ApplicationLink" />
+          </AssociationSet>
+          <AssociationSet Name="EnvironmentLink_Server_FK" Association="Self.EnvironmentLink_Server_FK">
+            <End Role="Server" EntitySet="Server" />
+            <End Role="EnvironmentLink" EntitySet="EnvironmentLink" />
+          </AssociationSet>
+          <AssociationSet Name="EnvironmentLink_ServiceLink_FK" Association="Self.EnvironmentLink_ServiceLink_FK">
+            <End Role="ServiceLink" EntitySet="ServiceLink" />
+            <End Role="EnvironmentLink" EntitySet="EnvironmentLink" />
+          </AssociationSet>
           <AssociationSet Name="RunbookStep_RunbookStepStatus_FK" Association="Self.RunbookStep_RunbookStepStatus_FK">
             <End Role="RunbookStepStatus" EntitySet="RunbookStepStatus" />
             <End Role="RunbookStep" EntitySet="RunbookStep" />
@@ -271,6 +392,14 @@
             <End Role="Team" EntitySet="Team" />
             <End Role="RunbookStepTeam" EntitySet="RunbookStepTeam" />
           </AssociationSet>
+          <AssociationSet Name="Server_Environment_FK" Association="Self.Server_Environment_FK">
+            <End Role="Environment" EntitySet="Environment" />
+            <End Role="Server" EntitySet="Server" />
+          </AssociationSet>
+          <AssociationSet Name="ServiceLink_ApplicationLink_FK" Association="Self.ServiceLink_ApplicationLink_FK">
+            <End Role="ApplicationLink" EntitySet="ApplicationLink" />
+            <End Role="ServiceLink" EntitySet="ServiceLink" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -298,7 +427,6 @@
             <End Role="RunbookTemplate" EntitySet="RunbookTemplates" />
             <End Role="RunbookStep" EntitySet="RunbookSteps" />
           </AssociationSet>
-          <EntitySet Name="ApplicationGroups" EntityType="MrcDataModel.ApplicationGroup" />
           <EntitySet Name="Teams" EntityType="MrcDataModel.Team" />
           <AssociationSet Name="RunbookStepTeam" Association="MrcDataModel.RunbookStepTeam">
             <End Role="RunbookStep" EntitySet="RunbookSteps" />
@@ -312,6 +440,32 @@
           <AssociationSet Name="RunbookStepResource" Association="MrcDataModel.RunbookStepResource">
             <End Role="Contact" EntitySet="Contacts" />
             <End Role="RunbookStep" EntitySet="RunbookSteps" />
+          </AssociationSet>
+          <EntitySet Name="ApplicationGroups" EntityType="MrcDataModel.ApplicationGroup" />
+          <EntitySet Name="ApplicationLinks" EntityType="MrcDataModel.ApplicationLink" />
+          <EntitySet Name="Environments" EntityType="MrcDataModel.Environment" />
+          <EntitySet Name="EnvironmentLinks" EntityType="MrcDataModel.EnvironmentLink" />
+          <EntitySet Name="Servers" EntityType="MrcDataModel.Server" />
+          <EntitySet Name="ServiceLinks" EntityType="MrcDataModel.ServiceLink" />
+          <AssociationSet Name="ApplicationLink_ApplicationGroup_FK" Association="MrcDataModel.ApplicationLink_ApplicationGroup_FK">
+            <End Role="ApplicationGroup" EntitySet="ApplicationGroups" />
+            <End Role="ApplicationLink" EntitySet="ApplicationLinks" />
+          </AssociationSet>
+          <AssociationSet Name="ServiceLink_ApplicationLink_FK" Association="MrcDataModel.ServiceLink_ApplicationLink_FK">
+            <End Role="ApplicationLink" EntitySet="ApplicationLinks" />
+            <End Role="ServiceLink" EntitySet="ServiceLinks" />
+          </AssociationSet>
+          <AssociationSet Name="Server_Environment_FK" Association="MrcDataModel.Server_Environment_FK">
+            <End Role="Environment" EntitySet="Environments" />
+            <End Role="Server" EntitySet="Servers" />
+          </AssociationSet>
+          <AssociationSet Name="EnvironmentLink_Server_FK" Association="MrcDataModel.EnvironmentLink_Server_FK">
+            <End Role="Server" EntitySet="Servers" />
+            <End Role="EnvironmentLink" EntitySet="EnvironmentLinks" />
+          </AssociationSet>
+          <AssociationSet Name="EnvironmentLink_ServiceLink_FK" Association="MrcDataModel.EnvironmentLink_ServiceLink_FK">
+            <End Role="ServiceLink" EntitySet="ServiceLinks" />
+            <End Role="EnvironmentLink" EntitySet="EnvironmentLinks" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="RunbookTemplate">
@@ -421,13 +575,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ApplicationGroup">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="Team">
           <Key>
             <PropertyRef Name="Id" />
@@ -457,6 +604,127 @@
         <Association Name="RunbookStepResource">
           <End Type="MrcDataModel.Contact" Role="Contact" Multiplicity="*" />
           <End Type="MrcDataModel.RunbookStep" Role="RunbookStep" Multiplicity="*" />
+        </Association>
+        <EntityType Name="ApplicationGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ApplicationLinks" Relationship="MrcDataModel.ApplicationLink_ApplicationGroup_FK" FromRole="ApplicationGroup" ToRole="ApplicationLink" />
+        </EntityType>
+        <EntityType Name="ApplicationLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationGroupId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ApplicationGroup" Relationship="MrcDataModel.ApplicationLink_ApplicationGroup_FK" FromRole="ApplicationLink" ToRole="ApplicationGroup" />
+          <NavigationProperty Name="ServiceLinks" Relationship="MrcDataModel.ServiceLink_ApplicationLink_FK" FromRole="ApplicationLink" ToRole="ServiceLink" />
+        </EntityType>
+        <EntityType Name="Environment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SortOrder" Type="Int32" />
+          <NavigationProperty Name="Servers" Relationship="MrcDataModel.Server_Environment_FK" FromRole="Environment" ToRole="Server" />
+        </EntityType>
+        <EntityType Name="EnvironmentLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceLinkId" Type="Int32" />
+          <Property Name="ServerId" Type="Int32" />
+          <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FolderPath" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Server" Relationship="MrcDataModel.EnvironmentLink_Server_FK" FromRole="EnvironmentLink" ToRole="Server" />
+          <NavigationProperty Name="ServiceLink" Relationship="MrcDataModel.EnvironmentLink_ServiceLink_FK" FromRole="EnvironmentLink" ToRole="ServiceLink" />
+        </EntityType>
+        <EntityType Name="Server">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EnvironmentId" Type="Int32" />
+          <NavigationProperty Name="Environment" Relationship="MrcDataModel.Server_Environment_FK" FromRole="Server" ToRole="Environment" />
+          <NavigationProperty Name="EnvironmentLinks" Relationship="MrcDataModel.EnvironmentLink_Server_FK" FromRole="Server" ToRole="EnvironmentLink" />
+        </EntityType>
+        <EntityType Name="ServiceLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationLinkId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FolderName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ApplicationLink" Relationship="MrcDataModel.ServiceLink_ApplicationLink_FK" FromRole="ServiceLink" ToRole="ApplicationLink" />
+          <NavigationProperty Name="EnvironmentLinks" Relationship="MrcDataModel.EnvironmentLink_ServiceLink_FK" FromRole="ServiceLink" ToRole="EnvironmentLink" />
+        </EntityType>
+        <Association Name="ApplicationLink_ApplicationGroup_FK">
+          <End Type="MrcDataModel.ApplicationGroup" Role="ApplicationGroup" Multiplicity="0..1" />
+          <End Type="MrcDataModel.ApplicationLink" Role="ApplicationLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ApplicationLink">
+              <PropertyRef Name="ApplicationGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ServiceLink_ApplicationLink_FK">
+          <End Type="MrcDataModel.ApplicationLink" Role="ApplicationLink" Multiplicity="1" />
+          <End Type="MrcDataModel.ServiceLink" Role="ServiceLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplicationLink">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceLink">
+              <PropertyRef Name="ApplicationLinkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Server_Environment_FK">
+          <End Type="MrcDataModel.Environment" Role="Environment" Multiplicity="0..1" />
+          <End Type="MrcDataModel.Server" Role="Server" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Environment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Server">
+              <PropertyRef Name="EnvironmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EnvironmentLink_Server_FK">
+          <End Type="MrcDataModel.Server" Role="Server" Multiplicity="0..1" />
+          <End Type="MrcDataModel.EnvironmentLink" Role="EnvironmentLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Server">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EnvironmentLink">
+              <PropertyRef Name="ServerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EnvironmentLink_ServiceLink_FK">
+          <End Type="MrcDataModel.ServiceLink" Role="ServiceLink" Multiplicity="0..1" />
+          <End Type="MrcDataModel.EnvironmentLink" Role="EnvironmentLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceLink">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EnvironmentLink">
+              <PropertyRef Name="ServiceLinkId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -516,14 +784,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ApplicationGroups">
-            <EntityTypeMapping TypeName="MrcDataModel.ApplicationGroup">
-              <MappingFragment StoreEntitySet="ApplicationGroup">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Teams">
             <EntityTypeMapping TypeName="MrcDataModel.Team">
               <MappingFragment StoreEntitySet="Team">
@@ -565,6 +825,63 @@
               <ScalarProperty Name="Id" ColumnName="ContactId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ApplicationGroups">
+            <EntityTypeMapping TypeName="MrcDataModel.ApplicationGroup">
+              <MappingFragment StoreEntitySet="ApplicationGroup">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplicationLinks">
+            <EntityTypeMapping TypeName="MrcDataModel.ApplicationLink">
+              <MappingFragment StoreEntitySet="ApplicationLink">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ApplicationGroupId" ColumnName="ApplicationGroupId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Environments">
+            <EntityTypeMapping TypeName="MrcDataModel.Environment">
+              <MappingFragment StoreEntitySet="Environment">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnvironmentLinks">
+            <EntityTypeMapping TypeName="MrcDataModel.EnvironmentLink">
+              <MappingFragment StoreEntitySet="EnvironmentLink">
+                <ScalarProperty Name="FolderPath" ColumnName="FolderPath" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="ServerId" ColumnName="ServerId" />
+                <ScalarProperty Name="ServiceLinkId" ColumnName="ServiceLinkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servers">
+            <EntityTypeMapping TypeName="MrcDataModel.Server">
+              <MappingFragment StoreEntitySet="Server">
+                <ScalarProperty Name="EnvironmentId" ColumnName="EnvironmentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceLinks">
+            <EntityTypeMapping TypeName="MrcDataModel.ServiceLink">
+              <MappingFragment StoreEntitySet="ServiceLink">
+                <ScalarProperty Name="FolderName" ColumnName="FolderName" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ApplicationLinkId" ColumnName="ApplicationLinkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

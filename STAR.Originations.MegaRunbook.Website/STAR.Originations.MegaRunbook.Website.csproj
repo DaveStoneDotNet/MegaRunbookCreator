@@ -267,11 +267,15 @@
     <TypeScriptCompile Include="app\crisis-center\crisis-detail.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-list.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis.service.ts" />
+    <TypeScriptCompile Include="app\entities\application-group.entity.ts" />
     <TypeScriptCompile Include="app\entities\contact.entity.ts" />
-    <TypeScriptCompile Include="app\entities\link.entity.ts" />
+    <TypeScriptCompile Include="app\entities\environment-link.entity.ts" />
+    <TypeScriptCompile Include="app\entities\environment.entity.ts" />
     <TypeScriptCompile Include="app\entities\paged-base.ts" />
     <TypeScriptCompile Include="app\entities\paged-runbook-template.entity.ts" />
     <TypeScriptCompile Include="app\entities\runbook-step-pbi.entity.ts" />
+    <TypeScriptCompile Include="app\entities\application-link.entity.ts" />
+    <TypeScriptCompile Include="app\entities\server.entity.ts" />
     <TypeScriptCompile Include="app\entities\service-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\sort-info.entity.ts" />
     <TypeScriptCompile Include="app\entities\team.entity.ts" />

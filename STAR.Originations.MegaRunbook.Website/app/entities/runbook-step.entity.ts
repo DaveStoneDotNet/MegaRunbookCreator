@@ -1,7 +1,8 @@
 ﻿
-import { RunbookStepPbi } from './runbook-step-pbi.entity';
-import { Contact }        from './contact.entity';
-import { Team }           from './team.entity';
+import { RunbookStepPbi }  from './runbook-step-pbi.entity';
+import { Contact }         from './contact.entity';
+import { Team }            from './team.entity';
+import { RunbookTemplate } from './runbook-template.entity';
 
 export class RunbookStep {
     ID: number;
@@ -20,10 +21,9 @@ export class RunbookStep {
     Time: Date;
 
     RunbookStepPbis: RunbookStepPbi[];
+    Teams: Team[];
     Developers: Contact[];
     Resources: Contact[];
-
-    Teams: string[];
 
     IsHtml: boolean;
     IsNotCollapsed: boolean;

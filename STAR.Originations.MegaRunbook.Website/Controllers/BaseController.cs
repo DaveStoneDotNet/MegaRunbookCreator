@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web.Mvc;
 
+using STAR.Originations.MegaRunbook.Contracts.PagingModels;
 using STAR.Originations.MegaRunbook.Website.AppCode;
 
 namespace STAR.Originations.MegaRunbook.Website.Controllers
@@ -43,6 +45,20 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             return stopwatch;
         }
         #endregion StartStopwatch
+
+        #region GetDefaultPaging
+        protected static Paging GetDefaultPaging(string propertyNameToSort)
+        {
+            return new Paging { PageSize = 1000, PageNumber = 0, SortInfo = new List<SortInfo> { new SortInfo { PropertyName = propertyNameToSort, Order = SortOrder.Ascending } } };
+        }
+        #endregion GetDefaultPaging
+
+        #region GetDefaultSort
+        protected static List<SortInfo> GetDefaultSortInfo(string propertyNameToSort)
+        {
+            return new List<SortInfo> { new SortInfo { PropertyName = propertyNameToSort, Order = SortOrder.Ascending } };
+        }
+        #endregion GetDefaultSort
 
         // ---
 

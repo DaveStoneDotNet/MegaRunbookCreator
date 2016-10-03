@@ -1,5 +1,5 @@
 ﻿<div class="top-fixed-menu-buttons">
-    <button class="btn btn-primary btn-sm">Button</button>
+    <button class="btn btn-primary btn-sm">Add Runbook Step</button>
     <button class="btn btn-info btn-sm" title="reload"><i class="fa fa-refresh"></i></button>
 </div>
 
@@ -10,21 +10,116 @@
 
     <div class="row">
         <div class="col-md-6">
-            <form>
-                <div class="form-group">
-                    <label for="Team">Team</label>
-                    <input id="Team" name="Team" type="text" class="form-control" required [(ngModel)]="runbookStep.Team" />
+            <div *ngIf="runbookStep" class="mrc-forms">
+                <form id="runbookStepForm" name="runbookStepForm" #runbookStepForm="ngForm"
+                      class="mrc-form"
+                      *ngIf="active">
+
+                    <table>
+                        <tr>
+                            <td class="align-right"><label for="GroupNumber">Group Number</label></td>
+                            <td>
+                                <input id="GroupNumber" name="GroupNumber" type="number" min="1" max="100" class="form-control" required [(ngModel)]="runbookStep.GroupNumber" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right"><label for="StepNumber">Step Number</label></td>
+                            <td>
+                                <input id="StepNumber" name="StepNumber" type="number" min="1" max="100" class="form-control" required [(ngModel)]="runbookStep.StepNumber" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right"><label for="Name">Name</label></td>
+                            <td>
+                                <input id="Name" name="Name" type="text" class="form-control" required [(ngModel)]="runbookStep.Name" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right align-top"><label for="Description">Description</label></td>
+                            <td>
+                                <textarea id="Description"
+                                          name="Description"
+                                          cols="100"
+                                          rows="10"
+                                          Description="Name"
+                                          class="form-control fixed-font"
+                                          spellcheck="false"
+                                          required 
+                                          [(ngModel)]="runbookStep.Description"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right align-top"><label for="Notes">Notes</label></td>
+                            <td>
+                                <textarea id="Notes"
+                                          name="Notes"
+                                          cols="100"
+                                          rows="10"
+                                          Description="Name"
+                                          class="form-control fixed-font"
+                                          spellcheck="false"
+                                          required
+                                          [(ngModel)]="runbookStep.Notes"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right"><label for="RunbookStepTypeCode">Type</label></td>
+                            <td>
+                                <input id="RunbookStepTypeCode" name="RunbookStepTypeCode" type="text" class="form-control" required [(ngModel)]="runbookStep.RunbookStepTypeCode" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right"><label for="IsHtml">Is HTML</label></td>
+                            <td>
+                                <input id="IsHtml" name="IsHtml" type="checkbox" class="form-control" required [(ngModel)]="runbookStep.IsHtml"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right"><label for="RunbookStepPbis">PBIs</label></td>
+                            <td>
+                                <div *ngFor="let pbi of runbookStep.RunbookStepPbis">{{ pbi.PbiNumber }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right"><label for="Teams">Teams</label></td>
+                            <td>
+                                <div *ngFor="let team of runbookStep.Teams">{{ team.Name }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right"><label for="Resources">Resources</label></td>
+                            <td>
+                                <div *ngFor="let resource of runbookStep.Resources">{{ resource.DisplayName }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right"><label for="Developers">Developers</label></td>
+                            <td>
+                                <div *ngFor="let developer of runbookStep.Developers">{{ developer.DisplayName }}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-right"></td>
+                            <td>
+                                <div *ngFor="let developer of runbookStep.Developers">{{ developer.DisplayName }}</div>
+                            </td>
+                        </tr>
+
+                        <!-- SUBMIT BUTTON -->
+
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <div class="pad-20 margin-top-20 border">
+                    <pre>{{ runbookStep | json }}</pre>
                 </div>
-                <div class="form-group">
-                    <label for="RunbookStatus">Status</label>
-                    <select id="RunbookStatus" class="form-control" required>
-                        <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <div class="pad-20 margin-top-20 border">
-                <pre>{{ runbookStep | json }}</pre>
             </div>
         </div>
     </div>

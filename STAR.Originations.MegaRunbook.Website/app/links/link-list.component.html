@@ -102,7 +102,7 @@
     </div>
 
     <!-- SELECTED -->
-    <div *ngIf="serviceLink">
+    <div *ngIf="applicationLink">
         <div class="selected-link">
             <div class="float-right pad-10 align-middle pointer" style="margin-top: -50px; border-radius: 30px 30px 0px 0px; background-color: rgba(49, 75, 24, 0.95);">
                 <i class="fa fa-chevron-circle-up font-2-00 white opacity-50"></i>
@@ -116,7 +116,7 @@
                                     Folder
                                 </td>
                                 <td class="td align-middle align-center fixed-font font-1-40 border-a-50" style="width: 52%;">
-                                    {{ serviceLink.FolderName }}
+                                    {{ applicationLink.FolderName }}
                                 </td>
                                 <td style="width: 1%;">
                                     &nbsp;
@@ -125,20 +125,20 @@
                                     Service
                                 </td>
                                 <td class="td align-middle align-center fixed-font font-1-40 border-a-50" style="width: 32%;">
-                                    {{ serviceLink.ServiceName }}
+                                    {{ applicationLink.ServiceName }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="BebasNeue font-4-00 align-center align-middle white-a-5" style="border-right: dotted 1px rgba(255, 255, 255, 0.50); width: 8%;">
-                                    <div *ngIf="link">{{ link.Environment }}</div>
+                                    <div *ngIf="environmentLink">{{ environmentLink.Environment }}</div>
                                 </td>
                                 <td class="align-left align-middle fixed-font" style="width: 52%;">
-                                    <ul *ngIf="link">
+                                    <ul *ngIf="environmentLink">
                                         <li class="pad-top-10">
-                                            {{ link.Path }}
+                                            {{ environmentLink.Path }}
                                         </li>
                                         <li class="pad-top-10">
-                                            {{ serviceLink.FolderLinks[0].Path }}
+                                            {{ applicationLink.FolderLinks[0].Path }}
                                         </li>
                                     </ul>
                                 </td>

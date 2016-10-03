@@ -122,6 +122,39 @@ namespace STAR.Originations.MRC.DataAccess
         }
         #endregion GetRunbookTemplateAsync
 
+        #region GetRunbookStepAsync
+        public async Task<contracts::RunbookStep> GetRunbookStepAsync(contracts::RunbookStep request)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            var stopwatch = DataAccessBase.StartStopwatch();
+            using (var context = this.contextCreator())
+            {
+                var query = context.RunbookSteps
+                                   .Include("RunbookStepType")
+                                   .Include("RunbookStepStatuses")
+                                   .Include("RunbookStepPbis")
+                                   .Include("Teams")
+                                   .Include("Developers")
+                                   .Include("Resources")
+                                   .AsQueryable();
+
+                if (request.ID > 0)
+                {
+                    query = query.Where(p => p.Id == request.ID);
+                }
+
+                var data = await query.Select(a => a).FirstOrDefaultAsync().ConfigureAwait(false);
+
+                var mapped = Mapper.Map<entities::RunbookStep, contracts::RunbookStep>(data);
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Name: {0}.", Text.GetStringInfo(request.Name)), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+
+                return mapped;
+            }
+        }
+        #endregion GetRunbookStepAsync
+
         // ---
 
         #region GetApplicationGroupsAsync
@@ -157,6 +190,45 @@ namespace STAR.Originations.MRC.DataAccess
             }
         }
         #endregion GetApplicationGroupsAsync
+
+        #region GetApplicationLinksAsync
+        public async Task<Page<contracts::ApplicationLink>> GetApplicationLinksAsync(contracts::ApplicationLink request)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            var stopwatch = DataAccessBase.StartStopwatch();
+            using (var context = this.contextCreator())
+            {
+                var query = context.ApplicationLinks
+                                   .Include("ServiceLinks")
+                                   .Include("ServiceLinks.EnvironmentLinks")
+                                   .Include("ServiceLinks.EnvironmentLinks.Server")
+                                   .Include("ServiceLinks.EnvironmentLinks.Server.Environment")
+                                   .AsQueryable();
+                if (!String.IsNullOrWhiteSpace(request.Name))
+                {
+                    query = query.Where(p => p.Name.Equals(request.Name, StringComparison.InvariantCultureIgnoreCase));
+                }
+
+                var totalRecordCount = query.Count();
+
+                if (totalRecordCount == 0)
+                {
+                    return new Page<contracts::ApplicationLink> { Items = new List<contracts::ApplicationLink>(0) };
+                }
+
+                var sanitizedPagingInfo = request.Paging.SanitizePaging();
+
+                var data = await query.Select(a => a).TakePage(sanitizedPagingInfo).ToListAsync().ConfigureAwait(false);
+                var mapped = Mapper.Map<List<entities::ApplicationLink>, List<contracts::ApplicationLink>>(data);
+                var page = mapped.ToPage(totalRecordCount, sanitizedPagingInfo);
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Name: {0}.", Text.GetStringInfo(request.Name)), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+
+                return page;
+            }
+        }
+        #endregion GetApplicationLinksAsync
 
         #endregion Methods
 

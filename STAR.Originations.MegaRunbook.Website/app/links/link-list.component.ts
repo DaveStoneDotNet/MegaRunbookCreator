@@ -1,16 +1,16 @@
 ﻿
-import { Component }      from '@angular/core';
-import { OnInit }         from '@angular/core';
-import { OnDestroy }      from '@angular/core';
+import { Component }       from '@angular/core';
+import { OnInit }          from '@angular/core';
+import { OnDestroy }       from '@angular/core';
 
-import { Router }         from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { Router }          from '@angular/router';
+import { ActivatedRoute }  from '@angular/router';
 
-import { Link }           from '../entities/link.entity';
-import { ServiceLink }    from '../entities/service-link.entity';
-import { LinkService }    from './link.service';
+import { EnvironmentLink } from '../entities/environment-link.entity';
+import { ApplicationLink } from '../entities/application-link.entity';
+import { LinkService }     from './link.service';
 
-import { Subscription }   from 'rxjs/Subscription';
+import { Subscription }    from 'rxjs/Subscription';
 
 @Component({
     templateUrl: 'app/links/link-list.component.html',
@@ -23,14 +23,13 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
     searchCriteria: string;
 
-    serviceLink: ServiceLink;
-    //serviceLinks: ServiceLink[];
+    applicationLink: ApplicationLink;
 
-    link: Link;
+    environmentLink: EnvironmentLink;
 
     delaySearch: boolean;
     runningSearch: boolean;
-    searchResults: ServiceLink[];
+    searchResults: ApplicationLink[];
 
     private selectedId: number;
     private subscription: Subscription;
@@ -42,7 +41,7 @@ export class LinkListComponent implements OnInit, OnDestroy {
             .params
             .subscribe(params => {
                 this.selectedId = +params['id'];
-                this.service.getServiceLinks()
+                this.service.getApplicationLinks()
                     .then(searchResults => this.onServiceLinksSuccessful(searchResults));
             });
     }
@@ -73,19 +72,19 @@ export class LinkListComponent implements OnInit, OnDestroy {
         this.onSearch('');
     }
 
-    onSelect(serviceLink: ServiceLink) {
-        this.serviceLink = serviceLink;
+    onSelect(applicationLink: ApplicationLink) {
+        this.applicationLink = applicationLink;
     }
 
-    onSelectedEnvironment(link: Link) {
-        this.link = link;
+    onSelectedEnvironment(environmentLink: EnvironmentLink) {
+        this.environmentLink = environmentLink;
     }
 
-    isSelected(serviceLink: ServiceLink) {
-        return serviceLink.ID === this.selectedId;
+    isSelected(applicationLink: ApplicationLink) {
+        return applicationLink.ID === this.selectedId;
     }
 
-    private onServiceLinksSuccessful(response: ServiceLink[]) {
+    private onServiceLinksSuccessful(response: ApplicationLink[]) {
         this.searchResults = response;
         this.runningSearch = false;
     }
@@ -104,7 +103,7 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
 
-            this.service.getServiceLinks()
+            this.service.getApplicationLinks()
                 .then(searchResults => this.onServiceLinksSuccessful(searchResults));
         },
             miliseconds);

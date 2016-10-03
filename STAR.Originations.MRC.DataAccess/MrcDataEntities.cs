@@ -13,7 +13,7 @@ namespace STAR.Originations.MRC.DataAccess
     {
         private readonly StringBuilder logs = new StringBuilder();
 
-        public string LogText => String.Join(Environment.NewLine, this.logs);
+        public string LogText => String.Join(System.Environment.NewLine, this.logs);
 
         #region EnableLogging
         public bool EnableLogging

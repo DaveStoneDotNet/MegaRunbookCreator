@@ -15,6 +15,9 @@ import { RunbookStep }     from '../entities/runbook-step.entity';
 
 export class RunbookStepFormComponent implements OnInit {
 
+    active = true;
+    submitted = false;
+
     runningSearch: boolean;
 
     runbookStep: RunbookStep;

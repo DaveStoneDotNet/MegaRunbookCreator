@@ -46,7 +46,8 @@
     <Compile Include="Data\ApplicationGroup.cs" />
     <Compile Include="Data\Contact.cs" />
     <Compile Include="Data\Developer.cs" />
-    <Compile Include="Data\Link.cs" />
+    <Compile Include="Data\Environment.cs" />
+    <Compile Include="Data\EnvironmentLink.cs" />
     <Compile Include="Data\RequestBase.cs" />
     <Compile Include="Data\RunbookStepDeveloper.cs" />
     <Compile Include="Data\RunbookStepPbi.cs" />
@@ -54,6 +55,8 @@
     <Compile Include="Data\RunbookStepStatus.cs" />
     <Compile Include="Data\RunbookStepTeam.cs" />
     <Compile Include="Data\RunbookStepType.cs" />
+    <Compile Include="Data\ApplicationLink.cs" />
+    <Compile Include="Data\Server.cs" />
     <Compile Include="Data\ServiceLink.cs" />
     <Compile Include="Data\Team.cs" />
     <Compile Include="Heroes\Crisis.cs" />

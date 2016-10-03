@@ -80,11 +80,20 @@
     <Compile Include="ApplicationGroup.cs">
       <DependentUpon>MrcDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationLink.cs">
+      <DependentUpon>MrcDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AutoMapperDataAccessConfiguration.cs" />
     <Compile Include="Contact.cs">
       <DependentUpon>MrcDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccessBase.cs" />
+    <Compile Include="Environment.cs">
+      <DependentUpon>MrcDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EnvironmentLink.cs">
+      <DependentUpon>MrcDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MrcDataAccess.cs" />
     <Compile Include="MrcDataEntities.cs" />
     <Compile Include="MrcDataModel.Context.cs">
@@ -133,6 +142,12 @@
       <DependentUpon>MrcDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="RunbookTemplate.cs">
+      <DependentUpon>MrcDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Server.cs">
+      <DependentUpon>MrcDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceLink.cs">
       <DependentUpon>MrcDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Team.cs">

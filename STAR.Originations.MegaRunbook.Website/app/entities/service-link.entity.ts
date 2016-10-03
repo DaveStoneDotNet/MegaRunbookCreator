@@ -1,15 +1,16 @@
 ﻿
-import { Link } from './link.entity';
+import { ApplicationLink } from './application-link.entity';
+import { EnvironmentLink } from './environment-link.entity';
 
 export class ServiceLink {
 
     constructor(
-        public ID: number, 
-        public FolderName: string,
-        public ServiceName: string,
-        public Notes: string,
-        public ServiceLinks: Link[],
-        public FolderLinks: Link[]
+        public Id:                number,
+        public ApplicationLinkId: number,
+        public ServiceName:       string,
+        public FolderName:        string,
+
+        public EnvironmentLinks:  EnvironmentLink[]
     ) { }
 
 }
