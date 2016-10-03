@@ -2,6 +2,7 @@
     <button class="btn btn-primary btn-xs">Button</button>
 </div>
 <div class="inner-body-content">
+
     <div class="fat-header">{{ Title }}</div>
 
     <!-- SEARCH -->
@@ -68,32 +69,50 @@
     </div>
 
     <!-- LIST -->
-    <div>
-        <div class="link-table">
-            <div class="link-thead">
-                <div class="link-th">
-                    Folder
-                </div>
-                <div class="link-th">
-                    Service
-                </div>
-                <div class="link-th">
-                    Environment
+    <div *ngIf="pagedApplicationLink" class="row">
+        <div class="col-md-4">
+            <div class="fat-header">
+                Applications
+            </div>
+            <div class="link-table">
+                <div class="link-tr" *ngFor="let link of pagedApplicationLink.Items;" (click)="onApplicationLinkSelected(link)" [class.selected]="isSelected(link)">
+                    <div class="link-td">
+                        {{ link.Name }}
+                    </div>
                 </div>
             </div>
-            <div class="link-tr" *ngFor="let link of searchResults;" (click)="onSelect(link)" [class.selected]="isSelected(link)">
-                <div class="link-td">
-                    {{ link.FolderName }}
-                </div>
-                <div class="link-td">
-                    {{ link.ServiceName }}
-                </div>
-                <div class="link-td">
+        </div>
+        <div class="col-md-4 align-top">
+            <div class="fat-header">
+                Services
+            </div>
+            <div *ngIf="applicationLink">
+                <div class="row">
                     <div class="link-table">
-                        <div class="link-tr">
-                            <div class="link-td link-env align-center" *ngFor="let env of link.ServiceLinks" title="{{ env.Path }}" (click)="onSelectedEnvironment(env)" >
-                                <i class="fa fa-files-o muted-blue"></i> <span>{{ env.Environment }}</span>
+                        <div class="link-tr" *ngFor="let serviceLink of applicationLink.ServiceLinks">
+                            <div class="link-td" (click)="onServiceLinkSelected(serviceLink)">
+                                {{ serviceLink.ServiceName }}
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="fat-header">
+                Environments
+            </div>
+            <div *ngIf="serviceLink">
+                <div class="link-table">
+                    <div class="link-tr" *ngFor="let environmentLink of serviceLink.EnvironmentLinks" (click)="onEnvironmentSelected(environmentLink)">
+                        <div class="link-td align-right border-right-a-20" style="width: 15%;">
+                            {{ environmentLink.Server.Environment.Name }}
+                        </div>
+                        <div class="link-td align-center" style="width: 2%;">
+                            <i class="fa fa-external-link"></i>
+                        </div>
+                        <div class="link-td">
+                            {{ environmentLink.Server.Name }}
                         </div>
                     </div>
                 </div>
@@ -102,7 +121,7 @@
     </div>
 
     <!-- SELECTED -->
-    <div *ngIf="applicationLink">
+    <div *ngIf="environmentLink">
         <div class="selected-link">
             <div class="float-right pad-10 align-middle pointer" style="margin-top: -50px; border-radius: 30px 30px 0px 0px; background-color: rgba(49, 75, 24, 0.95);">
                 <i class="fa fa-chevron-circle-up font-2-00 white opacity-50"></i>
@@ -112,63 +131,20 @@
                     <div>
                         <table class="width-100">
                             <tr>
-                                <td class="td BebasNeue font-2-00 align-center align-middle border-a-50 white-a-1-bg white-a-7" style="width: 8%;">
-                                    Folder
-                                </td>
-                                <td class="td align-middle align-center fixed-font font-1-40 border-a-50" style="width: 52%;">
-                                    {{ applicationLink.FolderName }}
-                                </td>
-                                <td style="width: 1%;">
-                                    &nbsp;
-                                </td>
-                                <td class="td BebasNeue font-2-00 align-center align-middle border-a-50 white-a-1-bg white-a-7" style="width: 8%;">
-                                    Service
-                                </td>
-                                <td class="td align-middle align-center fixed-font font-1-40 border-a-50" style="width: 32%;">
-                                    {{ applicationLink.ServiceName }}
-                                </td>
-                            </tr>
-                            <tr>
                                 <td class="BebasNeue font-4-00 align-center align-middle white-a-5" style="border-right: dotted 1px rgba(255, 255, 255, 0.50); width: 8%;">
-                                    <div *ngIf="environmentLink">{{ environmentLink.Environment }}</div>
+                                    <div *ngIf="environmentLink">
+                                        {{ environmentLink.Server.Environment.Name }}
+                                    </div>
                                 </td>
                                 <td class="align-left align-middle fixed-font" style="width: 52%;">
                                     <ul *ngIf="environmentLink">
                                         <li class="pad-top-10">
-                                            {{ environmentLink.Path }}
+                                            {{ environmentLink.Url }}
                                         </li>
                                         <li class="pad-top-10">
-                                            {{ applicationLink.FolderLinks[0].Path }}
+                                            {{ environmentLink.FolderPath }}
                                         </li>
                                     </ul>
-                                </td>
-                                <td style="width: 1%;"></td>
-                                <td colspan="2" class="pad-top-10" style="width: 40%;">
-
-                                    <table class="font-0-75 fixed-font">
-                                        <tr>
-                                            <td class="pad-5 border-a-20 white-a-1-bg pointer">DEV</td>
-                                            <td class="pad-5 border-a-20 white-a-2-bg pointer">QA1</td>
-                                            <td class="pad-5 border-a-20 white-a-2-bg pointer">QA2</td>
-                                            <td class="pad-5 border-a-20 white-a-3-bg pointer">UAT1</td>
-                                            <td class="pad-5 border-a-20 white-a-3-bg pointer">UAT2</td>
-                                            <td class="pad-5 border-a-20 white-a-4-bg pointer">PROD1</td>
-                                            <td class="pad-5 border-a-20 white-a-4-bg pointer">PROD2</td>
-                                            <td class="pad-5 border-a-20 white-a-4-bg pointer">PROD3</td>
-                                            <td class="pad-5 border-a-20 white-a-4-bg pointer">PROD4</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pad-5">CRESBWEBDEV01</td>
-                                            <td class="pad-5">CRESBWEBTST01</td>
-                                            <td class="pad-5">CRESBWEBTST02</td>
-                                            <td class="pad-5">CRESBWEBUAT01</td>
-                                            <td class="pad-5">CRESBWEBUAT01</td>
-                                            <td class="pad-5">VRAPSSOA01</td>
-                                            <td class="pad-5">VRAPSSOA02</td>
-                                            <td class="pad-5">VRAPSSOA03</td>
-                                            <td class="pad-5">VRAPSSOA04</td>
-                                        </tr>
-                                    </table>
                                 </td>
                             </tr>
                         </table>
@@ -188,6 +164,7 @@
     </div>
 
     <div class="muted-purple-bg pad-10 align-middle pointer" style="position: fixed; right: 0; top: 80px; border-radius: 30px 0px 0px 30px;">
-        <i class="fa fa-chevron-circle-left font-2-00"></i> 
+        <i class="fa fa-chevron-circle-left font-2-00"></i>
     </div>
+
 </div>

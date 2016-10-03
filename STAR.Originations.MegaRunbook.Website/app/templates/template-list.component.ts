@@ -1,19 +1,23 @@
 ﻿
 import { Component }            from '@angular/core';
 import { OnInit }               from '@angular/core';
+import { OnDestroy }            from '@angular/core';
 import { Router }               from '@angular/router';
-                                
-import { TemplateService }      from '../services/template.service';
+
 import { RunbookTemplate }      from '../entities/runbook-template.entity';
 import { PagedRunbookTemplate } from '../entities/paged-runbook-template.entity';
 
+import { TemplateService }      from './template.service';
+
+import { Subscription }         from 'rxjs/Subscription';
+
 @Component({
     templateUrl: 'app/templates/template-list.component.html',
-    styleUrls: ['app/templates/template-list.component.css'],
-    providers: [TemplateService]
+    styleUrls:   ['app/templates/template-list.component.css'],
+    providers:   [TemplateService]
 })
 
-export class TemplateListComponent implements OnInit {
+export class TemplateListComponent implements OnInit, OnDestroy {
 
     runningSearch: boolean;
 
@@ -22,10 +26,16 @@ export class TemplateListComponent implements OnInit {
     delaySearch: boolean;
     searchTemplateName: string;
 
+    private subscription: Subscription;
+
     constructor(private templateService: TemplateService, private router: Router) { }
 
     ngOnInit() {
         this.executeSearch();
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     searchTemplateNameChanged(newValue): void {
@@ -64,11 +74,11 @@ export class TemplateListComponent implements OnInit {
 
         setTimeout(() => {
 
-            this.templateService.searchTemplates()
+            this.subscription = this.templateService.getRunbookTemplates()
                 .subscribe(
                 response => this.getTemplatesOnSuccess(response),
-                response => this.getTemplatesOnError(response));
-
+                response => this.getTemplatesOnError(response)
+            );
         },
             miliseconds);
     }

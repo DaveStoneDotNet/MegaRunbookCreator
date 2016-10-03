@@ -2,10 +2,6 @@
 // COLORS
 // ----------------------------------------------------------------------
 
-// ----------------------------------------------------------------------
-// DARK
-// ----------------------------------------------------------------------
-
 $bright-green:       #43c83c;
 $muted-green:        #8e8c4c;
 $light-muted-green:  #99aa99;
@@ -1069,7 +1065,7 @@ table.runbook-table {
 .link-caption  { display: table-caption; }
 
 .link-tr:nth-child(odd)  { background-color: $gray-3; }
-.link-tr:nth-child(even) { background-color: $gray-4; }
+.link-tr:nth-child(even) { background-color: rgba(68, 68, 68, 0.45); }
 
 .link-tr:hover           { background-color: $gray-6; color: $pure-white; cursor: pointer; .link-td { border-top: solid 1px $gray-9; border-bottom: solid 1px $gray-9; } }
 

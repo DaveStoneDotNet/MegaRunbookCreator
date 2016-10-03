@@ -13,7 +13,6 @@ namespace STAR.Originations.MegaRunbook.Contracts.Data
         [DataMember] public int ApplicationId { get; set; }
 
         [DataMember] public string ServiceName { get; set; }
-        [DataMember] public string FolderName { get; set; }
 
         [DataMember] public List<EnvironmentLink> EnvironmentLinks { get; set; }
 

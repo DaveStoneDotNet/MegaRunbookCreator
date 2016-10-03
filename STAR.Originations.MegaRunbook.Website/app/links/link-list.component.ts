@@ -1,16 +1,18 @@
 ﻿
-import { Component }       from '@angular/core';
-import { OnInit }          from '@angular/core';
-import { OnDestroy }       from '@angular/core';
+import { Component }            from '@angular/core';
+import { OnInit }               from '@angular/core';
+import { OnDestroy }            from '@angular/core';
 
-import { Router }          from '@angular/router';
-import { ActivatedRoute }  from '@angular/router';
+import { Router }               from '@angular/router';
+import { ActivatedRoute }       from '@angular/router';
 
-import { EnvironmentLink } from '../entities/environment-link.entity';
-import { ApplicationLink } from '../entities/application-link.entity';
-import { LinkService }     from './link.service';
+import { EnvironmentLink }      from '../entities/environment-link.entity';
+import { ApplicationLink }      from '../entities/application-link.entity';
+import { ServiceLink }          from '../entities/service-link.entity';
+import { PagedApplicationLink } from '../entities/paged-application-link.entity';
+import { LinkService }          from './link.service';
 
-import { Subscription }    from 'rxjs/Subscription';
+import { Subscription }         from 'rxjs/Subscription';
 
 @Component({
     templateUrl: 'app/links/link-list.component.html',
@@ -24,26 +26,22 @@ export class LinkListComponent implements OnInit, OnDestroy {
     searchCriteria: string;
 
     applicationLink: ApplicationLink;
-
+    serviceLink: ServiceLink;
     environmentLink: EnvironmentLink;
 
     delaySearch: boolean;
     runningSearch: boolean;
     searchResults: ApplicationLink[];
 
+    pagedApplicationLink: PagedApplicationLink;
+
     private selectedId: number;
     private subscription: Subscription;
 
-    constructor(private router: Router, private route: ActivatedRoute, private service: LinkService) { }
+    constructor(private router: Router, private route: ActivatedRoute, private linkService: LinkService) { }
 
     ngOnInit() {
-        this.subscription = this.route
-            .params
-            .subscribe(params => {
-                this.selectedId = +params['id'];
-                this.service.getApplicationLinks()
-                    .then(searchResults => this.onServiceLinksSuccessful(searchResults));
-            });
+        this.executeSearch();
     }
 
     ngOnDestroy() {
@@ -61,7 +59,7 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
         if (newValue !== '') {
             this.searchCriteria = newValue;
-            this.searchResults = this.searchResults.filter(item => item.FolderName.toLowerCase().indexOf(newValue.toLowerCase()) !== -1);
+            this.searchResults = this.searchResults.filter(item => item.Name.toLowerCase().indexOf(newValue.toLowerCase()) !== -1);
         } else {
             setTimeout(() => this.executeSearch(), 500);
         }
@@ -72,21 +70,21 @@ export class LinkListComponent implements OnInit, OnDestroy {
         this.onSearch('');
     }
 
-    onSelect(applicationLink: ApplicationLink) {
+    onApplicationLinkSelected(applicationLink: ApplicationLink) {
         this.applicationLink = applicationLink;
+        this.serviceLink = null;
     }
 
-    onSelectedEnvironment(environmentLink: EnvironmentLink) {
+    onServiceLinkSelected(serviceLink: ServiceLink) {
+        this.serviceLink = serviceLink;
+    }
+
+    onEnvironmentSelected(environmentLink: EnvironmentLink) {
         this.environmentLink = environmentLink;
     }
 
     isSelected(applicationLink: ApplicationLink) {
-        return applicationLink.ID === this.selectedId;
-    }
-
-    private onServiceLinksSuccessful(response: ApplicationLink[]) {
-        this.searchResults = response;
-        this.runningSearch = false;
+        return applicationLink.Id === this.selectedId;
     }
 
     private executeSearch(): void {
@@ -103,10 +101,25 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
 
-            this.service.getApplicationLinks()
-                .then(searchResults => this.onServiceLinksSuccessful(searchResults));
+            this.subscription = this.linkService.getApplicationLinks()
+                .subscribe(
+                response => this.onServiceLinksSuccessful(response),
+                response => this.onServiceLinksOnError(response)
+            );
         },
             miliseconds);
     }
 
+    private onServiceLinksSuccessful(response: PagedApplicationLink) {
+
+        this.pagedApplicationLink = response;
+
+
+        this.runningSearch = false;
+    }
+
+    private onServiceLinksOnError(response): void {
+
+        this.runningSearch = false;
+    }
 }

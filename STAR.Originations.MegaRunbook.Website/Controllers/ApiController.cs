@@ -51,9 +51,9 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         {
             request.Paging = request.Paging ?? BaseController.GetDefaultPaging("Name");
             request.Paging.SortInfo = request.Paging.SortInfo ?? BaseController.GetDefaultSortInfo("Name");
-            var runbookTemplates = await this.MrcDataAccess.GetRunbookTemplatesAsync(request);
+            var response = await this.MrcDataAccess.GetRunbookTemplatesAsync(request);
 
-            return this.Json(runbookTemplates);
+            return this.Json(response);
         }
         #endregion GetRunbookTemplates
 
@@ -101,10 +101,13 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
 
         #region GetApplicationLinks
         [System.Web.Http.HttpGet]
-        public JsonResult GetApplicationLinks(contracts::ApplicationLink request)
+        public async Task<JsonResult> GetApplicationLinks(contracts::ApplicationLink request)
         {
-            var runbookTemplates = this.MrcDataAccess.GetApplicationLinksAsync(request);
-            return this.Json(runbookTemplates);
+            request.Paging = request.Paging ?? BaseController.GetDefaultPaging("Name");
+            request.Paging.SortInfo = request.Paging.SortInfo ?? BaseController.GetDefaultSortInfo("Name");
+            var response = await this.MrcDataAccess.GetApplicationLinksAsync(request);
+
+            return this.Json(response);
         }
         #endregion GetApplicationLinks
 

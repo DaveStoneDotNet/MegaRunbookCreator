@@ -23,7 +23,6 @@ namespace STAR.Originations.MRC.DataAccess
         public int Id { get; set; }
         public int ApplicationLinkId { get; set; }
         public string ServiceName { get; set; }
-        public string FolderName { get; set; }
     
         public virtual ApplicationLink ApplicationLink { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

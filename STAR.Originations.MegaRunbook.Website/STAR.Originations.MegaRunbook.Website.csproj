@@ -271,6 +271,7 @@
     <TypeScriptCompile Include="app\entities\contact.entity.ts" />
     <TypeScriptCompile Include="app\entities\environment-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\environment.entity.ts" />
+    <TypeScriptCompile Include="app\entities\paged-application-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\paged-base.ts" />
     <TypeScriptCompile Include="app\entities\paged-runbook-template.entity.ts" />
     <TypeScriptCompile Include="app\entities\runbook-step-pbi.entity.ts" />
@@ -311,7 +312,7 @@
     <TypeScriptCompile Include="app\services\dialog.service.ts" />
     <TypeScriptCompile Include="app\services\http.service.ts" />
     <TypeScriptCompile Include="app\services\is-working.service.ts" />
-    <TypeScriptCompile Include="app\services\template.service.ts" />
+    <TypeScriptCompile Include="app\templates\template.service.ts" />
     <TypeScriptCompile Include="app\services\user.service.ts" />
     <TypeScriptCompile Include="app\templates\template-detail.component.ts" />
     <TypeScriptCompile Include="app\templates\runbook-step-form.component.ts" />

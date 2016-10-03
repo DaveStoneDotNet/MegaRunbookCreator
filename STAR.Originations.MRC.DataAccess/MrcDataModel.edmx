@@ -662,7 +662,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ApplicationLinkId" Type="Int32" Nullable="false" />
           <Property Name="ServiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FolderName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ApplicationLink" Relationship="MrcDataModel.ServiceLink_ApplicationLink_FK" FromRole="ServiceLink" ToRole="ApplicationLink" />
           <NavigationProperty Name="EnvironmentLinks" Relationship="MrcDataModel.EnvironmentLink_ServiceLink_FK" FromRole="ServiceLink" ToRole="EnvironmentLink" />
         </EntityType>
@@ -875,7 +874,6 @@
           <EntitySetMapping Name="ServiceLinks">
             <EntityTypeMapping TypeName="MrcDataModel.ServiceLink">
               <MappingFragment StoreEntitySet="ServiceLink">
-                <ScalarProperty Name="FolderName" ColumnName="FolderName" />
                 <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
                 <ScalarProperty Name="ApplicationLinkId" ColumnName="ApplicationLinkId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

@@ -8,7 +8,6 @@ export class ServiceLink {
         public Id:                number,
         public ApplicationLinkId: number,
         public ServiceName:       string,
-        public FolderName:        string,
 
         public EnvironmentLinks:  EnvironmentLink[]
     ) { }

@@ -6,9 +6,10 @@ import { ActivatedRoute }  from '@angular/router';
 import { Params }          from '@angular/router';
 import { Router }          from '@angular/router';
 
-import { TemplateService } from '../services/template.service';
 import { RunbookTemplate } from '../entities/runbook-template.entity';
 import { RunbookStep }     from '../entities/runbook-step.entity';
+
+import { TemplateService } from './template.service';
 
 @Component({
     templateUrl: 'app/templates/template-detail.component.html',

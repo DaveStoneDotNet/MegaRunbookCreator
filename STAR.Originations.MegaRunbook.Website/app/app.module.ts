@@ -27,7 +27,6 @@ import { IsWorkingComponent }       from './common/is-working.component'
 
 import { HttpService }              from './services/http.service';
 import { UserService }              from './services/user.service';
-import { TemplateService }          from './services/template.service';
 import { BlockUIService }           from './services/blockui.service';
 import { IsWorkingService }         from './services/is-working.service';
 import { DialogService }            from './services/dialog.service';
@@ -40,7 +39,7 @@ import { PluralPipe }               from './pipes/plural.pipe';
 @NgModule({
     imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule, LinkModule],
     declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent, IsWorkingComponent],
-    providers: [HttpService, UserService, TemplateService, BlockUIService, IsWorkingService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
+    providers:    [HttpService, UserService, BlockUIService, IsWorkingService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
 })
 export class AppModule { }

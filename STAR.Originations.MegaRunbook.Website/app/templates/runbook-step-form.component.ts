@@ -5,12 +5,13 @@ import { Input }           from '@angular/core';
 import { ActivatedRoute }  from '@angular/router';
 import { Params }          from '@angular/router';
 
-import { TemplateService } from '../services/template.service';
 import { RunbookStep }     from '../entities/runbook-step.entity';
+
+import { TemplateService } from './template.service';
 
 @Component({
     templateUrl: 'app/templates/runbook-step-form.component.html',
-    providers: [TemplateService]
+    providers:   [TemplateService]
 })
 
 export class RunbookStepFormComponent implements OnInit {
