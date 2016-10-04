@@ -120,10 +120,10 @@
                                         </li>
                                         <li class="pad-top-10" style="list-style: none;">
                                             <ul>
-                                                <li class="pad-top-10">
+                                                <li class="pad-top-10" [ngIIclipboard]="environmentLink_Url">
                                                     <i class="fa fa-clone pointer"></i> <a [href]="environmentLink.Url" target="_blank" class="expand-o-line">{{ environmentLink.Url }}</a>
                                                 </li>
-                                                <li class="pad-top-10 pointer">
+                                                <li class="pad-top-10 pointer" [ngIIclipboard]="environmentLink_FolderPath">
                                                     <i class="fa fa-clone"></i> {{ environmentLink.FolderPath }}
                                                 </li>
                                             </ul>
@@ -133,6 +133,7 @@
                             </tr>
                         </table>
                     </div>
+
                     <!-- NOTES -->
                     <div class="margin-top-5">
                         <div class="align-left pad-5 border-a-50 white-a-1-bg">
@@ -142,6 +143,13 @@
                             Some notes about this service.
                         </div>
                     </div>
+
+                    <!-- 'HIDDEN' COPY FIELDS -->
+                    <div style="position: absolute; right: -1000px;">
+                        <input type="text" [(ngModel)]="environmentLink.Url" #environmentLink_Url class="hidden_input">
+                        <input type="text" [(ngModel)]="environmentLink.FolderPath" #environmentLink_FolderPath class="hidden_input">
+                    </div>
+
                 </div>
             </div>
         </div>

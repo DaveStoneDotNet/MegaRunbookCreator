@@ -6,6 +6,8 @@ import { OnDestroy }            from '@angular/core';
 import { Router }               from '@angular/router';
 import { ActivatedRoute }       from '@angular/router';
 
+import { IsWorkingService }     from '../services/is-working.service';
+
 import { EnvironmentLink }      from '../entities/environment-link.entity';
 import { ApplicationLink }      from '../entities/application-link.entity';
 import { ServiceLink }          from '../entities/service-link.entity';
@@ -39,7 +41,7 @@ export class LinkListComponent implements OnInit, OnDestroy {
     private selectedId: number;
     private subscription: Subscription;
 
-    constructor(private router: Router, private route: ActivatedRoute, private linkService: LinkService) { }
+    constructor(private router: Router, private route: ActivatedRoute, private linkService: LinkService, private isWorkingService: IsWorkingService) { }
 
     ngOnInit() {
         this.executeSearch();
@@ -105,6 +107,8 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
     private executeSearch(): void {
 
+        this.isWorkingService.startWorking('Getting Applications...');
+
         if (this.runningSearch) return;
 
         let miliseconds = 500;
@@ -132,10 +136,12 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
 
         this.runningSearch = false;
+        this.isWorkingService.stopWorking();
     }
 
     private onServiceLinksOnError(response): void {
 
         this.runningSearch = false;
+        this.isWorkingService.stopWorking();
     }
 }

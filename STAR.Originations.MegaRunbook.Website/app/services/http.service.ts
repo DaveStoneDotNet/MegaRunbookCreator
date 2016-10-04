@@ -25,7 +25,6 @@ export class HttpService {
 
     httpPost(object: any, url: string): Observable<any> {
 
-        this.isWorkingService.startWorking('Working...');
         this.blockUIService.startBlock();
      
         let body = JSON.stringify(object);
@@ -39,7 +38,6 @@ export class HttpService {
 
     httpPostWithNoBlock(object: any, url: string): Observable<any> {
 
-        this.isWorkingService.startWorking('Working...');
         let body = JSON.stringify(object);
 
         let options = new RequestOptions({ headers: this.jsonHeaders });
@@ -51,7 +49,6 @@ export class HttpService {
 
     httpGet(url: string): Observable<any> {
 
-        this.isWorkingService.startWorking('Working...');
         this.blockUIService.startBlock();
 
         let options = new RequestOptions({ headers: this.jsonHeaders });
@@ -63,7 +60,6 @@ export class HttpService {
 
     httpGetWithNoBlock(url: string): Observable<any> {
 
-        this.isWorkingService.startWorking('Working...');
         let options = new RequestOptions({ headers: this.jsonHeaders });
 
         return this.http.get(url, options)
