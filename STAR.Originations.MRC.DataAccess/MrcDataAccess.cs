@@ -200,6 +200,8 @@ namespace STAR.Originations.MRC.DataAccess
             using (var context = this.contextCreator())
             {
                 var query = context.ApplicationLinks
+                                   .Include("ApplicationGroup")
+                                   .Include("ApplicationType")
                                    .Include("ServiceLinks")
                                    .Include("ServiceLinks.EnvironmentLinks")
                                    .Include("ServiceLinks.EnvironmentLinks.Server")

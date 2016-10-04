@@ -15,6 +15,9 @@ namespace STAR.Originations.MegaRunbook.Contracts.Data
         [DataMember] public string Name { get; set; }
         [DataMember] public string Notes { get; set; }
 
+        [DataMember] public ApplicationType ApplicationType { get; set; }
+        [DataMember] public ApplicationGroup ApplicationGroup { get; set; }
+
         [DataMember] public List<ServiceLink> ServiceLinks { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]

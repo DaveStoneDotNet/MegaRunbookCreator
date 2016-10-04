@@ -10,6 +10,7 @@ export class EnvironmentLink {
         public ServerId:      number,
         public Url:           string, 
         public PathFolder:    string, 
+        public IsSelected:    boolean,
 
         public Server:        Server
     ) { }

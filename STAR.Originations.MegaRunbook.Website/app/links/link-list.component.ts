@@ -10,6 +10,7 @@ import { EnvironmentLink }      from '../entities/environment-link.entity';
 import { ApplicationLink }      from '../entities/application-link.entity';
 import { ServiceLink }          from '../entities/service-link.entity';
 import { PagedApplicationLink } from '../entities/paged-application-link.entity';
+
 import { LinkService }          from './link.service';
 
 import { Subscription }         from 'rxjs/Subscription';
@@ -71,20 +72,35 @@ export class LinkListComponent implements OnInit, OnDestroy {
     }
 
     onApplicationLinkSelected(applicationLink: ApplicationLink) {
+        if (this.applicationLink != null) {
+            this.applicationLink.IsSelected = false;
+        }
         this.applicationLink = applicationLink;
+        this.applicationLink.IsSelected = true;
         this.serviceLink = null;
+        this.environmentLink = null;
     }
 
     onServiceLinkSelected(serviceLink: ServiceLink) {
+        if (this.serviceLink != null) {
+            this.serviceLink.IsSelected = false;
+        }
         this.serviceLink = serviceLink;
+        this.serviceLink.IsSelected = true;
+        this.environmentLink = null;
     }
 
     onEnvironmentSelected(environmentLink: EnvironmentLink) {
+        if (this.environmentLink != null) {
+            this.environmentLink.IsSelected = false;
+        }
         this.environmentLink = environmentLink;
+        this.environmentLink.IsSelected = true;
     }
 
-    isSelected(applicationLink: ApplicationLink) {
-        return applicationLink.Id === this.selectedId;
+    onSelectedEnvironmentLinkClosed() {
+        this.environmentLink.IsSelected = false;
+        this.environmentLink = null;
     }
 
     private executeSearch(): void {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
@@ -11,8 +10,6 @@ namespace STAR.Originations.MegaRunbook.Contracts.Data
     {
         [DataMember] public int Id { get; set; }
         [DataMember] public string Name { get; set; }
-
-        [DataMember] public List<ApplicationLink> ApplicationLinks { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string DebuggerDisplay => String.Format("Name: {0}", this.Name);

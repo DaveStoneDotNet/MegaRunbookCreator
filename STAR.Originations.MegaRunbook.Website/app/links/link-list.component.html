@@ -1,95 +1,72 @@
-﻿<div class="align-right margin-right-10 margin-top-2">
-    <button class="btn btn-primary btn-xs">Button</button>
-</div>
+﻿
 <div class="inner-body-content">
 
-    <div class="fat-header">{{ Title }}</div>
+    <div class="fat-header">
+        Applications
+    </div>
 
     <!-- SEARCH -->
-    <div class="margin-bottom-20">
-        <form class="mrc-forms">
-            <div class="table">
-                <div class="tr">
-                    <div class="td"><input type="text" name="searchCriteria" placeholder="search..." class="width-100" [(ngModel)]="searchCriteria" (ngModelChange)="onSearch($event)" /></div>
-                    <div class="td">
-                        <div class="pad-5 align-right align-middle">
-                            Group
+    <div class="row">
+        <div class="col-md-4">
+            <form class="mrc-forms">
+                <div class="table">
+                    <div class="tr">
+                        <div class="td">
+                            <input type="text" name="searchCriteria" placeholder="search..." class="width-100" [(ngModel)]="searchCriteria" (ngModelChange)="onSearch($event)" />
                         </div>
-                    </div>
-                    <div class="td">
-                        <select name="groups" class="width-100">
-                            <option></option>
-                            <option>Encompass Web</option>
-                            <option>Greenlight Web</option>
-                            <option>Encompass Jobs</option>
-                            <option>Scheduled Tasks</option>
-                            <option>Originations Miscellaneous</option>
-                            <option>Service Bus Messaging</option>
-                            <option>WCF</option>
-                        </select>
-                    </div>
-                    <div class="td">
-                        <div class="pad-5 align-right align-middle">
-                            Environment
+                        <div class="td">
+                            <div class="pad-5 align-right align-middle">
+                                Group:
+                            </div>
                         </div>
-                    </div>
-                    <div class="td">
-                        <div class="env-button selected">
-                            ANY
+                        <div class="td">
+                            <select name="groups" class="width-100">
+                                <option></option>
+                                <option>Encompass Web</option>
+                                <option>Greenlight Web</option>
+                                <option>Encompass Jobs</option>
+                                <option>Scheduled Tasks</option>
+                                <option>Originations Miscellaneous</option>
+                                <option>Service Bus Messaging</option>
+                                <option>WCF</option>
+                            </select>
                         </div>
-                    </div>
-                    <div class="td">
-                        <div class="env-button">
-                            DEV
-                        </div>
-                    </div>
-                    <div class="td">
-                        <div class="env-button">
-                            QA
-                        </div>
-                    </div>
-                    <div class="td">
-                        <div class="env-button">
-                            UAT
-                        </div>
-                    </div>
-                    <div class="td">
-                        <div class="env-button">
-                            PROD
-                        </div>
-                    </div>
-                    <div class="td">
-                        <div>
-                            <button class="btn btn-sm btn-primary" (click)="onClearSearchCriteria()">Clear</button>
+                        <div class="td">
+                            <div>
+                                <button class="btn btn-sm btn-primary" (click)="onClearSearchCriteria()">Clear</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
     <!-- LIST -->
     <div *ngIf="pagedApplicationLink" class="row">
         <div class="col-md-4">
             <div class="fat-header">
-                Applications
+                Application
             </div>
             <div class="link-table">
-                <div class="link-tr" *ngFor="let link of pagedApplicationLink.Items;" (click)="onApplicationLinkSelected(link)" [class.selected]="isSelected(link)">
+                <div class="link-tr" *ngFor="let appLink of pagedApplicationLink.Items;" (click)="onApplicationLinkSelected(appLink)" [class.selected]="appLink.IsSelected">
                     <div class="link-td">
-                        {{ link.Name }}
+                        {{ appLink.Name }}
+                    </div>
+                    <div class="link-td">
+                        {{ appLink.ApplicationType.Description }}
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4 align-top">
             <div class="fat-header">
-                Services
+                Sites / Services
             </div>
             <div *ngIf="applicationLink">
                 <div class="row">
                     <div class="link-table">
-                        <div class="link-tr" *ngFor="let serviceLink of applicationLink.ServiceLinks">
+                        <div class="link-tr" *ngFor="let serviceLink of applicationLink.ServiceLinks" [class.selected]="serviceLink.IsSelected">
                             <div class="link-td" (click)="onServiceLinkSelected(serviceLink)">
                                 {{ serviceLink.ServiceName }}
                             </div>
@@ -104,15 +81,12 @@
             </div>
             <div *ngIf="serviceLink">
                 <div class="link-table">
-                    <div class="link-tr" *ngFor="let environmentLink of serviceLink.EnvironmentLinks" (click)="onEnvironmentSelected(environmentLink)">
+                    <div class="link-tr" *ngFor="let environmentLink of serviceLink.EnvironmentLinks" (click)="onEnvironmentSelected(environmentLink)" [class.selected]="environmentLink.IsSelected">
                         <div class="link-td align-right border-right-a-20" style="width: 15%;">
                             {{ environmentLink.Server.Environment.Name }}
                         </div>
-                        <div class="link-td align-center" style="width: 2%;">
-                            <i class="fa fa-external-link"></i>
-                        </div>
                         <div class="link-td">
-                            {{ environmentLink.Server.Name }}
+                            <a [href]="environmentLink.Url" [title]="environmentLink.Url" target="_blank" class="static-link"><i class="fa fa-external-link"></i></a> {{ environmentLink.Server.Name }}
                         </div>
                     </div>
                 </div>
@@ -123,26 +97,36 @@
     <!-- SELECTED -->
     <div *ngIf="environmentLink">
         <div class="selected-link">
-            <div class="float-right pad-10 align-middle pointer" style="margin-top: -50px; border-radius: 30px 30px 0px 0px; background-color: rgba(49, 75, 24, 0.95);">
-                <i class="fa fa-chevron-circle-up font-2-00 white opacity-50"></i>
+            <div class="float-right pad-10 align-middle pointer" style="margin-top: -50px; border-radius: 30px 30px 0px 0px; background-color: rgba(49, 75, 24, 0.95);" (click)="onSelectedEnvironmentLinkClosed()">
+                <i class="fa fa-times-circle font-2-00 white opacity-50"></i>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div>
                         <table class="width-100">
                             <tr>
-                                <td class="BebasNeue font-4-00 align-center align-middle white-a-5" style="border-right: dotted 1px rgba(255, 255, 255, 0.50); width: 8%;">
-                                    <div *ngIf="environmentLink">
+                                <td class="BebasNeue align-center align-middle white-a-5 pad-right-10" style="border-right: dotted 1px rgba(255, 255, 255, 0.50); width: 10%;">
+                                    <div *ngIf="environmentLink" class="font-4-00">
                                         {{ environmentLink.Server.Environment.Name }}
                                     </div>
+                                    <div class="pad-5 margin-bottom-5 border-a-10 white-a-1-bg font-2-00">
+                                        {{ environmentLink.Server.Name }}
+                                    </div>
                                 </td>
-                                <td class="align-left align-middle fixed-font" style="width: 52%;">
+                                <td class="align-left align-middle fixed-font">
                                     <ul *ngIf="environmentLink">
-                                        <li class="pad-top-10">
-                                            {{ environmentLink.Url }}
+                                        <li class="font-1-80">
+                                            <span class="opacity-50">{{ applicationLink.ApplicationType.Description }}</span> : {{ applicationLink.Name }} &gt; {{ serviceLink.ServiceName }}
                                         </li>
-                                        <li class="pad-top-10">
-                                            {{ environmentLink.FolderPath }}
+                                        <li class="pad-top-10" style="list-style: none;">
+                                            <ul>
+                                                <li class="pad-top-10">
+                                                    <i class="fa fa-clone pointer"></i> <a [href]="environmentLink.Url" target="_blank" class="expand-o-line">{{ environmentLink.Url }}</a>
+                                                </li>
+                                                <li class="pad-top-10 pointer">
+                                                    <i class="fa fa-clone"></i> {{ environmentLink.FolderPath }}
+                                                </li>
+                                            </ul>
                                         </li>
                                     </ul>
                                 </td>

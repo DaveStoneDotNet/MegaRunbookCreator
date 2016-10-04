@@ -124,6 +124,9 @@
 .super-light-green {
   color: #ebf9d5; }
 
+.dark-green {
+  color: #304918; }
+
 .dark-orange {
   color: #dc6226; }
 
@@ -156,6 +159,9 @@
 
 .super-light-green-bg {
   background-color: #ebf9d5; }
+
+.dark-green-bg {
+  background-color: #304918; }
 
 .muted-purple-bg {
   background-color: #7c6ebc; }
@@ -1389,6 +1395,10 @@ table.runbook-table {
     border-top: solid 1px #999999;
     border-bottom: solid 1px #999999; }
 
+.link-tr.selected {
+  background-color: #3a591d !important;
+  color: #ffffff; }
+
 .link-env i {
   color: #5f7d99;
   font-size: 0.75em; }
@@ -1494,7 +1504,7 @@ table.runbook-table {
   content: "";
   position: absolute;
   width: 100%;
-  height: 2px;
+  height: 1px;
   bottom: 0;
   left: 0;
   background-color: #ffffff;
@@ -1511,4 +1521,13 @@ table.runbook-table {
   visibility: visible;
   -webkit-transform: scaleX(1);
   transform: scaleX(1); }
+
+a.static-link {
+  color: #aaaaaa; }
+
+a.static-link:hover {
+  color: #ffffff; }
+
+a.static-link:visited {
+  color: #aaaaaa; }
 

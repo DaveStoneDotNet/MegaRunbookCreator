@@ -24,9 +24,11 @@ namespace STAR.Originations.MRC.DataAccess
         public Nullable<int> ApplicationGroupId { get; set; }
         public string Name { get; set; }
         public string Notes { get; set; }
+        public string AppTypeCode { get; set; }
     
         public virtual ApplicationGroup ApplicationGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceLink> ServiceLinks { get; set; }
+        public virtual ApplicationType ApplicationType { get; set; }
     }
 }

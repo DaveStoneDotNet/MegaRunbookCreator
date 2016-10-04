@@ -5,9 +5,7 @@ export class ApplicationGroup {
 
     constructor(
         public Id:               number,
-        public Name:             string,
-
-        public ApplicationLinks: ApplicationLink[]
+        public Name:             string
     ) { }
 
 }

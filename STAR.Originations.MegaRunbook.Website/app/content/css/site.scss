@@ -7,6 +7,8 @@ $muted-green:        #8e8c4c;
 $light-muted-green:  #99aa99;
 $super-light-green:  #ebf9d5;
 $primary-green:      #42a948;
+$medium-dark-green:  #3a591d;
+$dark-green:         #304918;
 
 $purple:             #6639b6;
 $muted-purple:       #7c6ebc;
@@ -122,6 +124,8 @@ $header-gray:        #dcdcdc;
 .muted-green           { color: $muted-green;                   }
 .light-muted-green     { color: $light-muted-green;             }
 .super-light-green     { color: $super-light-green;             }
+.dark-green            { color: $dark-green;                    }
+
 .dark-orange           { color: $dark-orange;                   }
 .orange                { color: $orange;                        }
 .bright-orange         { color: $bright-orange;                 }
@@ -134,6 +138,8 @@ $header-gray:        #dcdcdc;
 .muted-green-bg        { background-color: $muted-green;        }
 .light-muted-green-bg  { background-color: $light-muted-green;  }
 .super-light-green-bg  { background-color: $super-light-green;  }
+.dark-green-bg         { background-color: $dark-green;         }
+
 .muted-purple-bg       { background-color: $muted-purple;       }
 .bright-purple-bg      { background-color: $bright-purple;      }
 .light-purple-bg       { background-color: $light-purple;       }
@@ -1069,6 +1075,11 @@ table.runbook-table {
 
 .link-tr:hover           { background-color: $gray-6; color: $pure-white; cursor: pointer; .link-td { border-top: solid 1px $gray-9; border-bottom: solid 1px $gray-9; } }
 
+.link-tr.selected { 
+    background-color: $medium-dark-green !important; 
+    color: $pure-white;
+}
+
 .link-env {
     i {
         color: $muted-blue;
@@ -1187,12 +1198,12 @@ table.runbook-table {
 
 .expand-o-line {
   position: relative;
-  color: #ffffff;
+  color: $pure-white;
   text-decoration: none;
 }
 
 .expand-o-line:hover {
-  color: #ffffff;
+  color: $pure-white;
   text-decoration: none;
 }
 
@@ -1200,10 +1211,10 @@ table.runbook-table {
     content: "";
     position: absolute;
     width: 100%;
-    height: 2px;
+    height: 1px;
     bottom: 0;
     left: 0;
-    background-color: #ffffff;
+    background-color: $pure-white;
     visibility: hidden;
         -moz-transform: scaleX(0);
          -ms-transform: scaleX(0);
@@ -1220,3 +1231,12 @@ table.runbook-table {
   transform: scaleX(1);
 }
 
+a.static-link {
+    color: $gray-a;
+}
+a.static-link:hover {
+    color: $pure-white;
+}
+a.static-link:visited {
+    color: $gray-a;
+}

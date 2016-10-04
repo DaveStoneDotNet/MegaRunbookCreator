@@ -83,6 +83,9 @@
     <Compile Include="ApplicationLink.cs">
       <DependentUpon>MrcDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationType.cs">
+      <DependentUpon>MrcDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AutoMapperDataAccessConfiguration.cs" />
     <Compile Include="Contact.cs">
       <DependentUpon>MrcDataModel.tt</DependentUpon>

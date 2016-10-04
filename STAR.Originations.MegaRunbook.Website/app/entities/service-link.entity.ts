@@ -8,6 +8,7 @@ export class ServiceLink {
         public Id:                number,
         public ApplicationLinkId: number,
         public ServiceName:       string,
+        public IsSelected:        boolean,
 
         public EnvironmentLinks:  EnvironmentLink[]
     ) { }

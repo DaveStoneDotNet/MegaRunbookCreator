@@ -30,6 +30,8 @@
         <EntityTypeShape EntityType="MrcDataModel.ApplicationGroup" Width="2.375" PointX="9.75" PointY="5.125" />
         <EntityTypeShape EntityType="MrcDataModel.Environment" Width="2.375" PointX="22.5" PointY="5.125" />
         <AssociationConnector Association="MrcDataModel.ApplicationLink_ApplicationGroup_FK" />
+        <EntityTypeShape EntityType="MrcDataModel.ApplicationType" Width="1.75" PointX="12.75" PointY="8" IsExpanded="false" />
+        <AssociationConnector Association="MrcDataModel.ApplicationLink_ApplicationType_FK" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
