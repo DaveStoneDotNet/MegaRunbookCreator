@@ -21,7 +21,7 @@ export class LinkService {
     constructor(private http: Http, private httpService: HttpService, private isWorkingService: IsWorkingService) { }
 
     getApplicationLinks(): Observable<any> {
-        this.isWorkingService.startWorking('Getting Application Links...');
+        this.isWorkingService.startWorking('Getting Applications...');
         return this.httpService.httpGet('api/GetApplicationLinks');
     }
 }

@@ -2,9 +2,12 @@
 import { Component }            from '@angular/core';
 import { OnInit }               from '@angular/core';
 import { OnDestroy }            from '@angular/core';
+import { ViewContainerRef  }    from '@angular/core';
 
 import { Router }               from '@angular/router';
 import { ActivatedRoute }       from '@angular/router';
+
+import { ToastrService }        from 'toastr-ng2';
 
 import { IsWorkingService }     from '../services/is-working.service';
 
@@ -41,7 +44,14 @@ export class LinkListComponent implements OnInit, OnDestroy {
     private selectedId: number;
     private subscription: Subscription;
 
-    constructor(private router: Router, private route: ActivatedRoute, private linkService: LinkService, private isWorkingService: IsWorkingService) { }
+    constructor(private router: Router,
+                private route: ActivatedRoute,
+                private linkService: LinkService,
+                private isWorkingService: IsWorkingService,
+                private toastrService: ToastrService,
+                private viewContainerRef: ViewContainerRef) {
+        this.toastrService.viewContainerRef = this.viewContainerRef;
+    }
 
     ngOnInit() {
         this.executeSearch();
@@ -107,8 +117,6 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
     private executeSearch(): void {
 
-        this.isWorkingService.startWorking('Getting Applications...');
-
         if (this.runningSearch) return;
 
         let miliseconds = 500;
@@ -134,9 +142,9 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
         this.pagedApplicationLink = response;
 
-
         this.runningSearch = false;
         this.isWorkingService.stopWorking();
+        this.toastrService.success('Ok');
     }
 
     private onServiceLinksOnError(response): void {

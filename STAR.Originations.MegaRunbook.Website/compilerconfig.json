@@ -6,5 +6,9 @@
   {
     "outputFile": "app/templates/template-list.component.css",
     "inputFile": "app/templates/template-list.component.scss"
+  },
+  {
+    "outputFile": "app/content/css/toastr.css",
+    "inputFile": "app/content/css/toastr.scss"
   }
 ]

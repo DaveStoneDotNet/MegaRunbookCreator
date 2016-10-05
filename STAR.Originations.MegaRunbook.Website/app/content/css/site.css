@@ -1401,7 +1401,7 @@ table.runbook-table {
     border-bottom: solid 1px #999999; }
 
 .link-tr.selected {
-  background-color: #3a591d !important;
+  background-color: #5f7d99 !important;
   color: #ffffff; }
 
 .link-env i {
@@ -1440,12 +1440,21 @@ table.runbook-table {
   border-top: solid 10px rgba(255, 255, 255, 0.5);
   border-left: solid 10px rgba(255, 255, 255, 0.5);
   border-right: solid 10px rgba(255, 255, 255, 0.5);
-  background-color: rgba(49, 75, 24, 0.95);
+  background-color: #444444;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   padding: 10px 10px 10px 10px;
   text-align: center;
   color: #ffffff; }
+
+.selected-link > div.close-selected-link {
+  float: right;
+  padding: 10px 10px 10px 10px;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-top: -50px;
+  border-radius: 30px 30px 0px 0px;
+  background-color: #444444; }
 
 @media (max-width: 1200px) {
   .table {
@@ -1454,47 +1463,6 @@ table.runbook-table {
 @media (min-width: 1200px) {
   .v-table {
     display: none; } }
-
-.toast-bottom-full-width {
-  bottom: 40px !important; }
-
-#toast-container > div {
-  text-align: center !important;
-  border: solid 1px transparent;
-  -moz-border-radius: 0px;
-  -webkit-border-radius: 0px;
-  border-radius: 0px; }
-
-#toast-container > :hover {
-  opacity: 1;
-  cursor: pointer;
-  border: solid 1px #ffffff;
-  -webkit-box-shadow: 0 0 12px white ;
-  -moz-box-shadow: 0 0 12px white ;
-  box-shadow: 0 0 12px white ; }
-
-#toast-container > .toast-info:before {
-  position: relative;
-  font-family: FontAwesome;
-  font-size: 24px;
-  line-height: 18px;
-  float: left;
-  margin-left: -1em;
-  color: rgba(255, 255, 255, 0.25);
-  padding-right: 0.5em;
-  margin-right: 0.5em; }
-
-#toast-container > .toast-info {
-  background-image: none !important;
-  letter-spacing: 5px;
-  font-size: 1em;
-  font-family: Lato;
-  border: solid 1px #dc6226;
-  background-color: rgba(235, 132, 40, 0.25);
-  color: rgba(255, 255, 255, 0.5); }
-
-.toast-info {
-  background-color: rgba(255, 255, 255, 0.5); }
 
 .expand-o-line {
   position: relative;

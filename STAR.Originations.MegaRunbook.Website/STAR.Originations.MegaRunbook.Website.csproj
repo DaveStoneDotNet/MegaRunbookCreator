@@ -147,6 +147,13 @@
     <Content Include="app\content\css\site.min.css">
       <DependentUpon>site.css</DependentUpon>
     </Content>
+    <None Include="app\content\css\toastr.scss" />
+    <Content Include="app\content\css\toastr.css">
+      <DependentUpon>toastr.scss</DependentUpon>
+    </Content>
+    <Content Include="app\content\css\toastr.min.css">
+      <DependentUpon>toastr.css</DependentUpon>
+    </Content>
     <Content Include="app\content\favicon.ico" />
     <Content Include="app\content\fonts\bebasneue-webfont.svg" />
     <Content Include="app\content\fonts\fontawesome-webfont.svg" />

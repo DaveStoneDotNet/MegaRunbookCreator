@@ -27,7 +27,8 @@
             'rxjs':                              'npm:rxjs',
             'angular2-in-memory-web-api':        'npm:angular2-in-memory-web-api',
             'clipboard':                         'npm:clipboard/dist/clipboard.js',
-            'angular2-clipboard':                'npm:angular2-clipboard'
+            'angular2-clipboard':                'npm:angular2-clipboard',
+            'toastr-ng2':                        'npm:toastr-ng2'
         },
 
         // 'packages' tells the System loader how to load when no filename and/or no extension
@@ -48,6 +49,10 @@
                 defaultExtension: 'js'
             },
             'clipboard': {
+                defaultExtension: 'js'
+            }, 
+            'toastr-ng2': {
+                main: 'toastr.js',
                 defaultExtension: 'js'
             }
         }
