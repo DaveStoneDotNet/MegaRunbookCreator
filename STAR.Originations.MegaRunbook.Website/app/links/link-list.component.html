@@ -32,6 +32,21 @@
                             </select>
                         </div>
                         <div class="td">
+                            <div class="pad-5 align-right align-middle">
+                                Type:
+                            </div>
+                        </div>
+                        <div class="td">
+                            <select name="app_types" class="width-100">
+                                <option></option>
+                                <option>Service Bus</option>
+                                <option>Scheduled Task</option>
+                                <option>WCF Service</option>
+                                <option>Website</option>
+                                <option>Unknown</option>
+                            </select>
+                        </div>
+                        <div class="td">
                             <div>
                                 <button class="btn btn-sm btn-primary" (click)="onClearSearchCriteria()">Clear</button>
                             </div>
@@ -105,12 +120,15 @@
                     <div>
                         <table class="width-100">
                             <tr>
-                                <td class="BebasNeue align-center align-middle white-a-5 pad-right-10" style="border-right: dotted 1px rgba(255, 255, 255, 0.50); width: 10%;">
+                                <td class="BebasNeue align-center align-middle white-a-5 pad-right-10 border-dotted-right-a-50" style="width: 10%;">
                                     <div *ngIf="environmentLink" class="font-4-00">
                                         {{ environmentLink.Server.Environment.Name }}
                                     </div>
                                     <div class="pad-5 margin-bottom-5 border-a-10 white-a-1-bg font-2-00">
                                         {{ environmentLink.Server.Name }}
+                                    </div>
+                                    <div class="pad-5 align-center Lato">
+                                        {{ applicationLink.ApplicationGroup.Name }}
                                     </div>
                                 </td>
                                 <td class="align-left align-middle fixed-font">
@@ -120,10 +138,10 @@
                                         </li>
                                         <li class="pad-top-10" style="list-style: none;">
                                             <ul>
-                                                <li class="pad-top-10" [ngIIclipboard]="environmentLink_Url">
+                                                <li class="pad-top-10" [ngIIclipboard]="environmentLink_Url" (cbOnSuccess)="onCopiedToClipboard('URL')">
                                                     <i class="fa fa-clone pointer" title="copy"></i> <a [href]="environmentLink.Url" target="_blank" class="expand-o-line">{{ environmentLink.Url }}</a>
                                                 </li>
-                                                <li class="pad-top-10 pointer" [ngIIclipboard]="environmentLink_FolderPath">
+                                                <li class="pad-top-10 pointer" [ngIIclipboard]="environmentLink_FolderPath" (cbOnSuccess)="onCopiedToClipboard('path')">
                                                     <i class="fa fa-clone" title="copy"></i> {{ environmentLink.FolderPath }}
                                                 </li>
                                             </ul>

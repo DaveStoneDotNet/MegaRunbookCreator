@@ -115,6 +115,10 @@ export class LinkListComponent implements OnInit, OnDestroy {
         this.environmentLink = null;
     }
 
+    onCopiedToClipboard(msg: string) {
+        this.toastrService.success('Copied ' + msg + ' to clipboard');
+    }
+
     private executeSearch(): void {
 
         if (this.runningSearch) return;

@@ -261,6 +261,7 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
+    <TypeScriptCompile Include="app\attribute-directives\highlight.directive.ts" />
     <TypeScriptCompile Include="app\builds\builds.component.ts" />
     <TypeScriptCompile Include="app\builds\builds.module.ts" />
     <TypeScriptCompile Include="app\builds\builds.routing.ts" />
