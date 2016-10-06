@@ -103,6 +103,7 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         [System.Web.Http.HttpGet]
         public async Task<JsonResult> GetApplicationLinks(contracts::ApplicationLink request)
         {
+            System.Threading.Thread.Sleep(15000);
             request.Paging = request.Paging ?? BaseController.GetDefaultPaging("Name");
             request.Paging.SortInfo = request.Paging.SortInfo ?? BaseController.GetDefaultSortInfo("Name");
             var response = await this.MrcDataAccess.GetApplicationLinksAsync(request);

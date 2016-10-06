@@ -42,6 +42,8 @@
     <router-outlet></router-outlet>
 </div>
 
-<div class="footer" style="position: fixed; bottom: 0px;">
+<div class="footer" style="position: fixed; bottom: 0px;" [ngClass]="{ 'working-footer': isWorking }">
     <is-working></is-working>&nbsp;
 </div>
+
+<is-working-spinner></is-working-spinner>

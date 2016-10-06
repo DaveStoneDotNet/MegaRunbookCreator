@@ -1258,8 +1258,12 @@ table.runbook-table {
   padding: 10px 10px 10px 10px;
   border-top: solid 1px #444444;
   border-bottom: solid 1px #444444;
-  width: 100%;
-  background-color: rgba(51, 51, 51, 0.9); }
+  background-color: rgba(51, 51, 51, 0.9);
+  width: 100%; }
+
+.working-footer {
+  background-color: #dc6226 !important;
+  opacity: 0.95; }
 
 .table {
   display: table;

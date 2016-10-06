@@ -1,10 +1,11 @@
 
-import { Component }          from '@angular/core';
-import { OnInit }             from '@angular/core';
-import { OnDestroy }          from '@angular/core';
+import { Component }                 from '@angular/core';
+import { OnInit }                    from '@angular/core';
+import { OnDestroy }                 from '@angular/core';
 
-import { IsWorkingService }   from './services/is-working.service';
-import { IsWorkingComponent } from './common/is-working.component';
+import { IsWorkingService }          from './services/is-working.service';
+import { IsWorkingComponent }        from './common/is-working.component';
+import { IsWorkingSpinnerComponent } from './common/is-working-spinner.component';
 
 @Component({
     selector:    'mrc-app',

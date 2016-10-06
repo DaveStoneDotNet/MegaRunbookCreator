@@ -1037,8 +1037,13 @@ table.runbook-table {
     padding: 10px 10px 10px 10px;
     border-top: solid 1px $gray-4;
     border-bottom: solid 1px $gray-4;
-    width: 100%;
     background-color: rgba(51, 51, 51, 0.90);
+    width: 100%;
+}
+
+.working-footer {
+    background-color: $dark-orange !important;
+    opacity: 0.95;
 }
 
 // ----------------------------------------------------------------------

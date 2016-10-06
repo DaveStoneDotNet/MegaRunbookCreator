@@ -139,6 +139,8 @@
     <Content Include=".gitignore" />
     <Content Include="app\admin\admin.component.html" />
     <Content Include="app\app.component.html" />
+    <Content Include="app\common\is-working-spinner.component.css" />
+    <Content Include="app\common\is-working-spinner.component.html" />
     <Content Include="app\common\is-working.component.html" />
     <Content Include="app\common\not-authorized.component.html" />
     <Content Include="app\content\css\site.css">
@@ -261,10 +263,10 @@
     <TypeScriptCompile Include="app\app.component.ts" />
     <TypeScriptCompile Include="app\app.module.ts" />
     <TypeScriptCompile Include="app\app.routing.ts" />
-    <TypeScriptCompile Include="app\attribute-directives\highlight.directive.ts" />
     <TypeScriptCompile Include="app\builds\builds.component.ts" />
     <TypeScriptCompile Include="app\builds\builds.module.ts" />
     <TypeScriptCompile Include="app\builds\builds.routing.ts" />
+    <TypeScriptCompile Include="app\common\is-working-spinner.component.ts" />
     <TypeScriptCompile Include="app\common\is-working.component.ts" />
     <TypeScriptCompile Include="app\common\not-authorized.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />
