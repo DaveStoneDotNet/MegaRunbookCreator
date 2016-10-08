@@ -80,6 +80,9 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
     onClearSearchCriteria(): void {
         this.searchCriteria = '';
+        this.applicationLink = null;
+        this.serviceLink = null;
+        this.environmentLink = null;
         this.onSearch('');
     }
 
@@ -144,11 +147,13 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
     private onServiceLinksSuccessful(response: PagedApplicationLink) {
 
+        let message = response.TotalRecordCount + (response.TotalRecordCount === 1 ? ' application' : ' applications');
+
         this.pagedApplicationLink = response;
 
         this.runningSearch = false;
         this.isWorkingService.stopWorking();
-        this.toastrService.success('Ok');
+        this.toastrService.success(message);
     }
 
     private onServiceLinksOnError(response): void {
