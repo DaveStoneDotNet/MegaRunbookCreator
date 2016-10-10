@@ -4,7 +4,7 @@ import { BrowserModule }            from '@angular/platform-browser';
 import { FormsModule }              from '@angular/forms';
 import { ReactiveFormsModule }      from '@angular/forms';
 import { HttpModule }               from '@angular/http';
-                                 
+
 import { LocationStrategy }          from '@angular/common';
 import { HashLocationStrategy }      from '@angular/common';
 
@@ -17,6 +17,7 @@ import { BuildsModule }              from './builds/builds.module';
 import { RunbooksModule }            from './runbooks/runbooks.module';
 import { TemplatesModule }           from './templates/templates.module';
 import { LinkModule }                from './links/link.module';
+import { GridModule }                from './grids/grid.module';
 
 import { AppComponent }              from './app.component';
 import { HomeComponent }             from './home/home.component';
@@ -38,7 +39,7 @@ import { AuthService }               from './services/auth.service';
 import { PluralPipe }                from './pipes/plural.pipe';
 
 @NgModule({
-    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule, LinkModule],
+    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule, LinkModule, GridModule],
     declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent, IsWorkingComponent, IsWorkingSpinnerComponent],
     providers:    [HttpService, UserService, BlockUIService, IsWorkingService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]

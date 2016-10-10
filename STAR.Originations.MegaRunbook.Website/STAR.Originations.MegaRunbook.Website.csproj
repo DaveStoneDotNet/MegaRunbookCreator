@@ -170,6 +170,8 @@
     <Content Include="app\crisis-center\crisis-center.component.html" />
     <Content Include="app\crisis-center\crisis-detail.component.html" />
     <Content Include="app\crisis-center\crisis-list.component.html" />
+    <Content Include="app\grids\ng-table.component.html" />
+    <Content Include="app\grids\prime-ng.component.html" />
     <Content Include="app\heroes\hero-detail.component.html" />
     <Content Include="app\heroes\hero-list.component.html" />
     <Content Include="app\common\page-not-found.component.html" />
@@ -291,6 +293,11 @@
     <TypeScriptCompile Include="app\entities\service-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\sort-info.entity.ts" />
     <TypeScriptCompile Include="app\entities\team.entity.ts" />
+    <TypeScriptCompile Include="app\grids\grid.module.ts" />
+    <TypeScriptCompile Include="app\grids\grid.routing.ts" />
+    <TypeScriptCompile Include="app\grids\ng-table.component.ts" />
+    <TypeScriptCompile Include="app\grids\prime-ng.component.ts" />
+    <TypeScriptCompile Include="app\grids\table-data.ts" />
     <TypeScriptCompile Include="app\interfaces\i-can-component-deactivate.ts" />
     <TypeScriptCompile Include="app\entities\developer.entity.ts" />
     <TypeScriptCompile Include="app\entities\entity-base.entity.ts" />

@@ -25,6 +25,8 @@
 
             // other libraries
             'rxjs':                              'npm:rxjs',
+            'ng2-table':                         'npm:ng2-table',
+            'ng2-bootstrap':                     'npm:ng2-bootstrap',
             'angular2-in-memory-web-api':        'npm:angular2-in-memory-web-api',
             'clipboard':                         'npm:clipboard/dist/clipboard.js',
             'angular2-clipboard':                'npm:angular2-clipboard',
@@ -38,6 +40,14 @@
                 defaultExtension: 'js'
             },
             rxjs: {
+                defaultExtension: 'js'
+            },
+            'ng2-table': {
+                main: 'ng2-table.js',
+                defaultExtension: 'js'
+            },
+            'ng2-bootstrap': {
+                main: 'ng2-bootstrap.js',
                 defaultExtension: 'js'
             },
             'angular2-in-memory-web-api': {

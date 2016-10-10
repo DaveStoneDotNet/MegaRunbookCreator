@@ -1,0 +1,33 @@
+﻿<div class="align-right margin-right-10 margin-top-2">
+    <button class="btn btn-primary btn-xs">Button</button>
+</div>
+<div class="inner-body-content">
+    <div class="fat-header">NG-Table</div>
+    <div class="pad-20">
+        There doesn't appear to be any way to format columns or use pipes. For example, does't appear to be able a way to align the Salary column to the right or use the currency pipe.
+    </div>
+    <div>
+        <div class="pad-20 white">
+            <div>
+                <ng-table [config]="config.sorting"
+                          (tableChanged)="onChangeTable(config)"
+                          [rows]="rows" [columns]="columns">
+                </ng-table>
+
+                <pagination *ngIf="config.paging"
+                            [(ngModel)]="page"
+                            [totalItems]="length"
+                            [itemsPerPage]="itemsPerPage"
+                            [maxSize]="maxSize"
+                            [boundaryLinks]="true"
+                            [rotate]="false"
+                            class="pagination"
+                            (pageChanged)="onChangeTable(config, $event)"
+                            (numPages)="numPages = $event">
+                </pagination>
+
+                <pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} of {{numPages}}</pre>
+            </div>
+        </div>
+    </div>
+</div>
