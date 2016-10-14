@@ -4,11 +4,9 @@ import { Routes }              from '@angular/router';
 import { RouterModule }        from '@angular/router';
 
 import { NgTableComponent }    from './ng-table.component';
-import { PrimeNgComponent }    from './prime-ng.component';
 
 const gridRoutes: Routes = [
-    { path: 'ngtable', component: NgTableComponent }, 
-    { path: 'primeng', component: PrimeNgComponent }
+    { path: 'ngtable', component: NgTableComponent }
 ];
 
 export const gridRouting: ModuleWithProviders = RouterModule.forChild(gridRoutes);

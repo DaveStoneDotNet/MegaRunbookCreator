@@ -18,6 +18,7 @@ import { RunbooksModule }            from './runbooks/runbooks.module';
 import { TemplatesModule }           from './templates/templates.module';
 import { LinkModule }                from './links/link.module';
 import { GridModule }                from './grids/grid.module';
+import { PrimeModule }               from './prime/prime.module';
 
 import { AppComponent }              from './app.component';
 import { HomeComponent }             from './home/home.component';
@@ -26,6 +27,8 @@ import { PageNotFoundComponent }     from './common/page-not-found.component'
 import { NotAuthorizedComponent }    from './common/not-authorized.component'
 import { IsWorkingComponent }        from './common/is-working.component'
 import { IsWorkingSpinnerComponent } from './common/is-working-spinner.component'
+import { IsWorkingRunnerComponent }  from './common/is-working-runner.component'
+import { MessageComponent }          from './common/message.component'
 
 import { HttpService }               from './services/http.service';
 import { UserService }               from './services/user.service';
@@ -39,8 +42,8 @@ import { AuthService }               from './services/auth.service';
 import { PluralPipe }                from './pipes/plural.pipe';
 
 @NgModule({
-    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule, LinkModule, GridModule],
-    declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent, IsWorkingComponent, IsWorkingSpinnerComponent],
+    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule, LinkModule, GridModule, PrimeModule],
+    declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent, IsWorkingComponent, IsWorkingSpinnerComponent, IsWorkingRunnerComponent, MessageComponent],
     providers:    [HttpService, UserService, BlockUIService, IsWorkingService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
 })

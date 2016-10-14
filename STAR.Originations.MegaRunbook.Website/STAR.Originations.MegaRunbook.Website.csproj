@@ -139,10 +139,20 @@
     <Content Include=".gitignore" />
     <Content Include="app\admin\admin.component.html" />
     <Content Include="app\app.component.html" />
+    <Content Include="app\common\is-working-runner.component.html" />
     <Content Include="app\common\is-working-spinner.component.css" />
     <Content Include="app\common\is-working-spinner.component.html" />
     <Content Include="app\common\is-working.component.html" />
+    <Content Include="app\common\message.component.css" />
+    <Content Include="app\common\message.component.html" />
     <Content Include="app\common\not-authorized.component.html" />
+    <None Include="app\content\css\prime-mrc.scss" />
+    <Content Include="app\content\css\prime-mrc.css">
+      <DependentUpon>prime-mrc.scss</DependentUpon>
+    </Content>
+    <Content Include="app\content\css\prime-mrc.min.css">
+      <DependentUpon>prime-mrc.css</DependentUpon>
+    </Content>
     <Content Include="app\content\css\site.css">
       <DependentUpon>site.scss</DependentUpon>
     </Content>
@@ -161,17 +171,22 @@
     <Content Include="app\content\fonts\fontawesome-webfont.svg" />
     <Content Include="app\content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="app\content\images\binding_dark.png" />
+    <Content Include="app\content\images\circle.svg" />
     <Content Include="app\content\images\loading-spinner-grey.gif" />
     <Content Include="app\content\images\Mega-Runbook-Creator-Button-01.png" />
     <Content Include="app\content\images\Mega-Runbook-Creator-Button-02.png" />
     <Content Include="app\content\images\Mega-Runbook-Creator-Button-03.png" />
     <Content Include="app\content\images\Mega-Runbook-Creator-Button-04.png" />
+    <Content Include="app\content\images\running-01.gif" />
+    <Content Include="app\content\images\running-02.gif" />
+    <Content Include="app\content\images\running.gif" />
+    <Content Include="app\content\images\spiro.svg" />
     <Content Include="app\crisis-center\crisis-admin.component.html" />
     <Content Include="app\crisis-center\crisis-center.component.html" />
     <Content Include="app\crisis-center\crisis-detail.component.html" />
     <Content Include="app\crisis-center\crisis-list.component.html" />
     <Content Include="app\grids\ng-table.component.html" />
-    <Content Include="app\grids\prime-ng.component.html" />
+    <Content Include="app\prime\datatabledemo.html" />
     <Content Include="app\heroes\hero-detail.component.html" />
     <Content Include="app\heroes\hero-list.component.html" />
     <Content Include="app\common\page-not-found.component.html" />
@@ -227,6 +242,9 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="json\cars-large.json" />
+    <Content Include="json\cars-medium.json" />
+    <Content Include="json\cars-small.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -268,8 +286,10 @@
     <TypeScriptCompile Include="app\builds\builds.component.ts" />
     <TypeScriptCompile Include="app\builds\builds.module.ts" />
     <TypeScriptCompile Include="app\builds\builds.routing.ts" />
+    <TypeScriptCompile Include="app\common\is-working-runner.component.ts" />
     <TypeScriptCompile Include="app\common\is-working-spinner.component.ts" />
     <TypeScriptCompile Include="app\common\is-working.component.ts" />
+    <TypeScriptCompile Include="app\common\message.component.ts" />
     <TypeScriptCompile Include="app\common\not-authorized.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-center.component.ts" />
@@ -293,10 +313,12 @@
     <TypeScriptCompile Include="app\entities\service-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\sort-info.entity.ts" />
     <TypeScriptCompile Include="app\entities\team.entity.ts" />
+    <TypeScriptCompile Include="app\prime\car.ts" />
+    <TypeScriptCompile Include="app\prime\carservice.ts" />
     <TypeScriptCompile Include="app\grids\grid.module.ts" />
     <TypeScriptCompile Include="app\grids\grid.routing.ts" />
     <TypeScriptCompile Include="app\grids\ng-table.component.ts" />
-    <TypeScriptCompile Include="app\grids\prime-ng.component.ts" />
+    <TypeScriptCompile Include="app\prime\datatabledemo.ts" />
     <TypeScriptCompile Include="app\grids\table-data.ts" />
     <TypeScriptCompile Include="app\interfaces\i-can-component-deactivate.ts" />
     <TypeScriptCompile Include="app\entities\developer.entity.ts" />
@@ -320,6 +342,8 @@
     <TypeScriptCompile Include="app\links\link.service.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\pipes\plural.pipe.ts" />
+    <TypeScriptCompile Include="app\prime\prime.routing.ts" />
+    <TypeScriptCompile Include="app\prime\prime.module.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.component.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.module.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.routing.ts" />

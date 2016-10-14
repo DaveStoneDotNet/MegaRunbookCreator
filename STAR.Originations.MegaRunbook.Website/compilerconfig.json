@@ -10,5 +10,9 @@
   {
     "outputFile": "app/content/css/toastr.css",
     "inputFile": "app/content/css/toastr.scss"
+  },
+  {
+    "outputFile": "app/content/css/prime-mrc.css",
+    "inputFile": "app/content/css/prime-mrc.scss"
   }
 ]

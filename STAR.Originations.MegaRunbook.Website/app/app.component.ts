@@ -35,6 +35,10 @@ export class AppComponent implements OnInit, OnDestroy {
         this.isWorkingSubscription.unsubscribe();
     }
 
+    onFooterClicked() {
+        this.isWorking = false;
+    }
+
     private onWorking(message) {
         this.workingMessage = message;
     }

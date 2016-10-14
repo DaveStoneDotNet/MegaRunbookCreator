@@ -1233,13 +1233,14 @@ table.runbook-table {
   margin-left: auto;
   margin-right: auto;
   width: 500px;
-  margin-top: 200px; }
+  margin-top: 180px; }
 
 .home-date-block {
   color: rgba(255, 255, 255, 0.5);
   text-align: center;
   font-size: 0.75em;
-  margin-top: -10px; }
+  margin-top: -10px;
+  padding-bottom: 1000px; }
 
 .fat-header {
   color: #dcdcdc;
@@ -1613,4 +1614,50 @@ a.static-link:visited {
 .dataTable th {
   cursor: pointer;
   background-color: #5f7d99; }
+
+.spriro-01 {
+  position: absolute;
+  top: 30px;
+  left: 0px;
+  opacity: 0.10;
+  -webkit-animation: spin 14s linear infinite;
+  -moz-animation: spin 14s linear infinite;
+  animation: spin 14s linear infinite; }
+
+.spriro-02 {
+  position: absolute;
+  width: 850px;
+  top: 70px;
+  left: 0;
+  right: 0;
+  margin: 0px auto;
+  opacity: 0.20;
+  -webkit-animation: spinback 20s linear infinite;
+  -moz-animation: spinback 20s linear infinite;
+  animation: spinback 20s linear infinite; }
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg); } }
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spin {
+  10% {
+    transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@-moz-keyframes spinback {
+  10% {
+    -moz-transform: rotate(-360deg); } }
+
+@-webkit-keyframes spinback {
+  10% {
+    -webkit-transform: rotate(-360deg); } }
+
+@keyframes spinback {
+  10% {
+    transform: rotate(-360deg); } }
 

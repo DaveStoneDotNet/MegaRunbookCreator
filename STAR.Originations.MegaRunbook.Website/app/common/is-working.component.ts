@@ -31,7 +31,11 @@ export class IsWorkingComponent implements OnInit, OnDestroy {
         this.isWorkingSubscription.unsubscribe();
     }
 
-    private onIsWorking(message) {
+    onComponentClicked() {
+        this.isWorking = false;
+    }
+
+   private onIsWorking(message) {
         this.workingMessage = message;
     }
 }
