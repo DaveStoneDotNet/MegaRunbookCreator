@@ -1,0 +1,6 @@
+﻿<div class="is-working-spinner" [@workingState]="state" (click)="onClickMe()" [hidden]="!isWorking">
+    <i class="fa fa-gear font-2-00 float-left margin-right-10" [ngClass]="{ 'fa-spin': isWorking }"></i>
+    <div class="font-1-20 pad-top-2">
+        Working...
+    </div>
+</div>

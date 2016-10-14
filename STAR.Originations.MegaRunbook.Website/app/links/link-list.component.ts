@@ -22,7 +22,7 @@ import { Subscription }         from 'rxjs/Subscription';
 
 @Component({
     templateUrl: 'app/links/link-list.component.html',
-    providers: [LinkService]
+    providers:   [LinkService]
 })
 
 export class LinkListComponent implements OnInit, OnDestroy {

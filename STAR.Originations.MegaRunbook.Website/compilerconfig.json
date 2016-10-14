@@ -14,5 +14,9 @@
   {
     "outputFile": "app/content/css/prime-mrc.css",
     "inputFile": "app/content/css/prime-mrc.scss"
+  },
+  {
+    "outputFile": "app/content/css/primeng.css",
+    "inputFile": "app/content/css/primeng.scss"
   }
 ]

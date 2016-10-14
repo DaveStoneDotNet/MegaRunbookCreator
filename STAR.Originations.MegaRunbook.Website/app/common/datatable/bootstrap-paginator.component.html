@@ -1,0 +1,42 @@
+﻿<mrcPaginator #paginator [mrcDataTable]="mrcDataTable">
+    <nav class="pagination" *ngIf="paginator.dataLength > paginator.rowsOnPage">
+        <li [class.disabled]="paginator.activePage <= 1" (click)="paginator.setPage(1)">
+            <a style="cursor: pointer">&laquo;</a>
+        </li>
+        <li *ngIf="paginator.activePage > 4 && paginator.activePage + 1 > paginator.lastPage" (click)="paginator.setPage(paginator.activePage - 4)">
+            <a style="cursor: pointer">{{ paginator.activePage - 4 }}</a>
+        </li>
+        <li *ngIf="paginator.activePage > 3 && paginator.activePage + 2 > paginator.lastPage" (click)="paginator.setPage(paginator.activePage - 3)">
+            <a style="cursor: pointer">{{ paginator.activePage - 3 }}</a>
+        </li>
+        <li *ngIf="paginator.activePage > 2" (click)="paginator.setPage(paginator.activePage - 2)">
+            <a style="cursor: pointer">{{ paginator.activePage - 2 }}</a>
+        </li>
+        <li *ngIf="paginator.activePage > 1" (click)="paginator.setPage(paginator.activePage - 1)">
+            <a style="cursor: pointer">{{ paginator.activePage - 1 }}</a>
+        </li>
+        <li class="active">
+            <a style="cursor: pointer">{{ paginator.activePage }}</a>
+        </li>
+        <li *ngIf="paginator.activePage + 1 <= paginator.lastPage" (click)="paginator.setPage(paginator.activePage + 1)">
+            <a style="cursor: pointer">{{ paginator.activePage + 1 }}</a>
+        </li>
+        <li *ngIf="paginator.activePage + 2 <= paginator.lastPage" (click)="paginator.setPage(paginator.activePage + 2)">
+            <a style="cursor: pointer">{{ paginator.activePage + 2 }}</a>
+        </li>
+        <li *ngIf="paginator.activePage + 3 <= paginator.lastPage && paginator.activePage < 3" (click)="paginator.setPage(paginator.activePage + 3)">
+            <a style="cursor: pointer">{{ paginator.activePage + 3 }}</a>
+        </li>
+        <li *ngIf="paginator.activePage + 4 <= paginator.lastPage && paginator.activePage < 2" (click)="paginator.setPage(paginator.activePage + 4)">
+            <a style="cursor: pointer">{{ paginator.activePage + 4 }}</a>
+        </li>
+        <li [class.disabled]="paginator.activePage >= paginator.lastPage" (click)="paginator.setPage(paginator.lastPage)">
+            <a style="cursor: pointer">&raquo;</a>
+        </li>
+    </nav>
+    <nav class="pagination pull-right" *ngIf="paginator.dataLength > minRowsOnPage">
+        <li *ngFor="let rows of rowsOnPageSet" [class.active]="paginator.rowsOnPage===rows" (click)="paginator.setRowsOnPage(rows)">
+            <a style="cursor: pointer">{{ rows }}</a>
+        </li>
+    </nav>
+</mrcPaginator>

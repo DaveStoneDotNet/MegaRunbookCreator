@@ -25,9 +25,9 @@ import { HomeComponent }             from './home/home.component';
 
 import { PageNotFoundComponent }     from './common/page-not-found.component'
 import { NotAuthorizedComponent }    from './common/not-authorized.component'
-import { IsWorkingComponent }        from './common/is-working.component'
-import { IsWorkingSpinnerComponent } from './common/is-working-spinner.component'
-import { IsWorkingRunnerComponent }  from './common/is-working-runner.component'
+import { IsWorkingComponent }        from './common/isworking/is-working.component'
+import { IsWorkingSpinnerComponent } from './common/isworking/is-working-spinner.component'
+import { IsWorkingRunnerComponent }  from './common/isworking/is-working-runner.component'
 import { MessageComponent }          from './common/message.component'
 
 import { HttpService }               from './services/http.service';

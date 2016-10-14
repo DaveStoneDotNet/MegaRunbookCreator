@@ -139,10 +139,12 @@
     <Content Include=".gitignore" />
     <Content Include="app\admin\admin.component.html" />
     <Content Include="app\app.component.html" />
-    <Content Include="app\common\is-working-runner.component.html" />
-    <Content Include="app\common\is-working-spinner.component.css" />
-    <Content Include="app\common\is-working-spinner.component.html" />
-    <Content Include="app\common\is-working.component.html" />
+    <Content Include="app\common\datatable\bootstrap-paginator.component.html" />
+    <Content Include="app\common\datatable\default-sorter.component.html" />
+    <Content Include="app\common\isworking\is-working-runner.component.html" />
+    <Content Include="app\common\isworking\is-working-spinner.component.css" />
+    <Content Include="app\common\isworking\is-working-spinner.component.html" />
+    <Content Include="app\common\isworking\is-working.component.html" />
     <Content Include="app\common\message.component.css" />
     <Content Include="app\common\message.component.html" />
     <Content Include="app\common\not-authorized.component.html" />
@@ -152,6 +154,13 @@
     </Content>
     <Content Include="app\content\css\prime-mrc.min.css">
       <DependentUpon>prime-mrc.css</DependentUpon>
+    </Content>
+    <None Include="app\content\css\primeng.scss" />
+    <Content Include="app\content\css\primeng.css">
+      <DependentUpon>primeng.scss</DependentUpon>
+    </Content>
+    <Content Include="app\content\css\primeng.min.css">
+      <DependentUpon>primeng.css</DependentUpon>
     </Content>
     <Content Include="app\content\css\site.css">
       <DependentUpon>site.scss</DependentUpon>
@@ -198,6 +207,7 @@
     <Content Include="app\builds\builds.component.html" />
     <Content Include="app\json\heroes\heroes.json" />
     <Content Include="app\json\heroes\crisises.json" />
+    <Content Include="app\content\css\_mrc-colors.scss" />
     <None Include="app\templates\template-list.component.scss" />
     <Content Include="app\templates\runbook-step-form.component.html" />
     <Content Include="app\templates\template-list.component.css">
@@ -286,10 +296,18 @@
     <TypeScriptCompile Include="app\builds\builds.component.ts" />
     <TypeScriptCompile Include="app\builds\builds.module.ts" />
     <TypeScriptCompile Include="app\builds\builds.routing.ts" />
-    <TypeScriptCompile Include="app\common\is-working-runner.component.ts" />
-    <TypeScriptCompile Include="app\common\is-working-spinner.component.ts" />
-    <TypeScriptCompile Include="app\common\is-working.component.ts" />
+    <TypeScriptCompile Include="app\common\datatable\bootstrap-paginator.component.ts" />
+    <TypeScriptCompile Include="app\common\datatable\default-sorter.component.ts" />
+    <TypeScriptCompile Include="app\common\datatable\i-data-event.ts" />
+    <TypeScriptCompile Include="app\common\datatable\i-page-event.ts" />
+    <TypeScriptCompile Include="app\common\datatable\i-sort-event.ts" />
+    <TypeScriptCompile Include="app\common\datatable\mrc-datatable.module.ts" />
+    <TypeScriptCompile Include="app\common\datatable\paginator.component.ts" />
+    <TypeScriptCompile Include="app\common\isworking\is-working-runner.component.ts" />
+    <TypeScriptCompile Include="app\common\isworking\is-working-spinner.component.ts" />
+    <TypeScriptCompile Include="app\common\isworking\is-working.component.ts" />
     <TypeScriptCompile Include="app\common\message.component.ts" />
+    <TypeScriptCompile Include="app\common\datatable\mrc-datatable.directive.ts" />
     <TypeScriptCompile Include="app\common\not-authorized.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-center.component.ts" />
@@ -307,6 +325,7 @@
     <TypeScriptCompile Include="app\entities\paged-application-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\paged-base.ts" />
     <TypeScriptCompile Include="app\entities\paged-runbook-template.entity.ts" />
+    <TypeScriptCompile Include="app\entities\paging.entity.ts" />
     <TypeScriptCompile Include="app\entities\runbook-step-pbi.entity.ts" />
     <TypeScriptCompile Include="app\entities\application-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\server.entity.ts" />

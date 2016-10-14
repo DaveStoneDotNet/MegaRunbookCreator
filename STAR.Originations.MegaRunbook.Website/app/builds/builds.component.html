@@ -5,5 +5,34 @@
     <div class="fat-header">Builds</div>
     <div>
 
+
+
+
+
+        <table class="table table-striped" [mrc-data-input]="applicationLinks" #mrcDataTable="mrcDataTable" [mrc-rows-per-page]="10" (onDataRequested)="onDataRequested($event)">
+            <thead>
+                <tr>
+                    <th>
+                        <mfDefaultSorter by="name">Name</mfDefaultSorter>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of mrcDataTable.mrcDataInput">
+                    <td>{{ item.Name }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <mrcBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mrcBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+
+
     </div>
 </div>

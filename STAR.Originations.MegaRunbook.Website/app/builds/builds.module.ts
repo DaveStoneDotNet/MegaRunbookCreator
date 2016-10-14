@@ -7,8 +7,10 @@ import { BuildsComponent } from './builds.component';
 
 import { buildsRouting }   from './builds.routing';
 
+import { DataTableModule } from '../common/datatable/mrc-datatable.module';
+
 @NgModule({
-    imports:      [CommonModule, FormsModule, buildsRouting],
+    imports:      [CommonModule, FormsModule, buildsRouting, DataTableModule],
     declarations: [BuildsComponent],
     providers:    []
 })

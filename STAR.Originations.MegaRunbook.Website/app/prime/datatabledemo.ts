@@ -25,8 +25,8 @@ export class DataTableDemo implements OnInit {
     ngOnInit() {
         this.carService.getCarsSmall().then(cars => this.cars = cars);
         this.cols = [
-            { field: 'vin', header: 'Vin' },
-            { field: 'year', header: 'Year' },
+            { field: 'vin',   header: 'Vin' },
+            { field: 'year',  header: 'Year' },
             { field: 'brand', header: 'Brand' },
             { field: 'color', header: 'Color' }
         ];
