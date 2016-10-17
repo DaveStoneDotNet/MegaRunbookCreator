@@ -49,14 +49,14 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         #region GetDefaultPaging
         protected static Paging GetDefaultPaging(string propertyNameToSort)
         {
-            return new Paging { PageSize = 1000, PageNumber = 0, SortInfo = new List<SortInfo> { new SortInfo { PropertyName = propertyNameToSort, Order = SortOrder.Ascending } } };
+            return new Paging { RecordsPerPage = 1000, PageNumber = 0, SortInfo = new List<SortInfo> { new SortInfo { PropertyName = propertyNameToSort, SortOrder = SortOrder.Ascending } } };
         }
         #endregion GetDefaultPaging
 
         #region GetDefaultSort
         protected static List<SortInfo> GetDefaultSortInfo(string propertyNameToSort)
         {
-            return new List<SortInfo> { new SortInfo { PropertyName = propertyNameToSort, Order = SortOrder.Ascending } };
+            return new List<SortInfo> { new SortInfo { PropertyName = propertyNameToSort, SortOrder = SortOrder.Ascending } };
         }
         #endregion GetDefaultSort
 

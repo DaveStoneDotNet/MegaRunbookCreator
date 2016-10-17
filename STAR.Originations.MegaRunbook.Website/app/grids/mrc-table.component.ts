@@ -16,8 +16,8 @@ import { SortInfo }             from '../entities/sort-info.entity';
 import { Subscription }         from 'rxjs/Subscription';
 
 @Component({
-    templateUrl: 'app/grids/mrc-table.compoonent.html',
-    styleUrls:  ['app/grids/mrc-table.compoonent.css'],
+    templateUrl:  'app/grids/mrc-table.component.html',
+    styleUrls:   ['app/grids/mrc-table.component.css'],
     providers:   [LinkService]
 })
 export class MrcTableComponent implements OnInit, OnDestroy {
@@ -45,30 +45,30 @@ export class MrcTableComponent implements OnInit, OnDestroy {
     }
 
     onDataRequested($event): void {
-
         this.dataEvent = $event;
-
-        // $event = Object {length: 90, PageNumber: 1, PageSize: 10, SortInfo: Object}
-        console.log('DATA REQUESTED - PageNumber: ' + $event.PageNumber);
-
-        var msg = `PageNumber: ${$event.PageNumber} PageSize: ${$event.PageSize} SortInfo.SortBy: ${$event.SortInfo.sortBy} SortInfo.SortOrder: ${$event.SortInfo.sortOrder }`;
-        console.log('DATA REQUESTED: ' + msg);
-
         this.executeSearch();
     }
 
     private getRequest(): ApplicationLink {
         let applicationLink = new ApplicationLink();
+        applicationLink.Paging = new Paging();
         if (this.dataEvent != null) {
-            applicationLink.Paging = new Paging();
             applicationLink.Paging.PageNumber = this.dataEvent.PageNumber;
-            applicationLink.Paging.PageSize = this.dataEvent.PageSize;
+            applicationLink.Paging.RecordsPerPage = this.dataEvent.RecordsPerPage;
 
-            let sortInfo = new SortInfo();
-            sortInfo.PropertyName = this.dataEvent.SortInfo.PropertyName;
-            sortInfo.Order = this.dataEvent.SortInfo.sortOrder;
-            applicationLink.Paging.SortInfo = [];
-            applicationLink.Paging.SortInfo.push(sortInfo);
+            if (this.dataEvent.SortInfo) {
+                if (!this.isNullEmptyOrWhiteSpace(this.dataEvent.SortInfo.PropertyName)) {
+                    let sortInfo = new SortInfo();
+                    sortInfo.PropertyName = this.dataEvent.SortInfo.PropertyName;
+                    sortInfo.SortOrder = this.dataEvent.SortInfo.SortOrder;
+                    applicationLink.Paging.SortInfo = [];
+                    applicationLink.Paging.SortInfo.push(sortInfo);
+                }
+            }
+
+        } else {
+            applicationLink.Paging.PageNumber = 1;
+            applicationLink.Paging.RecordsPerPage = 10;
         }
         return applicationLink;
     }
@@ -102,7 +102,6 @@ export class MrcTableComponent implements OnInit, OnDestroy {
         let message = response.TotalRecordCount + (response.TotalRecordCount === 1 ? ' application' : ' applications');
 
         this.pagedApplicationLinks = response;
-        this.applicationLinks = this.pagedApplicationLinks.Items;
 
         this.runningSearch = false;
         this.isWorkingService.stopWorking();
@@ -112,5 +111,9 @@ export class MrcTableComponent implements OnInit, OnDestroy {
 
         this.runningSearch = false;
         this.isWorkingService.stopWorking();
+    }
+
+    private isNullEmptyOrWhiteSpace(text: string): boolean {
+        return !text || text.length == 0;
     }
 }

@@ -1,0 +1,19 @@
+﻿.mrc-data-table {
+    width: 100%;
+}
+.mrc-data-table th {
+    padding: 5px 5px 5px 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+.mrc-data-table tbody tr:nth-child(odd) {
+}
+.mrc-data-table tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.mrc-data-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.mrc-data-table tbody td {
+    padding: 5px 5px 5px 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}

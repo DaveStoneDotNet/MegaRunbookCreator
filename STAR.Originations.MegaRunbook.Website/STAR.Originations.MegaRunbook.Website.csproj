@@ -196,8 +196,8 @@
     <Content Include="app\crisis-center\crisis-center.component.html" />
     <Content Include="app\crisis-center\crisis-detail.component.html" />
     <Content Include="app\crisis-center\crisis-list.component.html" />
-    <Content Include="app\grids\mrc-table.compoonent.css" />
-    <Content Include="app\grids\mrc-table.compoonent.html" />
+    <Content Include="app\grids\mrc-table.component.css" />
+    <Content Include="app\grids\mrc-table.component.html" />
     <Content Include="app\grids\ng-table.component.html" />
     <Content Include="app\prime\datatabledemo.html" />
     <Content Include="app\heroes\hero-detail.component.html" />
@@ -301,6 +301,7 @@
     <TypeScriptCompile Include="app\builds\builds.module.ts" />
     <TypeScriptCompile Include="app\builds\builds.routing.ts" />
     <TypeScriptCompile Include="app\common\datatable\bootstrap-paginator.component.ts" />
+    <TypeScriptCompile Include="app\common\datatable\i-paged-data.ts" />
     <TypeScriptCompile Include="app\common\datatable\mrc-table-sorter.component.ts" />
     <TypeScriptCompile Include="app\common\datatable\i-data-event.ts" />
     <TypeScriptCompile Include="app\common\datatable\i-page-event.ts" />

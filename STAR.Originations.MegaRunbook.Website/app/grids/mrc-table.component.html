@@ -1,0 +1,36 @@
+﻿<div class="align-right margin-right-10 margin-top-2">
+    <button class="btn btn-primary btn-xs">Button</button>
+</div>
+<div class="inner-body-content">
+    <div class="fat-header">MRC Table</div>
+    <div>
+
+
+
+        <table class="mrc-data-table" [mrc-data-input]="pagedApplicationLinks" #mrcDataTable="mrcDataTable" [mrc-records-per-page]="10" (onDataRequested)="onDataRequested($event)">
+            <thead>
+                <tr>
+                    <th style="width: 30%;"><mrc-table-sorter PropertyName="Name">Name</mrc-table-sorter></th>
+                    <th style="width: 70%;"><mrc-table-sorter PropertyName="Notes">Notes</mrc-table-sorter></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of mrcDataTable.mrcDataInput.Items">
+                    <td>{{ item.Name }}</td>
+                    <td>{{ item.Notes }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <mrcBootstrapPaginator [rowsOnPageSet]="[10,50,100]"></mrcBootstrapPaginator>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+
+
+
+    </div>
+</div>

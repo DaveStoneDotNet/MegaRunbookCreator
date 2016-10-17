@@ -11,13 +11,13 @@ namespace STAR.Originations.MegaRunbook.Contracts.PagingModels
     public class SortInfo
     {
         [DataMember] public string PropertyName { get; set; }
-        [DataMember] public SortOrder Order { get; set; }
+        [DataMember] public SortOrder SortOrder { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string DebuggerDisplay => String.Format("{0}({1} {2})", this.GetType().Name, this.PropertyName, this.Order);
+        private string DebuggerDisplay => String.Format("{0}({1} {2})", this.GetType().Name, this.PropertyName, this.SortOrder);
 
         #region Create
-        public static SortInfo Create<TSource, TResult>(Expression<Func<TSource, TResult>> propertySelector, SortOrder order)
+        public static SortInfo Create<TSource, TResult>(Expression<Func<TSource, TResult>> propertySelector, SortOrder sortOrder)
         {
             if (propertySelector == null)
             {
@@ -39,7 +39,7 @@ namespace STAR.Originations.MegaRunbook.Contracts.PagingModels
             return new SortInfo
             {
                 PropertyName = propertyInfo.Name,
-                Order = order
+                SortOrder = sortOrder
             };
         }
         #endregion Create

@@ -1,6 +1,6 @@
 ﻿export interface PageEvent {
-    activePage: number;
-    rowsOnPage: number;
-    dataLength: number;
+    currentPage: number;
+    recordsPerPage: number;
+    totalRecordCount: number;
 }
 

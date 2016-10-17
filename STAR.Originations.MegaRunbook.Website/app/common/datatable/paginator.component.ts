@@ -19,9 +19,9 @@ export class Paginator implements OnChanges {
 
     private mrcDataTable: DataTable;
 
-    activePage: number;
-    rowsOnPage: number;
-    dataLength: number = 0;
+    currentPage: number;
+    recordsPerPage: number;
+    totalRecordCount: number = 0;
     lastPage:   number;
 
     constructor(@Optional() private injectedMrcDataTable: DataTable) {
@@ -35,18 +35,18 @@ export class Paginator implements OnChanges {
 
     setPage(pageNumber: number): void {
         if ((pageNumber > 0) && (pageNumber < this.lastPage+1)) {
-            this.mrcDataTable.setPage(pageNumber, this.rowsOnPage);
+            this.mrcDataTable.setPage(pageNumber, this.recordsPerPage);
         }
     }
 
-    setRowsOnPage(rowsOnPage: number): void {
-        this.mrcDataTable.setPage(this.activePage, rowsOnPage);
+    setRecordsPerPage(recordsPerPage: number): void {
+        this.mrcDataTable.setPage(this.currentPage, recordsPerPage);
     }
 
     private onPageChangeSubscriber = (event: PageEvent) => {
-        this.activePage = event.activePage;
-        this.dataLength = event.dataLength;
-        this.rowsOnPage = event.rowsOnPage;
-        this.lastPage = Math.ceil(this.dataLength / this.rowsOnPage);
+        this.currentPage = event.currentPage;
+        this.totalRecordCount = event.totalRecordCount;
+        this.recordsPerPage = event.recordsPerPage;
+        this.lastPage = Math.ceil(this.totalRecordCount / this.recordsPerPage);
     };
 }

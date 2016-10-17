@@ -10,11 +10,11 @@ namespace STAR.Originations.MegaRunbook.Contracts.PagingModels
     public class Paging
     {
         [DataMember] public int PageNumber { get; set; }
-        [DataMember] public int PageSize { get; set; }
+        [DataMember] public int RecordsPerPage { get; set; }
 
         [DataMember] public List<SortInfo> SortInfo { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string DebuggerDisplay => String.Format("{0}(PageNumber={1}; PageSize={2})", this.GetType().Name, PageNumber, PageSize);
+        private string DebuggerDisplay => String.Format("{0}(PageNumber={1}; RecordsPerPage={2})", this.GetType().Name, PageNumber, RecordsPerPage);
     }
 }

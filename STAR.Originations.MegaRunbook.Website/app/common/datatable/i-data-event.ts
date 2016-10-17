@@ -2,10 +2,11 @@
 import { SortEvent } from './i-sort-event';
 
 export interface DataEvent {
-    length: number;
+
+    TotalRecordCount: number;
 
     PageNumber: number;
-    PageSize: number;
+    RecordsPerPage: number;
     SortInfo: SortEvent;
 }
 

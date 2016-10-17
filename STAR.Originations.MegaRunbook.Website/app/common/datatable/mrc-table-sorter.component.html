@@ -1,6 +1,6 @@
 ﻿<div class="sort-widget" (click)="sort()">
-    <span *ngIf="isAscending"  class="sort-up   fa fa-chevron-up"></span>
-    <span *ngIf="isDescending" class="sort-down fa fa-chevron-down"></span>
+    <span *ngIf="isAscending"  class="sort-up   fa fa-chevron-up"   tooltip="Ascending"></span>
+    <span *ngIf="isDescending" class="sort-down fa fa-chevron-down" tooltip="Descending"></span>
     <span *ngIf="!isAscending && !isDescending" class="sort-none fa fa-minus"></span>
     <ng-content></ng-content>
 </div>

@@ -1,7 +1,7 @@
 ﻿
 export interface SortEvent {
-    sortBy: string | string[];
-    sortOrder: string; 
+
+    SortOrder:    string; 
     PropertyName: string;
 }
 

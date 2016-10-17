@@ -4,7 +4,7 @@ import { SortInfo } from './sort-info.entity';
 export class PagedBase {
 
     PageNumber: number;
-    PageSize: number;
+    RecordsPerPage: number;
 
     SortInfo: SortInfo;
 }
