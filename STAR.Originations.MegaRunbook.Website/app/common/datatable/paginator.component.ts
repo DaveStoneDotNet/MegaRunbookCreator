@@ -16,8 +16,7 @@ export class Paginator implements OnChanges {
 
     @Input('mrcDataTable')
     private mrcDataTableInput: DataTable;
-
-    private mrcDataTable: DataTable;
+    private mrcDataTable:      DataTable;
 
     currentPage: number;
     recordsPerPage: number;
@@ -44,9 +43,9 @@ export class Paginator implements OnChanges {
     }
 
     private onPageChangeSubscriber = (event: PageEvent) => {
-        this.currentPage = event.currentPage;
+        this.currentPage      = event.currentPage;
         this.totalRecordCount = event.totalRecordCount;
-        this.recordsPerPage = event.recordsPerPage;
-        this.lastPage = Math.ceil(this.totalRecordCount / this.recordsPerPage);
+        this.recordsPerPage   = event.recordsPerPage;
+        this.lastPage         = Math.ceil(this.totalRecordCount / this.recordsPerPage);
     };
 }

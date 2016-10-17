@@ -2,6 +2,7 @@
 import { Component }            from '@angular/core';
 import { OnInit }               from '@angular/core';
 import { OnDestroy }            from '@angular/core';
+import { ViewChild }            from '@angular/core';
 import { Router }               from '@angular/router';
 
 import { ApplicationLink }      from '../entities/application-link.entity';
@@ -23,6 +24,8 @@ import { Subscription }         from 'rxjs/Subscription';
 export class MrcTableComponent implements OnInit, OnDestroy {
 
     Title = "Builds";
+
+    @ViewChild('mrcDataTable') myMrcDataTableElement;
 
     delaySearch: boolean;
     runningSearch: boolean;
@@ -50,7 +53,9 @@ export class MrcTableComponent implements OnInit, OnDestroy {
     }
 
     private getRequest(): ApplicationLink {
+
         let applicationLink = new ApplicationLink();
+
         applicationLink.Paging = new Paging();
         if (this.dataEvent != null) {
             applicationLink.Paging.PageNumber = this.dataEvent.PageNumber;
@@ -68,7 +73,7 @@ export class MrcTableComponent implements OnInit, OnDestroy {
 
         } else {
             applicationLink.Paging.PageNumber = 1;
-            applicationLink.Paging.RecordsPerPage = 10;
+            applicationLink.Paging.RecordsPerPage = this.myMrcDataTableElement.recordsPerPage;
         }
         return applicationLink;
     }

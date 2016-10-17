@@ -1,12 +1,15 @@
 ﻿
-import { SortEvent } from './i-sort-event';
+import { SortInfo } from './i-sort-info';
 
 export interface DataEvent {
 
+    PageNumber:       number;
+    RecordsPerPage:   number;
+    TotalPageCount:   number;
     TotalRecordCount: number;
 
-    PageNumber: number;
-    RecordsPerPage: number;
-    SortInfo: SortEvent;
+    SortInfo:         SortInfo;
+
+    Items:            any[];
 }
 

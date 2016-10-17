@@ -1,6 +1,6 @@
 ﻿<mrcPaginator #paginator [mrcDataTable]="mrcDataTable">
 
-    <nav class="pagination" *ngIf="paginator.totalRecordCount > paginator.recordsPerPage">
+    <nav class="pagination">
         <li class="unselectable" [class.disabled]="paginator.currentPage == 1" (click)="paginator.setPage(1)">
             <a>First</a>
         </li>

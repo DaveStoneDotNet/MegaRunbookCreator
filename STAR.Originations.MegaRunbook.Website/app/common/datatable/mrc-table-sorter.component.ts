@@ -1,9 +1,10 @@
 ﻿
-import { Component }     from '@angular/core';
-import { Input     }     from '@angular/core';
+import { Component }       from '@angular/core';
+import { Input     }       from '@angular/core';
 
-import { DataTable }     from './mrc-datatable.directive';
-import { SortEvent }     from './i-sort-event';
+import { DataTable }       from './mrc-datatable.directive';
+import { MrcSortSettings } from './mrc-sort-settings';
+import { SortInfo }        from './i-sort-info';
 
 @Component({
     selector:    'mrc-table-sorter',
@@ -12,23 +13,23 @@ import { SortEvent }     from './i-sort-event';
 })
 export class MrcTableSorter {
 
-    @Input('PropertyName') private PropertyName: string;
+    @Input('PropertyName') public PropertyName: string;
 
-    private isAscending: boolean = false;
+    private isAscending:  boolean = false;
     private isDescending: boolean = false;
 
     constructor(private mrcDataTable: DataTable) {
-        mrcDataTable.onSortChange.subscribe((event: SortEvent) => {
-            this.isAscending = (event.PropertyName === this.PropertyName && event.SortOrder === 'Ascending');
-            this.isDescending = (event.PropertyName === this.PropertyName && event.SortOrder === 'Descending');
+        mrcDataTable.onSortChange.subscribe((event: SortInfo) => {
+            this.isAscending  = (event.PropertyName === this.PropertyName && event.SortOrder === MrcSortSettings.ASCENDING);
+            this.isDescending = (event.PropertyName === this.PropertyName && event.SortOrder === MrcSortSettings.DESCENDING);
         })
     }
 
     private sort() {
-        if (this.isAscending) {
-            this.mrcDataTable.setSort('Descending', this.PropertyName);
+        if (this.isDescending) {
+            this.mrcDataTable.setSortInfo(MrcSortSettings.ASCENDING, this.PropertyName);
         } else {
-            this.mrcDataTable.setSort('Ascending', this.PropertyName);
+            this.mrcDataTable.setSortInfo(MrcSortSettings.DESCENDING, this.PropertyName);
         }
     }
 }
