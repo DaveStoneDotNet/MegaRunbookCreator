@@ -139,8 +139,10 @@
     <Content Include=".gitignore" />
     <Content Include="app\admin\admin.component.html" />
     <Content Include="app\app.component.html" />
+    <Content Include="app\common\datatable\bootstrap-paginator.component.css" />
     <Content Include="app\common\datatable\bootstrap-paginator.component.html" />
-    <Content Include="app\common\datatable\default-sorter.component.html" />
+    <Content Include="app\common\datatable\mrc-table-sorter.component.css" />
+    <Content Include="app\common\datatable\mrc-table-sorter.component.html" />
     <Content Include="app\common\isworking\is-working-runner.component.html" />
     <Content Include="app\common\isworking\is-working-spinner.component.css" />
     <Content Include="app\common\isworking\is-working-spinner.component.html" />
@@ -194,6 +196,8 @@
     <Content Include="app\crisis-center\crisis-center.component.html" />
     <Content Include="app\crisis-center\crisis-detail.component.html" />
     <Content Include="app\crisis-center\crisis-list.component.html" />
+    <Content Include="app\grids\mrc-table.compoonent.css" />
+    <Content Include="app\grids\mrc-table.compoonent.html" />
     <Content Include="app\grids\ng-table.component.html" />
     <Content Include="app\prime\datatabledemo.html" />
     <Content Include="app\heroes\hero-detail.component.html" />
@@ -297,7 +301,7 @@
     <TypeScriptCompile Include="app\builds\builds.module.ts" />
     <TypeScriptCompile Include="app\builds\builds.routing.ts" />
     <TypeScriptCompile Include="app\common\datatable\bootstrap-paginator.component.ts" />
-    <TypeScriptCompile Include="app\common\datatable\default-sorter.component.ts" />
+    <TypeScriptCompile Include="app\common\datatable\mrc-table-sorter.component.ts" />
     <TypeScriptCompile Include="app\common\datatable\i-data-event.ts" />
     <TypeScriptCompile Include="app\common\datatable\i-page-event.ts" />
     <TypeScriptCompile Include="app\common\datatable\i-sort-event.ts" />
@@ -332,6 +336,7 @@
     <TypeScriptCompile Include="app\entities\service-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\sort-info.entity.ts" />
     <TypeScriptCompile Include="app\entities\team.entity.ts" />
+    <TypeScriptCompile Include="app\grids\mrc-table.component.ts" />
     <TypeScriptCompile Include="app\prime\car.ts" />
     <TypeScriptCompile Include="app\prime\carservice.ts" />
     <TypeScriptCompile Include="app\grids\grid.module.ts" />

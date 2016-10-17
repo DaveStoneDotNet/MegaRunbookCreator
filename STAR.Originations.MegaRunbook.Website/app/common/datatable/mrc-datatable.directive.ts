@@ -21,7 +21,7 @@ export class DataTable implements OnChanges, DoCheck {
     @Input('mrc-rows-per-page') public rowsOnPage = 1000;
     @Input('mrc-current-page')  public activePage = 1;
 
-    @Output() onDataRequested = new EventEmitter<PageEvent>();
+    @Output() onDataRequested = new EventEmitter<DataEvent>();
 
     mrcDataInput: any[];
 
@@ -29,22 +29,33 @@ export class DataTable implements OnChanges, DoCheck {
     onSortChange = new EventEmitter<SortEvent>();
     onPageChange = new EventEmitter<PageEvent>();
 
+    private PropertyName: string;
     private sortBy: string | string[] = '';
-    private sortOrder = 'asc';
+    private sortOrder = 'Ascending';
     private mustRecalculateData = false;
 
-    getSort(): SortEvent {
-        return { sortBy: this.sortBy, sortOrder: this.sortOrder };
+    getDataEvent(): DataEvent {
+        return {
+                    length: this.inputData.length,
+                    PageNumber: this.activePage,
+                    PageSize: this.rowsOnPage, 
+                    SortInfo: this.getSort()
+                };
     }
 
-    setSort(sortBy: string | string[], sortOrder: string): void {
+    getSort(): SortEvent {
+        return { sortBy: this.sortBy, sortOrder: this.sortOrder, PropertyName: this.PropertyName };
+    }
+
+    setSort(sortBy: string | string[], sortOrder: string, propertyName: string): void {
         if (this.sortBy !== sortBy || this.sortOrder !== sortOrder) {
             this.sortBy = sortBy;
+            this.PropertyName = propertyName;
             this.sortOrder = sortOrder;
             this.mustRecalculateData = true;
-            this.onSortChange.emit({ sortBy: sortBy, sortOrder: sortOrder });
+            this.onSortChange.emit({ sortBy: sortBy, sortOrder: sortOrder, PropertyName: propertyName });
         }
-        this.onDataRequested.emit(this.getPage());
+        this.onDataRequested.emit(this.getDataEvent());
     }
 
     getPage(): PageEvent {

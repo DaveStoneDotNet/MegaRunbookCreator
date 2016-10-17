@@ -7,13 +7,16 @@ import { NG_TABLE_DIRECTIVES } from 'ng2-table';
 
 import { PaginationModule }    from 'ng2-bootstrap/components/pagination';
 
+import { DataTableModule } from '../common/datatable/mrc-datatable.module';
+
 import { NgTableComponent }    from './ng-table.component';
+import { MrcTableComponent }   from './mrc-table.component';
 
 import { gridRouting }         from './grid.routing';
 
 @NgModule({
-    imports:      [CommonModule, FormsModule, gridRouting, PaginationModule],
-    declarations: [NgTableComponent, NG_TABLE_DIRECTIVES],
+    imports:      [CommonModule, FormsModule, gridRouting, PaginationModule, DataTableModule],
+    declarations: [NgTableComponent, NG_TABLE_DIRECTIVES, MrcTableComponent],
     providers:    []
 })
 

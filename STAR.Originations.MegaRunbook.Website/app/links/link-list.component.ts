@@ -136,7 +136,8 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
 
-            this.subscription = this.linkService.getApplicationLinks()
+            let request = new ApplicationLink();
+            this.subscription = this.linkService.getApplicationLinks(request)
                 .subscribe(
                 response => this.onServiceLinksSuccessful(response),
                 response => this.onServiceLinksOnError(response)

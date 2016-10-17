@@ -24,7 +24,7 @@ export class Paginator implements OnChanges {
     dataLength: number = 0;
     lastPage:   number;
 
-    constructor( @Optional() private injectedMrcDataTable: DataTable) {
+    constructor(@Optional() private injectedMrcDataTable: DataTable) {
     }
 
     ngOnChanges(changes: { [key: string]: SimpleChange }): any {
@@ -34,7 +34,9 @@ export class Paginator implements OnChanges {
     }
 
     setPage(pageNumber: number): void {
-        this.mrcDataTable.setPage(pageNumber, this.rowsOnPage);
+        if ((pageNumber > 0) && (pageNumber < this.lastPage+1)) {
+            this.mrcDataTable.setPage(pageNumber, this.rowsOnPage);
+        }
     }
 
     setRowsOnPage(rowsOnPage: number): void {

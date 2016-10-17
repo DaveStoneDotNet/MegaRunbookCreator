@@ -1,42 +1,59 @@
 ﻿<mrcPaginator #paginator [mrcDataTable]="mrcDataTable">
+
     <nav class="pagination" *ngIf="paginator.dataLength > paginator.rowsOnPage">
-        <li [class.disabled]="paginator.activePage <= 1" (click)="paginator.setPage(1)">
-            <a style="cursor: pointer">&laquo;</a>
+        <li class="unselectable" [class.disabled]="paginator.activePage == 1" (click)="paginator.setPage(1)">
+            <a>First</a>
         </li>
-        <li *ngIf="paginator.activePage > 4 && paginator.activePage + 1 > paginator.lastPage" (click)="paginator.setPage(paginator.activePage - 4)">
-            <a style="cursor: pointer">{{ paginator.activePage - 4 }}</a>
+        <li class="unselectable" [class.disabled]="paginator.activePage == 1" (click)="paginator.setPage(paginator.activePage - 1)">
+            <a>Previous</a>
         </li>
-        <li *ngIf="paginator.activePage > 3 && paginator.activePage + 2 > paginator.lastPage" (click)="paginator.setPage(paginator.activePage - 3)">
-            <a style="cursor: pointer">{{ paginator.activePage - 3 }}</a>
+        <li class="unselectable" *ngIf="paginator.activePage > 4 && paginator.activePage + 1 > paginator.lastPage" (click)="paginator.setPage(paginator.activePage - 4)">
+            <a>{{ paginator.activePage - 4 }}</a>
         </li>
-        <li *ngIf="paginator.activePage > 2" (click)="paginator.setPage(paginator.activePage - 2)">
-            <a style="cursor: pointer">{{ paginator.activePage - 2 }}</a>
+        <li class="unselectable" *ngIf="paginator.activePage > 3 && paginator.activePage + 2 > paginator.lastPage" (click)="paginator.setPage(paginator.activePage - 3)">
+            <a>{{ paginator.activePage - 3 }}</a>
         </li>
-        <li *ngIf="paginator.activePage > 1" (click)="paginator.setPage(paginator.activePage - 1)">
-            <a style="cursor: pointer">{{ paginator.activePage - 1 }}</a>
+        <li class="unselectable" *ngIf="paginator.activePage > 2" (click)="paginator.setPage(paginator.activePage - 2)">
+            <a>{{ paginator.activePage - 2 }}</a>
         </li>
-        <li class="active">
-            <a style="cursor: pointer">{{ paginator.activePage }}</a>
+        <li class="unselectable" *ngIf="paginator.activePage > 1" (click)="paginator.setPage(paginator.activePage - 1)">
+            <a>{{ paginator.activePage - 1 }}</a>
         </li>
-        <li *ngIf="paginator.activePage + 1 <= paginator.lastPage" (click)="paginator.setPage(paginator.activePage + 1)">
-            <a style="cursor: pointer">{{ paginator.activePage + 1 }}</a>
+        <li class="unselectable active">
+            <a>{{ paginator.activePage }}</a>
         </li>
-        <li *ngIf="paginator.activePage + 2 <= paginator.lastPage" (click)="paginator.setPage(paginator.activePage + 2)">
-            <a style="cursor: pointer">{{ paginator.activePage + 2 }}</a>
+        <li class="unselectable" *ngIf="paginator.activePage + 1 <= paginator.lastPage" (click)="paginator.setPage(paginator.activePage + 1)">
+            <a>{{ paginator.activePage + 1 }}</a>
         </li>
-        <li *ngIf="paginator.activePage + 3 <= paginator.lastPage && paginator.activePage < 3" (click)="paginator.setPage(paginator.activePage + 3)">
-            <a style="cursor: pointer">{{ paginator.activePage + 3 }}</a>
+        <li class="unselectable" *ngIf="paginator.activePage + 2 <= paginator.lastPage" (click)="paginator.setPage(paginator.activePage + 2)">
+            <a>{{ paginator.activePage + 2 }}</a>
         </li>
-        <li *ngIf="paginator.activePage + 4 <= paginator.lastPage && paginator.activePage < 2" (click)="paginator.setPage(paginator.activePage + 4)">
-            <a style="cursor: pointer">{{ paginator.activePage + 4 }}</a>
+        <li class="unselectable" *ngIf="paginator.activePage + 3 <= paginator.lastPage && paginator.activePage < 3" (click)="paginator.setPage(paginator.activePage + 3)">
+            <a>{{ paginator.activePage + 3 }}</a>
         </li>
-        <li [class.disabled]="paginator.activePage >= paginator.lastPage" (click)="paginator.setPage(paginator.lastPage)">
-            <a style="cursor: pointer">&raquo;</a>
+        <li class="unselectable" *ngIf="paginator.activePage + 4 <= paginator.lastPage && paginator.activePage < 2" (click)="paginator.setPage(paginator.activePage + 4)">
+            <a>{{ paginator.activePage + 4 }}</a>
+        </li>
+        <li class="unselectable" [class.disabled]="paginator.activePage == paginator.lastPage" (click)="paginator.setPage(paginator.activePage + 1)">
+            <a>Next</a>
+        </li>
+        <li class="unselectable" [class.disabled]="paginator.activePage >= paginator.lastPage" (click)="paginator.setPage(paginator.lastPage)">
+            <a>Last</a>
         </li>
     </nav>
+
     <nav class="pagination pull-right" *ngIf="paginator.dataLength > minRowsOnPage">
-        <li *ngFor="let rows of rowsOnPageSet" [class.active]="paginator.rowsOnPage===rows" (click)="paginator.setRowsOnPage(rows)">
-            <a style="cursor: pointer">{{ rows }}</a>
+        <li class="unselectable" *ngFor="let rows of rowsOnPageSet" [class.active]="paginator.rowsOnPage===rows" (click)="paginator.setRowsOnPage(rows)">
+            <a>{{ rows }}</a>
         </li>
     </nav>
+
+    <div>
+        <table>
+            <tr><td class="pad-5">paginator.dataLength</td><td class="pad-5">{{ paginator.dataLength }}</td></tr>
+            <tr><td class="pad-5">paginator.activePage</td><td class="pad-5">{{ paginator.activePage }}</td></tr>
+            <tr><td class="pad-5"></td><td class="pad-5"></td></tr>
+        </table>
+    </div>
+
 </mrcPaginator>

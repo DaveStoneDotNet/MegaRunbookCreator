@@ -40,10 +40,6 @@ export class BuildsComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
-    onDataRequested($event): void {
-        let b = true;
-    }
-
     private executeSearch(): void {
 
         if (this.runningSearch) return;
@@ -58,7 +54,9 @@ export class BuildsComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
 
-            this.subscription = this.linkService.getApplicationLinks()
+            let request = new ApplicationLink();
+
+            this.subscription = this.linkService.getApplicationLinks(request)
                 .subscribe(
                 response => this.onServiceLinksSuccessful(response),
                 response => this.onServiceLinksOnError(response)

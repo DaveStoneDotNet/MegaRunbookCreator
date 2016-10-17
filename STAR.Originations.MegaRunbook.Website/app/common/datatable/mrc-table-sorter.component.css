@@ -1,0 +1,22 @@
+﻿.sort-widget {
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 1em;
+    color: #cccccc;
+    text-decoration: none;
+}
+.sort-widget:hover {
+    color: #ffffff;
+}
+.sort-up {
+    float: right;
+    color: rgba(255, 255, 255, 0.25);
+}
+.sort-down {
+    float: right;
+    color: rgba(255, 255, 255, 0.25);
+}
+.sort-none {
+    float: right;
+    color: rgba(255, 255, 255, 0.1);
+}

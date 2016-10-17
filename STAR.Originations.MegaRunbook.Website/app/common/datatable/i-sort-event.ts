@@ -1,5 +1,7 @@
-﻿export interface SortEvent {
+﻿
+export interface SortEvent {
     sortBy: string | string[];
-    sortOrder: string
+    sortOrder: string; 
+    PropertyName: string;
 }
 
