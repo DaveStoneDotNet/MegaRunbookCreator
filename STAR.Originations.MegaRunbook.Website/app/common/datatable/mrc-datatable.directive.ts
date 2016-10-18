@@ -31,45 +31,20 @@ export class DataTable implements OnInit, OnChanges, DoCheck {
     onSortChange = new EventEmitter<SortInfo>();
     onPageChange = new EventEmitter<PageEvent>(); 
 
-    // ---------------------------------------------------------------------------------
-
-    //public PropertyName: string;
-    //public SortOrder = MrcSortSettings.ASCENDING;
-
-    // ---------------------------------------------------------------------------------
-
     public dataEvent: DataEvent;
     public pageEvent: PageEvent;
     public sortInfo:  SortInfo;
 
-    // ---------------------------------------------------------------------------------
-
     ngOnInit() {
         this.dataEvent = {
-            PageNumber:       this.currentPage,
-            RecordsPerPage:   this.recordsPerPage,
+            PageNumber:       1,
             TotalPageCount:   0,
-            TotalRecordCount: this.mrcDataInput.TotalRecordCount,
-            SortInfo:         this.sortInfo,
+            TotalRecordCount: 0,
+            RecordsPerPage:   this.recordsPerPage,
+            SortInfo:         null,
             Items:            null
         };
     }
-
-    //getDataEvent(): DataEvent {
-    //    this.dataEvent = {
-    //                PageNumber:       this.currentPage,
-    //                RecordsPerPage:   this.recordsPerPage, 
-    //                TotalPageCount:   0, 
-    //                TotalRecordCount: this.mrcDataInput.TotalRecordCount,
-    //                SortInfo:         this.sortInfo, 
-    //                Items:            null
-    //    };
-    //    return this.dataEvent;
-    //}
-
-    //getSortInfo(): SortInfo {
-    //    return this.sortInfo;
-    //}
 
     setSortInfo(sortOrder: string, propertyName: string): void {
 
@@ -84,19 +59,11 @@ export class DataTable implements OnInit, OnChanges, DoCheck {
                 this.dataEvent.SortInfo = null;
             }
         }
+
         this.onSortChange.emit(this.sortInfo);
 
-        //this.onDataRequested.emit(this.getDataEvent());
         this.onDataRequested.emit(this.dataEvent);
    }
-
-    //getPage(): PageEvent {
-    //    return {
-    //        currentPage:      this.currentPage,
-    //        recordsPerPage:   this.recordsPerPage,
-    //        totalRecordCount: this.mrcDataInput.TotalRecordCount
-    //    };
-    //}
 
     getPage(): PageEvent {
         return {
@@ -108,35 +75,21 @@ export class DataTable implements OnInit, OnChanges, DoCheck {
 
     setPage(currentPage: number, recordsPerPage: number): void {
 
-        if (this.recordsPerPage !== recordsPerPage || this.currentPage !== currentPage) {
-
-            // --------------------------------------------------------------------------
-
-            //this.currentPage = this.currentPage = currentPage;
-
-            this.currentPage    = currentPage;
-            this.recordsPerPage = recordsPerPage;
+        if (this.dataEvent.RecordsPerPage !== recordsPerPage || this.dataEvent.PageNumber !== currentPage) {
 
             if (this.dataEvent) {
                 this.dataEvent.PageNumber     = currentPage;
                 this.dataEvent.RecordsPerPage = recordsPerPage;
             }
 
-            // --------------------------------------------------------------------------
-
-            //this.onPageChange.emit({
-            //    currentPage:      this.currentPage,
-            //    recordsPerPage:   this.recordsPerPage,
-            //    totalRecordCount: this.mrcDataInput.TotalRecordCount
-            //});
-
-            this.onPageChange.emit({
+            this.pageEvent = {
                 currentPage:      this.dataEvent.PageNumber,
                 recordsPerPage:   this.dataEvent.RecordsPerPage,
                 totalRecordCount: this.mrcDataInput.TotalRecordCount
-            });
+            };
 
-            //this.onDataRequested.emit(this.getDataEvent());
+            this.onPageChange.emit(this.pageEvent);
+
             this.onDataRequested.emit(this.dataEvent);
         }
     }
@@ -147,20 +100,21 @@ export class DataTable implements OnInit, OnChanges, DoCheck {
 
             this.mrcDataInput = changes['mrcDataInput'].currentValue || { Items: [] };
 
-            // --------------------------------------------------------------------------
             if (this.dataEvent) {
-                this.dataEvent.PageNumber = this.mrcDataInput.PageNumber;
-                this.dataEvent.RecordsPerPage = this.mrcDataInput.RecordsPerPage;
+                this.dataEvent.PageNumber =       this.mrcDataInput.PageNumber;
+                this.dataEvent.RecordsPerPage =   this.mrcDataInput.RecordsPerPage;
                 this.dataEvent.TotalRecordCount = this.mrcDataInput.TotalRecordCount;
             }
 
-            // --------------------------------------------------------------------------
+            this.onDataReceived.emit(this.dataEvent);
 
-            this.onPageChange.emit({
+            this.pageEvent = {
                 currentPage:      this.mrcDataInput.PageNumber,
                 recordsPerPage:   this.mrcDataInput.RecordsPerPage,
                 totalRecordCount: this.mrcDataInput.TotalRecordCount
-            });
+            };
+
+            this.onPageChange.emit(this.pageEvent);
         }
     }
 

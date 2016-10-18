@@ -380,6 +380,7 @@
     <TypeScriptCompile Include="app\services\dialog.service.ts" />
     <TypeScriptCompile Include="app\services\http.service.ts" />
     <TypeScriptCompile Include="app\services\is-working.service.ts" />
+    <TypeScriptCompile Include="app\services\mapping.service.ts" />
     <TypeScriptCompile Include="app\templates\template.service.ts" />
     <TypeScriptCompile Include="app\services\user.service.ts" />
     <TypeScriptCompile Include="app\templates\template-detail.component.ts" />

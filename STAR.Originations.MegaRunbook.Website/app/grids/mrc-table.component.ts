@@ -9,6 +9,7 @@ import { ApplicationLink }      from '../entities/application-link.entity';
 import { PagedApplicationLink } from '../entities/paged-application-link.entity';
 import { LinkService }          from '../links/link.service';
 import { IsWorkingService }     from '../services/is-working.service';
+import { MappingService }       from '../services/mapping.service';
 
 import { DataEvent }            from '../common/datatable/i-data-event';
 import { Paging }               from '../entities/paging.entity';
@@ -19,7 +20,7 @@ import { Subscription }         from 'rxjs/Subscription';
 @Component({
     templateUrl:  'app/grids/mrc-table.component.html',
     styleUrls:   ['app/grids/mrc-table.component.css'],
-    providers:   [LinkService]
+    providers:   [LinkService, MappingService]
 })
 export class MrcTableComponent implements OnInit, OnDestroy {
 
@@ -35,7 +36,7 @@ export class MrcTableComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private dataEvent: DataEvent;
 
-    constructor(private linkService: LinkService, private isWorkingService: IsWorkingService) {
+    constructor(private linkService: LinkService, private isWorkingService: IsWorkingService, private mappingService: MappingService) {
 
     }
 
@@ -54,28 +55,11 @@ export class MrcTableComponent implements OnInit, OnDestroy {
 
     private getRequest(): ApplicationLink {
 
-        let applicationLink = new ApplicationLink();
+        let request = new ApplicationLink();
 
-        applicationLink.Paging = new Paging();
-        if (this.dataEvent != null) {
-            applicationLink.Paging.PageNumber = this.dataEvent.PageNumber;
-            applicationLink.Paging.RecordsPerPage = this.dataEvent.RecordsPerPage;
+        request.Paging = this.mappingService.dataEventToPaging(this.dataEvent, this.myMrcDataTableElement.recordsPerPage);
 
-            if (this.dataEvent.SortInfo) {
-                if (!this.isNullEmptyOrWhiteSpace(this.dataEvent.SortInfo.PropertyName)) {
-                    let sortInfo = new SortInfo();
-                    sortInfo.PropertyName = this.dataEvent.SortInfo.PropertyName;
-                    sortInfo.SortOrder = this.dataEvent.SortInfo.SortOrder;
-                    applicationLink.Paging.SortInfo = [];
-                    applicationLink.Paging.SortInfo.push(sortInfo);
-                }
-            }
-
-        } else {
-            applicationLink.Paging.PageNumber = 1;
-            applicationLink.Paging.RecordsPerPage = this.myMrcDataTableElement.recordsPerPage;
-        }
-        return applicationLink;
+        return request;
     }
 
     private executeSearch(): void {
@@ -116,9 +100,5 @@ export class MrcTableComponent implements OnInit, OnDestroy {
 
         this.runningSearch = false;
         this.isWorkingService.stopWorking();
-    }
-
-    private isNullEmptyOrWhiteSpace(text: string): boolean {
-        return !text || text.length == 0;
     }
 }

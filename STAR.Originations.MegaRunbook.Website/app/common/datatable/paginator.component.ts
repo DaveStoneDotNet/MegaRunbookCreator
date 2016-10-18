@@ -33,7 +33,7 @@ export class Paginator implements OnChanges {
     }
 
     setPage(pageNumber: number): void {
-        if ((pageNumber > 0) && (pageNumber < this.lastPage+1)) {
+        if ((pageNumber > 0) && (pageNumber < this.lastPage + 1)) {
             this.mrcDataTable.setPage(pageNumber, this.recordsPerPage);
         }
     }
