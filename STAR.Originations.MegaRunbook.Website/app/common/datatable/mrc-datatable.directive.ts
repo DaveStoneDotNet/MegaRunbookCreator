@@ -35,6 +35,18 @@ export class DataTable implements OnInit, OnChanges, DoCheck {
     public pageEvent: PageEvent;
     public sortInfo:  SortInfo;
 
+    hasItems(): boolean {
+        let exists = false;
+        if (this.mrcDataInput) {
+            if (this.mrcDataInput.Items) {
+                if (this.mrcDataInput.Items.length > 0) {
+                    exists = true;
+                }
+            }
+        }
+        return exists;
+    }
+
     ngOnInit() {
         this.dataEvent = {
             PageNumber:       1,
@@ -62,6 +74,7 @@ export class DataTable implements OnInit, OnChanges, DoCheck {
 
         this.onSortChange.emit(this.sortInfo);
 
+        this.isWorking = true;
         this.onDataRequested.emit(this.dataEvent);
    }
 
@@ -90,9 +103,12 @@ export class DataTable implements OnInit, OnChanges, DoCheck {
 
             this.onPageChange.emit(this.pageEvent);
 
+            this.isWorking = true;
             this.onDataRequested.emit(this.dataEvent);
         }
     }
+
+    isWorking: boolean = false;
 
     ngOnChanges(changes: { [key: string]: SimpleChange }): any {
 
@@ -106,6 +122,7 @@ export class DataTable implements OnInit, OnChanges, DoCheck {
                 this.dataEvent.TotalRecordCount = this.mrcDataInput.TotalRecordCount;
             }
 
+            this.isWorking = false;
             this.onDataReceived.emit(this.dataEvent);
 
             this.pageEvent = {

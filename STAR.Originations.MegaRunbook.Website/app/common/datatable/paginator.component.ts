@@ -38,8 +38,12 @@ export class Paginator implements OnChanges {
         }
     }
 
+    setCurrentPage(pageNumber: number): void {
+        this.setPage(this.currentPage + pageNumber);
+    }
+
     setRecordsPerPage(recordsPerPage: number): void {
-        this.mrcDataTable.setPage(this.currentPage, recordsPerPage);
+        this.mrcDataTable.setPage(1, recordsPerPage);
     }
 
     private onPageChangeSubscriber = (event: PageEvent) => {
@@ -48,4 +52,66 @@ export class Paginator implements OnChanges {
         this.recordsPerPage   = event.recordsPerPage;
         this.lastPage         = Math.ceil(this.totalRecordCount / this.recordsPerPage);
     };
+
+    isWorking(): boolean {
+        if (this.mrcDataTable) {
+            return this.mrcDataTable.isWorking;
+        } else {
+            return false;
+        }
+    }
+
+    // ---
+
+    isFirstPage(): boolean {
+        return true;
+    }
+
+    isLastPage(): boolean {
+        return true;
+    }
+
+    // ---
+
+    isFirstBeforeCurrent(): boolean {
+        return this.currentPage > 1;
+    }
+    isSecondBeforeCurrent(): boolean {
+        return this.currentPage > 2;
+    }
+    isThirdBeforeCurrent(): boolean {
+        return this.currentPage > 3 && this.currentPage + 2 > this.lastPage;
+    }
+    isFourthBeforeCurrent(): boolean {
+        return this.currentPage > 4 && this.currentPage + 1 > this.lastPage;
+    }
+
+    isFirstAfterCurrent(): boolean {
+        return this.currentPage + 1 <= this.lastPage;
+    }
+    isSecondAfterCurrent(): boolean {
+        return this.currentPage + 2 <= this.lastPage;
+    }
+    isThirdAfterCurrent(): boolean {
+        return this.currentPage + 3 <= this.lastPage && this.currentPage < 3;
+    }
+    isFourthAfterCurrent(): boolean {
+        return this.currentPage + 4 <= this.lastPage && this.currentPage < 2;
+    }
+
+    // ---
+
+    isFirstDisabled(): boolean {
+        return this.currentPage == 1;
+    }
+    isPreviousDisabled(): boolean {
+        return this.currentPage == 1;
+    }
+    isNextDisabled(): boolean {
+        return this.currentPage == this.lastPage;
+    }
+    isLastDisabled(): boolean {
+        return this.currentPage >= this.lastPage;
+    }
+
 }
