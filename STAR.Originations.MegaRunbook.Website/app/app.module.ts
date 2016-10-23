@@ -19,6 +19,7 @@ import { TemplatesModule }           from './templates/templates.module';
 import { LinkModule }                from './links/link.module';
 import { GridModule }                from './grids/grid.module';
 import { PrimeModule }               from './prime/prime.module';
+import { PipeModule }                from './pipes/pipe.module';
 
 import { AppComponent }              from './app.component';
 import { HomeComponent }             from './home/home.component';
@@ -39,10 +40,8 @@ import { CanDeactivateGuard }        from './services/can-deactivate-guard.servi
 import { AuthGuard }                 from './services/auth-guard.service';
 import { AuthService }               from './services/auth.service';
 
-import { PluralPipe }                from './pipes/plural.pipe';
-
 @NgModule({
-    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule, LinkModule, GridModule, PrimeModule],
+    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule, LinkModule, GridModule, PrimeModule, PipeModule],
     declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent, IsWorkingComponent, IsWorkingSpinnerComponent, IsWorkingRunnerComponent, MessageComponent],
     providers:    [HttpService, UserService, BlockUIService, IsWorkingService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]

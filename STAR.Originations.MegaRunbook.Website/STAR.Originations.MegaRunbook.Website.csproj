@@ -339,6 +339,7 @@
     <TypeScriptCompile Include="app\entities\sort-info.entity.ts" />
     <TypeScriptCompile Include="app\entities\team.entity.ts" />
     <TypeScriptCompile Include="app\grids\mrc-table.component.ts" />
+    <TypeScriptCompile Include="app\pipes\pipe.module.ts" />
     <TypeScriptCompile Include="app\prime\car.ts" />
     <TypeScriptCompile Include="app\prime\carservice.ts" />
     <TypeScriptCompile Include="app\grids\grid.module.ts" />

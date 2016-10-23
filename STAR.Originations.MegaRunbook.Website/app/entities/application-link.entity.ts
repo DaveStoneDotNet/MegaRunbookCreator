@@ -16,4 +16,11 @@ export class ApplicationLink {
     ServiceLinks:       ServiceLink[];
 
     Paging:             Paging;
+
+    constructor() {
+        this.ApplicationType = new Array <ApplicationType>();
+        this.ServiceLinks    = new Array<ServiceLink>();
+        this.Paging          = new Paging();
+    }
+
 }

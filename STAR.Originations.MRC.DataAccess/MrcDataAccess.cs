@@ -209,7 +209,7 @@ namespace STAR.Originations.MRC.DataAccess
                                    .AsQueryable();
                 if (!String.IsNullOrWhiteSpace(request.Name))
                 {
-                    query = query.Where(p => p.Name.Equals(request.Name, StringComparison.InvariantCultureIgnoreCase));
+                    query = query.Where(p => p.Name.Contains(request.Name) || p.ApplicationType.Description.Contains(request.Name));
                 }
 
                 var totalRecordCount = query.Count();

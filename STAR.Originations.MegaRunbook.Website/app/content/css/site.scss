@@ -760,6 +760,44 @@ textarea {
 }
 
 // ----------------------------------------------------------------------
+// DROPDOWNS
+// ----------------------------------------------------------------------
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: $gray-6;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: $gray-c;
+    white-space: nowrap;
+}
+
+// ----------------------------------------------------------------------
 
 .items {
     margin: 0px 0px 0px 40px;
@@ -1060,7 +1098,7 @@ table.runbook-table {
     bottom: 40px;
     left: 20px;
     right: 20px;
-    border-bottom: solid 2px #ffffff;
+    border-bottom: solid 1px $gray-3;
     border-top: solid 10px rgba(255, 255, 255, 0.5);
     border-left: solid 10px rgba(255, 255, 255, 0.5);
     border-right: solid 10px rgba(255, 255, 255, 0.5);
@@ -1070,6 +1108,7 @@ table.runbook-table {
     padding: 10px 10px 10px 10px;
     text-align: center;
     color: $pure-white;
+    z-index: 7;
 }
 
 .selected-link > div.close-selected-link {
@@ -1208,9 +1247,9 @@ a.static-link:visited {
   > li > span {
     &:hover,
     &:focus {
-      z-index: 2;
+      z-index: 0;
       color: $pure-white;                           // pagination-hover-color
-      background-color: $dark-blue;               // pagination-hover-bg
+      background-color: $dark-blue;                 // pagination-hover-bg
       border-color: rgba(255, 255, 255, 0.5);     // pagination-hover-border
     }
   }
@@ -1220,7 +1259,7 @@ a.static-link:visited {
     &,
     &:hover,
     &:focus {
-      z-index: 3;
+      z-index: 0;
       color: $pure-white;                           // pagination-active-color;
       background-color: $dark-orange;               // pagination-active-bg;
       border-color: rgba(255, 255, 255, 0.5);     // pagination-active-border;
@@ -1337,3 +1376,36 @@ a.static-link:visited {
     10% { transform: rotate(-360deg); } 
 }
 
+
+.mrc-data-table {
+    width: 100%;
+}
+.mrc-data-table th {
+    padding: 5px 5px 5px 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+.mrc-data-table tbody tr:nth-child(odd) {
+    background-color: $gray-3;
+}
+.mrc-data-table tbody tr:nth-child(even) {
+    background-color: rgba(68, 68, 68, 0.45);
+}
+.mrc-data-table tbody tr:hover {
+    cursor: pointer;
+    background-color: $gray-6; 
+    color: $pure-white;
+}
+.mrc-data-table tbody td {
+    padding: 5px 5px 5px 5px;
+    border-top: 1px solid $gray-4;
+    border-bottom: 1px solid $gray-4;
+}
+.mrc-data-table tbody tr:hover td {
+    border-top: 1px solid $gray-9;
+    border-bottom: 1px solid $gray-9;
+}
+
+.mrc-data-table tbody tr.selected td {
+    background-color: $muted-blue !important; 
+    color: $pure-white;
+}

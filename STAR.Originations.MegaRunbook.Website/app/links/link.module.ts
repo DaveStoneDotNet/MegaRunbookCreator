@@ -2,10 +2,16 @@
 import { NgModule }          from '@angular/core';
 import { CommonModule }      from '@angular/common';
 import { FormsModule }       from '@angular/forms';
+import { PipeModule }        from '../pipes/pipe.module';
 
 import { ClipboardModule }   from 'angular2-clipboard';
 import { ToastrModule }      from 'toastr-ng2';
 import { provideToastr  }    from 'toastr-ng2';
+
+import { PaginationModule }  from 'ng2-bootstrap/components/pagination';
+import { DropdownModule }    from 'ng2-bootstrap/components/dropdown';
+
+import { DataTableModule }   from '../common/datatable/mrc-datatable.module';
 
 import { LinkListComponent } from './link-list.component';
 
@@ -18,7 +24,7 @@ let toastrOptions = {
 };
 
 @NgModule({
-    imports:      [CommonModule, FormsModule, linkRouting, ClipboardModule, ToastrModule],
+    imports:      [CommonModule, FormsModule, linkRouting, ClipboardModule, ToastrModule, PaginationModule, DropdownModule, DataTableModule, PipeModule],
     declarations: [LinkListComponent],
     providers:    [LinkService, provideToastr(toastrOptions)]
 })

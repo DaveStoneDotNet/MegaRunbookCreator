@@ -3,6 +3,8 @@ import { Component }            from '@angular/core';
 import { OnInit }               from '@angular/core';
 import { OnDestroy }            from '@angular/core';
 import { ViewContainerRef  }    from '@angular/core';
+import { ViewChild }            from '@angular/core';
+import { ViewChildren }         from '@angular/core';
 
 import { Router }               from '@angular/router';
 import { ActivatedRoute }       from '@angular/router';
@@ -10,26 +12,33 @@ import { ActivatedRoute }       from '@angular/router';
 import { ToastrService }        from 'toastr-ng2';
 
 import { IsWorkingService }     from '../services/is-working.service';
+import { MappingService }       from '../services/mapping.service';
+import { LinkService }          from './link.service';
 
 import { EnvironmentLink }      from '../entities/environment-link.entity';
 import { ApplicationLink }      from '../entities/application-link.entity';
 import { ServiceLink }          from '../entities/service-link.entity';
 import { PagedApplicationLink } from '../entities/paged-application-link.entity';
 
-import { LinkService }          from './link.service';
+import { DataTable }            from '../common/datatable/mrc-datatable.directive';
+import { DataEvent }            from '../common/datatable/i-data-event';
+import { Paging }               from '../entities/paging.entity';
+import { SortInfo }             from '../entities/sort-info.entity';
 
 import { Subscription }         from 'rxjs/Subscription';
 
 @Component({
     templateUrl: 'app/links/link-list.component.html',
-    providers:   [LinkService]
+    providers:   [LinkService, MappingService]
 })
 
 export class LinkListComponent implements OnInit, OnDestroy {
 
     Title = "Links";
 
-    searchCriteria: string;
+    @ViewChildren('mrcDataTable') myMrcDataTableElement: DataTable;
+
+    searchCriteria = new ApplicationLink();
 
     applicationLink: ApplicationLink;
     serviceLink: ServiceLink;
@@ -43,12 +52,14 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
     private selectedId: number;
     private subscription: Subscription;
+    private dataEvent: DataEvent;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private linkService: LinkService,
                 private isWorkingService: IsWorkingService,
                 private toastrService: ToastrService,
+                private mappingService: MappingService, 
                 private viewContainerRef: ViewContainerRef) {
         this.toastrService.viewContainerRef = this.viewContainerRef;
     }
@@ -61,29 +72,34 @@ export class LinkListComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
-    counter = 0;
+    onApplicationNameChanged(newValue): void {
 
-    onSearch(newValue): void {
+        this.searchCriteria.Name = newValue;
+        this.executeSearch();
+    }
 
-        this.counter = this.counter + 1;
-        console.log('SEARCHING:' + this.counter);
+    onGroupChanged(newValue): void {
+        console.log(newValue);
+        this.delaySearch = true;
+
+        this.searchCriteria.Name = newValue;
+        setTimeout(() => this.executeSearch(), 500);
+    }
+
+    onTypeChanged(newValue): void {
 
         this.delaySearch = true;
 
-        if (newValue !== '') {
-            this.searchCriteria = newValue;
-            this.searchResults = this.searchResults.filter(item => item.Name.toLowerCase().indexOf(newValue.toLowerCase()) !== -1);
-        } else {
-            setTimeout(() => this.executeSearch(), 500);
-        }
+        this.searchCriteria.Name = newValue;
+        setTimeout(() => this.executeSearch(), 500);
     }
 
     onClearSearchCriteria(): void {
-        this.searchCriteria = '';
+        this.searchCriteria = new ApplicationLink();
         this.applicationLink = null;
         this.serviceLink = null;
         this.environmentLink = null;
-        this.onSearch('');
+        this.onApplicationNameChanged('');
     }
 
     onApplicationLinkSelected(applicationLink: ApplicationLink) {
@@ -122,6 +138,26 @@ export class LinkListComponent implements OnInit, OnDestroy {
         this.toastrService.success('Copied ' + msg + ' to clipboard');
     }
 
+    onDataRequested($event): void {
+        this.dataEvent = $event;
+        this.executeSearch();
+    }
+
+    private getRequest(): ApplicationLink {
+
+        let request = this.searchCriteria ? this.searchCriteria : new ApplicationLink();
+
+        let recordsPerPage = 10;
+
+        if (this.myMrcDataTableElement) {
+            recordsPerPage = this.myMrcDataTableElement.recordsPerPage;
+        }
+
+        request.Paging = this.mappingService.dataEventToPaging(this.dataEvent, recordsPerPage);
+
+        return request;
+    }
+
     private executeSearch(): void {
 
         if (this.runningSearch) return;
@@ -136,7 +172,7 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
 
-            let request = new ApplicationLink();
+            let request = this.getRequest();
             this.subscription = this.linkService.getApplicationLinks(request)
                 .subscribe(
                 response => this.onServiceLinksSuccessful(response),
@@ -161,5 +197,34 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
         this.runningSearch = false;
         this.isWorkingService.stopWorking();
+    }
+
+    enviromentBackground(): string {
+        let style = '';
+        if (this.environmentLink) {
+            if (this.environmentLink.Server) {
+                if (this.environmentLink.Server.Environment) {
+                    switch (this.environmentLink.Server.Environment.Name) {
+                        case 'QA1':
+                        case 'QA2':
+                            style = 'muted-green-bg white';
+                            break;
+                        case 'UAT1':
+                        case 'UAT2':
+                            style = 'dark-orange-bg white';
+                            break;
+                        case 'PROD1':
+                        case 'PROD2':
+                        case 'PROD3':
+                        case 'PROD4':
+                            style = 'soft-red-bg white';
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        return style;
     }
 }

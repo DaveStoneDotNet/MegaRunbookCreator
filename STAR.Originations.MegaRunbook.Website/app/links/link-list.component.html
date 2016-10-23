@@ -1,56 +1,60 @@
 ﻿
 <div class="inner-body-content">
 
-    <div class="fat-header">
-        Applications
-    </div>
+    <div class="pad-10"></div>
 
     <!-- SEARCH -->
     <div class="row">
         <div class="col-md-4">
             <form class="mrc-forms">
-                <div class="table">
+                <div class="table"  *ngIf="searchCriteria">
                     <div class="tr">
                         <div class="td">
-                            <input type="text" name="searchCriteria" placeholder="search..." class="width-100" [(ngModel)]="searchCriteria" (ngModelChange)="onSearch($event)" />
+                            <input type="text" name="ApplicationName" placeholder="search..." class="width-100" [(ngModel)]="searchCriteria.ApplicationName" (ngModelChange)="onApplicationNameChanged($event)" />
                         </div>
+
                         <div class="td">
-                            <div class="pad-5 align-right align-middle">
-                                Group:
+
+                            <div class="btn-group" dropdown keyboardNav="true">
+                                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm btn-default" dropdownToggle>
+                                    Group <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" dropdownMenu role="menu">
+                                    <li role="menuitem"><a class="dropdown-item">Encompass Web</a></li>
+                                    <li role="menuitem"><a class="dropdown-item">Greenlight Web</a></li>
+                                    <li role="menuitem"><a class="dropdown-item">Encompass Jobs</a></li>
+                                    <li role="menuitem"><a class="dropdown-item">Scheduled Tasks</a></li>
+                                    <li role="menuitem"><a class="dropdown-item">Originations Miscellaneous</a></li>
+                                    <li role="menuitem"><a class="dropdown-item">Service Bus Messaging</a></li>
+                                    <li role="menuitem"><a class="dropdown-item">WCF</a></li>
+                                </ul>
                             </div>
+
                         </div>
+
                         <div class="td">
-                            <select name="groups" class="width-100">
-                                <option></option>
-                                <option>Encompass Web</option>
-                                <option>Greenlight Web</option>
-                                <option>Encompass Jobs</option>
-                                <option>Scheduled Tasks</option>
-                                <option>Originations Miscellaneous</option>
-                                <option>Service Bus Messaging</option>
-                                <option>WCF</option>
-                            </select>
-                        </div>
-                        <div class="td">
-                            <div class="pad-5 align-right align-middle">
-                                Type:
+
+                            <div class="btn-group" dropdown keyboardNav="true">
+                                <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm btn-default" dropdownToggle>
+                                    Type <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                    <li role="menuitem"><a class="dropdown-item" href="#">Service Bus</a></li>
+                                    <li role="menuitem"><a class="dropdown-item" href="#">Scheduled Task</a></li>
+                                    <li role="menuitem"><a class="dropdown-item" href="#">WCF Service</a></li>
+                                    <li role="menuitem"><a class="dropdown-item" href="#">Website</a></li>
+                                    <li role="menuitem"><a class="dropdown-item" href="#">Unknown</a></li>
+                                </ul>
                             </div>
+
                         </div>
-                        <div class="td">
-                            <select name="app_types" class="width-100">
-                                <option></option>
-                                <option>Service Bus</option>
-                                <option>Scheduled Task</option>
-                                <option>WCF Service</option>
-                                <option>Website</option>
-                                <option>Unknown</option>
-                            </select>
-                        </div>
+
                         <div class="td">
                             <div>
                                 <button class="btn btn-sm btn-primary" (click)="onClearSearchCriteria()">Clear</button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </form>
@@ -58,21 +62,40 @@
     </div>
 
     <!-- LIST -->
-    <div *ngIf="pagedApplicationLink" class="row">
+    <div class="row">
         <div class="col-md-4">
-            <div class="fat-header">
-                Application
-            </div>
-            <div class="link-table">
-                <div class="link-tr" *ngFor="let appLink of pagedApplicationLink.Items;" (click)="onApplicationLinkSelected(appLink)" [class.selected]="appLink.IsSelected">
-                    <div class="link-td">
-                        {{ appLink.Name }}
-                    </div>
-                    <div class="link-td">
-                        {{ appLink.ApplicationType.Description }}
-                    </div>
+            <div>
+                <div *ngIf="pagedApplicationLink" class="float-right">
+                    {{ pagedApplicationLink.TotalRecordCount | plural: 'application' }}
+                </div>
+                <div class="fat-header">
+                    Application
                 </div>
             </div>
+
+
+            <table class="mrc-data-table" [mrc-data-input]="pagedApplicationLink" #mrcDataTable="mrcDataTable" [mrc-records-per-page]="10" (onDataRequested)="onDataRequested($event)">
+                <thead>
+                <tr>
+                    <th style="width: 80%;"><mrc-table-sorter PropertyName="Name">Name</mrc-table-sorter></th>
+                    <th style="width: 20%;"><mrc-table-sorter PropertyName="ApplicationType.Description">Type</mrc-table-sorter></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of mrcDataTable.mrcDataInput.Items;" (click)="onApplicationLinkSelected(item)" [class.selected]="item.IsSelected">
+                    <td>{{ item.Name }}</td>
+                    <td>{{ item.ApplicationType.Description }}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <mrcBootstrapPaginator *ngIf="mrcDataTable.hasItems()" [rowsOnPageSet]="[10,50,100]"></mrcBootstrapPaginator>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
         </div>
         <div class="col-md-4 align-top">
             <div class="fat-header">
@@ -125,7 +148,7 @@
                                         {{ environmentLink.Server.Environment.Name }}
                                     </div>
                                     <div class="pad-5 margin-bottom-5 border-a-10 white-a-1-bg font-2-00">
-                                        {{ environmentLink.Server.Name }}
+                                        <div [class]="enviromentBackground()">{{ environmentLink.Server.Name }}</div>
                                     </div>
                                     <div class="pad-5 align-center Lato">
                                         {{ applicationLink.ApplicationGroup.Name }}
