@@ -35,15 +35,18 @@ import { HttpService }               from './services/http.service';
 import { UserService }               from './services/user.service';
 import { BlockUIService }            from './services/blockui.service';
 import { IsWorkingService }          from './services/is-working.service';
+import { MessageService }            from './services/message.service';
 import { DialogService }             from './services/dialog.service';
 import { CanDeactivateGuard }        from './services/can-deactivate-guard.service';
 import { AuthGuard }                 from './services/auth-guard.service';
 import { AuthService }               from './services/auth.service';
+import { AppService }                from './services/app.service';
+import { AppLookupService }          from './services/app-lookup.service';
 
 @NgModule({
     imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule, LinkModule, GridModule, PrimeModule, PipeModule],
     declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent, IsWorkingComponent, IsWorkingSpinnerComponent, IsWorkingRunnerComponent, MessageComponent],
-    providers:    [HttpService, UserService, BlockUIService, IsWorkingService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
+    providers:    [HttpService, UserService, BlockUIService, IsWorkingService, MessageService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, AppService, AppLookupService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]
 })
 export class AppModule { }

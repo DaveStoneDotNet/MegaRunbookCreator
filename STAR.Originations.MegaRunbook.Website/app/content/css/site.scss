@@ -950,6 +950,13 @@ table.runbook-table {
     margin-left: 20px;
 }
 
+.app-authenticating {
+    font-family: BebasNeue;
+    font-size: 1.4em;
+    color: rgba(255, 255, 255, 0.5); 
+    margin-left: 20px;
+}
+
 .app-loading {
     text-align: center;
     letter-spacing: 40px;
@@ -1362,6 +1369,19 @@ a.static-link:visited {
     animation: spinback 20s linear infinite;
 }
 
+.spriro-03 {
+    position: absolute;
+    width: 850px;
+    top: 70px;
+    left: 0;
+    right: 0;
+    margin: 0px auto;
+    opacity: 0.20;
+    -webkit-animation: shrinkdown 30s ease-out infinite;
+    -moz-animation: shrinkdown 30s ease-out infinite;
+    animation: shrinkdown 30s ease-out infinite;
+}
+
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin 
@@ -1376,6 +1396,14 @@ a.static-link:visited {
     10% { transform: rotate(-360deg); } 
 }
 
+@keyframes shrinkdown 
+{ 
+      0% { transform: rotate(  0deg) scale(0.0); opacity: 0.0; } 
+     80% { transform: rotate( 30deg) scale(0.0); opacity: 0.0; } 
+     90% { transform: rotate(-30deg) scale(1.1); opacity: 0.2; } 
+     95% { transform: rotate(720deg) scale(0.0); opacity: 0.0; } 
+    100% { transform: rotate(720deg) scale(0.0); opacity: 0.0; } 
+}
 
 .mrc-data-table {
     width: 100%;
@@ -1408,4 +1436,72 @@ a.static-link:visited {
 .mrc-data-table tbody tr.selected td {
     background-color: $muted-blue !important; 
     color: $pure-white;
+}
+
+
+
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@keyframes bounceInLeft {
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-3000px, 0, 0);
+    transform: translate3d(-3000px, 0, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(25px, 0, 0);
+    transform: translate3d(25px, 0, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0);
+  }
+
+  to {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.bounceInLeft {
+  -webkit-animation-name: bounceInLeft;
+  animation-name: bounceInLeft;
+}
+
+.monkey {
+  -webkit-animation: background 10s linear infinite;
+  animation: background 10s linear infinite;  
+}
+
+@-webkit-keyframes background {
+    0% { background-color: #333333; opacity: 0.9; }
+    3% { background-color: #99ff99; opacity: 0.9; }  
+    6% { background-color: #333333; opacity: 0.9; }
+  100% { background-color: #333333; opacity: 0.9; }
+}
+
+@keyframes background {
+    0% { background-color: #333333; opacity: 0.9; }
+    3% { background-color: #99ff99; opacity: 0.9; }  
+    6% { background-color: #333333; opacity: 0.9; }
+  100% { background-color: #333333; opacity: 0.9; }
 }

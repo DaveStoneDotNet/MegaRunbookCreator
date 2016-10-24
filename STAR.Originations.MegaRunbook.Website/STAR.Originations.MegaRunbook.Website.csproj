@@ -323,11 +323,14 @@
     <TypeScriptCompile Include="app\crisis-center\crisis-detail.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-list.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis.service.ts" />
+    <TypeScriptCompile Include="app\entities\app-initialization.entity.ts" />
+    <TypeScriptCompile Include="app\entities\app-lookups.entity.ts" />
     <TypeScriptCompile Include="app\entities\application-group.entity.ts" />
     <TypeScriptCompile Include="app\entities\application-type.entity.ts" />
     <TypeScriptCompile Include="app\entities\contact.entity.ts" />
     <TypeScriptCompile Include="app\entities\environment-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\environment.entity.ts" />
+    <TypeScriptCompile Include="app\entities\message.entity.ts" />
     <TypeScriptCompile Include="app\entities\paged-application-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\paged-base.ts" />
     <TypeScriptCompile Include="app\entities\paged-runbook-template.entity.ts" />
@@ -374,6 +377,8 @@
     <TypeScriptCompile Include="app\runbooks\runbooks.component.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.module.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.routing.ts" />
+    <TypeScriptCompile Include="app\services\app-lookup.service.ts" />
+    <TypeScriptCompile Include="app\services\app.service.ts" />
     <TypeScriptCompile Include="app\services\auth-guard.service.ts" />
     <TypeScriptCompile Include="app\services\auth.service.ts" />
     <TypeScriptCompile Include="app\services\blockui.service.ts" />
@@ -382,6 +387,7 @@
     <TypeScriptCompile Include="app\services\http.service.ts" />
     <TypeScriptCompile Include="app\services\is-working.service.ts" />
     <TypeScriptCompile Include="app\services\mapping.service.ts" />
+    <TypeScriptCompile Include="app\services\message.service.ts" />
     <TypeScriptCompile Include="app\templates\template.service.ts" />
     <TypeScriptCompile Include="app\services\user.service.ts" />
     <TypeScriptCompile Include="app\templates\template-detail.component.ts" />

@@ -53,6 +53,16 @@
 </div>
 
 <div class="container body-content">
+    <div [hidden]="isAppInitialized" style="background: #2d2d30; color: #ffffff; padding-top: 200px; position: absolute; left: 0; right: 0; top: 0; bottom: 0; text-align: center; z-index: 7777777;">
+        <div class="BebasNeue font-2-00 white opacity-50">
+            <div>
+                <img src="../../app/content/images/Mega-Runbook-Creator-Button-01.png" alt="mega-runbook-creator" />
+            </div>
+            <div class="app-authenticating bounceInLeft animated">authenticating</div>
+            <img src="app/content/images/running.gif" class="opacity-50"/>
+            <img src="app/content/images/spiro.svg" class="spriro-02" />
+        </div>
+    </div>
     <router-outlet></router-outlet>
 </div>
 

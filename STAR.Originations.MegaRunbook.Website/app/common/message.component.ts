@@ -2,6 +2,7 @@
 import { Component }        from '@angular/core';
 import { OnInit }           from '@angular/core';
 import { OnDestroy }        from '@angular/core';
+import { EventEmitter }     from '@angular/core';
 
 import { trigger }          from '@angular/core';
 import { state }            from '@angular/core';
@@ -10,6 +11,9 @@ import { transition }       from '@angular/core';
 import { animate }          from '@angular/core';
 
 import { IsWorkingService } from '../services/is-working.service';
+import { MessageService }   from '../services/message.service';
+
+import { Message }          from '../entities/message.entity';
 
 @Component({
     selector:    'message',
@@ -33,22 +37,23 @@ export class MessageComponent implements OnInit, OnDestroy {
     state = 'popped-out';
 
     isWorking = false;
-    workingMessage: string;
+    message: string;
     workingMessageSubscription: any;
     isWorkingSubscription: any;
 
-    constructor(private isWorkingService: IsWorkingService) {
-
+    constructor(private isWorkingService: IsWorkingService, private messageService: MessageService) {
     }
 
     ngOnInit() {
-        this.workingMessageSubscription = this.isWorkingService.isWorkingEvent.subscribe(event => this.onIsWorking(event));
-        this.isWorkingSubscription = this.isWorkingService.isWorking.subscribe(value => this.isWorking = value);
+        this.messageService.onMessageChanged.subscribe((event: Message) => {
+            console.log('MESSAGE RECEIVED: ' + event.Message);
+            this.message = event.Message;
+            setTimeout(() => { this.state = 'popped-in'; }, 10000);
+        });
     }
 
     ngOnDestroy() {
-        this.workingMessageSubscription.unsubscribe();
-        this.isWorkingSubscription.unsubscribe();
+        this.messageService.onMessageChanged.unsubscribe();
     }
 
     onComponentClicked() {
@@ -59,9 +64,5 @@ export class MessageComponent implements OnInit, OnDestroy {
             this.state = 'popped-in';
             console.log('STATE: NULL');
         }
-    }
-
-    private onIsWorking(message) {
-        this.workingMessage = message;
     }
 }

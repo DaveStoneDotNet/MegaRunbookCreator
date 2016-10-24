@@ -19,6 +19,12 @@ export class UserService {
 
     constructor(private http: Http) { }
 
+    getUserPromise(): Promise<Response> {
+        return this.http
+            .get('api/GetUserProfile')
+            .toPromise();
+    }
+
     getUserProfile(): Promise<UserProfile> {
         return this.http
             .get('api/GetUserProfile')
@@ -29,6 +35,10 @@ export class UserService {
 
     getAuthenticatedUser(): UserProfile {
         return this.authenticatedUser;
+    }
+
+    setAuthenticatedUser(userProfile: UserProfile): void {
+        this.authenticatedUser = userProfile;
     }
 
     getUserIsInRole(roleName: string): boolean {

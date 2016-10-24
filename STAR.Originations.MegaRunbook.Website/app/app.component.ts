@@ -3,15 +3,17 @@ import { Component }                 from '@angular/core';
 import { OnInit }                    from '@angular/core';
 import { OnDestroy }                 from '@angular/core';
 
+import { AppService }                from './services/app.service';
 import { IsWorkingService }          from './services/is-working.service';
 import { IsWorkingComponent }        from './common/isworking/is-working.component';
 import { IsWorkingSpinnerComponent } from './common/isworking/is-working-spinner.component';
 
-@Component({
-    selector:    'mrc-app',
-    templateUrl: 'app/app.component.html' 
-})
+import { AppInitialization }         from './entities/app-initialization.entity';
 
+@Component({
+    selector: 'mrc-app',
+    templateUrl: 'app/app.component.html'
+})
 export class AppComponent implements OnInit, OnDestroy {
 
     today = new Date();
@@ -20,14 +22,22 @@ export class AppComponent implements OnInit, OnDestroy {
     workingMessage: string;
     workingMessageSubscription: any;
     isWorkingSubscription: any;
+    isAppInitialized = false;
+    appInitialization: AppInitialization;
 
-    constructor(private isWorkingService: IsWorkingService) {
-
+    constructor(private isWorkingService: IsWorkingService, private appService: AppService) {
+        this.appService.onAppInitializationChanged.subscribe((event: AppInitialization) => {
+            this.appInitialization = event;
+            this.isAppInitialized = this.appInitialization.IsInitialized;
+            console.log('APP INITIALIZATION EVENT: ' + event.IsInitialized + ' - ' + event.Message);
+        });
     }
 
     ngOnInit() {
-        this.workingMessageSubscription = this.isWorkingService.isWorkingEvent.subscribe(event => this.onWorking(event));
+        this.workingMessageSubscription = this.isWorkingService.isWorkingEvent
+            .subscribe(event => this.onWorking(event));
         this.isWorkingSubscription = this.isWorkingService.isWorking.subscribe(value => this.isWorking = value);
+        this.appService.initialize();
     }
 
     ngOnDestroy() {

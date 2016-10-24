@@ -1,9 +1,12 @@
 ﻿
-import { Component }   from '@angular/core';
-import { OnInit }      from '@angular/core';
+import { Component }         from '@angular/core';
+import { OnInit }            from '@angular/core';
 
-import { UserService } from '../services/user.service';
-import { UserProfile } from '../entities/user-profile.entity';
+import { AppService }        from '../services/app.service';
+import { UserService }       from '../services/user.service';
+
+import { UserProfile }       from '../entities/user-profile.entity';
+import { AppInitialization } from '../entities/app-initialization.entity';
 
 @Component({
     selector:    'mrc-home',
@@ -15,16 +18,15 @@ export class HomeComponent implements OnInit {
     today: Date;
     userProfile: UserProfile;
 
-    constructor(private userService: UserService) {
-        
+    constructor(private userService: UserService, private appService: AppService) {
     }
 
     ngOnInit() {
-        this.userService.getUserProfile().then(userProfile => this.onUserProfileSucceeded(userProfile));
         this.today = new Date();
-    }
 
-    onUserProfileSucceeded(userProfile: UserProfile) {
-        this.userProfile = userProfile;
+        this.appService.onAppInitializationChanged.subscribe((event: AppInitialization) => {
+            this.userProfile = this.appService.authenticatedUser;
+        });
+
     }
 }

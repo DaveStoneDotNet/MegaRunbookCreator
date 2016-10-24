@@ -45,6 +45,19 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         }
         #endregion GetUserProfile
 
+        #region GetLookups
+        [System.Web.Http.HttpGet]
+        public JsonResult GetLookups()
+        {
+            var appLookups = new contracts::AppLookups
+            {
+                Lookups = new List<contracts::Lookup> { new contracts::Lookup { Code = "TEST", Description = "Testing" } }
+            };
+
+            return this.Json(appLookups);
+        }
+        #endregion GetLookups
+
         #region GetRunbookTemplates
         [System.Web.Http.HttpGet]
         public async Task<JsonResult> GetRunbookTemplates(contracts::RunbookTemplate request)
