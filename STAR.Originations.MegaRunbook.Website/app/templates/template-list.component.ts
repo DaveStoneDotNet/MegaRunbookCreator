@@ -4,6 +4,8 @@ import { OnInit }               from '@angular/core';
 import { OnDestroy }            from '@angular/core';
 import { Router }               from '@angular/router';
 
+import { MessageService }       from '../services/message.service';
+
 import { RunbookTemplate }      from '../entities/runbook-template.entity';
 import { PagedRunbookTemplate } from '../entities/paged-runbook-template.entity';
 
@@ -28,7 +30,7 @@ export class TemplateListComponent implements OnInit, OnDestroy {
 
     private subscription: Subscription;
 
-    constructor(private templateService: TemplateService, private router: Router) { }
+    constructor(private templateService: TemplateService, private messageService: MessageService, private router: Router) { }
 
     ngOnInit() {
         this.executeSearch();
@@ -56,11 +58,14 @@ export class TemplateListComponent implements OnInit, OnDestroy {
     }
 
     clearSearchTemplateClicked(): void {
+        this.messageService.sendTextMessage('Clearing...');
         this.searchTemplateName = '';
         this.searchTemplateNameChanged('');
     }
 
     private executeSearch(): void {
+
+        this.messageService.sendTextMessage('Searching...');
 
         if (this.runningSearch) return;
 
@@ -89,6 +94,7 @@ export class TemplateListComponent implements OnInit, OnDestroy {
         this.searchResults = response.Items;
 
         this.runningSearch = false;
+        this.messageService.sendTextMessage('Ready');
     }
 
     private getTemplatesOnError(response): void {

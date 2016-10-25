@@ -10,6 +10,7 @@ namespace STAR.Originations.MegaRunbook.Contracts.Data
     {
         [DataMember] public string Code { get; set; }
         [DataMember] public string Description { get; set; }
+        [DataMember] public int SortOrder { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string DebuggerDisplay => String.Format("Code: {0}", this.Code);

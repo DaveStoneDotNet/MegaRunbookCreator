@@ -207,9 +207,23 @@ namespace STAR.Originations.MRC.DataAccess
                                    .Include("ServiceLinks.EnvironmentLinks.Server")
                                    .Include("ServiceLinks.EnvironmentLinks.Server.Environment")
                                    .AsQueryable();
+
                 if (!String.IsNullOrWhiteSpace(request.Name))
                 {
                     query = query.Where(p => p.Name.Contains(request.Name) || p.ApplicationType.Description.Contains(request.Name));
+                }
+
+                if (request.ApplicationType != null)
+                {
+                    if (!String.IsNullOrWhiteSpace(request.ApplicationType.Code))
+                    {
+                        query = query.Where(p => p.ApplicationType.Code.Equals(request.ApplicationType.Code));
+                    }
+                }
+
+                if (request?.ApplicationGroupId > 0)
+                {
+                    query = query.Where(p => p.ApplicationGroupId == request.ApplicationGroupId);
                 }
 
                 var totalRecordCount = query.Count();
@@ -231,6 +245,33 @@ namespace STAR.Originations.MRC.DataAccess
             }
         }
         #endregion GetApplicationLinksAsync
+
+        // ---
+
+        #region GetAppLookupsAsync
+        public async Task<contracts::AppLookups> GetAppLookupsAsync()
+        {
+            var stopwatch = DataAccessBase.StartStopwatch();
+            var appLookups = new contracts::AppLookups();
+
+            using (var context = this.contextCreator())
+            {
+                var applicationGroups = await context.ApplicationGroups.OrderBy(o => o.Name).ToListAsync().ConfigureAwait(false);
+                var applicationTypes = await context.ApplicationTypes.OrderBy(o => o.SortOrder).ToListAsync().ConfigureAwait(false);
+                var runbookStepStatuses = await context.RunbookStepStatus.OrderBy(o => o.SortOrder).ToListAsync().ConfigureAwait(false);
+                var runbookStepTypes = await context.RunbookStepTypes.OrderBy(o => o.SortOrder).ToListAsync().ConfigureAwait(false);
+
+                appLookups.ApplicationGroups = Mapper.Map<List<entities::ApplicationGroup>, List<contracts::Lookup>>(applicationGroups);
+                appLookups.ApplicationTypes = Mapper.Map<List<entities::ApplicationType>, List<contracts::Lookup>>(applicationTypes);
+                appLookups.RunbookStepStatuses = Mapper.Map<List<entities::RunbookStepStatus>, List<contracts::Lookup>>(runbookStepStatuses);
+                appLookups.RunbookStetpTypes = Mapper.Map<List<entities::RunbookStepType>, List<contracts::Lookup>>(runbookStepTypes);
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, "COMPLETE", stopwatch.Elapsed, TraceStatus.Success);
+
+                return appLookups;
+            }
+        }
+        #endregion GetAppLookupsAsync
 
         #endregion Methods
 

@@ -47,14 +47,11 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
 
         #region GetLookups
         [System.Web.Http.HttpGet]
-        public JsonResult GetLookups()
+        public async Task<JsonResult> GetLookups()
         {
-            var appLookups = new contracts::AppLookups
-            {
-                Lookups = new List<contracts::Lookup> { new contracts::Lookup { Code = "TEST", Description = "Testing" } }
-            };
+            var response = await this.MrcDataAccess.GetAppLookupsAsync();
 
-            return this.Json(appLookups);
+            return this.Json(response);
         }
         #endregion GetLookups
 

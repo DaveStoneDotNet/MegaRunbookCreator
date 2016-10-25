@@ -2,5 +2,8 @@
 import { Lookup } from './lookup.entity';
 
 export class AppLookups {
-    Lookups: Lookup[];
+    ApplicationGroups: Lookup[];
+    ApplicationTypes: Lookup[];
+    RunbookStetpTypes: Lookup[];
+    RunbookStepStatuses: Lookup[];
 }

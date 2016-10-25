@@ -1713,19 +1713,19 @@ a.static-link:visited {
 
 @keyframes shrinkdown {
   0% {
-    transform: rotate(0deg) scale(0);
+    transform: rotate(0deg) scale(0.5);
     opacity: 0.0; }
   80% {
-    transform: rotate(30deg) scale(0);
+    transform: rotate(30deg) scale(0.5);
     opacity: 0.0; }
   90% {
-    transform: rotate(-30deg) scale(1.1);
+    transform: rotate(60deg) scale(0.6);
     opacity: 0.2; }
   95% {
-    transform: rotate(720deg) scale(0);
+    transform: rotate(360deg) scale(3.1);
     opacity: 0.0; }
   100% {
-    transform: rotate(720deg) scale(0);
+    transform: rotate(360deg) scale(0);
     opacity: 0.0; } }
 
 .mrc-data-table {

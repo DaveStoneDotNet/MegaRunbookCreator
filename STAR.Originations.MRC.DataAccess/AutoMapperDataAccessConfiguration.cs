@@ -24,6 +24,13 @@ namespace STAR.Originations.MRC.DataAccess
             Mapper.CreateMap<entities::Server, contracts::Server>();
             Mapper.CreateMap<entities::ServiceLink, contracts::ServiceLink>();
             Mapper.CreateMap<entities::Team, contracts::Team>();
+            Mapper.CreateMap<entities::ApplicationType, contracts::Lookup>();
+            Mapper.CreateMap<entities::RunbookStepStatus, contracts::Lookup>();
+            Mapper.CreateMap<entities::RunbookStepType, contracts::Lookup>();
+
+            Mapper.CreateMap<entities::ApplicationGroup, contracts::Lookup>()
+                .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Name));
         }
     }
 }

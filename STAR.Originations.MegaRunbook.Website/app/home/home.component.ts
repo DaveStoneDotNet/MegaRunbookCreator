@@ -3,7 +3,6 @@ import { Component }         from '@angular/core';
 import { OnInit }            from '@angular/core';
 
 import { AppService }        from '../services/app.service';
-import { UserService }       from '../services/user.service';
 
 import { UserProfile }       from '../entities/user-profile.entity';
 import { AppInitialization } from '../entities/app-initialization.entity';
@@ -18,7 +17,8 @@ export class HomeComponent implements OnInit {
     today: Date;
     userProfile: UserProfile;
 
-    constructor(private userService: UserService, private appService: AppService) {
+    constructor(private appService: AppService) {
+
     }
 
     ngOnInit() {

@@ -48,6 +48,7 @@ export class MessageComponent implements OnInit, OnDestroy {
         this.messageService.onMessageChanged.subscribe((event: Message) => {
             console.log('MESSAGE RECEIVED: ' + event.Message);
             this.message = event.Message;
+            this.state = 'popped-out';
             setTimeout(() => { this.state = 'popped-in'; }, 10000);
         });
     }

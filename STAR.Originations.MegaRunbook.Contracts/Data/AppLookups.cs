@@ -9,7 +9,10 @@ namespace STAR.Originations.MegaRunbook.Contracts.Data
     [DebuggerDisplay("{DebuggerDisplay}")]
     public class AppLookups
     {
-        [DataMember] public List<Lookup> Lookups { get; set; }
+        [DataMember] public List<Lookup> ApplicationGroups { get; set; }
+        [DataMember] public List<Lookup> ApplicationTypes { get; set; }
+        [DataMember] public List<Lookup> RunbookStetpTypes { get; set; }
+        [DataMember] public List<Lookup> RunbookStepStatuses { get; set; }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string DebuggerDisplay => String.Format("{0} ", this.GetType().Name);

@@ -12,7 +12,6 @@ import { UserService }       from './user.service';
 import { AppInitialization } from '../entities/app-initialization.entity';
 import { AppLookups }        from '../entities/app-lookups.entity';
 import { UserProfile }       from '../entities/user-profile.entity';
-import { Message }           from '../entities/message.entity';
 
 import { AppLookupService }  from './app-lookup.service';
 import { MessageService }    from './message.service';
@@ -72,8 +71,7 @@ export class AppService {
         if (this.isAuthenticated) {
             if (this.lookups) {
                 this.appIsInitialized = true;
-                let message = new Message('READY');
-                this.messageService.sendMessage(message);
+                this.messageService.sendTextMessage('READY');
             }
         }
         let appInitialization = new AppInitialization(this.appIsInitialized, message);

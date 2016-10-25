@@ -13,6 +13,9 @@ import { ToastrService }        from 'toastr-ng2';
 
 import { IsWorkingService }     from '../services/is-working.service';
 import { MappingService }       from '../services/mapping.service';
+import { MessageService }       from '../services/message.service';
+import { AppService }           from '../services/app.service';
+
 import { LinkService }          from './link.service';
 
 import { EnvironmentLink }      from '../entities/environment-link.entity';
@@ -22,8 +25,10 @@ import { PagedApplicationLink } from '../entities/paged-application-link.entity'
 
 import { DataTable }            from '../common/datatable/mrc-datatable.directive';
 import { DataEvent }            from '../common/datatable/i-data-event';
+
 import { Paging }               from '../entities/paging.entity';
 import { SortInfo }             from '../entities/sort-info.entity';
+import { AppLookups }           from '../entities/app-lookups.entity';
 
 import { Subscription }         from 'rxjs/Subscription';
 
@@ -50,6 +55,10 @@ export class LinkListComponent implements OnInit, OnDestroy {
 
     pagedApplicationLink: PagedApplicationLink;
 
+    appLookups: AppLookups;
+    selectedApplicationGroup: AppLookups;
+    selectedApplicationType: AppLookups;
+
     private selectedId: number;
     private subscription: Subscription;
     private dataEvent: DataEvent;
@@ -60,11 +69,14 @@ export class LinkListComponent implements OnInit, OnDestroy {
                 private isWorkingService: IsWorkingService,
                 private toastrService: ToastrService,
                 private mappingService: MappingService, 
+                private messageService: MessageService, 
+                private appService: AppService, 
                 private viewContainerRef: ViewContainerRef) {
         this.toastrService.viewContainerRef = this.viewContainerRef;
     }
 
     ngOnInit() {
+        this.appLookups = this.appService.lookups;
         this.executeSearch();
     }
 
@@ -79,26 +91,32 @@ export class LinkListComponent implements OnInit, OnDestroy {
     }
 
     onGroupChanged(newValue): void {
-        console.log(newValue);
-        this.delaySearch = true;
 
-        this.searchCriteria.Name = newValue;
-        setTimeout(() => this.executeSearch(), 500);
+        this.delaySearch = true;
+        this.messageService.sendTextMessage('Searching...');
+        this.selectedApplicationGroup = newValue;
+        this.searchCriteria.ApplicationGroupId = newValue.Code;
+        this.executeSearch();
     }
 
     onTypeChanged(newValue): void {
 
         this.delaySearch = true;
-
-        this.searchCriteria.Name = newValue;
-        setTimeout(() => this.executeSearch(), 500);
+        this.messageService.sendTextMessage('Searching...');
+        this.selectedApplicationType = newValue;
+        this.searchCriteria.ApplicationType = newValue;
+        this.executeSearch();
     }
 
     onClearSearchCriteria(): void {
+
+        this.messageService.sendTextMessage('Clearing...');
         this.searchCriteria = new ApplicationLink();
         this.applicationLink = null;
         this.serviceLink = null;
         this.environmentLink = null;
+        this.selectedApplicationGroup = null;
+        this.selectedApplicationType = null;
         this.onApplicationNameChanged('');
     }
 
@@ -191,6 +209,7 @@ export class LinkListComponent implements OnInit, OnDestroy {
         this.runningSearch = false;
         this.isWorkingService.stopWorking();
         this.toastrService.success(message);
+        this.messageService.sendTextMessage('READY');
     }
 
     private onServiceLinksOnError(response): void {

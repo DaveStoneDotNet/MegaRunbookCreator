@@ -9,6 +9,7 @@ import { IsWorkingComponent }        from './common/isworking/is-working.compone
 import { IsWorkingSpinnerComponent } from './common/isworking/is-working-spinner.component';
 
 import { AppInitialization }         from './entities/app-initialization.entity';
+import { UserProfile }               from './entities/user-profile.entity';
 
 @Component({
     selector: 'mrc-app',
@@ -24,12 +25,13 @@ export class AppComponent implements OnInit, OnDestroy {
     isWorkingSubscription: any;
     isAppInitialized = false;
     appInitialization: AppInitialization;
+    authenticatedUser: UserProfile;
 
     constructor(private isWorkingService: IsWorkingService, private appService: AppService) {
         this.appService.onAppInitializationChanged.subscribe((event: AppInitialization) => {
             this.appInitialization = event;
             this.isAppInitialized = this.appInitialization.IsInitialized;
-            console.log('APP INITIALIZATION EVENT: ' + event.IsInitialized + ' - ' + event.Message);
+            this.authenticatedUser = this.appService.authenticatedUser;
         });
     }
 

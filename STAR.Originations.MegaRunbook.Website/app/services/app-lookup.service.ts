@@ -35,10 +35,6 @@ export class AppLookupService {
         return this.lookups;
     }
 
-    setAuthenticatedUser(lookups: AppLookups): void {
-        this.lookups = lookups;
-    }
-
     private onGetLookupsSuccess(response: Response) {
         this.lookups = response.json() as AppLookups;
         return this.lookups;

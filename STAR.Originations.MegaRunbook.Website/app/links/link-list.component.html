@@ -5,58 +5,51 @@
 
     <!-- SEARCH -->
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12 border-bottom-a-10 margin-bottom-10">
+            <div class="float-right Lato font-1-60 opacity-50">
+                Application Links & Locations
+            </div>
             <form class="mrc-forms">
-                <div class="table"  *ngIf="searchCriteria">
-                    <div class="tr">
-                        <div class="td">
+                <table *ngIf="searchCriteria">
+                    <tr>
+                        <td class="td">
                             <input type="text" name="ApplicationName" placeholder="search..." class="width-100" [(ngModel)]="searchCriteria.ApplicationName" (ngModelChange)="onApplicationNameChanged($event)" />
-                        </div>
+                        </td>
 
-                        <div class="td">
+                        <td>
 
                             <div class="btn-group" dropdown keyboardNav="true">
                                 <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm btn-default" dropdownToggle>
                                     Group <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" dropdownMenu role="menu">
-                                    <li role="menuitem"><a class="dropdown-item">Encompass Web</a></li>
-                                    <li role="menuitem"><a class="dropdown-item">Greenlight Web</a></li>
-                                    <li role="menuitem"><a class="dropdown-item">Encompass Jobs</a></li>
-                                    <li role="menuitem"><a class="dropdown-item">Scheduled Tasks</a></li>
-                                    <li role="menuitem"><a class="dropdown-item">Originations Miscellaneous</a></li>
-                                    <li role="menuitem"><a class="dropdown-item">Service Bus Messaging</a></li>
-                                    <li role="menuitem"><a class="dropdown-item">WCF</a></li>
+                                    <li role="menuitem" *ngFor="let lookup of appLookups.ApplicationGroups"><a class="dropdown-item" (click)="onGroupChanged(lookup)">{{ lookup.Description }}</a></li>
                                 </ul>
                             </div>
 
-                        </div>
+                        </td>
 
-                        <div class="td">
+                        <td>
 
                             <div class="btn-group" dropdown keyboardNav="true">
                                 <button id="simple-btn-keyboard-nav" type="button" class="btn btn-sm btn-default" dropdownToggle>
                                     Type <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
-                                    <li role="menuitem"><a class="dropdown-item" href="#">Service Bus</a></li>
-                                    <li role="menuitem"><a class="dropdown-item" href="#">Scheduled Task</a></li>
-                                    <li role="menuitem"><a class="dropdown-item" href="#">WCF Service</a></li>
-                                    <li role="menuitem"><a class="dropdown-item" href="#">Website</a></li>
-                                    <li role="menuitem"><a class="dropdown-item" href="#">Unknown</a></li>
+                                    <li role="menuitem" *ngFor="let lookup of appLookups.ApplicationTypes"><a class="dropdown-item" (click)="onTypeChanged(lookup)">{{ lookup.Description }}</a></li>
                                 </ul>
                             </div>
 
-                        </div>
+                        </td>
 
-                        <div class="td">
+                        <td>
                             <div>
                                 <button class="btn btn-sm btn-primary" (click)="onClearSearchCriteria()">Clear</button>
                             </div>
-                        </div>
+                        </td>
 
-                    </div>
-                </div>
+                    </tr>
+                </table>
             </form>
         </div>
     </div>
@@ -64,27 +57,32 @@
     <!-- LIST -->
     <div class="row">
         <div class="col-md-4">
+
             <div>
-                <div *ngIf="pagedApplicationLink" class="float-right">
+                <div *ngIf="pagedApplicationLink" class="float-right align-right">
                     {{ pagedApplicationLink.TotalRecordCount | plural: 'application' }}
+                    <div class="small-caps opacity-50">
+                        <span *ngIf="selectedApplicationGroup">{{ selectedApplicationGroup.Description }}</span> <span *ngIf="selectedApplicationType">{{ selectedApplicationType.Description }}</span>
+                    </div>
                 </div>
                 <div class="fat-header">
                     Application
                 </div>
             </div>
 
-
             <table class="mrc-data-table" [mrc-data-input]="pagedApplicationLink" #mrcDataTable="mrcDataTable" [mrc-records-per-page]="10" (onDataRequested)="onDataRequested($event)">
                 <thead>
                 <tr>
                     <th style="width: 80%;"><mrc-table-sorter PropertyName="Name">Name</mrc-table-sorter></th>
-                    <th style="width: 20%;"><mrc-table-sorter PropertyName="ApplicationType.Description">Type</mrc-table-sorter></th>
+                    <th style="width: 19%;"><mrc-table-sorter PropertyName="ApplicationType.Description">Type</mrc-table-sorter></th>
+                    <th style="width: 1%;"> </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of mrcDataTable.mrcDataInput.Items;" (click)="onApplicationLinkSelected(item)" [class.selected]="item.IsSelected">
                     <td>{{ item.Name }}</td>
                     <td>{{ item.ApplicationType.Description }}</td>
+                    <td><span class="opacity-50 font-0-75 pad-right-10">edit</span></td>
                 </tr>
                 </tbody>
                 <tfoot>

@@ -12,7 +12,7 @@
         <div class="navbar-collapse collapse">
 
             <div class="float-right">
-                <i class="fa fa-info-circle gray-5 font-1-40" style="margin-top: 16px;"></i> <is-working-runner></is-working-runner>
+                <span *ngIf="authenticatedUser"><i class="fa fa-info-circle gray-5 font-1-40" style="margin-top: 16px;"></i> <span class="BebasNeue font-1-40 opacity-60 pad-left-5">{{ authenticatedUser.UserDisplayName }}</span></span><is-working-runner></is-working-runner>
             </div>
 
             <ul class="nav navbar-nav">

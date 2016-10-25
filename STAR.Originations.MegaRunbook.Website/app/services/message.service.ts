@@ -22,6 +22,11 @@ export class MessageService {
 
     isDelayed = false;
 
+    sendTextMessage(textMessage: string) {
+        let message = new Message(textMessage);
+        this.sendMessage(message);
+    }
+
     sendMessage(message: Message) {
 
         this.isDelayed = true;

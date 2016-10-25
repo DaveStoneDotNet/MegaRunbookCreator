@@ -22,6 +22,7 @@ namespace STAR.Originations.MRC.DataAccess
     
         public string Code { get; set; }
         public string Description { get; set; }
+        public Nullable<int> SortOrder { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ApplicationLink> ApplicationLinks { get; set; }

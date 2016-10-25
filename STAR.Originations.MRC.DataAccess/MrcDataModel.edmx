@@ -62,6 +62,7 @@
           </Key>
           <Property Name="Code" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="SortOrder" Type="int" />
         </EntityType>
         <EntityType Name="RunbookStepStatus">
           <Key>
@@ -762,6 +763,7 @@
           </Key>
           <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SortOrder" Type="Int32" />
           <NavigationProperty Name="ApplicationLinks" Relationship="MrcDataModel.ApplicationLink_ApplicationType_FK" FromRole="ApplicationType" ToRole="ApplicationLink" />
         </EntityType>
         <Association Name="ApplicationLink_ApplicationType_FK">
@@ -935,6 +937,7 @@
           <EntitySetMapping Name="ApplicationTypes">
             <EntityTypeMapping TypeName="MrcDataModel.ApplicationType">
               <MappingFragment StoreEntitySet="ApplicationType">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
