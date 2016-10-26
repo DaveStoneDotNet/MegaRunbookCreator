@@ -174,6 +174,10 @@
       <Project>{43f2db2b-92db-40ff-8456-c6a9c268672a}</Project>
       <Name>STAR.Originations.MegaRunbook.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\STAR.Originations.MegaRunbook.Excel\STAR.Originations.MegaRunbook.Excel.csproj">
+      <Project>{eb3088d9-e2dd-4c06-a7fc-f993abf3c58e}</Project>
+      <Name>STAR.Originations.MegaRunbook.Excel</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -243,3 +243,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/STAR.Originations.MegaRunbook.Excel/Resources/Aspose.Total.lic
+/STAR.Originations.MegaRunbook.Excel/Resources/Resources.resx

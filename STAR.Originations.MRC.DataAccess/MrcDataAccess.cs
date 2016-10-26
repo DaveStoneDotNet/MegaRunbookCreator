@@ -12,6 +12,7 @@ using STAR.Enterprise.Trace.Wcf;
 using STAR.Framework.Utility;
 
 using STAR.Originations.MegaRunbook.Contracts.PagingModels;
+using STAR.Originations.MegaRunbook.Excel;
 using STAR.Originations.MRC.DataAccess.Query;
 
 using entities = STAR.Originations.MRC.DataAccess;

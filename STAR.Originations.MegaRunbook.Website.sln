@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Originations.MegaRunbo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Originations.MRC.DataAccess", "STAR.Originations.MRC.DataAccess\STAR.Originations.MRC.DataAccess.csproj", "{0EEA4435-D75D-42DF-B309-CE9EA5E4E440}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAR.Originations.MegaRunbook.Excel", "STAR.Originations.MegaRunbook.Excel\STAR.Originations.MegaRunbook.Excel.csproj", "{EB3088D9-E2DD-4C06-A7FC-F993ABF3C58E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0EEA4435-D75D-42DF-B309-CE9EA5E4E440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EEA4435-D75D-42DF-B309-CE9EA5E4E440}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EEA4435-D75D-42DF-B309-CE9EA5E4E440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3088D9-E2DD-4C06-A7FC-F993ABF3C58E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3088D9-E2DD-4C06-A7FC-F993ABF3C58E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3088D9-E2DD-4C06-A7FC-F993ABF3C58E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3088D9-E2DD-4C06-A7FC-F993ABF3C58E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
