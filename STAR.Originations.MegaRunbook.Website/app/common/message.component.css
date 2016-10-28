@@ -7,13 +7,13 @@
 .message {
     color: #ffffff;
     color: rgba(255, 255, 255, 0.8);
-    font-size: 1.2em;
+    font-size: 1.3em;
     font-family: BebasNeue;
 }
 
 .icon {
     float: left;
     color: rgba(255, 255, 255, 0.3);
-    padding-top: 1px;
+    margin-top: 4px;
     padding-right: 5px;
 }
