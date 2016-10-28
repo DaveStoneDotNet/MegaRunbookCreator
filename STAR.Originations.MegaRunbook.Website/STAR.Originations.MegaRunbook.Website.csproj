@@ -205,6 +205,7 @@
     <Content Include="app\common\page-not-found.component.html" />
     <Content Include="app\home\home.component.html" />
     <Content Include="app\links\link-list.component.html" />
+    <Content Include="app\rfcs\rfc-list.component.html" />
     <Content Include="app\templates\template-detail.component.html" />
     <Content Include="app\json\runbook-steps.json" />
     <Content Include="app\runbooks\runbooks.component.html" />
@@ -374,6 +375,9 @@
     <TypeScriptCompile Include="app\pipes\plural.pipe.ts" />
     <TypeScriptCompile Include="app\prime\prime.routing.ts" />
     <TypeScriptCompile Include="app\prime\prime.module.ts" />
+    <TypeScriptCompile Include="app\rfcs\rfc-list.component.ts" />
+    <TypeScriptCompile Include="app\rfcs\rfc.module.ts" />
+    <TypeScriptCompile Include="app\rfcs\rfc.routing.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.component.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.module.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.routing.ts" />

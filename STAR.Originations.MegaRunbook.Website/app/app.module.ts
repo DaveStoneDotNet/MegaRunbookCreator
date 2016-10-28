@@ -15,6 +15,7 @@ import { HeroesModule }              from './heroes/heroes.module';
 import { AdminModule }               from './admin/admin.module';
 import { BuildsModule }              from './builds/builds.module';
 import { RunbooksModule }            from './runbooks/runbooks.module';
+import { RfcModule }                 from './rfcs/rfc.module';
 import { TemplatesModule }           from './templates/templates.module';
 import { LinkModule }                from './links/link.module';
 import { GridModule }                from './grids/grid.module';
@@ -44,7 +45,7 @@ import { AppService }                from './services/app.service';
 import { AppLookupService }          from './services/app-lookup.service';
 
 @NgModule({
-    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, TemplatesModule, LinkModule, GridModule, PrimeModule, PipeModule],
+    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, RfcModule, TemplatesModule, LinkModule, GridModule, PrimeModule, PipeModule],
     declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent, IsWorkingComponent, IsWorkingSpinnerComponent, IsWorkingRunnerComponent, MessageComponent],
     providers:    [HttpService, UserService, BlockUIService, IsWorkingService, MessageService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, AppService, AppLookupService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]

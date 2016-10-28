@@ -1242,6 +1242,19 @@ table.runbook-table {
   letter-spacing: 20px;
   margin-left: 20px; }
 
+.app-authenticating-box {
+  overflow: hidden;
+  background: #2d2d30;
+  color: #ffffff;
+  padding-top: 200px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  z-index: 7777777; }
+
 .app-authenticating {
   font-family: BebasNeue;
   font-size: 1.4em;

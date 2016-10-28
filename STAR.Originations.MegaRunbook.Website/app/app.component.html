@@ -18,10 +18,10 @@
             <ul class="nav navbar-nav">
                 <li><a routerLink="/">Home</a></li>
                 <li><a routerLinkActive="active" routerLink="/runbooks">Runbooks</a></li>
+                <li><a routerLinkActive="active" routerLink="/rfcs">RFC's</a></li>
                 <li><a routerLinkActive="active" routerLink="/templatelist">Templates</a></li>
                 <li><a routerLinkActive="active" routerLink="/builds">Builds</a></li>
                 <li><a routerLinkActive="active" routerLink="/links">Applications</a></li>
-                <li><a routerLinkActive="active" routerLink="/release">Release</a></li>
                 <li><a routerLinkActive="active" routerLink="/admin">Admin</a></li>
 
                 <li class="dropdown">
@@ -53,7 +53,7 @@
 </div>
 
 <div class="container body-content">
-    <div [hidden]="isAppInitialized" style="background: #2d2d30; color: #ffffff; padding-top: 200px; position: absolute; left: 0; right: 0; top: 0; bottom: 0; text-align: center; z-index: 7777777;">
+    <div [hidden]="isAppInitialized" class="app-authenticating-box">
         <div class="BebasNeue font-2-00 white opacity-50">
             <div>
                 <img src="../../app/content/images/Mega-Runbook-Creator-Button-01.png" alt="mega-runbook-creator" />
