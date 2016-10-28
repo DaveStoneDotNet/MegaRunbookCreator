@@ -11,9 +11,9 @@
         <div *ngIf="runbookTemplate">{{ runbookTemplate.Name }}</div>
     </div>
 
-    <!-- HEADER -->
-    <div class="table bordered mrc-forms" *ngIf="runbookTemplate">
+    <div class="table bordered" *ngIf="runbookTemplate">
         <div class="thead">
+            <div class="th align-center"><i class="fa fa-check-circle"></i></div>
             <div class="th">&nbsp;</div>
             <div class="th align-right">Group</div>
             <div class="th align-right">Step</div>
@@ -22,16 +22,13 @@
             <div class="th">Developer</div>
             <div class="th">PBIs</div>
             <div class="th">Notes</div>
-            <div class="th">Time</div>
-            <div class="th">Duration</div>
-            <div class="th">Resource</div>
-            <div class="th">&nbsp;</div>
-            <div class="th">&nbsp;</div>
-            <div class="th">&nbsp;</div>
-            <div class="th">&nbsp;</div>
-            <div class="th">Status</div>
         </div>
         <div class="tr" *ngFor="let step of runbookTemplate.RunbookSteps; let i = index">
+            <div style="width: 2%;" class="td align-center">
+                <div class="pad-top-5">
+                    <input type="checkbox"/>
+                </div>
+            </div>
             <div style="width: 2%;" class="td align-right">
                 <div class="pad-top-5">
                     <button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button>
@@ -79,43 +76,6 @@
                 <div class="pad-top-5">
                     <code *ngIf="step.IsNotCollapsed">{{ step.Notes }}</code>
                 </div>
-            </div>
-            <div style="width: 6%;" class="td nowrap">
-                <div class="pad-top-5">{{ step.Time | date:'shortTime' }}</div>
-            </div>
-            <div style="width: 5%;" class="td nowrap">
-                <div class="pad-top-5">{{ step.Duration | plural:'minute' }}</div>
-            </div>
-            <div style="width: 5%;" class="td nowrap">
-                <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
-                    <div>{{ step.Resources ? step.Resources[0].DisplayName : '' }}</div>
-                </div>
-                <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
-                    <div *ngFor="let resource of step.Resources">{{ resource.DisplayName }}</div>
-                </div>
-            </div>
-            <div style="width: 2%;" class="td align-center">
-                <div class="pad-top-5">
-                    <button type="button" class="btn btn-info btn-xs" (click)="editRunbookStep(step)"><i class="fa fa-edit"></i></button>
-                </div>
-            </div>
-            <div style="width: 2%;" class="td align-center">
-                <div class="pad-top-5">
-                    <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
-                </div>
-            </div>
-            <div style="width: 2%;" class="td align-center">
-                <div class="pad-top-5">
-                    <button type="button" class="btn btn-success btn-xs"><i class="fa fa-rocket"></i></button>
-                </div>
-            </div>
-            <div style="width: 2%;" class="td align-center">
-                <div class="pad-top-5">
-                    <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-arrow-down"></i></button>
-                </div>
-            </div>
-            <div style="width: 7%;" class="td">
-                <select class="runbook"><option></option><option>Started</option><option>Delayed</option><option>Finished</option></select>
             </div>
         </div>
     </div>
