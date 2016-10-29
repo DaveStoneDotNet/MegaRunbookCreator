@@ -1,0 +1,263 @@
+﻿<div class="align-right margin-right-10 margin-top-2">
+    <button class="btn btn-info btn-sm" title="reload" (click)="reloadTemplate()"><i class="fa fa-refresh"></i></button>
+    <button class="btn btn-success btn-sm" (click)="toggleCollapseAll()" [tooltip]="isNotCollapsed ? 'collapse all' : 'expand all'"><i class="fa" [class.fa-chevron-down]="isNotCollapsed" [class.fa-chevron-up]="!isNotCollapsed"></i></button>
+</div>
+<div class="inner-body-content">
+
+    <div (click)="toggleReleaseSelection()" class="pointer">
+        <div class="float-right font-2-00 unselectable">
+            <span class="BebasNeue pad-right-10">{{ today | date:'fullDate' }} </span> <span class="opacity-90 Lato">8:00 PM</span> <i class="fa opacity-50" [class.fa-chevron-down]="isReleaseSelectionCollapsed" [class.fa-chevron-up]="!isReleaseSelectionCollapsed"></i>
+        </div>
+        <div class="fat-header">Release</div>
+    </div>
+
+    <!-- COLLAPSABLE RELEASE SELECTION -->
+    <div class="margin-bottom-20 pad-bottom-20 border-bottom-a-10" [hidden]="!isReleaseSelectionCollapsed">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="white muted-blue-bg border-bottom-a-10 pad-left-20 pad-top-5 pad-bottom-5 margin-bottom-10 font-1-80 Lato opacity-70">Select a Release...</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 align-right">
+                <div class="mrc-forms">
+                    <input type="text" placeholder="Find date..." />
+                </div>
+            </div>
+            <div class="col-md-2 fixed-font">
+                <div class="pad-right-10" (click)="toggleReleaseSelection()">
+                    <div class="pointer gray-3-bg pad-5 align-center">Sat OCT 29, 2016 08:00 PM</div>
+                    <div class="pointer gray-4-bg pad-5 align-center">Wed NOV 09, 2016 09:00 PM</div>
+                    <div class="pointer gray-3-bg pad-5 align-center">Sat NOV 12, 2016 08:00 PM</div>
+                    <div class="pointer gray-4-bg pad-5 align-center">Wed NOV 23, 2016 11:00 PM</div>
+                    <div class="pointer gray-3-bg pad-5 align-center">Sat NOV 26, 2016 08:00 PM</div>
+                    <div class="pointer gray-4-bg pad-5 align-center">Wed DEC 07, 2016 09:00 PM</div>
+                    <div class="pointer gray-3-bg pad-5 align-center">Sat DEC 10, 2016 08:00 PM</div>
+                    <div class="pointer gray-4-bg pad-5 align-center">Wed DEC 21, 2016 11:00 PM</div>
+                    <div class="pointer gray-3-bg pad-5 align-center">Sat DEC 24, 2016 08:00 PM</div>
+                    <div class="pointer gray-4-bg pad-5 align-center">Wed JAN 04, 2016 08:00 PM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPEATING RFC HEADER -->
+    <div (click)="toggleRfcSection()" class="pointer">
+        <div class="float-right align-right" style="margin-top: -5px;">
+            <table>
+                <tr>
+                    <td>
+                        <div class="Lato font-1-80 opacity-70">8:00 PM - 8:30 PM</div>
+                    </td>
+                    <td class="pad-5">
+                        <i class="fa opacity-50 font-2-00" [class.fa-chevron-down]="isNotCollapsed" [class.fa-chevron-up]="!isNotCollapsed"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="opacity-70 pad-right-5 Lato" style="margin-top: -5px;">30 minutes</div>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="font-2-00">
+            <div *ngIf="runbookTemplate">
+                <span class="BebasNeue">RFC #10363</span> {{ runbookTemplate.Name }}
+            </div>
+        </div>
+    </div>
+
+    <!-- REPEATING RFC TABLE -->
+    <div [hidden]="!isRfcCollapsed" class="margin-top-20">
+        <div class="table bordered mrc-forms" *ngIf="runbookTemplate">
+            <div class="thead">
+                <div class="th align-center" (click)="toggleRfcSteps()" [title]="isNotCollapsed ? 'collapse all' : 'expand all'">
+                    <i class="fa fa-chevron-up opacity-50 font-1-00" [class.fa-chevron-down]="isNotCollapsed" [class.fa-chevron-up]="!isNotCollapsed"></i>
+                </div>
+                <div class="th align-right">Group</div>
+                <div class="th align-right">Step</div>
+                <div class="th">Team</div>
+                <div class="th">Description</div>
+                <div class="th">Developer</div>
+                <div class="th">PBIs</div>
+                <div class="th">Notes</div>
+                <div class="th">Time</div>
+                <div class="th">Duration</div>
+                <div class="th">Resource</div>
+                <div class="th">&nbsp;</div>
+                <div class="th">&nbsp;</div>
+                <div class="th">&nbsp;</div>
+                <div class="th">&nbsp;</div>
+                <div class="th">Status</div>
+            </div>
+            <div class="tr" *ngFor="let step of runbookTemplate.RunbookSteps; let i = index">
+                <div style="width: 2%;" class="td align-right">
+                    <div class="pad-top-5">
+                        <button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button>
+                    </div>
+                </div>
+                <div style="width: 3%;" class="td align-right">
+                    <div class="pad-top-5">{{ step.GroupNumber }}</div>
+                </div>
+                <div style="width: 3%;" class="td align-right">
+                    <div class="pad-top-5">{{ step.StepNumber }}</div>
+                </div>
+                <div style="width: 5%;" class="td">
+                    <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                        <div>{{ step.Teams ? step.Teams[0].Name : '' }}</div>
+                    </div>
+                    <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                        <div *ngFor="let team of step.Teams">{{ team.Name }}</div>
+                    </div>
+                </div>
+                <div style="width: 23%;" class="td">
+                    <div class="pad-top-5">
+                        <div *ngIf="!step.IsNotCollapsed">{{ step.Name }}</div>
+                    </div>
+                    <div>
+                        <code *ngIf="step.IsNotCollapsed">{{ step.Description }}</code>
+                    </div>
+                </div>
+                <div style="width: 5%;" class="td nowrap">
+                    <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                        <div>{{ step.Developers ? step.Developers[0].DisplayName : '' }}</div>
+                    </div>
+                    <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                        <div *ngFor="let contact of step.Developers">{{ contact.DisplayName }}</div>
+                    </div>
+                </div>
+                <div style="width: 3%;" class="td">
+                    <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                        <div>{{ step.RunbookStepPbis ? step.RunbookStepPbis[0].PbiNumber : '' }}</div>
+                    </div>
+                    <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                        <div *ngFor="let pbi of step.RunbookStepPbis">{{ pbi.PbiNumber }}</div>
+                    </div>
+                </div>
+                <div style="width: 23%;" class="td">
+                    <div class="pad-top-5">
+                        <code *ngIf="step.IsNotCollapsed">{{ step.Notes }}</code>
+                    </div>
+                </div>
+                <div style="width: 6%;" class="td nowrap">
+                    <div class="pad-top-5">{{ step.Time | date:'shortTime' }}</div>
+                </div>
+                <div style="width: 5%;" class="td nowrap">
+                    <div class="pad-top-5">{{ step.Duration | plural:'minute' }}</div>
+                </div>
+                <div style="width: 5%;" class="td nowrap">
+                    <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                        <div>{{ step.Resources ? step.Resources[0].DisplayName : '' }}</div>
+                    </div>
+                    <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                        <div *ngFor="let resource of step.Resources">{{ resource.DisplayName }}</div>
+                    </div>
+                </div>
+                <div style="width: 2%;" class="td align-center">
+                    <div class="pad-top-5">
+                        <button type="button" class="btn btn-info btn-xs" (click)="editRunbookStep(step)"><i class="fa fa-edit"></i></button>
+                    </div>
+                </div>
+                <div style="width: 2%;" class="td align-center">
+                    <div class="pad-top-5">
+                        <button type="button" class="btn btn-danger btn-xs"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div style="width: 2%;" class="td align-center">
+                    <div class="pad-top-5">
+                        <button type="button" class="btn btn-success btn-xs"><i class="fa fa-rocket"></i></button>
+                    </div>
+                </div>
+                <div style="width: 2%;" class="td align-center">
+                    <div class="pad-top-5">
+                        <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-arrow-down"></i></button>
+                    </div>
+                </div>
+                <div style="width: 7%;" class="td">
+                    <select class="runbook"><option></option><option>Started</option><option>Delayed</option><option>Finished</option></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHEDULE -->
+    <div class="pad-top-40">
+        <table class="pointer">
+            <tr>
+                <th class="pad-10 border-bottom-a-10 white muted-blue-bg">RFC</th>
+                <th class="pad-10 border-bottom-a-10 white muted-blue-bg">Type</th>
+                <th class="pad-10 border-bottom-a-10 white muted-blue-bg">Team</th>
+                <th class="pad-10 border-bottom-a-10 white muted-blue-bg">Resource</th>
+                <th class="pad-10 border-bottom-a-10 white muted-blue-bg">Start Time</th>
+                <th class="pad-10 border-bottom-a-10 white muted-blue-bg">End Time</th>
+                <th class="pad-10 border-bottom-a-10 white muted-blue-bg">Duration</th>
+                <th class="pad-10 border-bottom-a-10 white muted-blue-bg align-center">Steps</th>
+                <th class="pad-10 border-bottom-a-10 white muted-blue-bg">Status</th>
+            </tr>
+            <tr>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">10363</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">Deployment</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">DevOps</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">Matt Clark</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">08:00 PM</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">08:30 PM</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">30 minutes</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg align-center">3</td>
+                <td class="pad-10 border-bottom-a-10 muted-green-bg white align-center">Finished</td>
+            </tr>
+            <tr>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">10391</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">PreDeployment</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">DBA</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">DBA</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">09:00 PM</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg"></td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">5 minutes</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg align-center">1</td>
+                <td class="pad-10 border-bottom-a-10 muted-green-bg white align-center">Finished</td>
+            </tr>
+            <tr>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">10391</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">Deployment</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">DBA</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg"></td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">09:05 PM</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg"></td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">30 minutes</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg align-center">4</td>
+                <td class="pad-10 border-bottom-a-10 muted-blue-bg white align-center">Started</td>
+            </tr>
+            <tr>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">10391</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">Deployment</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">ETL</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">Harish Ram</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg"></td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg"></td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg">10 minutes</td>
+                <td class="pad-10 border-bottom-a-10 gray-4-bg align-center">1</td>
+                <td class="pad-10 border-bottom-a-10 dark-muted-red-bg white align-center">Late</td>
+            </tr>
+            <tr>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">10391</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">Deployment</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">DevOps</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">Keyur</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg"></td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg"></td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg">15 minutes</td>
+                <td class="pad-10 border-bottom-a-10 gray-3-bg align-center">3</td>
+                <td class="pad-10 border-bottom-a-10 muted-orange-bg white align-center">Waiting</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- TEMPORARY INFO -->
+    <div class="opacity-10 margin-top-20">
+        <ul>
+            <li>Intended to represent a Runbook being worked on the night of a Release</li>
+            <li>Implement a dialog to show the Schedule. Team, Resource, Start Time</li>
+        </ul>
+    </div>
+</div>
