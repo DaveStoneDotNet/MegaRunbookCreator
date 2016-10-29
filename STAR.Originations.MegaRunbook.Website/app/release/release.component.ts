@@ -18,6 +18,8 @@ import { ReleaseService }  from './release.service';
 
 export class ReleaseComponent implements OnInit {
 
+    // This is coming from Home
+
     Title = "Release";
     today: Date;
 
