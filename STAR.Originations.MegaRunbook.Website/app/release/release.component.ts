@@ -18,8 +18,6 @@ import { ReleaseService }  from './release.service';
 
 export class ReleaseComponent implements OnInit {
 
-    // Do you see these changes? Any changes at all? This file has a change. Why don't you see it?
-
     Title = "Release";
     today: Date;
 
