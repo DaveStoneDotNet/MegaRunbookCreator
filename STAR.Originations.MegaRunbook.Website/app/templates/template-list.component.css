@@ -17,3 +17,12 @@
       color: #ffffff;
       opacity: 0.75; }
 
+tr:nth-child(odd) {
+  background: #333333; }
+
+tr:nth-child(even) {
+  background: #444444; }
+
+tr:hover {
+  background: #555555; }
+

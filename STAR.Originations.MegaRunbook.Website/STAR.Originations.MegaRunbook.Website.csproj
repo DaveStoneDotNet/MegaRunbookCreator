@@ -206,6 +206,8 @@
     <Content Include="app\home\home.component.html" />
     <Content Include="app\links\link-list.component.html" />
     <Content Include="app\release\release.component.html" />
+    <Content Include="app\rfcs\rfc-add.component.html" />
+    <Content Include="app\rfcs\rfc-edit.component.html" />
     <Content Include="app\rfcs\rfc-list.component.html" />
     <Content Include="app\templates\template-detail.component.html" />
     <Content Include="app\json\runbook-steps.json" />
@@ -380,6 +382,8 @@
     <TypeScriptCompile Include="app\release\release.module.ts" />
     <TypeScriptCompile Include="app\release\release.routing.ts" />
     <TypeScriptCompile Include="app\release\release.service.ts" />
+    <TypeScriptCompile Include="app\rfcs\rfc-add.component.ts" />
+    <TypeScriptCompile Include="app\rfcs\rfc-edit.component.ts" />
     <TypeScriptCompile Include="app\rfcs\rfc-list.component.ts" />
     <TypeScriptCompile Include="app\rfcs\rfc.module.ts" />
     <TypeScriptCompile Include="app\rfcs\rfc.routing.ts" />

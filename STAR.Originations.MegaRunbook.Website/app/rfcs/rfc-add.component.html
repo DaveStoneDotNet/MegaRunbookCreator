@@ -1,0 +1,160 @@
+﻿<div class="align-right margin-right-10 margin-top-2">
+    <button class="btn btn-default btn-sm" (click)="listRfcsClick()">Back</button>
+</div>
+<div class="inner-body-content">
+    <div class="fat-header">Add New RFC</div>
+
+    <div class="row">
+
+        <div class="col-md-6 border-right-a-10">
+
+            <div class="mrc-forms pad-bottom-20">
+                <table>
+                    <tr>
+                        <td>Number</td>
+                        <td><input type="text" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" /></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Contact</td>
+                        <td><input type="text" /></td>
+                        <td></td>
+                    </tr>
+                    <tr *ngIf="selectedRunbookTemplate">
+                        <td>
+                            Template
+                        </td>
+                        <td>
+                            {{ selectedRunbookTemplate.Name }}
+                        </td>
+                        <td><button class="btn btn-default">clear</button></td>
+                    </tr>
+                    <tr *ngIf="selectedRunbookTemplate">
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <button class="btn btn-primary">Save</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div *ngIf="!selectedRunbookTemplate">
+
+                <div class="pad-10 Lato font-2-00">
+                    Select a Template...
+                </div>
+
+                <!-- SEARCH -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="table">
+                            <div class="tr">
+                                <div class="td">
+                                    <input type="text" class="search" placeholder="Search Template Name..." style="width: 400px;" [(ngModel)]="searchTemplateName" (ngModelChange)="searchTemplateNameChanged($event)" />
+                                </div>
+                                <div class="td">
+                                    <button class="btn btn-default" (click)="clearSearchTemplateClicked()">clear</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIST -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="template-list">
+                            <tr *ngFor="let template of searchResults; let i = index; let odd=odd; let even=even;" class="pointer">
+                                <td class="pad-5 align-right font-0-75 gray-6">{{ i+1 }}</td>
+                                <td class="pad-5">{{ template.Name }}</td>
+                                <td class="pad-5"><button class="btn btn-default" (click)="viewRunbookTemplate(template)">view</button></td>
+                                <td class="pad-5"><button class="btn btn-primary" (click)="selectRunbookTemplate(template)">select</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div *ngIf="runbookTemplate">
+
+                <!-- HEADER -->
+                <div class="lato-header" [hidden]="runbookTemplate.Name.length == 0">
+                    <div *ngIf="runbookTemplate">{{ runbookTemplate.Name }}</div>
+                </div>
+
+                <div class="table bordered" *ngIf="runbookTemplate">
+                    <div class="thead">
+                        <div class="th">&nbsp;</div>
+                        <div class="th align-right">Group</div>
+                        <div class="th align-right">Step</div>
+                        <div class="th">Team</div>
+                        <div class="th">Description</div>
+                        <div class="th">Developer</div>
+                    </div>
+                    <div class="tr" *ngFor="let step of runbookTemplate.RunbookSteps; let i = index">
+                        <div style="width: 2%;" class="td align-right">
+                            <div class="pad-top-5">
+                                <button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button>
+                            </div>
+                        </div>
+                        <div style="width: 3%;" class="td align-right">
+                            <div class="pad-top-5">{{ step.GroupNumber }}</div>
+                        </div>
+                        <div style="width: 3%;" class="td align-right">
+                            <div class="pad-top-5">{{ step.StepNumber }}</div>
+                        </div>
+                        <div style="width: 5%;" class="td">
+                            <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                <div>{{ step.Teams ? step.Teams[0].Name : '' }}</div>
+                            </div>
+                            <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                <div *ngFor="let team of step.Teams">{{ team.Name }}</div>
+                            </div>
+                        </div>
+                        <div style="width: 51%;" class="td">
+                            <div class="pad-top-5">
+                                <div *ngIf="!step.IsNotCollapsed">{{ step.Name }}</div>
+                            </div>
+                            <div>
+                                <code *ngIf="step.IsNotCollapsed">{{ step.Description }}</code>
+                            </div>
+                        </div>
+                        <div style="width: 5%;" class="td nowrap">
+                            <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                <div>{{ step.Developers ? step.Developers[0].DisplayName : '' }}</div>
+                            </div>
+                            <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                <div *ngFor="let contact of step.Developers">{{ contact.DisplayName }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="opacity-10">
+        <ul>
+            <li>Create New RFC by selecting an existing Template to copy, or just creating a new empty, 'blank' RFC.</li>
+            <li>Each Release is composed of multiple selected RFC's.</li>
+            <li>This is where you would deine a singular RFC for an expected release. It would be based off a copied Template.</li>
+            <li>Not sure of the workflow here. For example, perhaps someone like Noor go in, select a Template, which would copy the Template into the RFC. She would then ask a developer to approve and/or modify the selected template.</li>
+        </ul>
+    </div>
+</div>

@@ -12,10 +12,17 @@ export class RfcListComponent implements OnInit {
 
     Title = "RFC's";
 
-    constructor() { }
+    constructor(private router: Router) { }
 
     ngOnInit() {
 
     }
 
+    addRfcClick() {
+        this.router.navigate(['add-rfc']);
+    }
+
+    editRfcClick() {
+        this.router.navigate(['edit-rfc']);
+    }
 }

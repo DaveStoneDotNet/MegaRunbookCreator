@@ -590,6 +590,9 @@
 .pad-top-20 {
   padding-top: 20px; }
 
+.pad-top-40 {
+  padding-top: 40px; }
+
 .pad-right-5 {
   padding-right: 5px; }
 
@@ -598,6 +601,9 @@
 
 .pad-right-20 {
   padding-right: 20px; }
+
+.pad-right-40 {
+  padding-right: 40px; }
 
 .pad-bottom-5 {
   padding-bottom: 5px; }
@@ -608,6 +614,9 @@
 .pad-bottom-20 {
   padding-bottom: 20px; }
 
+.pad-bottom-40 {
+  padding-bottom: 40px; }
+
 .pad-left-5 {
   padding-left: 5px; }
 
@@ -616,6 +625,9 @@
 
 .pad-left-20 {
   padding-left: 20px; }
+
+.pad-left-40 {
+  padding-left: 40px; }
 
 .margin-5 {
   margin: 5px; }
@@ -1291,6 +1303,12 @@ table.runbook-table {
   font-size: 0.75em;
   margin-top: -10px;
   padding-bottom: 1000px; }
+
+.thin-header {
+  color: #dcdcdc;
+  font-family: Lato;
+  font-size: 250%;
+  margin-bottom: 10px; }
 
 .fat-header {
   color: #dcdcdc;
