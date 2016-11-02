@@ -66,6 +66,8 @@ export class RfcAddComponent implements OnInit {
 
     // -------------------------------------------------------------------------------------------------------------------------
 
+    // TEMPLATES
+
     searchTemplateNameChanged(newValue): void {
 
         this.delaySearch = true;
@@ -76,11 +78,6 @@ export class RfcAddComponent implements OnInit {
         } else {
             setTimeout(() => this.executeSearch(), 500);
         }
-    }
-
-    viewRunbookTemplate(selectedRunbookTemplate: RunbookTemplate): void {
-        let link = ['/templatedetail', selectedRunbookTemplate.ID];
-        this.router.navigate(link);
     }
 
     selectRunbookTemplate(selectedRunbookTemplate: RunbookTemplate): void {

@@ -40,7 +40,6 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
                 IsSuccessful = true, 
                 IsAuthenticated = true
             };
-
             return this.Json(userProfile);
         }
         #endregion GetUserProfile
@@ -62,7 +61,6 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             request.Paging = request.Paging ?? BaseController.GetDefaultPaging("Name");
             request.Paging.SortInfo = request.Paging.SortInfo ?? BaseController.GetDefaultSortInfo("Name");
             var response = await this.MrcDataAccess.GetRunbookTemplatesAsync(request);
-
             return this.Json(response);
         }
         #endregion GetRunbookTemplates

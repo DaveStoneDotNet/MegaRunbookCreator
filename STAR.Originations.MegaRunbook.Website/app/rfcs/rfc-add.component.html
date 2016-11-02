@@ -131,7 +131,7 @@
 
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-8 border-left-a-10">
 
             <div *ngIf="runbookTemplate">
 
@@ -142,14 +142,25 @@
 
                 <div class="table bordered" *ngIf="runbookTemplate">
                     <div class="thead">
+                        <div class="th align-center"><i class="fa fa-check-circle"></i></div>
                         <div class="th">&nbsp;</div>
                         <div class="th align-right">Group</div>
                         <div class="th align-right">Step</div>
                         <div class="th">Team</div>
                         <div class="th">Description</div>
                         <div class="th">Developer</div>
+                        <div class="th">PBIs</div>
+                        <div class="th">Notes</div>
+                        <div class="th">Duration</div>
+                        <div class="th">Resource</div>
+                        <div class="th">Comments</div>
                     </div>
                     <div class="tr" *ngFor="let step of runbookTemplate.RunbookSteps; let i = index">
+                        <div style="width: 2%;" class="td align-center">
+                            <div class="pad-top-5">
+                                <input type="checkbox" />
+                            </div>
+                        </div>
                         <div style="width: 2%;" class="td align-right">
                             <div class="pad-top-5">
                                 <button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button>
@@ -169,7 +180,7 @@
                                 <div *ngFor="let team of step.Teams">{{ team.Name }}</div>
                             </div>
                         </div>
-                        <div style="width: 51%;" class="td">
+                        <div style="width: 23%;" class="td">
                             <div class="pad-top-5">
                                 <div *ngIf="!step.IsNotCollapsed">{{ step.Name }}</div>
                             </div>
@@ -185,6 +196,36 @@
                                 <div *ngFor="let contact of step.Developers">{{ contact.DisplayName }}</div>
                             </div>
                         </div>
+                        <div style="width: 3%;" class="td">
+                            <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                <div>{{ step.RunbookStepPbis ? step.RunbookStepPbis[0].PbiNumber : '' }}</div>
+                            </div>
+                            <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                <div *ngFor="let pbi of step.RunbookStepPbis">{{ pbi.PbiNumber }}</div>
+                            </div>
+                        </div>
+                        <div style="width: 10%;" class="td">
+                            <div class="pad-top-5">
+                                <code *ngIf="step.IsNotCollapsed">{{ step.Notes }}</code>
+                            </div>
+                        </div>
+
+                        <div style="width: 3%;" class="td">
+                            <div class="pad-top-5">
+                                <code *ngIf="step.IsNotCollapsed">{{ step.Duration }}</code>
+                            </div>
+                        </div>
+                        <div style="width: 5%;" class="td">
+                            <div class="pad-top-5">
+                                <div *ngFor="let resource of step.Resources">{{ resource.DisplayName }}</div>
+                            </div>
+                        </div>
+                        <div style="width: 5%;" class="td">
+                            <div class="pad-top-5">
+                                <code *ngIf="step.IsNotCollapsed"></code>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 

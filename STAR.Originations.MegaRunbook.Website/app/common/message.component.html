@@ -1,1 +1,9 @@
-﻿<div class="message-component" [@workingState]="state" (click)="onComponentClicked()"><span class="icon"><i class="fa fa-times-circle"></i></span><span class="message">{{ message }}</span></div>
+﻿<div class="message-component" [@workingState]="state" (click)="onComponentClicked()">
+    <table>
+        <tr>
+            <td><div class="icon"><i class="fa fa-times-circle"></i></div></td>
+            <td><div class="message">{{ message }}</div></td>
+        </tr>
+    </table>
+    
+</div>
