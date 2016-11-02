@@ -6,39 +6,85 @@
 
     <div class="row">
 
-        <div class="col-md-6 border-right-a-10">
+        <div class="col-md-4 border-right-a-10">
 
             <div class="mrc-forms pad-bottom-20">
-                <table>
+                <table class="width-100">
                     <tr>
-                        <td>Number</td>
-                        <td><input type="text" /></td>
+                        <td class="align-right">Number</td>
+                        <td><input type="text" class="width-100" /></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Name</td>
-                        <td><input type="text" /></td>
+                        <td class="align-right">Name</td>
+                        <td><input type="text" class="width-100" /></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>Contact</td>
-                        <td><input type="text" /></td>
-                        <td></td>
-                    </tr>
-                    <tr *ngIf="selectedRunbookTemplate">
-                        <td>
-                            Template
+                        <td class="align-top">
+                            <div class="pad-top-5 align-right">Contact</div>
                         </td>
                         <td>
-                            {{ selectedRunbookTemplate.Name }}
+
+                            <!-- Typeahead Contact Template -->
+                            <template #customItemTemplate let-model="item" let-index="index">
+                                <div class="pad-5">
+                                    <div class="BebasNeue font-2-00">{{ model.DisplayName }}</div>
+                                    <div class="opacity-50" style="margin-top: -10px;">{{ model.UserId }}</div>
+                                </div>
+                            </template>
+
+                            <!-- Typeahead -->
+                            <input [(ngModel)]="userTypedContactName"
+                                   [typeaheadItemTemplate]="customItemTemplate"
+                                   [typeahead]="contacts"
+                                   (typeaheadLoading)="changeTypeaheadLoading($event)"
+                                   (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                                   (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                                   [typeaheadOptionsLimit]="5"
+                                   [typeaheadWaitMs]="500"
+                                   [typeaheadOptionField]="'DisplayName'"
+                                   [typeaheadMinLength]="2"
+                                   placeholder="Search by Contact Name..."
+                                   class="width-100">
+                            <div *ngIf="typeaheadLoading===true" class="opacity-50 pad-10">
+                                searching...
+                            </div>
+                            <div *ngIf="typeaheadNoResults===true" class="pad-10">
+                                <span class="opacity-50 small-caps font-1-00">no results found for </span><span class="font-1-40" *ngIf="userTypedContactName">{{ userTypedContactName }}</span>
+                            </div>
+
                         </td>
-                        <td><button class="btn btn-default">clear</button></td>
+                        <td><button class="btn btn-default btn-xs" style="width: 50px;" (click)="clearSelectedContactClicked()">clear</button></td>
+                    </tr>
+                    <tr>
+                        <td class="align-top">
+                            <div class="pad-top-5 align-right">
+                                Template
+                            </div>
+                        </td>
+                        <td>
+                            <div class="border-a-10 pad-10" style="min-height: 30px;">
+                                <table class="width-100" *ngIf="selectedRunbookTemplate">
+                                    <tr>
+                                        <td class="width-100">{{ selectedRunbookTemplate.Name }}</td>
+                                        <td><button class="btn btn-default btn-xs" (click)="clearSelectedTemplateClicked()">clear</button></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td class="align-top">
+                            <div class="pad-top-5">
+                                <button class="btn btn-default btn-xs" style="width: 50px;" (click)="openTemplateSelection()">select</button>
+                            </div>
+                        </td>
                     </tr>
                     <tr *ngIf="selectedRunbookTemplate">
                         <td>
                             &nbsp;
                         </td>
-                        <td>
+                        <td class="align-right">
+                            <button class="btn btn-default" (click)="listRfcsClick()">Cancel</button>
                             <button class="btn btn-primary">Save</button>
                         </td>
                         <td></td>
@@ -46,52 +92,51 @@
                 </table>
             </div>
 
-            <div *ngIf="!selectedRunbookTemplate">
+            <!-- TEMPLATE SELECTION -->
+            <div [hidden]="isSelectTemplateHidden">
 
-                <div class="pad-10 Lato font-2-00">
-                    Select a Template...
+                <div class="pad-left-20 pad-top-5 pad-bottom-5 margin-bottom-10 BebasNeue font-2-00 muted-blue-bg pointer" style="border: solid 2px rgba(255, 255, 255, 0.9);" (click)="closeTemplateSelection()">
+                    <div class="float-right pad-right-20 opacity-50">
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                    Select a Template Below...
                 </div>
 
                 <!-- SEARCH -->
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="table">
-                            <div class="tr">
-                                <div class="td">
-                                    <input type="text" class="search" placeholder="Search Template Name..." style="width: 400px;" [(ngModel)]="searchTemplateName" (ngModelChange)="searchTemplateNameChanged($event)" />
-                                </div>
-                                <div class="td">
-                                    <button class="btn btn-default" (click)="clearSearchTemplateClicked()">clear</button>
-                                </div>
+                <div class="pad-5">
+                    <div class="table">
+                        <div class="tr">
+                            <div class="td">
+                                <input type="text" class="search" placeholder="Search Template Name..." style="width: 400px;" [(ngModel)]="searchTemplateName" (ngModelChange)="searchTemplateNameChanged($event)" />
+                            </div>
+                            <div class="td">
+                                <button class="btn btn-default" (click)="clearSearchTemplateClicked()">clear</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- LIST -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <table class="template-list">
-                            <tr *ngFor="let template of searchResults; let i = index; let odd=odd; let even=even;" class="pointer">
-                                <td class="pad-5 align-right font-0-75 gray-6">{{ i+1 }}</td>
-                                <td class="pad-5">{{ template.Name }}</td>
-                                <td class="pad-5"><button class="btn btn-default" (click)="viewRunbookTemplate(template)">view</button></td>
-                                <td class="pad-5"><button class="btn btn-primary" (click)="selectRunbookTemplate(template)">select</button></td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="pad-5">
+                    <table class="template-list">
+                        <tr *ngFor="let template of searchResults; let i = index; let odd=odd; let even=even;" class="pointer">
+                            <td class="pad-5 align-right font-0-75 gray-6">{{ i+1 }}</td>
+                            <td class="pad-5">{{ template.Name }}</td>
+                            <td class="pad-5"><button class="btn btn-xs btn-primary" (click)="selectRunbookTemplate(template)">select</button></td>
+                        </tr>
+                    </table>
                 </div>
 
             </div>
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-8">
 
             <div *ngIf="runbookTemplate">
 
                 <!-- HEADER -->
-                <div class="lato-header" [hidden]="runbookTemplate.Name.length == 0">
+                <div class="thin-header" [hidden]="runbookTemplate.Name.length == 0">
                     <div *ngIf="runbookTemplate">{{ runbookTemplate.Name }}</div>
                 </div>
 
@@ -149,7 +194,7 @@
 
     </div>
 
-    <div class="opacity-10">
+    <div class="opacity-10 pad-top-40">
         <ul>
             <li>Create New RFC by selecting an existing Template to copy, or just creating a new empty, 'blank' RFC.</li>
             <li>Each Release is composed of multiple selected RFC's.</li>

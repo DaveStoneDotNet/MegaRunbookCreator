@@ -19,8 +19,6 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
     /// </summary>
     public class BaseController : Controller
     {
-        #region Methods
-
         #region OnAuthorization
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
@@ -99,7 +97,5 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             return dayTime;
         }
         #endregion DayTime
-
-        #endregion Methods
     }
 }

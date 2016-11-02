@@ -8,10 +8,23 @@ import { MessageService }       from '../services/message.service';
 import { RunbookTemplate }      from '../entities/runbook-template.entity';
 import { PagedRunbookTemplate } from '../entities/paged-runbook-template.entity';
 import { RunbookStep }          from '../entities/runbook-step.entity';
+import { Contact }              from '../entities/contact.entity';
 
 import { TemplateService }      from '../templates/template.service';
+import { UserService }          from '../services/user.service';
 
 import { Subscription }         from 'rxjs/Subscription';
+
+// ---
+
+import { TypeaheadMatch }       from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+
+import { FormControl }          from '@angular/forms';
+import { FormGroup }            from '@angular/forms';
+
+import { Observable }           from 'rxjs/Observable';
+
+import 'rxjs/add/observable/of';
 
 @Component({
     templateUrl: 'app/rfcs/rfc-add.component.html',
@@ -33,7 +46,15 @@ export class RfcAddComponent implements OnInit {
 
     private subscription: Subscription;
 
-    constructor(private templateService: TemplateService, private messageService: MessageService, private router: Router) { }
+    private isSelectTemplateHidden: boolean = true;
+
+    constructor(private templateService: TemplateService, private messageService: MessageService, private userService: UserService,  private router: Router) {
+
+        this.contacts = Observable.create((observer: any) => {
+            // Runs on every search
+            observer.next(this.userTypedContactName);
+        }).mergeMap((token: string) => this.getContactsAsObservable(token));
+    }
 
     ngOnInit() {
         this.executeSearch();
@@ -63,8 +84,14 @@ export class RfcAddComponent implements OnInit {
     }
 
     selectRunbookTemplate(selectedRunbookTemplate: RunbookTemplate): void {
+        this.closeTemplateSelection();
         this.selectedRunbookTemplate = selectedRunbookTemplate;
         this.getRunbookTemplate();
+    }
+
+    clearSelectedTemplateClicked(): void {
+        this.selectedRunbookTemplate = null;
+        this.runbookTemplate = null;
     }
 
     clearSearchTemplateClicked(): void {
@@ -122,7 +149,16 @@ export class RfcAddComponent implements OnInit {
     isNotCollapsed: boolean;
 
     runbookTemplate: RunbookTemplate;
+
     // UI Events
+
+    openTemplateSelection() {
+        this.isSelectTemplateHidden = false;
+    }
+
+    closeTemplateSelection() {
+        this.isSelectTemplateHidden = true;
+    }
 
     toggleCollapseAll() {
         this.isNotCollapsed = !this.isNotCollapsed;
@@ -194,4 +230,44 @@ export class RfcAddComponent implements OnInit {
         }
     }
 
+    // -------------------------------------------------------------------------------------------------------------------------
+
+    // Contact Typeahead
+
+    contact: Contact;                        // Search Request
+    contacts: Observable<any>;               // Search Response
+    selectedContact: Contact;                // Selected Contact
+
+    typeaheadLoading: boolean = false;       // For showing indicator message in the UI
+    typeaheadNoResults: boolean = false;     // For showing indicator message in the UI
+
+    userTypedContactName: string = '';
+
+    clearSelectedContactClicked(): void {
+        this.userTypedContactName = '';
+        this.contact = null;
+        this.selectedContact = null;
+    }
+
+    getContactsAsObservable(token: string): Observable<any> {
+
+        this.selectedContact = null;
+
+        let contact = new Contact();
+        contact.DisplayName = token;
+        return this.userService.getContactsObservable(contact);
+    }
+
+    changeTypeaheadLoading(e: boolean): void {
+        this.typeaheadLoading = e;
+    }
+
+    changeTypeaheadNoResults(e: boolean): void {
+        this.typeaheadNoResults = e;
+    }
+
+    typeaheadOnSelect(e: TypeaheadMatch): void {
+        console.log('SELECTED VALUE: ', e.item.item);
+        this.selectedContact = e.item.item;
+    }
 }

@@ -274,6 +274,44 @@ namespace STAR.Originations.MRC.DataAccess
         }
         #endregion GetAppLookupsAsync
 
+        #region GetContactsAsync
+        public async Task<List<contracts::Contact>> GetContactsAsync(contracts::Contact request)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+            if (String.IsNullOrWhiteSpace(request.DisplayName) && request.UserId == 0) return new List<contracts::Contact> { };
+
+            var stopwatch = DataAccessBase.StartStopwatch();
+            using (var context = this.contextCreator())
+            {
+                var query = context.Contacts.AsQueryable();
+
+                if (!String.IsNullOrWhiteSpace(request.DisplayName))
+                {
+                    query = query.Where(p => p.DisplayName.Contains(request.DisplayName));
+                }
+
+                if (request.UserId > 0)
+                {
+                    query = query.Where(p => p.UserId == request.UserId);
+                }
+
+                var totalRecordCount = query.Count();
+
+                if (totalRecordCount == 0)
+                {
+                    return new List<contracts::Contact> {  };
+                }
+
+                var data = await query.Select(a => a).OrderBy(o => o.DisplayName).ToListAsync().ConfigureAwait(false);
+                var mapped = Mapper.Map<List<entities::Contact>, List<contracts::Contact>>(data);
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Name: {0}.", Text.GetStringInfo(request.DisplayName)), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+
+                return mapped;
+            }
+        }
+        #endregion GetContactsAsync
+
         #endregion Methods
 
         #region CreateContext

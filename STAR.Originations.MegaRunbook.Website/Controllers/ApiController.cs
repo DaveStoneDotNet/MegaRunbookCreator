@@ -121,6 +121,16 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         }
         #endregion GetApplicationLinks
 
+        #region GetContacts
+        [System.Web.Http.HttpGet]
+        public async Task<JsonResult> GetContacts(contracts::Contact request)
+        {
+            var response = await this.MrcDataAccess.GetContactsAsync(request);
+
+            return this.Json(response);
+        }
+        #endregion GetContacts
+
         // ---
 
         #region GetHardCodedApplicationLinks
