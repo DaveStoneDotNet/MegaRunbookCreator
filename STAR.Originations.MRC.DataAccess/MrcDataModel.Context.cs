@@ -39,5 +39,6 @@ namespace STAR.Originations.MRC.DataAccess
         public virtual DbSet<Server> Servers { get; set; }
         public virtual DbSet<ServiceLink> ServiceLinks { get; set; }
         public virtual DbSet<ApplicationType> ApplicationTypes { get; set; }
+        public virtual DbSet<Rfc> Rfcs { get; set; }
     }
 }

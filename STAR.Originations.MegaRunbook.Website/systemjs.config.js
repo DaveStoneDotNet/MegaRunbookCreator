@@ -26,6 +26,7 @@
             // other libraries
             'rxjs':                              'npm:rxjs',
             'primeng':                           'npm:primeng',
+            'moment':                            'npm:moment',
             'ng2-table':                         'npm:ng2-table',
             'ng2-bootstrap':                     'npm:ng2-bootstrap',
             'angular2-in-memory-web-api':        'npm:angular2-in-memory-web-api',
@@ -45,6 +46,10 @@
             },
             'primeng': {
                 main: 'primeng.js',
+                defaultExtension: 'js'
+            },
+            moment: {
+                main: 'moment.js',
                 defaultExtension: 'js'
             },
             'ng2-table': {

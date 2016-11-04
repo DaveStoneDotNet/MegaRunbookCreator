@@ -16,7 +16,7 @@
         <AssociationConnector Association="MrcDataModel.RunbookStep_RunbookTemplate_FK" />
         <EntityTypeShape EntityType="MrcDataModel.Team" Width="2.125" PointX="6.25" PointY="6.25" IsExpanded="false" />
         <AssociationConnector Association="MrcDataModel.RunbookStepTeam" />
-        <EntityTypeShape EntityType="MrcDataModel.Contact" Width="2.125" PointX="3.25" PointY="7.875" />
+        <EntityTypeShape EntityType="MrcDataModel.Contact" Width="2.25" PointX="3.125" PointY="7.875" />
         <AssociationConnector Association="MrcDataModel.RunbookStepDeveloper" />
         <AssociationConnector Association="MrcDataModel.RunbookStepResource" />
         <EntityTypeShape EntityType="MrcDataModel.Server" Width="1.5" PointX="20.125" PointY="5.125" />
@@ -32,6 +32,9 @@
         <AssociationConnector Association="MrcDataModel.ApplicationLink_ApplicationGroup_FK" />
         <EntityTypeShape EntityType="MrcDataModel.ApplicationType" Width="1.75" PointX="12.75" PointY="8.125" IsExpanded="false" />
         <AssociationConnector Association="MrcDataModel.ApplicationLink_ApplicationType_FK" />
+        <EntityTypeShape EntityType="MrcDataModel.Rfc" Width="2" PointX="0.5" PointY="5.5" />
+        <AssociationConnector Association="MrcDataModel.Rfc_Contact_FK" />
+        <AssociationConnector Association="MrcDataModel.RunbookStep_Rfc_FK" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

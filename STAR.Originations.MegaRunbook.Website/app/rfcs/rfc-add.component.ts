@@ -13,6 +13,8 @@ import { Contact }              from '../entities/contact.entity';
 import { TemplateService }      from '../templates/template.service';
 import { UserService }          from '../services/user.service';
 
+import { TimePickerInfo }       from '../common/timepicker/timepicker.entity';
+
 import { Subscription }         from 'rxjs/Subscription';
 
 // ---
@@ -266,5 +268,30 @@ export class RfcAddComponent implements OnInit {
     typeaheadOnSelect(e: TypeaheadMatch): void {
         console.log('SELECTED VALUE: ', e.item.item);
         this.selectedContact = e.item.item;
+    }
+
+    // -------------------------------------------------------------------------------------------------------------------------
+
+    // TIME PICKER
+
+    mytime: Date;
+
+    hstep: number = 1;
+    mstep: number = 15;
+
+    ismeridian: boolean = true;
+    isEnabled: boolean = true;
+
+    changed(): void {
+        console.log('Time changed to: ' + this.mytime);
+    };
+
+    onTimeSelected(timePickerInfo: TimePickerInfo): void {
+        console.log(timePickerInfo.TimeText + ' SELECTED');
+        this.mytime = timePickerInfo.TimeValue;
+    }
+
+    onDurationSelected(message: string): void {
+        console.log(message + ' SELECTED');
     }
 }

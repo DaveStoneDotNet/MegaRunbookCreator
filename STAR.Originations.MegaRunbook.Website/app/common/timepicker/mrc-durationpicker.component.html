@@ -1,0 +1,15 @@
+﻿<div class="picker-wrapper">
+    <div class="time-toggle" (click)="toggleIsCollapsed()" tooltip="select a duration">
+        <i class="fa" [class.fa-chevron-down]="!isCollapsed" [class.fa-chevron-up]="isCollapsed" [class.time-toggle-icon-down]="!isCollapsed" [class.time-toggle-icon-up]="isCollapsed"></i> <span class="time-toggle-message" [hidden]="isCollapsed">select duration</span>
+    </div>
+    <div class="time-wrapper" [hidden]="isCollapsed">
+        <table>
+            <tr>
+                <td *ngFor="let duration of primaryDurations" class="time primary-time" (click)="onDurationSelected(duration)">{{ duration }}</td>
+            </tr>
+            <tr>
+                <td *ngFor="let duration of secondaryDurations" class="time secondary-time" (click)="onDurationSelected(duration)">{{ duration }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

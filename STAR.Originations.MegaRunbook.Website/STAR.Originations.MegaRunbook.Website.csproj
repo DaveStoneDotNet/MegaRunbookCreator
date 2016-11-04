@@ -143,6 +143,8 @@
     <Content Include="app\common\datatable\bootstrap-paginator.component.html" />
     <Content Include="app\common\datatable\mrc-table-sorter.component.css" />
     <Content Include="app\common\datatable\mrc-table-sorter.component.html" />
+    <Content Include="app\common\timepicker\mrc-durationpicker.component.css" />
+    <Content Include="app\common\timepicker\mrc-durationpicker.component.html" />
     <Content Include="app\common\isworking\is-working-runner.component.html" />
     <Content Include="app\common\isworking\is-working-spinner.component.css" />
     <Content Include="app\common\isworking\is-working-spinner.component.html" />
@@ -151,6 +153,8 @@
     <Content Include="app\common\message.component.html" />
     <Content Include="app\common\not-authorized.component.html" />
     <None Include="app\content\css\prime-mrc.scss" />
+    <Content Include="app\common\timepicker\mrc-timepicker.component.css" />
+    <Content Include="app\common\timepicker\mrc-timepicker.component.html" />
     <Content Include="app\content\css\prime-mrc.css">
       <DependentUpon>prime-mrc.scss</DependentUpon>
     </Content>
@@ -313,12 +317,16 @@
     <TypeScriptCompile Include="app\common\datatable\i-sort-info.ts" />
     <TypeScriptCompile Include="app\common\datatable\mrc-datatable.module.ts" />
     <TypeScriptCompile Include="app\common\datatable\paginator.component.ts" />
+    <TypeScriptCompile Include="app\common\timepicker\durationpicker.entity.ts" />
+    <TypeScriptCompile Include="app\common\timepicker\mrc-durationpicker.component.ts" />
     <TypeScriptCompile Include="app\common\isworking\is-working-runner.component.ts" />
     <TypeScriptCompile Include="app\common\isworking\is-working-spinner.component.ts" />
     <TypeScriptCompile Include="app\common\isworking\is-working.component.ts" />
     <TypeScriptCompile Include="app\common\message.component.ts" />
     <TypeScriptCompile Include="app\common\datatable\mrc-datatable.directive.ts" />
     <TypeScriptCompile Include="app\common\not-authorized.component.ts" />
+    <TypeScriptCompile Include="app\common\timepicker\mrc-timepicker.component.ts" />
+    <TypeScriptCompile Include="app\common\timepicker\timepicker.entity.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-center.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-center.module.ts" />
@@ -339,6 +347,7 @@
     <TypeScriptCompile Include="app\entities\paged-base.ts" />
     <TypeScriptCompile Include="app\entities\paged-runbook-template.entity.ts" />
     <TypeScriptCompile Include="app\entities\paging.entity.ts" />
+    <TypeScriptCompile Include="app\entities\rfc.entity.ts" />
     <TypeScriptCompile Include="app\entities\runbook-step-pbi.entity.ts" />
     <TypeScriptCompile Include="app\entities\application-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\server.entity.ts" />

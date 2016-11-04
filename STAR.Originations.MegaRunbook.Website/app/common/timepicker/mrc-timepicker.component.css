@@ -1,0 +1,68 @@
+﻿
+.picker-wrapper {
+    width: 150px;
+}
+
+.time-toggle {
+    padding: 10px;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.time-toggle-icon-up {
+    opacity: 0.3;
+}
+
+.time-toggle-icon-down {
+    opacity: 0.9;
+}
+
+.time-toggle-message {
+    opacity: 0.9;
+    font-variant: small-caps;
+}
+
+.time-toggle-icon-up:hover {
+    opacity: 1.0;
+}
+
+.time-toggle-icon-down:hover {
+    opacity: 1.0;
+}
+
+.time-toggle-message:hover {
+    opacity: 1.0;
+    font-variant: small-caps;
+}
+
+.time-wrapper {
+    border: solid 1px rgba(255, 255, 255, 0.1);
+    background-color: #5f7d99;
+    padding: 2px;
+    cursor: pointer;
+    position: absolute; 
+    z-index: 100;
+}
+
+.time {
+    padding: 5px;
+    white-space: nowrap;
+    font-size: 0.75em;
+}
+
+.primary-time {
+    border: solid 1px rgba(255, 255, 255, 0.1); 
+    background-color: #333333;
+    color: #eeeeee;
+}
+
+.secondary-time {
+    border: solid 1px rgba(0, 0, 0, 0.1); 
+    background-color: #444444;
+    color: #999999;
+}
+
+.time:hover {
+    background-color: #5f7d99;
+    color: #ffffff;
+}

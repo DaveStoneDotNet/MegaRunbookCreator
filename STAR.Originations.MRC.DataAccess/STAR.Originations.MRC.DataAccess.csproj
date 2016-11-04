@@ -132,6 +132,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\DynamicQuery.cs" />
     <Compile Include="Query\PagingExtensions.cs" />
+    <Compile Include="Rfc.cs">
+      <DependentUpon>MrcDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RunbookStep.cs">
       <DependentUpon>MrcDataModel.tt</DependentUpon>
     </Compile>

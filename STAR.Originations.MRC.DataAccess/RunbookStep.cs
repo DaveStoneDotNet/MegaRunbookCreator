@@ -35,6 +35,7 @@ namespace STAR.Originations.MRC.DataAccess
         public Nullable<int> TemplateId { get; set; }
         public Nullable<bool> IsHtml { get; set; }
         public string Name { get; set; }
+        public Nullable<int> RfcId { get; set; }
     
         public virtual RunbookStepStatus RunbookStepStatuses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -47,5 +48,6 @@ namespace STAR.Originations.MRC.DataAccess
         public virtual ICollection<Contact> Developers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contact> Resources { get; set; }
+        public virtual Rfc Rfc { get; set; }
     }
 }

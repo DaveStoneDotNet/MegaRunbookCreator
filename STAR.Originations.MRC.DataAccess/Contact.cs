@@ -19,6 +19,7 @@ namespace STAR.Originations.MRC.DataAccess
         {
             this.RunbookStepDevelopers = new HashSet<RunbookStep>();
             this.RunbookStepResources = new HashSet<RunbookStep>();
+            this.Rfcs = new HashSet<Rfc>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,7 @@ namespace STAR.Originations.MRC.DataAccess
         public virtual ICollection<RunbookStep> RunbookStepDevelopers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RunbookStep> RunbookStepResources { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rfc> Rfcs { get; set; }
     }
 }

@@ -95,12 +95,24 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Rfc">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="ContactId" Type="int" />
+        </EntityType>
         <EntityType Name="RunbookStep">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TemplateId" Type="int" />
+          <Property Name="RfcId" Type="int" />
           <Property Name="GroupNumber" Type="int" />
           <Property Name="StepNumber" Type="int" />
           <Property Name="Duration" Type="int" />
@@ -196,6 +208,30 @@
             </Principal>
             <Dependent Role="EnvironmentLink">
               <PropertyRef Name="ServiceLinkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Rfc_Contact_FK">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="0..1" />
+          <End Role="Rfc" Type="Self.Rfc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rfc">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStep_Rfc_FK">
+          <End Role="Rfc" Type="Self.Rfc" Multiplicity="0..1" />
+          <End Role="RunbookStep" Type="Self.RunbookStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rfc">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStep">
+              <PropertyRef Name="RfcId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -355,6 +391,7 @@
           <EntitySet Name="RunbookStepType" EntityType="Self.RunbookStepType" Schema="Lookup" store:Type="Tables" />
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="People" store:Type="Tables" />
           <EntitySet Name="Team" EntityType="Self.Team" Schema="People" store:Type="Tables" />
+          <EntitySet Name="Rfc" EntityType="Self.Rfc" Schema="Runbook" store:Type="Tables" />
           <EntitySet Name="RunbookStep" EntityType="Self.RunbookStep" Schema="Runbook" store:Type="Tables" />
           <EntitySet Name="RunbookStepDeveloper" EntityType="Self.RunbookStepDeveloper" Schema="Runbook" store:Type="Tables" />
           <EntitySet Name="RunbookStepPbi" EntityType="Self.RunbookStepPbi" Schema="Runbook" store:Type="Tables" />
@@ -376,6 +413,14 @@
           <AssociationSet Name="EnvironmentLink_ServiceLink_FK" Association="Self.EnvironmentLink_ServiceLink_FK">
             <End Role="ServiceLink" EntitySet="ServiceLink" />
             <End Role="EnvironmentLink" EntitySet="EnvironmentLink" />
+          </AssociationSet>
+          <AssociationSet Name="Rfc_Contact_FK" Association="Self.Rfc_Contact_FK">
+            <End Role="Contact" EntitySet="Contact" />
+            <End Role="Rfc" EntitySet="Rfc" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStep_Rfc_FK" Association="Self.RunbookStep_Rfc_FK">
+            <End Role="Rfc" EntitySet="Rfc" />
+            <End Role="RunbookStep" EntitySet="RunbookStep" />
           </AssociationSet>
           <AssociationSet Name="RunbookStep_RunbookStepStatus_FK" Association="Self.RunbookStep_RunbookStepStatus_FK">
             <End Role="RunbookStepStatus" EntitySet="RunbookStepStatus" />
@@ -497,6 +542,15 @@
             <End Role="ApplicationType" EntitySet="ApplicationTypes" />
             <End Role="ApplicationLink" EntitySet="ApplicationLinks" />
           </AssociationSet>
+          <EntitySet Name="Rfcs" EntityType="MrcDataModel.Rfc" />
+          <AssociationSet Name="Rfc_Contact_FK" Association="MrcDataModel.Rfc_Contact_FK">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="Rfc" EntitySet="Rfcs" />
+          </AssociationSet>
+          <AssociationSet Name="RunbookStep_Rfc_FK" Association="MrcDataModel.RunbookStep_Rfc_FK">
+            <End Role="Rfc" EntitySet="Rfcs" />
+            <End Role="RunbookStep" EntitySet="RunbookSteps" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="RunbookTemplate">
           <Key>
@@ -538,6 +592,8 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Developers" Relationship="MrcDataModel.RunbookStepDeveloper" FromRole="RunbookStep" ToRole="Contact" />
           <NavigationProperty Name="Resources" Relationship="MrcDataModel.RunbookStepResource" FromRole="RunbookStep" ToRole="Contact" />
+          <Property Name="RfcId" Type="Int32" />
+          <NavigationProperty Name="Rfc" Relationship="MrcDataModel.RunbookStep_Rfc_FK" FromRole="RunbookStep" ToRole="Rfc" />
         </EntityType>
         <Association Name="RunbookStep_RunbookStepStatus_FK">
           <End Type="MrcDataModel.RunbookStepStatus" Role="RunbookStepStatu" Multiplicity="0..1" />
@@ -626,6 +682,7 @@
           <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="RunbookStepDevelopers" Relationship="MrcDataModel.RunbookStepDeveloper" FromRole="Contact" ToRole="RunbookStep" />
           <NavigationProperty Name="RunbookStepResources" Relationship="MrcDataModel.RunbookStepResource" FromRole="Contact" ToRole="RunbookStep" />
+          <NavigationProperty Name="Rfcs" Relationship="MrcDataModel.Rfc_Contact_FK" FromRole="Contact" ToRole="Rfc" />
         </EntityType>
         <Association Name="RunbookStepDeveloper">
           <End Type="MrcDataModel.Contact" Role="Contact" Multiplicity="*" />
@@ -778,6 +835,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Rfc">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContactId" Type="Int32" />
+          <NavigationProperty Name="Contact" Relationship="MrcDataModel.Rfc_Contact_FK" FromRole="Rfc" ToRole="Contact" />
+          <NavigationProperty Name="RunbookSteps" Relationship="MrcDataModel.RunbookStep_Rfc_FK" FromRole="Rfc" ToRole="RunbookStep" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="Rfc_Contact_FK">
+          <End Type="MrcDataModel.Contact" Role="Contact" Multiplicity="0..1" />
+          <End Type="MrcDataModel.Rfc" Role="Rfc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rfc">
+              <PropertyRef Name="ContactId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RunbookStep_Rfc_FK">
+          <End Type="MrcDataModel.Rfc" Role="Rfc" Multiplicity="0..1" />
+          <End Type="MrcDataModel.RunbookStep" Role="RunbookStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rfc">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RunbookStep">
+              <PropertyRef Name="RfcId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -804,6 +898,7 @@
           <EntitySetMapping Name="RunbookSteps">
             <EntityTypeMapping TypeName="MrcDataModel.RunbookStep">
               <MappingFragment StoreEntitySet="RunbookStep">
+                <ScalarProperty Name="RfcId" ColumnName="RfcId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsHtml" ColumnName="IsHtml" />
                 <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
@@ -940,6 +1035,18 @@
                 <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rfcs">
+            <EntityTypeMapping TypeName="MrcDataModel.Rfc">
+              <MappingFragment StoreEntitySet="Rfc">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
