@@ -25,19 +25,9 @@
                         <td>
                             <table>
                                 <tr>
+                                    <td><input type="text" [(ngModel)]="startTime" class="width-100" (keypress)="timePickerKeyPressed($event)"/></td>
                                     <td>
-                                        <timepicker [(ngModel)]="mytime"
-                                                    (change)="changed()"
-                                                    [hourStep]="hstep"
-                                                    [minuteStep]="mstep"
-                                                    [showMeridian]="ismeridian"
-                                                    [mousewheel]="true"
-                                                    [arrowkeys]="true"
-                                                    [showSpinners]="false">
-                                        </timepicker>
-                                    </td>
-                                    <td>
-                                        <mrc-timepicker (notify)='onTimeSelected($event)'></mrc-timepicker>
+                                        <mrc-timepicker (onTimeChanged)='onStartTimeSelected($event)'></mrc-timepicker>
                                     </td>
                                 </tr>
                             </table>
@@ -50,19 +40,9 @@
                         <td>
                             <table>
                                 <tr>
+                                    <td><mrc-time-input></mrc-time-input></td>
                                     <td>
-                                        <timepicker [(ngModel)]="mytime"
-                                                    (change)="changed()"
-                                                    [hourStep]="hstep"
-                                                    [minuteStep]="mstep"
-                                                    [showMeridian]="ismeridian"
-                                                    [mousewheel]="true"
-                                                    [arrowkeys]="true"
-                                                    [showSpinners]="false">
-                                        </timepicker>
-                                    </td>
-                                    <td>
-                                        <mrc-durationpicker (notify)='onDurationSelected($event)'></mrc-durationpicker>
+                                        <mrc-durationpicker (onDurationChanged)='onDurationSelected($event)'></mrc-durationpicker>
                                     </td>
                                 </tr>
                             </table>

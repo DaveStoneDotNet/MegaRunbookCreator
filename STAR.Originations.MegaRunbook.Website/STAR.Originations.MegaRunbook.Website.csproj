@@ -153,6 +153,8 @@
     <Content Include="app\common\message.component.html" />
     <Content Include="app\common\not-authorized.component.html" />
     <None Include="app\content\css\prime-mrc.scss" />
+    <Content Include="app\common\timepicker\mrc-time-input.component.css" />
+    <Content Include="app\common\timepicker\mrc-time-input.component.html" />
     <Content Include="app\common\timepicker\mrc-timepicker.component.css" />
     <Content Include="app\common\timepicker\mrc-timepicker.component.html" />
     <Content Include="app\content\css\prime-mrc.css">
@@ -325,6 +327,7 @@
     <TypeScriptCompile Include="app\common\message.component.ts" />
     <TypeScriptCompile Include="app\common\datatable\mrc-datatable.directive.ts" />
     <TypeScriptCompile Include="app\common\not-authorized.component.ts" />
+    <TypeScriptCompile Include="app\common\timepicker\mrc-time-input.component.ts" />
     <TypeScriptCompile Include="app\common\timepicker\mrc-timepicker.component.ts" />
     <TypeScriptCompile Include="app\common\timepicker\timepicker.entity.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />

@@ -265,7 +265,7 @@ export class RfcAddComponent implements OnInit {
         this.typeaheadNoResults = e;
     }
 
-    typeaheadOnSelect(e: TypeaheadMatch): void {
+    typeaheadOnSelect(e: any): void {
         console.log('SELECTED VALUE: ', e.item.item);
         this.selectedContact = e.item.item;
     }
@@ -274,7 +274,8 @@ export class RfcAddComponent implements OnInit {
 
     // TIME PICKER
 
-    mytime: Date;
+    startTime: Date;
+    endTime: Date;
 
     hstep: number = 1;
     mstep: number = 15;
@@ -282,16 +283,48 @@ export class RfcAddComponent implements OnInit {
     ismeridian: boolean = true;
     isEnabled: boolean = true;
 
-    changed(): void {
-        console.log('Time changed to: ' + this.mytime);
+    startTimeChanged(): void {
+        console.log('Time changed to: ' + this.startTime);
     };
 
-    onTimeSelected(timePickerInfo: TimePickerInfo): void {
+    endTimeChanged(): void {
+        console.log('Time changed to: ' + this.startTime);
+    };
+
+    onStartTimeSelected(timePickerInfo: TimePickerInfo): void {
         console.log(timePickerInfo.TimeText + ' SELECTED');
-        this.mytime = timePickerInfo.TimeValue;
+        this.startTime = timePickerInfo.MomentValue.format('hh:mm A');
     }
 
     onDurationSelected(message: string): void {
         console.log(message + ' SELECTED');
+    }
+
+    timePickerKeyPressed(event): void {
+
+        let validKeys: Array<string> = new Array();
+
+        validKeys.push('A');
+        validKeys.push('M');
+        validKeys.push('0');
+        validKeys.push('1');
+        validKeys.push('2');
+        validKeys.push('3');
+        validKeys.push('4');
+        validKeys.push('5');
+        validKeys.push('6');
+        validKeys.push('7');
+        validKeys.push('8');
+        validKeys.push('9');
+
+        let key = event.key.toUpperCase();
+
+        if (validKeys.find(k => k === key)) {
+            console.log('YES');
+        } else {
+            console.log('NOPE');
+        }
+
+        console.log(event, event.keyCode, event.keyIdentifier);
     }
 }

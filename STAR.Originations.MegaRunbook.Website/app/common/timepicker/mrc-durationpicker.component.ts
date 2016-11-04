@@ -19,7 +19,7 @@ import { animate }      from '@angular/core';
 
 export class MrcDurationPickerComponent implements OnInit, OnDestroy {
 
-    @Output() notify: EventEmitter<string> = new EventEmitter<string>();
+    @Output() onDurationChanged: EventEmitter<string> = new EventEmitter<string>();
 
     primaryDurations: string[] = ['15 minutes', '30 minutes', '1 hour', '1.5 hours', '2 hours'];
     secondaryDurations: string[] = ['3 hours', '4 hours', '5 hours', '6 hours', '7 hours'];
@@ -44,6 +44,6 @@ export class MrcDurationPickerComponent implements OnInit, OnDestroy {
     onDurationSelected(duration: string) {
         this.selectedDuration = duration;
         this.isCollapsed = true;
-        this.notify.emit(this.selectedDuration);
+        this.onDurationChanged.emit(this.selectedDuration);
     }
 }

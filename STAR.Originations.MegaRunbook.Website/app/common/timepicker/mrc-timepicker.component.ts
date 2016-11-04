@@ -13,7 +13,7 @@ import { animate }        from '@angular/core';
 
 import { TimePickerInfo } from './timepicker.entity';
 
-import * as moment      from 'moment';
+import * as moment        from 'moment';
 
 @Component({
     selector:    'mrc-timepicker',
@@ -23,7 +23,7 @@ import * as moment      from 'moment';
 
 export class MrcTimePickerComponent implements OnInit, OnDestroy {
 
-    @Output() notify: EventEmitter<TimePickerInfo> = new EventEmitter<TimePickerInfo>();
+    @Output() onTimeChanged: EventEmitter<TimePickerInfo> = new EventEmitter<TimePickerInfo>();
 
     amSet_A: TimePickerInfo[] = [
         this.getTime(0, 0),
@@ -84,12 +84,13 @@ export class MrcTimePickerComponent implements OnInit, OnDestroy {
     onTimeSelected(time: TimePickerInfo) {
         this.selectedTime = time;
         this.isCollapsed = true;
-        this.notify.emit(this.selectedTime);
+        this.onTimeChanged.emit(this.selectedTime);
     }
 
     getTime(hours: number, minutes: number): TimePickerInfo {
         let t = new TimePickerInfo();
         let m = moment().hour(hours).minute(minutes);
+        t.MomentValue = m;
         t.TimeValue = m.toDate();
         t.TimeText = m.format('hh:mm A');
         t.Hour = hours;

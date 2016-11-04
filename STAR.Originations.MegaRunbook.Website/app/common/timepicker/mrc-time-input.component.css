@@ -1,0 +1,17 @@
+﻿.time-input {
+    width: 100%;
+}
+
+.time-input-icon {
+    opacity: 0.5;
+}
+
+.formatted-time {
+    opacity: 0.5;
+    font-variant: small-caps;
+    font-size: 0.85em;
+}
+
+.validation-wrapper {
+    padding-top: 5px;
+}

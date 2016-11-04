@@ -5,7 +5,7 @@
     <div class="time-wrapper" [hidden]="isCollapsed">
         <table>
             <tr>
-                <td *ngFor="let time of pmSet_AF" class="time primary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>
+                <td *ngFor="let time of pmSet_A" class="time primary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>
             </tr>
             <tr>
                 <td *ngFor="let time of amSet_A" class="time secondary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>

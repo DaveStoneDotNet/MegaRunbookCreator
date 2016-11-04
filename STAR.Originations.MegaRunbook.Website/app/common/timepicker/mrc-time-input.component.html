@@ -1,0 +1,5 @@
+﻿<input type="text" [(ngModel)]="timeText" class="time-input" (keypress)="timeInputKeyPressed($event)" (focus)="timeInputFocused($event)" (blur)="timeInputBlurred($event)"/>
+<div class="validation-wrapper" [hidden]="isBlurred">
+    <i class="fa time-input-icon" [class.fa-exclamation-circle]="!isValid" [class.fa-check-circle]="isValid"></i>
+    <span class="formatted-time">{{ momentFormattedTimeText }}</span>
+</div>
