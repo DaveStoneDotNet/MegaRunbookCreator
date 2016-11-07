@@ -21,7 +21,7 @@ export class MrcDurationPickerComponent implements OnInit, OnDestroy {
 
     @Output() onDurationChanged: EventEmitter<string> = new EventEmitter<string>();
 
-    primaryDurations: string[] = ['15 minutes', '30 minutes', '1 hour', '1.5 hours', '2 hours'];
+    primaryDurations:   string[] = ['15 minutes', '30 minutes', '1 hour', '1.5 hours', '2 hours'];
     secondaryDurations: string[] = ['3 hours', '4 hours', '5 hours', '6 hours', '7 hours'];
 
     isCollapsed: boolean = true;

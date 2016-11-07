@@ -1,6 +1,7 @@
 ﻿<div class="align-right margin-right-10 margin-top-2">
     <button class="btn btn-default btn-sm" (click)="listRfcsClick()">Back</button>
 </div>
+
 <div class="inner-body-content">
     <div class="fat-header">Add New RFC</div>
 
@@ -21,31 +22,17 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td class="align-right">Start Time</td>
+                        <td class="align-right nowrap">Start Time</td>
                         <td>
-                            <table>
-                                <tr>
-                                    <td><input type="text" [(ngModel)]="startTime" class="width-100" (keypress)="timePickerKeyPressed($event)"/></td>
-                                    <td>
-                                        <mrc-timepicker (onTimeChanged)='onStartTimeSelected($event)'></mrc-timepicker>
-                                    </td>
-                                </tr>
-                            </table>
+                            <table><tr><td><mrc-time-input></mrc-time-input></td><td><mrc-timepicker (onDurationChanged)='onDurationSelected($event)'></mrc-timepicker></td></tr></table>
                         </td>
                         <td>
                         </td>
                     </tr>
                     <tr>
-                        <td class="align-right">End Time</td>
+                        <td class="align-right nowrap">End Time</td>
                         <td>
-                            <table>
-                                <tr>
-                                    <td><mrc-time-input></mrc-time-input></td>
-                                    <td>
-                                        <mrc-durationpicker (onDurationChanged)='onDurationSelected($event)'></mrc-durationpicker>
-                                    </td>
-                                </tr>
-                            </table>
+                            <table><tr><td><mrc-time-input></mrc-time-input></td><td><mrc-durationpicker (onDurationChanged)='onDurationSelected($event)'></mrc-durationpicker></td></tr></table>
                         </td>
                         <td>
                         </td>

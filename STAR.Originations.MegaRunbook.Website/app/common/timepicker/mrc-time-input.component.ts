@@ -12,6 +12,7 @@ import { transition }     from '@angular/core';
 import { animate }        from '@angular/core';
 
 import { TimePickerInfo } from './timepicker.entity';
+import { KeyCodes }       from '../keycodes';
 
 import * as moment        from 'moment';
 
@@ -30,42 +31,27 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
     isValid: boolean = false;
     selectedTime: TimePickerInfo;
 
-    startTime: Date;
-    endTime: Date;
-    timeText: string;
+    momentTime: any;
+
+    timeText: string = '';
     momentFormattedTimeText: string;
 
-    validKeys: Array<string> = new Array();
+    keyCodes: KeyCodes = new KeyCodes();
+    validKeyCodes: Array<number> = new Array();
 
     constructor() {
 
     }
 
     ngOnInit() {
-        this.validKeys.push('1');
-        this.validKeys.push('2');
-        this.validKeys.push('3');
-        this.validKeys.push('4');
-        this.validKeys.push('5');
-        this.validKeys.push('6');
-        this.validKeys.push('7');
-        this.validKeys.push('8');
-        this.validKeys.push('9');
-        this.validKeys.push('0');
-        this.validKeys.push(':');
-        this.validKeys.push(' ');
-        this.validKeys.push('a');
-        this.validKeys.push('A');
-        this.validKeys.push('p');
-        this.validKeys.push('P');
-        this.validKeys.push('m');
-        this.validKeys.push('M');
+        this.keyCodes = new KeyCodes();
+        this.initializeValidKeyCodes();
     }
 
     ngOnDestroy() {
     }
 
-    toggleIsCollapsed() {
+    toggleIsCollapsed(): void {
         this.isCollapsed = !this.isCollapsed;
     }
 
@@ -75,65 +61,199 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
         this.notify.emit(this.selectedTime);
     }
 
-    getTime(hours: number, minutes: number): TimePickerInfo {
+    getTimePickerInfo(): TimePickerInfo {
+
         let t = new TimePickerInfo();
-        let m = moment().hour(hours).minute(minutes);
-        t.MomentValue = m;
-        t.TimeValue = m.toDate();
-        t.TimeText = m.format('hh:mm A');
-        t.Hour = hours;
-        t.Minute = minutes;
-        t.Second = 0;
+
+        if (this.momentTime) {
+            t.MomentValue = this.momentTime;
+            t.TimeValue = this.momentTime.toDate();
+            t.TimeText = this.momentTime.format('hh:mm A');
+            t.Hour = this.momentTime.hour();
+            t.Minute = this.momentTime.minute();
+            t.Second = 0;
+        }
+
         return t;
     }
 
-    timeInputKeyPressed(event): void {
-
-        let key = event.key.toUpperCase();
-
-        if (this.validKeys.find(k => k === key)) {
-            console.log('YES');
-        } else {
-            console.log('NOPE');
-            event.preventDefault();
-        }
-
-        let m = moment(event.srcElement.value + key, 'h:m A');
-        this.momentFormattedTimeText = m.format('hh:mm A');
-        this.isValid = m.isValid();
-        console.log('VALID: ' + event.srcElement.value + ' | ' + this.isValid + ' (' + m.format('hh:mm A') + ')');
-        //console.log(event, event.keyCode, event.keyIdentifier);
-
+    clearSelectedTime(): void {
+        this.timeText = '';
+        this.momentFormattedTimeText = '';
+        this.selectedTime = null;
+        this.momentTime = null;
+        this.isValid = false;
     }
 
-    timeInputFocused(event) {
+    timeInputKeyDown(event) {
+
+        let keyCode = event.keyCode;
+
+        if (!this.isValidInputKey(event)) {
+            event.preventDefault();
+        }
+    }
+
+    timeInputKeyUp(event): void {
+
+        let keyCode = event.keyCode;
+
+        if (this.isValidInputKey(event)) {
+
+            let key = '';
+            let currentText = event.srcElement.value;
+
+            let currentNumber = +currentText;
+            if (isNaN(currentNumber)) {
+                console.log('NOT A NUMBER')
+            } else {
+                console.log('NUMBER')
+                if (currentNumber > 24) {
+
+                    // Numbers up to 24 can be parsed by moment.
+                    // But if a user beings typing in something like 93 for 9:30, moment returns invalid date.
+                    // To fix this, take the first character, e.g. [9], and append a 'colon' after it.
+
+                    let length = currentText.length;
+                    let firstDigit = +currentText[0];
+                    this.timeText = currentText[0] + ':' + currentText.substring(1, length);
+                    currentText = this.timeText;
+                    console.log(currentText);
+                }
+            }
+
+            this.momentTime = moment(currentText, 'h:m A');
+            this.setMomentFormattedTimeText();
+
+        } else {
+            event.preventDefault();
+        }
+    }
+
+    timeInputKeyPressed(event): void {
+        let currentText = event.srcElement.value;
+    }
+
+    timeInputFocused(event): void {
+
         this.isBlurred = false;
+        this.setMomentFormattedTimeText();
     }
 
     timeInputBlurred(event): void {
 
         this.isBlurred = true;
+        this.momentTime = moment(this.timeText, 'h:m A');
+        this.setMomentFormattedTimeText();
 
-        console.log(this.timeText);
-
-        let m = moment(this.timeText, 'h:m A');
-        let b = m.isValid();
-        console.log('VALID: ' + this.timeText + ' | ' + b + ' (' + m.format('hh:mm A') + ')');
-
-        this.timeText = m.format('hh:mm A');
-        this.momentFormattedTimeText = m.format('hh:mm A');
-
-        console.log('TESTING: ' + this.timeText);
-
-        let regexp = new RegExp('\b((1[0-2]|0?[1-9]):([0-5][0-9]) ([AaPp][Mm]))');
-        let test = regexp.test(this.timeText);
-        console.log('REGEX RESULT: ' + test);
-
-        let n = Number(this.timeText);
-        if (n) {
-            console.log('THIS IS A NUMBER');
-        } else {
-            console.log('NOT NOT NOT A NUMBER');
+        if (this.isValid) {
+            this.timeText = this.momentTime.format('hh:mm A');
+            this.selectedTime = this.getTimePickerInfo();
         }
+    }
+
+    setMomentTime(): void {
+
+        if (this.momentTime) {
+            
+        }
+    }
+
+    setMomentFormattedTimeText(): void {
+
+        if (this.momentTime) {
+            this.isValid = this.momentTime.isValid();
+            if (this.isValid) {
+                this.momentFormattedTimeText = this.momentTime.format('hh:mm A');
+            } else {
+                if (this.timeText === '') {
+                    this.momentFormattedTimeText = 'empty';
+                } else {
+                    this.momentFormattedTimeText = 'invalid time';
+                }
+                this.timeText = '';
+            }
+        }
+    }
+
+    initializeValidKeyCodes(): void {
+
+        this.validKeyCodes.push.apply(this.validKeyCodes, this.keyCodes.digits);
+
+        this.validKeyCodes.push(KeyCodes.KEY_A);
+        this.validKeyCodes.push(KeyCodes.KEY_P);
+        this.validKeyCodes.push(KeyCodes.KEY_M);
+        this.validKeyCodes.push(KeyCodes.KEY_SEMICOLON);
+        this.validKeyCodes.push(KeyCodes.KEY_SPACE);
+    }
+
+    isValidInputKey(event): boolean {
+
+        let isValidInputKey: boolean = false;
+
+        let keyCode = event.keyCode;
+
+        if (this.validKeyCodes.find(k => k === keyCode)) {
+            return true;
+        }
+
+        if (this.keyCodes.isEditKey(keyCode)) {
+            return true;
+        }
+
+        if (this.keyCodes.isNavKey(keyCode)) {
+            return true;
+        }
+
+        if (this.keyCodes.isModifierKey(keyCode)) {
+            return true;
+        }
+
+        if (this.keyCodes.isFunctionKey(keyCode)) {
+            return true;
+        }
+
+        if (event.shiftKey) {
+            if (keyCode === KeyCodes.KEY_SEMICOLON) {
+                return true;
+            }
+        }
+
+        return isValidInputKey;
+    }
+
+    isValidTimeKey(event): boolean {
+
+        let isValidTimeKey: boolean = false;
+
+        let keyCode = event.keyCode;
+
+        if (this.validKeyCodes.find(k => k === keyCode)) {
+            return true;
+        }
+
+        if (this.keyCodes.isEditKey(keyCode)) {
+            return true;
+        }
+
+        if (this.keyCodes.isNavKey(keyCode)) {
+            return true;
+        }
+
+        if (this.keyCodes.isModifierKey(keyCode)) {
+            return true;
+        }
+
+        if (this.keyCodes.isFunctionKey(keyCode)) {
+            return true;
+        }
+
+        if (event.shiftKey) {
+            if (keyCode === KeyCodes.KEY_SEMICOLON) {
+                return true;
+            }
+        }
+
+        return isValidTimeKey;
     }
 }

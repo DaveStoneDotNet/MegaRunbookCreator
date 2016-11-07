@@ -4,7 +4,7 @@
 }
 
 .time-toggle {
-    padding: 10px;
+    padding-top: 5px;
     cursor: pointer;
     opacity: 0.9;
 }
@@ -65,4 +65,8 @@
 .time:hover {
     background-color: #5f7d99;
     color: #ffffff;
+}
+
+td {
+    border: solid 1px yellow;
 }
