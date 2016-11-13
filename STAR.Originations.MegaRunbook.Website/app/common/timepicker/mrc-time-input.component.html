@@ -1,20 +1,22 @@
-﻿<table>
-    <tr>
-        <td>
-            <input type="text" [(ngModel)]="timeText" class="time-input" (keydown)="timeInputKeyDown($event)" (keyup)="timeInputKeyUp($event)" (keypress)="timeInputKeyPressed($event)" (focus)="timeInputFocused($event)" (blur)="timeInputBlurred($event)" maxlength="8" />
-        </td>
-        <td>
-            <div class="clear-icon" (click)="clearSelectedTime()">
-                <i class="fa fa-times-circle time-input-icon"></i>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <div class="validation-wrapper" [hidden]="isBlurred">
-                <i class="fa time-input-icon" [class.fa-exclamation-circle]="!isValid" [class.fa-check-circle]="isValid"></i>
-                <span class="formatted-time">{{ momentFormattedTimeText }}</span>
-            </div>
-        </td>
-    </tr>
-</table>
+﻿<div>
+    <table>
+        <tr>
+            <td>
+                <input type="text" [(ngModel)]="selectedTime.TimeText" class="time-input" (keydown)="timeInputKeyDown($event)" (keyup)="timeInputKeyUp($event)" (keypress)="timeInputKeyPressed($event)" (focus)="timeInputFocused($event)" (blur)="timeInputBlurred($event)" maxlength="8" />
+            </td>
+            <td>
+                <div class="clear-icon" (click)="clearSelectedTime()">
+                    <i class="fa fa-times-circle time-input-icon"></i>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="validation-wrapper" [hidden]="isBlurred">
+                    <i class="fa time-input-icon" [class.fa-exclamation-circle]="!isValid" [class.fa-check-circle]="isValid"></i>
+                    <span class="formatted-time">{{ momentFormattedTimeText }}</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

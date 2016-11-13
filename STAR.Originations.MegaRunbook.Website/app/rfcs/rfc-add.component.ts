@@ -14,6 +14,7 @@ import { TemplateService }      from '../templates/template.service';
 import { UserService }          from '../services/user.service';
 
 import { TimePickerInfo }       from '../common/timepicker/timepicker.entity';
+import { DurationPickerInfo }   from '../common/timepicker/durationpicker.entity';
 
 import { Subscription }         from 'rxjs/Subscription';
 
@@ -25,6 +26,8 @@ import { FormControl }          from '@angular/forms';
 import { FormGroup }            from '@angular/forms';
 
 import { Observable }           from 'rxjs/Observable';
+
+import * as moment              from 'moment';
 
 import 'rxjs/add/observable/of';
 
@@ -59,6 +62,7 @@ export class RfcAddComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.executeSearch();
     }
 
@@ -274,57 +278,121 @@ export class RfcAddComponent implements OnInit {
 
     // TIME PICKER
 
-    startTime: Date;
-    endTime: Date;
+    selectedStartTime: TimePickerInfo = new TimePickerInfo();
+    selectedEndTime:   TimePickerInfo = new TimePickerInfo();
+    selectedDuration: DurationPickerInfo = new DurationPickerInfo();
 
-    hstep: number = 1;
-    mstep: number = 15;
+    onStartTimeInputChanged(timePickerInfo: TimePickerInfo): void {
 
-    ismeridian: boolean = true;
-    isEnabled: boolean = true;
+        console.log(timePickerInfo.TimeText + ' START CHANGED');
 
-    startTimeChanged(): void {
-        console.log('Time changed to: ' + this.startTime);
-    };
+        this.selectedStartTime = timePickerInfo;
 
-    endTimeChanged(): void {
-        console.log('Time changed to: ' + this.startTime);
-    };
+        this.addDurationToStart(this.selectedDuration);
+
+    }
+
+    onEndTimeInputChanged(timePickerInfo: TimePickerInfo): void {
+
+        console.log(timePickerInfo.TimeText + ' END CHANGED');
+
+        this.selectedEndTime = timePickerInfo;
+
+        this.selectedDuration = new DurationPickerInfo();
+    }
 
     onStartTimeSelected(timePickerInfo: TimePickerInfo): void {
-        console.log(timePickerInfo.TimeText + ' SELECTED');
-        this.startTime = timePickerInfo.MomentValue.format('hh:mm A');
+
+        console.log(timePickerInfo.TimeText + ' START SELECTED');
+
+        this.selectedStartTime = timePickerInfo;
+
+        this.addDurationToStart(this.selectedDuration);
     }
 
-    onDurationSelected(message: string): void {
-        console.log(message + ' SELECTED');
+    onDurationSelected(duration: DurationPickerInfo): void {
+
+        this.selectedDuration = duration;
+
+        console.log(this.selectedDuration.DurationText + ' DURATION SELECTED');
+
+        this.addDurationToStart(duration);
+
     }
 
-    timePickerKeyPressed(event): void {
+    addDurationToStart(duration: DurationPickerInfo) {
 
-        let validKeys: Array<string> = new Array();
+        if (this.hasDuration(duration)) {
 
-        validKeys.push('A');
-        validKeys.push('M');
-        validKeys.push('0');
-        validKeys.push('1');
-        validKeys.push('2');
-        validKeys.push('3');
-        validKeys.push('4');
-        validKeys.push('5');
-        validKeys.push('6');
-        validKeys.push('7');
-        validKeys.push('8');
-        validKeys.push('9');
+            if (this.hasTime(this.selectedStartTime)) {
+                this.selectedEndTime = this.getTime(this.selectedStartTime);
+                if (this.selectedEndTime) {
+                    this.selectedEndTime.MomentValue.add(this.selectedDuration.Hours, 'hours');
+                    this.selectedEndTime.MomentValue.add(this.selectedDuration.Minutes, 'minutes');
 
-        let key = event.key.toUpperCase();
+                    // TimeText is what's bound to the INPUT. The other "INTERNALS" of the COMPONENT are bound to the selectedEndTime.
+                    this.selectedEndTime.TimeText = this.selectedEndTime.MomentValue.format('hh:mm A');
+                }
+            }
+        }
+    }
 
-        if (validKeys.find(k => k === key)) {
-            console.log('YES');
-        } else {
-            console.log('NOPE');
+    subtractDurationFromEnd(duration: DurationPickerInfo) {
+
+        if (duration) {
+
+            if (this.selectedEndTime) {
+                this.selectedStartTime = this.getTime(this.selectedEndTime);
+                if (this.selectedStartTime.MomentValue) {
+                    this.selectedStartTime.MomentValue.subtract(this.selectedDuration.Hours, 'hours');
+                    this.selectedStartTime.MomentValue.subtract(this.selectedDuration.Minutes, 'minutes');
+                    this.selectedStartTime.TimeText = this.selectedStartTime.MomentValue.format('hh:mm A');
+                }
+            }
+        }
+    }
+
+    getTime(timePickerInfo: TimePickerInfo): TimePickerInfo {
+
+        let t = new TimePickerInfo();
+
+        timePickerInfo.Hour = timePickerInfo.Hour ? timePickerInfo.Hour : 0;
+        timePickerInfo.Minute = timePickerInfo.Minute ? timePickerInfo.Minute : 0;
+
+        let m = moment().hour(timePickerInfo.Hour).minute(timePickerInfo.Minute);
+        t.MomentValue = m;
+        t.TimeValue = m.toDate();
+        t.TimeText = m.format('hh:mm A');
+        t.Hour = timePickerInfo.Hour;
+        t.Minute = timePickerInfo.Minute;
+        t.Second = 0;
+
+        return t;
+    }
+
+    hasTime(timePickerInfo: TimePickerInfo): boolean {
+
+        let b = false;
+
+        if (timePickerInfo) {
+            if (timePickerInfo.Hour !== undefined && timePickerInfo.Minute !== undefined) {
+                b = true;
+            }
         }
 
-        console.log(event, event.keyCode, event.keyIdentifier);
+        return b;
+    }
+
+    hasDuration(duration: DurationPickerInfo): boolean {
+
+        let b = false;
+
+        if (duration) {
+            if (duration.Hours !== undefined && duration.Minutes !== undefined) {
+                b = true;
+            }
+        }
+
+        return b;
     }
 }

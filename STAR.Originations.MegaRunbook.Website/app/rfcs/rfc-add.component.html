@@ -24,7 +24,18 @@
                     <tr>
                         <td class="align-right nowrap">Start Time</td>
                         <td>
-                            <table><tr><td><mrc-time-input></mrc-time-input></td><td><mrc-timepicker (onDurationChanged)='onDurationSelected($event)'></mrc-timepicker></td></tr></table>
+                            <table>
+                                <tr>
+                                    <td class="align-top">
+                                        <mrc-time-input [selectedTime]="selectedStartTime" (timeInputChanged)="onStartTimeInputChanged($event)"></mrc-time-input>
+                                    </td>
+                                    <td class="align-top">
+                                        <div class="pad-top-5">
+                                            <mrc-timepicker (onTimeChanged)='onStartTimeSelected($event)'></mrc-timepicker>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                         <td>
                         </td>
@@ -32,9 +43,23 @@
                     <tr>
                         <td class="align-right nowrap">End Time</td>
                         <td>
-                            <table><tr><td><mrc-time-input></mrc-time-input></td><td><mrc-durationpicker (onDurationChanged)='onDurationSelected($event)'></mrc-durationpicker></td></tr></table>
+                            <table>
+                                <tr>
+                                    <td class="align-top">
+                                        <mrc-time-input [selectedTime]="selectedEndTime" (timeInputChanged)="onEndTimeInputChanged($event)"></mrc-time-input>
+                                    </td>
+                                    <td class="align-top">
+                                        <div class="pad-top-5">
+                                            <mrc-durationpicker (onDurationChanged)='onDurationSelected($event)'></mrc-durationpicker>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
-                        <td>
+                        <td class="align-top">
+                            <div *ngIf="selectedDuration" class="small-caps opacity-50 font-0-75 nowrap" style="padding-top: 15px;">
+                                {{ selectedDuration.DurationText }}
+                            </div>
                         </td>
                     </tr>
                     <tr>

@@ -1,15 +1,17 @@
 ﻿
-import { Component }    from '@angular/core';
-import { OnInit }       from '@angular/core';
-import { OnDestroy }    from '@angular/core';
-import { Output }       from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { Component }          from '@angular/core';
+import { OnInit }             from '@angular/core';
+import { OnDestroy }          from '@angular/core';
+import { Output }             from '@angular/core';
+import { EventEmitter }       from '@angular/core';
 
-import { trigger }      from '@angular/core';
-import { state }        from '@angular/core';
-import { style }        from '@angular/core';
-import { transition }   from '@angular/core';
-import { animate }      from '@angular/core';
+import { trigger }            from '@angular/core';
+import { state }              from '@angular/core';
+import { style }              from '@angular/core';
+import { transition }         from '@angular/core';
+import { animate }            from '@angular/core';
+
+import { DurationPickerInfo } from './durationpicker.entity';
 
 @Component({
     selector:    'mrc-durationpicker',
@@ -19,13 +21,15 @@ import { animate }      from '@angular/core';
 
 export class MrcDurationPickerComponent implements OnInit, OnDestroy {
 
-    @Output() onDurationChanged: EventEmitter<string> = new EventEmitter<string>();
+    @Output() onDurationChanged: EventEmitter<DurationPickerInfo> = new EventEmitter<DurationPickerInfo>();
 
-    primaryDurations:   string[] = ['15 minutes', '30 minutes', '1 hour', '1.5 hours', '2 hours'];
-    secondaryDurations: string[] = ['3 hours', '4 hours', '5 hours', '6 hours', '7 hours'];
+    messageOpacity: string = '0.3';
+
+    primaryDurations:   DurationPickerInfo[] = [this.getDuration(0, 15), this.getDuration(0, 30), this.getDuration(1, 0), this.getDuration(1.5, 0), this.getDuration(2, 0)];
+    secondaryDurations: DurationPickerInfo[] = [this.getDuration(3,  0), this.getDuration(4,  0), this.getDuration(5, 0), this.getDuration(  6, 0), this.getDuration(7, 0)];
 
     isCollapsed: boolean = true;
-    selectedDuration: string;
+    selectedDuration: DurationPickerInfo;
 
     constructor() {
 
@@ -41,9 +45,36 @@ export class MrcDurationPickerComponent implements OnInit, OnDestroy {
         this.isCollapsed = !this.isCollapsed;
     }
 
-    onDurationSelected(duration: string) {
+    onDurationSelected(duration: DurationPickerInfo) {
         this.selectedDuration = duration;
         this.isCollapsed = true;
         this.onDurationChanged.emit(this.selectedDuration);
+        this.messageMouseLeave();
+    }
+
+    messageMouseEnter() {
+        this.messageOpacity = '0.9';
+    }
+
+    messageMouseLeave() {
+        if (this.isCollapsed) {
+            this.messageOpacity = '0.3';
+        }
+    }
+
+    getDuration(hours: number, minutes: number): DurationPickerInfo {
+
+        let d: DurationPickerInfo = new DurationPickerInfo();
+        d.Hours = hours;
+        d.Minutes = minutes;
+
+        if (hours > 0) {
+            d.DurationText = hours === 1 ? '1 hour' : hours + ' hours';
+        } else {
+            if (minutes > 0) {
+                d.DurationText = minutes === 1 ? '1 min' : minutes + ' mins';
+            }
+        }
+        return d;
     }
 }

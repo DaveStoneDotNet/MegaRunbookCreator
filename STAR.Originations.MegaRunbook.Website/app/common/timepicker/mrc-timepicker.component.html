@@ -1,20 +1,24 @@
 ﻿<div class="picker-wrapper">
-    <div class="time-toggle" (click)="toggleIsCollapsed()" tooltip="select a time">
-        <i class="fa" [class.fa-chevron-down]="!isCollapsed" [class.fa-chevron-up]="isCollapsed" [class.time-toggle-icon-down]="!isCollapsed" [class.time-toggle-icon-up]="isCollapsed"></i> <span class="time-toggle-message" [hidden]="isCollapsed">select time</span>
+    <div class="time-toggle" (click)="toggleIsCollapsed()" (mouseenter)="messageMouseEnter()" (mouseleave)="messageMouseLeave()" [ngStyle]="{ 'opacity': messageOpacity }">
+        <i class="fa" 
+           [class.fa-chevron-down]="!isCollapsed"
+           [class.fa-chevron-up]="isCollapsed"
+           [class.time-toggle-icon-down]="!isCollapsed" 
+           [class.time-toggle-icon-up]="isCollapsed"></i> <span class="time-toggle-message">select time</span>
     </div>
     <div class="time-wrapper" [hidden]="isCollapsed">
         <table>
             <tr>
-                <td *ngFor="let time of pmSet_A" class="time primary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>
+                <td *ngFor="let time of pmSet_B" class="time primary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>
             </tr>
             <tr>
-                <td *ngFor="let time of amSet_A" class="time secondary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>
+                <td *ngFor="let time of pmSet_A" class="time secondary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>
             </tr>
             <tr>
                 <td *ngFor="let time of amSet_B" class="time secondary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>
             </tr>
             <tr>
-                <td *ngFor="let time of pmSet_A" class="time secondary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>
+                <td *ngFor="let time of amSet_A" class="time secondary-time" (click)="onTimeSelected(time)">{{ time.TimeText }}</td>
             </tr>
         </table>
     </div>

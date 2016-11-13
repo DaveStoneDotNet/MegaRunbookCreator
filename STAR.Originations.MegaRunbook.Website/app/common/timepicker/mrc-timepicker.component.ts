@@ -25,6 +25,8 @@ export class MrcTimePickerComponent implements OnInit, OnDestroy {
 
     @Output() onTimeChanged: EventEmitter<TimePickerInfo> = new EventEmitter<TimePickerInfo>();
 
+    messageOpacity: string = '0.3';
+
     amSet_A: TimePickerInfo[] = [
         this.getTime(0, 0),
         this.getTime(1, 0),
@@ -85,6 +87,7 @@ export class MrcTimePickerComponent implements OnInit, OnDestroy {
         this.selectedTime = time;
         this.isCollapsed = true;
         this.onTimeChanged.emit(this.selectedTime);
+        this.messageMouseLeave();
     }
 
     getTime(hours: number, minutes: number): TimePickerInfo {
@@ -97,5 +100,15 @@ export class MrcTimePickerComponent implements OnInit, OnDestroy {
         t.Minute = minutes;
         t.Second = 0;
         return t;
+    }
+
+    messageMouseEnter() {
+        this.messageOpacity = '0.9';
+    }
+
+    messageMouseLeave() {
+        if (this.isCollapsed) {
+            this.messageOpacity = '0.3';
+        }
     }
 }

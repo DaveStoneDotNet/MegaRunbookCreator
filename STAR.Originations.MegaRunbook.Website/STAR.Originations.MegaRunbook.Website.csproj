@@ -329,6 +329,7 @@
     <TypeScriptCompile Include="app\common\not-authorized.component.ts" />
     <TypeScriptCompile Include="app\common\timepicker\mrc-time-input.component.ts" />
     <TypeScriptCompile Include="app\common\timepicker\mrc-timepicker.component.ts" />
+    <TypeScriptCompile Include="app\common\timepicker\mrc-timepicker.module.ts" />
     <TypeScriptCompile Include="app\common\timepicker\timepicker.entity.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-admin.component.ts" />
     <TypeScriptCompile Include="app\crisis-center\crisis-center.component.ts" />

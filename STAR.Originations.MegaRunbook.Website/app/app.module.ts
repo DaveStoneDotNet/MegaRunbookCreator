@@ -11,6 +11,8 @@ import { HashLocationStrategy }      from '@angular/common';
 import { routing }                   from './app.routing';
 import { appRoutingProviders }       from './app.routing';
 
+import { TypeaheadModule }           from 'ng2-bootstrap/components/typeahead';
+
 import { HeroesModule }              from './heroes/heroes.module';
 import { AdminModule }               from './admin/admin.module';
 import { BuildsModule }              from './builds/builds.module';
@@ -22,6 +24,7 @@ import { LinkModule }                from './links/link.module';
 import { GridModule }                from './grids/grid.module';
 import { PrimeModule }               from './prime/prime.module';
 import { PipeModule }                from './pipes/pipe.module';
+import { MrcTimePickerModule }       from './common/timepicker/mrc-timepicker.module';
 
 import { AppComponent }              from './app.component';
 import { HomeComponent }             from './home/home.component';
@@ -46,7 +49,7 @@ import { AppService }                from './services/app.service';
 import { AppLookupService }          from './services/app-lookup.service';
 
 @NgModule({
-    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, RfcModule, ReleaseModule, TemplatesModule, LinkModule, GridModule, PrimeModule, PipeModule],
+    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, RfcModule, ReleaseModule, TemplatesModule, LinkModule, GridModule, PrimeModule, PipeModule, TypeaheadModule],
     declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent, IsWorkingComponent, IsWorkingSpinnerComponent, IsWorkingRunnerComponent, MessageComponent],
     providers:    [HttpService, UserService, BlockUIService, IsWorkingService, MessageService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, AppService, AppLookupService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]

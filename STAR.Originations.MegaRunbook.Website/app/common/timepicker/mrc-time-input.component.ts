@@ -2,6 +2,7 @@
 import { Component }      from '@angular/core';
 import { OnInit }         from '@angular/core';
 import { OnDestroy }      from '@angular/core';
+import { Input }          from '@angular/core';
 import { Output }         from '@angular/core';
 import { EventEmitter }   from '@angular/core';
 
@@ -24,16 +25,17 @@ import * as moment        from 'moment';
 
 export class MrcTimeInputComponent implements OnInit, OnDestroy {
 
-    @Output() notify: EventEmitter<TimePickerInfo> = new EventEmitter<TimePickerInfo>();
+    @Input() selectedTime: TimePickerInfo = new TimePickerInfo();
+    @Output() timeInputChanged: EventEmitter<TimePickerInfo> = new EventEmitter<TimePickerInfo>();
+
+    originalTime: TimePickerInfo = new TimePickerInfo();
 
     isCollapsed: boolean = true;
     isBlurred: boolean = true;
     isValid: boolean = false;
-    selectedTime: TimePickerInfo;
 
-    momentTime: any;
+    //momentTime: any;
 
-    timeText: string = '';
     momentFormattedTimeText: string;
 
     keyCodes: KeyCodes = new KeyCodes();
@@ -58,19 +60,19 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
     onTimeSelected(time: TimePickerInfo) {
         this.selectedTime = time;
         this.isCollapsed = true;
-        this.notify.emit(this.selectedTime);
+        this.timeInputChanged.emit(this.selectedTime);
     }
 
     getTimePickerInfo(): TimePickerInfo {
 
         let t = new TimePickerInfo();
 
-        if (this.momentTime) {
-            t.MomentValue = this.momentTime;
-            t.TimeValue = this.momentTime.toDate();
-            t.TimeText = this.momentTime.format('hh:mm A');
-            t.Hour = this.momentTime.hour();
-            t.Minute = this.momentTime.minute();
+        if (this.selectedTime.MomentValue) {
+            t.MomentValue = this.selectedTime.MomentValue;
+            t.TimeValue = this.selectedTime.MomentValue.toDate();
+            t.TimeText = this.selectedTime.MomentValue.format('hh:mm A');
+            t.Hour = this.selectedTime.MomentValue.hour();
+            t.Minute = this.selectedTime.MomentValue.minute();
             t.Second = 0;
         }
 
@@ -78,10 +80,9 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
     }
 
     clearSelectedTime(): void {
-        this.timeText = '';
+        this.selectedTime = new TimePickerInfo();;
         this.momentFormattedTimeText = '';
-        this.selectedTime = null;
-        this.momentTime = null;
+        this.selectedTime.MomentValue = null;
         this.isValid = false;
     }
 
@@ -116,14 +117,13 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
 
                     let length = currentText.length;
                     let firstDigit = +currentText[0];
-                    this.timeText = currentText[0] + ':' + currentText.substring(1, length);
-                    currentText = this.timeText;
+                    this.selectedTime.TimeText = currentText[0] + ':' + currentText.substring(1, length);
+                    currentText = this.selectedTime.TimeText;
                     console.log(currentText);
                 }
             }
 
-            this.momentTime = moment(currentText, 'h:m A');
-            this.setMomentFormattedTimeText();
+            this.setSelectedTimeOnKeyUp(currentText);
 
         } else {
             event.preventDefault();
@@ -137,42 +137,48 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
     timeInputFocused(event): void {
 
         this.isBlurred = false;
+
+        this.originalTime.Hour = this.selectedTime.Hour;
+        this.originalTime.Minute = this.selectedTime.Minute;
+
+        this.selectedTime = this.parseTimeText(this.selectedTime.TimeText);
         this.setMomentFormattedTimeText();
     }
 
     timeInputBlurred(event): void {
 
         this.isBlurred = true;
-        this.momentTime = moment(this.timeText, 'h:m A');
+        this.selectedTime.MomentValue = moment(this.selectedTime.TimeText, 'h:m A');
         this.setMomentFormattedTimeText();
 
         if (this.isValid) {
-            this.timeText = this.momentTime.format('hh:mm A');
+            this.selectedTime.TimeText = this.selectedTime.MomentValue.format('hh:mm A');
             this.selectedTime = this.getTimePickerInfo();
-        }
-    }
 
-    setMomentTime(): void {
-
-        if (this.momentTime) {
-            
+            if (this.originalTime.Hour != this.selectedTime.Hour || this.originalTime.Minute != this.selectedTime.Minute) {
+                this.onTimeSelected(this.selectedTime);
+            }
         }
     }
 
     setMomentFormattedTimeText(): void {
 
-        if (this.momentTime) {
-            this.isValid = this.momentTime.isValid();
-            if (this.isValid) {
-                this.momentFormattedTimeText = this.momentTime.format('hh:mm A');
-            } else {
-                if (this.timeText === '') {
-                    this.momentFormattedTimeText = 'empty';
+        if (this.hasTime(this.selectedTime)) {
+            if (this.selectedTime.MomentValue) {
+                this.isValid = this.selectedTime.MomentValue.isValid();
+                if (this.isValid) {
+                    this.momentFormattedTimeText = this.selectedTime.MomentValue.format('hh:mm A');
                 } else {
-                    this.momentFormattedTimeText = 'invalid time';
+                    if (this.selectedTime.TimeText === '') {
+                        this.momentFormattedTimeText = 'empty';
+                    } else {
+                        this.momentFormattedTimeText = 'invalid time';
+                    }
+                    this.selectedTime.TimeText = '';
                 }
-                this.timeText = '';
             }
+        } else {
+            this.momentFormattedTimeText = 'empty';
         }
     }
 
@@ -256,4 +262,43 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
 
         return isValidTimeKey;
     }
+
+    parseTimeText(timeText: string): TimePickerInfo {
+        let t = new TimePickerInfo();
+        t.TimeText = timeText;
+        t.MomentValue = moment(timeText, 'hh:mm A');
+        t.TimeValue = t.MomentValue.toDate();
+        t.Hour = t.MomentValue.hour();
+        t.Minute = t.MomentValue.minute();
+        t.Second = 0;
+        this.selectedTime.MomentValue = t.MomentValue;
+       return t;
+    }
+
+    hasTime(timePickerInfo: TimePickerInfo): boolean {
+
+        let b = false;
+
+        if (timePickerInfo) {
+            if (timePickerInfo.Hour !== undefined && timePickerInfo.Minute !== undefined) {
+                if (!isNaN(timePickerInfo.Hour) && !isNaN(timePickerInfo.Minute)) {
+                    b = true;
+                }
+            }
+        }
+
+        return b;
+    }
+
+    setSelectedTimeOnKeyUp(timeText: string): void {
+
+        this.selectedTime.MomentValue = moment(timeText, 'h:m A');
+
+        this.selectedTime.TimeValue = this.selectedTime.MomentValue.toDate();
+        this.selectedTime.Hour = this.selectedTime.MomentValue.hour();
+        this.selectedTime.Minute = this.selectedTime.MomentValue.minute();
+        this.selectedTime.Second = 0;
+
+        this.setMomentFormattedTimeText();
+   }
 }
