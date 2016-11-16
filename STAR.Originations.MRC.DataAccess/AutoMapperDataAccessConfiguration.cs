@@ -31,6 +31,9 @@ namespace STAR.Originations.MRC.DataAccess
             Mapper.CreateMap<entities::ApplicationGroup, contracts::Lookup>()
                 .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Name));
+
+            Mapper.CreateMap<contracts::Rfc, entities::Rfc>();
+
         }
     }
 }

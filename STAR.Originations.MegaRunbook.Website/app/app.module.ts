@@ -12,6 +12,7 @@ import { routing }                   from './app.routing';
 import { appRoutingProviders }       from './app.routing';
 
 import { TypeaheadModule }           from 'ng2-bootstrap/components/typeahead';
+import { DatepickerModule }          from 'ng2-bootstrap/components/datepicker';
 
 import { HeroesModule }              from './heroes/heroes.module';
 import { AdminModule }               from './admin/admin.module';
@@ -49,7 +50,7 @@ import { AppService }                from './services/app.service';
 import { AppLookupService }          from './services/app-lookup.service';
 
 @NgModule({
-    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, RfcModule, ReleaseModule, TemplatesModule, LinkModule, GridModule, PrimeModule, PipeModule, TypeaheadModule],
+    imports:      [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, routing, HeroesModule, AdminModule, BuildsModule, RunbooksModule, RfcModule, ReleaseModule, TemplatesModule, LinkModule, GridModule, PrimeModule, PipeModule, TypeaheadModule, DatepickerModule],
     declarations: [AppComponent, HomeComponent, PageNotFoundComponent, NotAuthorizedComponent, IsWorkingComponent, IsWorkingSpinnerComponent, IsWorkingRunnerComponent, MessageComponent],
     providers:    [HttpService, UserService, BlockUIService, IsWorkingService, MessageService, DialogService, CanDeactivateGuard, AuthGuard, AuthService, AppService, AppLookupService, appRoutingProviders, { provide: LocationStrategy, useClass: HashLocationStrategy}], 
     bootstrap:    [AppComponent]

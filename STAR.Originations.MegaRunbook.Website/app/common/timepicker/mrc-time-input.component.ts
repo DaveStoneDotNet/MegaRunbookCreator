@@ -1,29 +1,42 @@
 ﻿
-import { Component }      from '@angular/core';
-import { OnInit }         from '@angular/core';
-import { OnDestroy }      from '@angular/core';
-import { Input }          from '@angular/core';
-import { Output }         from '@angular/core';
-import { EventEmitter }   from '@angular/core';
+import { Component }            from '@angular/core';
+import { OnInit }               from '@angular/core';
+import { OnDestroy }            from '@angular/core';
+import { Input }                from '@angular/core';
+import { Output }               from '@angular/core';
+import { EventEmitter }         from '@angular/core';
 
-import { trigger }        from '@angular/core';
-import { state }          from '@angular/core';
-import { style }          from '@angular/core';
-import { transition }     from '@angular/core';
-import { animate }        from '@angular/core';
+import { trigger }              from '@angular/core';
+import { state }                from '@angular/core';
+import { style }                from '@angular/core';
+import { transition }           from '@angular/core';
+import { animate }              from '@angular/core';
 
-import { TimePickerInfo } from './timepicker.entity';
-import { KeyCodes }       from '../keycodes';
+import { forwardRef }           from '@angular/core';
+import { NG_VALUE_ACCESSOR }    from '@angular/forms';
+import { ControlValueAccessor } from '@angular/forms';
 
-import * as moment        from 'moment';
+import { TimePickerInfo }       from './timepicker.entity';
+import { KeyCodes }             from '../keycodes';
+
+import * as moment              from 'moment';
+
+const noop = () => { };
+
+export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => MrcTimeInputComponent),
+    multi: true
+};
 
 @Component({
     selector:    'mrc-time-input',
     templateUrl: 'app/common/timepicker/mrc-time-input.component.html',
-    styleUrls:  ['app/common/timepicker/mrc-time-input.component.css']
+    styleUrls:  ['app/common/timepicker/mrc-time-input.component.css'], 
+    providers:  [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 
-export class MrcTimeInputComponent implements OnInit, OnDestroy {
+export class MrcTimeInputComponent implements OnInit, OnDestroy, ControlValueAccessor  {
 
     @Input() selectedTime: TimePickerInfo = new TimePickerInfo();
     @Output() timeInputChanged: EventEmitter<TimePickerInfo> = new EventEmitter<TimePickerInfo>();
@@ -33,8 +46,6 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
     isCollapsed: boolean = true;
     isBlurred: boolean = true;
     isValid: boolean = false;
-
-    //momentTime: any;
 
     momentFormattedTimeText: string;
 
@@ -106,9 +117,8 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
 
             let currentNumber = +currentText;
             if (isNaN(currentNumber)) {
-                console.log('NOT A NUMBER')
+                // NOT A NUMBER
             } else {
-                console.log('NUMBER')
                 if (currentNumber > 24) {
 
                     // Numbers up to 24 can be parsed by moment.
@@ -119,7 +129,6 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
                     let firstDigit = +currentText[0];
                     this.selectedTime.TimeText = currentText[0] + ':' + currentText.substring(1, length);
                     currentText = this.selectedTime.TimeText;
-                    console.log(currentText);
                 }
             }
 
@@ -159,6 +168,7 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
                 this.onTimeSelected(this.selectedTime);
             }
         }
+        this.onTouchedCallback();
     }
 
     setMomentFormattedTimeText(): void {
@@ -300,5 +310,69 @@ export class MrcTimeInputComponent implements OnInit, OnDestroy {
         this.selectedTime.Second = 0;
 
         this.setMomentFormattedTimeText();
-   }
+    }
+
+    // ----------------------------------------------------------------------------------------------
+    // ControlValueAccessor interface
+    // ----------------------------------------------------------------------------------------------
+
+    // The internal data model
+
+    // Placeholders for the callbacks which are later provided by the Control Value Accessor
+    private onTouchedCallback: () => void = noop;
+    private onChangeCallback: (_: any) => void = noop;
+
+    //get accessor
+    get mrcTimeInput(): any {
+        return this.selectedTime.TimeText;
+    };
+
+    //set accessor including call the onchange callback
+    set mrcTimeInput(timeText: any) {
+        if (timeText !== this.selectedTime.TimeText) {
+            this.selectedTime.TimeText = timeText;
+            this.onChangeCallback(timeText);
+        }
+    }
+
+    // Set touched on blur
+    onBlur() {
+        this.onTouchedCallback();
+    }
+
+    // The writeValue function allows you to update your internal model with incoming values, 
+    // for example if you use ngModel to bind your control to data.
+    writeValue(value: any) {
+        if (value !== this.selectedTime.TimeText) {
+            this.selectedTime.TimeText = value;
+        }
+    }
+
+    // ---
+    // NOTE: Both the functions below are later provided by Angular 2 itself. But we need to register 
+    // dummy functions to be to code and transpile it without errors.
+    // ---
+
+    // From ControlValueAccessor interface
+    // The registerOnChange accepts a callback function which you can call when changes happen 
+    // so that you can notify the outside world that the data model has changed. Note that you 
+    // call it with the changed data model value.
+    registerOnChange(fn: any) {
+        console.log('ON CHANGED');
+        this.onChangeCallback = fn;
+    }
+
+    // From ControlValueAccessor interface
+    // The registerOnTouched function accepts a callback function which you can call when you 
+    // want to set your control to touched. This is then managed by Angular 2 by adding the 
+    // correct touched state and classes to the actual element tag in the DOM.
+    registerOnTouched(fn: any) {
+        console.log('ON TOUCHED');
+        this.onTouchedCallback = fn;
+    }
+
+    emitValue(event) {
+        console.log('EMIT VALUE');
+    }
+
 }

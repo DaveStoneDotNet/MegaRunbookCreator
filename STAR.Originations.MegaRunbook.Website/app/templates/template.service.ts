@@ -15,7 +15,7 @@ export class TemplateService {
     constructor(private http: Http, private httpService: HttpService, private isWorkingService: IsWorkingService) { }
 
     getRunbookTemplates(): Observable<any> {
-        this.isWorkingService.startWorking('Getting Runbok Templates...');
+        this.isWorkingService.startWorking('Getting Runbook Templates...');
         return this.httpService.httpGet('api/GetRunbookTemplates');
     }
 

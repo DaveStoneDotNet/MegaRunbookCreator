@@ -319,6 +319,7 @@
     <TypeScriptCompile Include="app\common\datatable\mrc-datatable.module.ts" />
     <TypeScriptCompile Include="app\common\datatable\paginator.component.ts" />
     <TypeScriptCompile Include="app\common\keycodes.ts" />
+    <TypeScriptCompile Include="app\common\mrc-focus.directive.ts" />
     <TypeScriptCompile Include="app\common\timepicker\durationpicker.entity.ts" />
     <TypeScriptCompile Include="app\common\timepicker\mrc-durationpicker.component.ts" />
     <TypeScriptCompile Include="app\common\isworking\is-working-runner.component.ts" />
@@ -356,6 +357,7 @@
     <TypeScriptCompile Include="app\entities\application-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\server.entity.ts" />
     <TypeScriptCompile Include="app\entities\service-link.entity.ts" />
+    <TypeScriptCompile Include="app\entities\service-response.entity.ts" />
     <TypeScriptCompile Include="app\entities\sort-info.entity.ts" />
     <TypeScriptCompile Include="app\entities\team.entity.ts" />
     <TypeScriptCompile Include="app\grids\mrc-table.component.ts" />
@@ -400,6 +402,7 @@
     <TypeScriptCompile Include="app\rfcs\rfc-list.component.ts" />
     <TypeScriptCompile Include="app\rfcs\rfc.module.ts" />
     <TypeScriptCompile Include="app\rfcs\rfc.routing.ts" />
+    <TypeScriptCompile Include="app\rfcs\rfc.service.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.component.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.module.ts" />
     <TypeScriptCompile Include="app\runbooks\runbooks.routing.ts" />

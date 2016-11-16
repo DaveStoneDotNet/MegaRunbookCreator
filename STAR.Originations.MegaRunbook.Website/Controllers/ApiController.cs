@@ -248,5 +248,14 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             return this.Json(crisis);
         }
         #endregion GetCrisis
+
+        #region InsertRfc
+        [System.Web.Http.HttpPost]
+        public async Task<JsonResult> InsertRfc(contracts::Rfc request)
+        {
+            var data = await this.MrcDataAccess.InsertRfcAsync(request);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        #endregion InsertRfc
     }
 }

@@ -10,129 +10,175 @@
         <div class="col-md-4 border-right-a-10">
 
             <div class="mrc-forms pad-bottom-20">
-                <table class="width-100">
-                    <tr>
-                        <td class="align-right">Number</td>
-                        <td><input type="text" required class="width-100" /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="align-right">Name</td>
-                        <td><input type="text" class="width-100" /></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="align-right nowrap">Start Time</td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td class="align-top">
-                                        <mrc-time-input [selectedTime]="selectedStartTime" (timeInputChanged)="onStartTimeInputChanged($event)"></mrc-time-input>
-                                    </td>
-                                    <td class="align-top">
-                                        <div class="pad-top-5">
-                                            <mrc-timepicker (onTimeChanged)='onStartTimeSelected($event)'></mrc-timepicker>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="align-right nowrap">End Time</td>
-                        <td>
-                            <table>
-                                <tr>
-                                    <td class="align-top">
-                                        <mrc-time-input [selectedTime]="selectedEndTime" (timeInputChanged)="onEndTimeInputChanged($event)"></mrc-time-input>
-                                    </td>
-                                    <td class="align-top">
-                                        <div class="pad-top-5">
-                                            <mrc-durationpicker (onDurationChanged)='onDurationSelected($event)'></mrc-durationpicker>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="align-top">
-                            <div *ngIf="selectedDuration" class="small-caps opacity-50 font-0-75 nowrap" style="padding-top: 15px;">
-                                {{ selectedDuration.DurationText }}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="align-top">
-                            <div class="pad-top-5 align-right">Contact</div>
-                        </td>
-                        <td>
 
-                            <!-- Typeahead Contact Template -->
-                            <template #customItemTemplate let-model="item" let-index="index">
-                                <div class="pad-5">
-                                    <div class="BebasNeue font-2-00">{{ model.DisplayName }}</div>
-                                    <div class="opacity-50" style="margin-top: -10px;">{{ model.UserId }}</div>
-                                </div>
-                            </template>
 
-                            <!-- Typeahead -->
-                            <input [(ngModel)]="userTypedContactName"
-                                   [typeaheadItemTemplate]="customItemTemplate"
-                                   [typeahead]="contacts"
-                                   (typeaheadLoading)="changeTypeaheadLoading($event)"
-                                   (typeaheadNoResults)="changeTypeaheadNoResults($event)"
-                                   (typeaheadOnSelect)="typeaheadOnSelect($event)"
-                                   [typeaheadOptionsLimit]="5"
-                                   [typeaheadWaitMs]="500"
-                                   [typeaheadOptionField]="'DisplayName'"
-                                   [typeaheadMinLength]="2"
-                                   placeholder="Search by Contact Name..."
-                                   class="width-100">
-                            <div *ngIf="typeaheadLoading===true" class="opacity-50 pad-10">
-                                searching...
-                            </div>
-                            <div *ngIf="typeaheadNoResults===true" class="pad-10">
-                                <span class="opacity-50 small-caps font-1-00">no results found for </span><span class="font-1-40" *ngIf="userTypedContactName">{{ userTypedContactName }}</span>
-                            </div>
+                <form id="addRfcForm" name="addRfcForm" #addRfcForm="ngForm"
+                      class="mrc-form"
+                      *ngIf="active"
+                      (ngSubmit)="onSubmit(addRfcForm.value)">
 
-                        </td>
-                        <td><button class="btn btn-default btn-xs" style="width: 50px;" (click)="clearSelectedContactClicked()">clear</button></td>
-                    </tr>
-                    <tr>
-                        <td class="align-top">
-                            <div class="pad-top-5 align-right">
-                                Template
-                            </div>
-                        </td>
-                        <td>
-                            <div class="border-a-10 pad-10" style="min-height: 30px;">
-                                <table class="width-100" *ngIf="selectedRunbookTemplate">
+
+                    <table class="width-100">
+                        <tr>
+                            <td class="align-right">Number</td>
+                            <td>
+                                <input type="text"
+                                       name="Number"
+                                       required
+                                       class="width-100"
+                                       autocomplete="off"
+                                       #RfcNumber
+                                       #Number="ngModel"
+                                       [(ngModel)]="rfc.Number"
+                                       [focus]="focusSettingEventEmitter"/>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right">Name</td>
+                            <td>
+                                <input type="text"
+                                       name="Name"
+                                       class="width-100"
+                                       #Name="ngModel"
+                                       [(ngModel)]="rfc.Name"/>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right nowrap">Start Time</td>
+                            <td>
+                                <table>
                                     <tr>
-                                        <td class="width-100">{{ selectedRunbookTemplate.Name }}</td>
-                                        <td><button class="btn btn-default btn-xs" (click)="clearSelectedTemplateClicked()">clear</button></td>
+                                        <td class="align-top">
+                                            <mrc-time-input name="mrcTimeInput"
+                                                            [selectedTime]="selectedStartTime"
+                                                            (timeInputChanged)="onStartTimeInputChanged($event)"
+                                                            [(ngModel)]="rfc.StartTimeText">
+                                            </mrc-time-input>
+                                        </td>
+                                        <td class="align-top">
+                                            <div class="pad-top-5">
+                                                <mrc-timepicker (onTimeChanged)='onStartTimeSelected($event)'></mrc-timepicker>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </table>
-                            </div>
-                        </td>
-                        <td class="align-top">
-                            <div class="pad-top-5">
-                                <button class="btn btn-default btn-xs" style="width: 50px;" (click)="openTemplateSelection()">select</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr *ngIf="selectedRunbookTemplate">
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td class="align-right">
-                            <button class="btn btn-default" (click)="listRfcsClick()">Cancel</button>
-                            <button class="btn btn-primary">Save</button>
-                        </td>
-                        <td></td>
-                    </tr>
-                </table>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right nowrap">End Time</td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td class="align-top">
+                                            <mrc-time-input [selectedTime]="selectedEndTime" (timeInputChanged)="onEndTimeInputChanged($event)"></mrc-time-input>
+                                        </td>
+                                        <td class="align-top">
+                                            <div class="pad-top-5">
+                                                <mrc-durationpicker (onDurationChanged)='onDurationSelected($event)'></mrc-durationpicker>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="align-top">
+                                <div *ngIf="selectedDuration" class="small-caps opacity-50 font-0-75 nowrap" style="padding-top: 15px;">
+                                    {{ selectedDuration.DurationText }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="align-top">
+                                <div class="pad-top-5 align-right">Contact</div>
+                            </td>
+                            <td>
+
+                                <!-- Typeahead Contact Template -->
+                                <template #customItemTemplate let-model="item" let-index="index">
+                                    <div class="pad-5">
+                                        <div class="BebasNeue font-2-00">{{ model.DisplayName }}</div>
+                                        <div class="opacity-50" style="margin-top: -10px;">{{ model.UserId }}</div>
+                                    </div>
+                                </template>
+
+                                <!-- Typeahead -->
+                                <input Name="Contact"
+                                       placeholder="Search by Contact Name..."
+                                       class="width-100"
+                                       [(ngModel)]="userTypedContactName"
+                                       [ngModelOptions]="{standalone: true}"
+                                       [typeaheadItemTemplate]="customItemTemplate"
+                                       [typeahead]="contacts"
+                                       (typeaheadLoading)="changeTypeaheadLoading($event)"
+                                       (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                                       (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                                       [typeaheadOptionsLimit]="5"
+                                       [typeaheadWaitMs]="500"
+                                       [typeaheadOptionField]="'DisplayName'"
+                                       [typeaheadMinLength]="2">
+                                <div *ngIf="typeaheadLoading===true" class="opacity-50 pad-10">
+                                    searching...
+                                </div>
+                                <div *ngIf="typeaheadNoResults===true" class="pad-10">
+                                    <span class="opacity-50 small-caps font-1-00">no results found for </span><span class="font-1-40" *ngIf="userTypedContactName">{{ userTypedContactName }}</span>
+                                </div>
+
+                            </td>
+                            <td><button class="btn btn-default btn-xs" style="width: 50px;" (click)="clearSelectedContactClicked()">clear</button></td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="align-top">
+                                <div class="pad-top-5 align-right">
+                                    Templates
+                                </div>
+                            </td>
+                            <td>
+                                <div class="border-a-10 pad-10" style="min-height: 30px;">
+                                    <table class="width-100" *ngIf="rfc.Templates">
+                                        <tr *ngFor="let item of rfc.Templates">
+                                            <td class="width-100"> {{ item.Name }}</td>
+                                            <td><button class="btn btn-default btn-xs" (click)="clearSelectedTemplateClicked(item)">clear</button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                            <td class="align-top">
+                                <div class="pad-top-5">
+                                    <button class="btn btn-default btn-xs" style="width: 50px;" (click)="openTemplateSelection()">select</button>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td class="align-right">
+                                <button class="btn btn-default" (click)="listRfcsClick()">Cancel</button>
+                                <button class="btn btn-primary"(click)="insertRfcClick()">Save</button>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                    <div class="pad-20 opacity-20">
+                        <pre>
+                            {{ diagnostic }}
+                        </pre>
+                    </div>
+
+                </form>
+
             </div>
+
+        </div>
+
+        <div class="col-md-8 border-left-a-10">
 
             <!-- TEMPLATE SELECTION -->
             <div [hidden]="isSelectTemplateHidden">
@@ -161,117 +207,116 @@
                 <!-- LIST -->
                 <div class="pad-5">
                     <table class="template-list">
-                        <tr *ngFor="let template of searchResults; let i = index; let odd=odd; let even=even;" class="pointer">
+                        <tr *ngFor="let template of searchResults; let i = index; let odd=odd; let even=even;" class="pointer" (click)="selectRunbookTemplate(template)">
                             <td class="pad-5 align-right font-0-75 gray-6">{{ i+1 }}</td>
                             <td class="pad-5">{{ template.Name }}</td>
-                            <td class="pad-5"><button class="btn btn-xs btn-primary" (click)="selectRunbookTemplate(template)">select</button></td>
+                            <td class="pad-5"><button class="btn btn-xs btn-primary">select</button></td>
                         </tr>
                     </table>
                 </div>
 
             </div>
 
-        </div>
+            <!-- NEW SELECTED TEMPLATES STEPS -->
+            <div *ngIf="rfc">
+                <div *ngIf="rfc.Templates">
+                    <div *ngFor="let template of rfc.Templates;">
+                            <!-- HEADER -->
+                            <div class="thin-header" [hidden]="template.Name.length == 0">
+                                <div *ngIf="template">{{ template.Name }}</div>
+                            </div>
 
-        <div class="col-md-8 border-left-a-10">
+                            <div class="table bordered" *ngIf="template">
+                                <div class="thead">
+                                    <div class="th">&nbsp;</div>
+                                    <div class="th align-right">Group</div>
+                                    <div class="th align-right">Step</div>
+                                    <div class="th">Team</div>
+                                    <div class="th">Description</div>
+                                    <div class="th">Developer</div>
+                                    <div class="th">PBIs</div>
+                                    <div class="th">Notes</div>
+                                    <div class="th">Duration</div>
+                                    <div class="th">Resource</div>
+                                    <div class="th">Comments</div>
+                                </div>
+                                <div class="tr" *ngFor="let step of template.RunbookSteps; let i = index">
+                                    <div style="width: 2%;" class="td align-right">
+                                        <div class="pad-top-5">
+                                            <button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button>
+                                        </div>
+                                    </div>
+                                    <div style="width: 3%;" class="td align-right">
+                                        <div class="pad-top-5">{{ step.GroupNumber }}</div>
+                                    </div>
+                                    <div style="width: 3%;" class="td align-right">
+                                        <div class="pad-top-5">{{ step.StepNumber }}</div>
+                                    </div>
+                                    <div style="width: 5%;" class="td">
+                                        <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                            <div>{{ step.Teams ? step.Teams[0].Name : '' }}</div>
+                                        </div>
+                                        <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                            <div *ngFor="let team of step.Teams">{{ team.Name }}</div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 25%;" class="td">
+                                        <div class="pad-top-5">
+                                            <div *ngIf="!step.IsNotCollapsed">{{ step.Name }}</div>
+                                        </div>
+                                        <div>
+                                            <code *ngIf="step.IsNotCollapsed">{{ step.Description }}</code>
+                                        </div>
+                                    </div>
+                                    <div style="width: 5%;" class="td nowrap">
+                                        <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                            <div>{{ step.Developers ? step.Developers[0].DisplayName : '' }}</div>
+                                        </div>
+                                        <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                            <div *ngFor="let contact of step.Developers">{{ contact.DisplayName }}</div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 3%;" class="td">
+                                        <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                            <div>{{ step.RunbookStepPbis ? step.RunbookStepPbis[0].PbiNumber : '' }}</div>
+                                        </div>
+                                        <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                            <div *ngFor="let pbi of step.RunbookStepPbis">{{ pbi.PbiNumber }}</div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 10%;" class="td">
+                                        <div class="pad-top-5">
+                                            <code *ngIf="step.IsNotCollapsed">{{ step.Notes }}</code>
+                                        </div>
+                                    </div>
 
-            <div *ngIf="runbookTemplate">
+                                    <div style="width: 3%;" class="td">
+                                        <div class="pad-top-5">
+                                            <code *ngIf="step.IsNotCollapsed">{{ step.Duration }}</code>
+                                        </div>
+                                    </div>
+                                    <div style="width: 5%;" class="td">
+                                        <div class="pad-top-5">
+                                            <div *ngFor="let resource of step.Resources">{{ resource.DisplayName }}</div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 5%;" class="td">
+                                        <div class="pad-top-5">
+                                            <code *ngIf="step.IsNotCollapsed"></code>
+                                        </div>
+                                    </div>
 
-                <!-- HEADER -->
-                <div class="thin-header" [hidden]="runbookTemplate.Name.length == 0">
-                    <div *ngIf="runbookTemplate">{{ runbookTemplate.Name }}</div>
-                </div>
-
-                <div class="table bordered" *ngIf="runbookTemplate">
-                    <div class="thead">
-                        <div class="th">&nbsp;</div>
-                        <div class="th align-right">Group</div>
-                        <div class="th align-right">Step</div>
-                        <div class="th">Team</div>
-                        <div class="th">Description</div>
-                        <div class="th">Developer</div>
-                        <div class="th">PBIs</div>
-                        <div class="th">Notes</div>
-                        <div class="th">Duration</div>
-                        <div class="th">Resource</div>
-                        <div class="th">Comments</div>
+                                </div>
+                            </div>
                     </div>
-                    <div class="tr" *ngFor="let step of runbookTemplate.RunbookSteps; let i = index">
-                        <div style="width: 2%;" class="td align-right">
-                            <div class="pad-top-5">
-                                <button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button>
-                            </div>
-                        </div>
-                        <div style="width: 3%;" class="td align-right">
-                            <div class="pad-top-5">{{ step.GroupNumber }}</div>
-                        </div>
-                        <div style="width: 3%;" class="td align-right">
-                            <div class="pad-top-5">{{ step.StepNumber }}</div>
-                        </div>
-                        <div style="width: 5%;" class="td">
-                            <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
-                                <div>{{ step.Teams ? step.Teams[0].Name : '' }}</div>
-                            </div>
-                            <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
-                                <div *ngFor="let team of step.Teams">{{ team.Name }}</div>
-                            </div>
-                        </div>
-                        <div style="width: 25%;" class="td">
-                            <div class="pad-top-5">
-                                <div *ngIf="!step.IsNotCollapsed">{{ step.Name }}</div>
-                            </div>
-                            <div>
-                                <code *ngIf="step.IsNotCollapsed">{{ step.Description }}</code>
-                            </div>
-                        </div>
-                        <div style="width: 5%;" class="td nowrap">
-                            <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
-                                <div>{{ step.Developers ? step.Developers[0].DisplayName : '' }}</div>
-                            </div>
-                            <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
-                                <div *ngFor="let contact of step.Developers">{{ contact.DisplayName }}</div>
-                            </div>
-                        </div>
-                        <div style="width: 3%;" class="td">
-                            <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
-                                <div>{{ step.RunbookStepPbis ? step.RunbookStepPbis[0].PbiNumber : '' }}</div>
-                            </div>
-                            <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
-                                <div *ngFor="let pbi of step.RunbookStepPbis">{{ pbi.PbiNumber }}</div>
-                            </div>
-                        </div>
-                        <div style="width: 10%;" class="td">
-                            <div class="pad-top-5">
-                                <code *ngIf="step.IsNotCollapsed">{{ step.Notes }}</code>
-                            </div>
-                        </div>
-
-                        <div style="width: 3%;" class="td">
-                            <div class="pad-top-5">
-                                <code *ngIf="step.IsNotCollapsed">{{ step.Duration }}</code>
-                            </div>
-                        </div>
-                        <div style="width: 5%;" class="td">
-                            <div class="pad-top-5">
-                                <div *ngFor="let resource of step.Resources">{{ resource.DisplayName }}</div>
-                            </div>
-                        </div>
-                        <div style="width: 5%;" class="td">
-                            <div class="pad-top-5">
-                                <code *ngIf="step.IsNotCollapsed"></code>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
-
             </div>
 
         </div>
 
     </div>
 
-<div class="opacity-10 pad-top-40">
+    <div class="opacity-10 pad-top-40">
         <ul>
             <li>Create New RFC by selecting an existing Template to copy, or just creating a new empty, 'blank' RFC.</li>
             <li>Each Release is composed of multiple selected RFC's.</li>

@@ -312,6 +312,29 @@ namespace STAR.Originations.MRC.DataAccess
         }
         #endregion GetContactsAsync
 
+        #region InsertRfcAsync
+        public async Task<contracts::ServiceResponse> InsertRfcAsync(contracts::Rfc request)
+        {
+            var stopwatch = DataAccessBase.StartStopwatch();
+
+            var serviceResponse = new contracts::ServiceResponse();
+
+            using (var context = this.contextCreator())
+            {
+                var item = Mapper.Map<contracts::Rfc, entities::Rfc>(request);
+
+                context.Rfcs.Add(item);
+
+                serviceResponse.RecordsAffected = await context.SaveChangesAsync().ConfigureAwait(false);
+                serviceResponse.IsSuccessful = true;
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Name: {0}.", Text.GetStringInfo(request.Name)), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+            }
+
+            return serviceResponse;
+        }
+        #endregion InsertRfcAsync
+
         #endregion Methods
 
         #region CreateContext

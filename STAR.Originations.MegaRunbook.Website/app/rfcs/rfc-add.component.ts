@@ -1,7 +1,18 @@
 ﻿
 import { Component }            from '@angular/core';
 import { OnInit }               from '@angular/core';
+import { OnDestroy }            from '@angular/core';
+import { AfterViewInit }        from '@angular/core';
+import { EventEmitter }         from '@angular/core';
+import { ViewChild }            from '@angular/core';
+import { ViewChildren }         from '@angular/core';
+import { ElementRef }           from '@angular/core';
+import { Renderer }             from '@angular/core';
+import { QueryList }            from '@angular/core';
+
 import { Router }               from '@angular/router';
+
+import { RfcService }           from './rfc.service';
 
 import { MessageService }       from '../services/message.service';
 
@@ -9,12 +20,15 @@ import { RunbookTemplate }      from '../entities/runbook-template.entity';
 import { PagedRunbookTemplate } from '../entities/paged-runbook-template.entity';
 import { RunbookStep }          from '../entities/runbook-step.entity';
 import { Contact }              from '../entities/contact.entity';
+import { ServiceResponse }      from '../entities/service-response.entity';
 
 import { TemplateService }      from '../templates/template.service';
 import { UserService }          from '../services/user.service';
 
 import { TimePickerInfo }       from '../common/timepicker/timepicker.entity';
 import { DurationPickerInfo }   from '../common/timepicker/durationpicker.entity';
+
+import { RFC }                  from '../entities/rfc.entity';
 
 import { Subscription }         from 'rxjs/Subscription';
 
@@ -31,12 +45,15 @@ import * as moment              from 'moment';
 
 import 'rxjs/add/observable/of';
 
+import { MrcFocusDirective }   from '../common/mrc-focus.directive';
+
+
 @Component({
     templateUrl: 'app/rfcs/rfc-add.component.html',
-    providers:   []
+    providers: []
 })
 
-export class RfcAddComponent implements OnInit {
+export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
 
     Title = "Add RFC";
 
@@ -49,11 +66,18 @@ export class RfcAddComponent implements OnInit {
 
     selectedRunbookTemplate: RunbookTemplate;
 
+    focusSettingEventEmitter = new EventEmitter<boolean>();
+
     private subscription: Subscription;
 
     private isSelectTemplateHidden: boolean = true;
 
-    constructor(private templateService: TemplateService, private messageService: MessageService, private userService: UserService,  private router: Router) {
+    @ViewChild('RfcNumber') rfcNumberInputElement: ElementRef;
+    @ViewChildren('RfcNumber') children: QueryList<any>;
+
+    constructor(private templateService: TemplateService, private messageService: MessageService, private userService: UserService, private rfcService: RfcService, private router: Router, private renderer: Renderer) {
+
+        this.newRfc();
 
         this.contacts = Observable.create((observer: any) => {
             // Runs on every search
@@ -70,6 +94,29 @@ export class RfcAddComponent implements OnInit {
         this.subscription.unsubscribe();
     }
 
+    ngAfterViewInit() {
+
+        // This Works...
+        this.children.changes.subscribe((comps: QueryList<any>) => {
+            this.rfcNumberInputElement = comps.first;
+            if (this.rfcNumberInputElement) {
+                this.renderer.invokeElementMethod(this.rfcNumberInputElement.nativeElement, 'focus');
+            }
+        });
+
+
+        // This doesn't work... it's always UNDEFINED...
+        if (this.rfcNumberInputElement) {
+            this.renderer.invokeElementMethod(this.rfcNumberInputElement.nativeElement, 'focus');
+        }
+
+        // This doesn't work either, when running as a directive. Not sure why...
+        this.focusSettingEventEmitter.emit(true);
+    }
+
+    setFocus(): void {
+        this.focusSettingEventEmitter.emit(true);
+    }
     // -------------------------------------------------------------------------------------------------------------------------
 
     // TEMPLATES
@@ -92,7 +139,25 @@ export class RfcAddComponent implements OnInit {
         this.getRunbookTemplate();
     }
 
-    clearSelectedTemplateClicked(): void {
+    clearSelectedTemplateClicked(template: RunbookTemplate): void {
+
+        //let item = this.rfc.Templates.filter(x => x.ID === template.ID)[0];
+
+        //let exists = item === undefined ? false : true;
+
+        let index = -1;
+
+        for (let i = 0; i < this.rfc.Templates.length; i++) {
+            if (this.rfc.Templates[i].ID === template.ID) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index >= 0) {
+            this.rfc.Templates.splice(index, 1);
+        }
+
         this.selectedRunbookTemplate = null;
         this.runbookTemplate = null;
     }
@@ -146,6 +211,42 @@ export class RfcAddComponent implements OnInit {
         this.router.navigate(['rfcs']);
     }
 
+    insertRfcClick() {
+        this.messageService.sendTextMessage('Searching...');
+
+        if (this.runningSearch) return;
+
+        let miliseconds = 500;
+
+        if (this.delaySearch === false) {
+            miliseconds = 0;
+        }
+
+        this.runningSearch = true;
+
+        setTimeout(() => {
+
+            this.subscription = this.rfcService.insertRfc(this.rfc)
+                .subscribe(
+                response => this.saveRfcOnSuccess(response),
+                response => this.saveRfcOnError(response)
+                );
+        },
+            miliseconds);
+    }
+
+    private saveRfcOnSuccess(response: ServiceResponse): void {
+
+        console.log('SAVE SUCCESS');
+        this.runningSearch = false;
+        this.messageService.sendTextMessage('Ready');
+    }
+
+    private saveRfcOnError(response): void {
+
+        console.log('SAVE ERROR');
+        this.runningSearch = false;
+    }
 
     // -------------------------------------------------------------------------------------------------------------------------
 
@@ -194,7 +295,18 @@ export class RfcAddComponent implements OnInit {
 
     private getRunbookTemplateOnSuccess(response: RunbookTemplate): void {
 
-        this.runbookTemplate = response;
+        if (this.rfc.Name.length === 0) {
+            this.rfc.Name = response.Name;
+        }
+
+        let item = this.rfc.Templates.filter(x => x.ID === response.ID)[0];
+
+        let exists = item === undefined ? false : true;
+
+        if (!exists) {
+            this.runbookTemplate = response;
+            this.rfc.Templates.push(this.runbookTemplate);
+        }
 
         this.runningSearch = false;
     }
@@ -272,6 +384,7 @@ export class RfcAddComponent implements OnInit {
     typeaheadOnSelect(e: any): void {
         console.log('SELECTED VALUE: ', e.item.item);
         this.selectedContact = e.item.item;
+        this.rfc.Contact = e.item.item;
     }
 
     // -------------------------------------------------------------------------------------------------------------------------
@@ -286,16 +399,17 @@ export class RfcAddComponent implements OnInit {
 
         console.log(timePickerInfo.TimeText + ' START CHANGED');
 
+        this.rfc.StartTimeText = timePickerInfo.TimeText;
         this.selectedStartTime = timePickerInfo;
 
         this.addDurationToStart(this.selectedDuration);
-
     }
 
     onEndTimeInputChanged(timePickerInfo: TimePickerInfo): void {
 
         console.log(timePickerInfo.TimeText + ' END CHANGED');
 
+        this.rfc.EndTimeText = timePickerInfo.TimeText;
         this.selectedEndTime = timePickerInfo;
 
         this.selectedDuration = new DurationPickerInfo();
@@ -305,6 +419,7 @@ export class RfcAddComponent implements OnInit {
 
         console.log(timePickerInfo.TimeText + ' START SELECTED');
 
+        this.rfc.StartTimeText = timePickerInfo.TimeText;
         this.selectedStartTime = timePickerInfo;
 
         this.addDurationToStart(this.selectedDuration);
@@ -317,7 +432,6 @@ export class RfcAddComponent implements OnInit {
         console.log(this.selectedDuration.DurationText + ' DURATION SELECTED');
 
         this.addDurationToStart(duration);
-
     }
 
     addDurationToStart(duration: DurationPickerInfo) {
@@ -332,6 +446,7 @@ export class RfcAddComponent implements OnInit {
 
                     // TimeText is what's bound to the INPUT. The other "INTERNALS" of the COMPONENT are bound to the selectedEndTime.
                     this.selectedEndTime.TimeText = this.selectedEndTime.MomentValue.format('hh:mm A');
+                    this.rfc.EndTimeText = this.selectedEndTime.TimeText;
                 }
             }
         }
@@ -340,13 +455,13 @@ export class RfcAddComponent implements OnInit {
     subtractDurationFromEnd(duration: DurationPickerInfo) {
 
         if (duration) {
-
             if (this.selectedEndTime) {
                 this.selectedStartTime = this.getTime(this.selectedEndTime);
                 if (this.selectedStartTime.MomentValue) {
                     this.selectedStartTime.MomentValue.subtract(this.selectedDuration.Hours, 'hours');
                     this.selectedStartTime.MomentValue.subtract(this.selectedDuration.Minutes, 'minutes');
                     this.selectedStartTime.TimeText = this.selectedStartTime.MomentValue.format('hh:mm A');
+                    this.rfc.StartTimeText = this.selectedStartTime.TimeText;
                 }
             }
         }
@@ -395,4 +510,37 @@ export class RfcAddComponent implements OnInit {
 
         return b;
     }
+
+    // -------------------------------------------------------------------------------------------------------------------------
+
+    // FORMS
+
+    active = true;
+    submitted = false;
+
+    rfc: RFC = new RFC();
+
+    onSubmit(form: any) {
+        this.submitted = true;
+        console.log(form.name);
+    }
+
+    newRfc(): void {
+
+        this.rfc = new RFC();
+        this.rfc.Name = '';
+        this.rfc.Templates = new Array<RunbookTemplate>();
+
+        // Reset the form with a new hero and restore the 'pristine' state by toggling the 'active' flag.
+        // The NgIf reference in the HTML causes the form to be removed from the DOM and then immediately re-added 
+        // which has the effect of changing the form state back to 'pristine'.
+
+        // This a temporary hack until a proper form reset feature is added to Angular.
+
+        this.active = false;
+        setTimeout(() => this.active = true, 0);
+    }
+
+    get diagnostic() { return JSON.stringify(this.rfc); }
+
 }

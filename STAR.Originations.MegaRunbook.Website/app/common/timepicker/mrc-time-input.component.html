@@ -2,7 +2,17 @@
     <table>
         <tr>
             <td>
-                <input type="text" [(ngModel)]="selectedTime.TimeText" class="time-input" (keydown)="timeInputKeyDown($event)" (keyup)="timeInputKeyUp($event)" (keypress)="timeInputKeyPressed($event)" (focus)="timeInputFocused($event)" (blur)="timeInputBlurred($event)" maxlength="8" />
+                <input type="text" 
+                       class="time-input"
+                       maxlength="8"
+                       [(ngModel)]="mrcTimeInput"
+                       (ngModelChange)="emitValue($event)"
+                       (keydown)="timeInputKeyDown($event)"
+                       (keyup)="timeInputKeyUp($event)"
+                       (keypress)="timeInputKeyPressed($event)"
+                       (focus)="timeInputFocused($event)"
+                       (blur)="timeInputBlurred($event)"
+                       />
             </td>
             <td>
                 <div class="clear-icon" (click)="clearSelectedTime()">
