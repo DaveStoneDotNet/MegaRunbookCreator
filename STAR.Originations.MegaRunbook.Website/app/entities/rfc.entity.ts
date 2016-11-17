@@ -13,4 +13,6 @@ export class RFC {
     Templates: RunbookTemplate[];
     StartTimeText: string;
     EndTimeText: string;
+    StartTime: Date;
+    EndTime: Date;
 }

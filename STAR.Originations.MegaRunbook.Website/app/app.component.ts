@@ -12,7 +12,7 @@ import { AppInitialization }         from './entities/app-initialization.entity'
 import { UserProfile }               from './entities/user-profile.entity';
 
 @Component({
-    selector: 'mrc-app',
+    selector:    'mrc-app',
     templateUrl: 'app/app.component.html'
 })
 export class AppComponent implements OnInit, OnDestroy {

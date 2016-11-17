@@ -22,7 +22,7 @@ namespace STAR.Originations.MegaRunbook.Contracts.Data
 
         [DataMember] public bool IsHtml { get; set; }
 
-        [DataMember] public DateTime Time { get; set; }
+        [DataMember] public DateTimeOffset Time { get; set; }
 
         [DataMember] public List<RunbookStepPbi> RunbookStepPbis { get; set; }
 

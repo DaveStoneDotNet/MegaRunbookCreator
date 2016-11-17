@@ -319,11 +319,59 @@ namespace STAR.Originations.MRC.DataAccess
 
             var serviceResponse = new contracts::ServiceResponse();
 
+            // Convert Start and End Times
+            // Convert Templates to Runbook Steps
+            //  - Set the new RFC ID
+            //  - Set Template ID's to ZERO
+
             using (var context = this.contextCreator())
             {
-                var item = Mapper.Map<contracts::Rfc, entities::Rfc>(request);
+                // RFC
+                //  - Save the RFC and get the ID
 
-                context.Rfcs.Add(item);
+                var rfc = new Rfc()
+                {
+                    Number = request.Number,
+                    Name = request.Name,
+                    StartTime = request.StartTime,
+                    EndTime = request.EndTime,
+                    ContactId = request.Contact.Id
+                };
+
+                context.Rfcs.Add(rfc);
+                serviceResponse.RecordsAffected = await context.SaveChangesAsync().ConfigureAwait(false);
+
+                // Runbook Steps
+                //  - Save the Runbook Steps with the RFC ID
+
+                foreach (var runbookTemplate in request.Templates)
+                {
+                    // Map the Contract Steps in the Template to the Entity Steps in the RFC
+                    foreach (var c in runbookTemplate.RunbookSteps)
+                    {
+                        var runbookStep = new entities::RunbookStep
+                        {
+                            RfcId = rfc.Id,
+                            GroupNumber = c.GroupNumber,
+                            StepNumber = c.StepNumber,
+                            Duration = c.Duration,
+                            Name = c.Name,
+                            Description = c.Description,
+                            Notes = c.Notes,
+                            RunbookStepStatusCode = c.RunbookStepStatusCode,
+                            RunbookStepTypeCode = c.RunbookStepTypeCode,
+                            IsHtml = c.IsHtml,
+                            Time = c.Time,
+                        };
+                        context.RunbookSteps.Add(runbookStep);
+                        serviceResponse.RecordsAffected = await context.SaveChangesAsync().ConfigureAwait(false);
+
+                        // RunbookStepPbis
+                        // RunbookStepTeams
+                        // RunbookStepDevelopers
+                        // RunbookStepResources
+                    }
+                }
 
                 serviceResponse.RecordsAffected = await context.SaveChangesAsync().ConfigureAwait(false);
                 serviceResponse.IsSuccessful = true;

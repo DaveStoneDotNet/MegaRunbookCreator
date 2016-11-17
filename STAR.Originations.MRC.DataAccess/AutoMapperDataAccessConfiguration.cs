@@ -33,7 +33,11 @@ namespace STAR.Originations.MRC.DataAccess
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Name));
 
             Mapper.CreateMap<contracts::Rfc, entities::Rfc>();
-
+            Mapper.CreateMap<contracts::Contact, entities::Contact>();
+            Mapper.CreateMap<contracts::RunbookStep, entities::RunbookStep>();
+            Mapper.CreateMap<contracts::RunbookTemplate, entities::RunbookTemplate>();
+            Mapper.CreateMap<contracts::RunbookStepPbi, entities::RunbookStepPbi>();
+            Mapper.CreateMap<contracts::Team, entities::Team>();
         }
     }
 }

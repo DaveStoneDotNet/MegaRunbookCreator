@@ -28,6 +28,8 @@ import { UserService }          from '../services/user.service';
 import { TimePickerInfo }       from '../common/timepicker/timepicker.entity';
 import { DurationPickerInfo }   from '../common/timepicker/durationpicker.entity';
 
+import { MrcFocusDirective }   from '../common/mrc-focus.directive';
+
 import { RFC }                  from '../entities/rfc.entity';
 
 import { Subscription }         from 'rxjs/Subscription';
@@ -44,9 +46,6 @@ import { Observable }           from 'rxjs/Observable';
 import * as moment              from 'moment';
 
 import 'rxjs/add/observable/of';
-
-import { MrcFocusDirective }   from '../common/mrc-focus.directive';
-
 
 @Component({
     templateUrl: 'app/rfcs/rfc-add.component.html',
@@ -212,7 +211,11 @@ export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     insertRfcClick() {
+
         this.messageService.sendTextMessage('Searching...');
+
+        this.rfc.StartTime = moment(this.rfc.StartTimeText, 'hh:mm A').year(2000).month(0).day(0).toDate();
+        this.rfc.EndTime = moment(this.rfc.EndTimeText, 'hh:mm A').year(2000).month(0).day(0).toDate();
 
         if (this.runningSearch) return;
 
@@ -528,7 +531,7 @@ export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
     newRfc(): void {
 
         this.rfc = new RFC();
-        this.rfc.Name = '';
+
         this.rfc.Templates = new Array<RunbookTemplate>();
 
         // Reset the form with a new hero and restore the 'pristine' state by toggling the 'active' flag.
