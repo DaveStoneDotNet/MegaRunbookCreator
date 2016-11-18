@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -106,9 +107,9 @@ namespace STAR.Originations.MRC.DataAccess
                                    .Include("RunbookSteps.Resources")
                                    .AsQueryable();
 
-                if (request.ID > 0)
+                if (request.Id > 0)
                 {
-                    query = query.Where(p => p.Id == request.ID);
+                    query = query.Where(p => p.Id == request.Id);
                 }
 
                 var data = await query.Select(a => a).FirstOrDefaultAsync().ConfigureAwait(false);
@@ -140,9 +141,9 @@ namespace STAR.Originations.MRC.DataAccess
                                    .Include("Resources")
                                    .AsQueryable();
 
-                if (request.ID > 0)
+                if (request.Id > 0)
                 {
-                    query = query.Where(p => p.Id == request.ID);
+                    query = query.Where(p => p.Id == request.Id);
                 }
 
                 var data = await query.Select(a => a).FirstOrDefaultAsync().ConfigureAwait(false);
@@ -157,6 +158,80 @@ namespace STAR.Originations.MRC.DataAccess
         #endregion GetRunbookStepAsync
 
         // ---
+
+        #region GetRfcsAsync
+        public async Task<Page<contracts::Rfc>> GetRfcsAsync(contracts::Rfc request)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            var stopwatch = DataAccessBase.StartStopwatch();
+            using (var context = this.contextCreator())
+            {
+                var query = context.Rfcs.AsQueryable();
+                if (request.Number > 0)
+                {
+                    query = query.Where(p => p.Number == request.Number);
+                }
+                if (!String.IsNullOrWhiteSpace(request.Name))
+                {
+                    query = query.Where(p => p.Name.Contains(request.Name));
+                }
+
+                var totalRecordCount = query.Count();
+
+                if (totalRecordCount == 0)
+                {
+                    return new Page<contracts::Rfc> { Items = new List<contracts::Rfc>(0) };
+                }
+
+                var sanitizedPagingInfo = request.Paging.SanitizePaging();
+
+                var data = await query.Select(a => a).TakePage(sanitizedPagingInfo).ToListAsync().ConfigureAwait(false);
+                var mapped = Mapper.Map<List<entities::Rfc>, List<contracts::Rfc>>(data);
+                var page = mapped.ToPage(totalRecordCount, sanitizedPagingInfo);
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Name: {0}.", Text.GetStringInfo(request.Name)), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+
+                return page;
+            }
+        }
+        #endregion GetRfcsAsync
+
+        #region GetRfcAsync
+        public async Task<contracts::Rfc> GetRfcAsync(contracts::Rfc request)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            var stopwatch = DataAccessBase.StartStopwatch();
+            using (var context = this.contextCreator())
+            {
+                var query = context.Rfcs
+                                   .Include("RunbookSteps")
+                                   .Include("Contact")
+                                   .Include("RunbookSteps.RunbookStepType")
+                                   .Include("RunbookSteps.RunbookStepStatuses")
+                                   .Include("RunbookSteps.RunbookStepPbis")
+                                   .Include("RunbookSteps.Teams")
+                                   .Include("RunbookSteps.Developers")
+                                   .Include("RunbookSteps.Resources")
+                                   .AsQueryable();
+
+                if (request.Id > 0)
+                {
+                    query = query.Where(p => p.Id == request.Id);
+                }
+
+                var data = await query.Select(a => a).FirstOrDefaultAsync().ConfigureAwait(false);
+                data.RunbookSteps = (from o in data.RunbookSteps select o).OrderBy(o => o.GroupNumber).ThenBy(o => o.StepNumber).ToList();
+
+                var mapped = Mapper.Map<entities::Rfc, contracts::Rfc>(data);
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Name: {0}.", Text.GetStringInfo(request.Name)), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+
+                return mapped;
+            }
+        }
+        #endregion GetRfcAsync
 
         #region GetApplicationGroupsAsync
         public async Task<Page<contracts::ApplicationGroup>> GetApplicationGroupsAsync(contracts::ApplicationGroup request)
@@ -346,8 +421,11 @@ namespace STAR.Originations.MRC.DataAccess
 
                 foreach (var runbookTemplate in request.Templates)
                 {
+                    // Don't rely on the template coming from the UI - get from the database instead. Only the ID is really necessary - may refactor later.
+                    var template = await this.GetRunbookTemplateAsync(new contracts.RunbookTemplate { Id = runbookTemplate.Id });
+
                     // Map the Contract Steps in the Template to the Entity Steps in the RFC
-                    foreach (var c in runbookTemplate.RunbookSteps)
+                    foreach (var c in template.RunbookSteps)
                     {
                         var runbookStep = new entities::RunbookStep
                         {
@@ -366,10 +444,14 @@ namespace STAR.Originations.MRC.DataAccess
                         context.RunbookSteps.Add(runbookStep);
                         serviceResponse.RecordsAffected = await context.SaveChangesAsync().ConfigureAwait(false);
 
-                        // RunbookStepPbis
-                        // RunbookStepTeams
-                        // RunbookStepDevelopers
-                        // RunbookStepResources
+                        var templateStepsRequest = new contracts::TemplateStepsRequest { TemplateId = runbookTemplate.Id, OldRunbookStepId = c.Id, NewRunbookStepId = runbookStep.Id };
+
+                        // Save associated RunbookStep Developers, Pbis, Resources, and Teams...
+
+                        serviceResponse = await this.InsertRunbookStepDevelopersAsync(templateStepsRequest);
+                        serviceResponse = await this.InsertRunbookStepPbisAsync(templateStepsRequest);
+                        serviceResponse = await this.InsertRunbookStepResourcesAsync(templateStepsRequest);
+                        serviceResponse = await this.InsertRunbookStepTeamsAsync(templateStepsRequest);
                     }
                 }
 
@@ -382,6 +464,166 @@ namespace STAR.Originations.MRC.DataAccess
             return serviceResponse;
         }
         #endregion InsertRfcAsync
+
+        #region InsertRunbookStepDevelopersAsync
+        public async Task<contracts::ServiceResponse> InsertRunbookStepDevelopersAsync(contracts::TemplateStepsRequest request)
+        {
+            var stopwatch = DataAccessBase.StartStopwatch();
+
+            var serviceResponse = new contracts::ServiceResponse();
+
+            using (var context = this.contextCreator())
+            {
+                    const string sql = @"
+                                                insert into [Runbook].[RunbookStepDeveloper]
+                                                (
+                                                      [RunbookStepId], 
+                                                      [ContactId]
+                                                )
+                                               select @NewRunbookStepId, 
+                                                      [ContactId]
+                                                 from [Runbook].[RunbookStepDeveloper]
+                                                where [RunbookStepId] = @OldRunbookStepId
+                                        ";
+
+                    object[] parameters =
+                    {
+                        new SqlParameter { ParameterName = "@NewRunbookStepId", Value = request.NewRunbookStepId },
+                        new SqlParameter { ParameterName = "@OldRunbookStepId", Value = request.OldRunbookStepId }
+                    };
+
+                    serviceResponse.RecordsAffected = await this.ExecuteAsync(entities => entities.Database.ExecuteSqlCommandAsync(sql, parameters));
+                    serviceResponse.IsSuccessful = true;
+
+                serviceResponse.RecordsAffected = await context.SaveChangesAsync().ConfigureAwait(false);
+                serviceResponse.IsSuccessful = true;
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Template: {0}.", request.TemplateId), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+            }
+
+            return serviceResponse;
+        }
+        #endregion InsertRunbookStepDevelopersAsync
+
+        #region InsertRunbookStepPbisAsync
+        public async Task<contracts::ServiceResponse> InsertRunbookStepPbisAsync(contracts::TemplateStepsRequest request)
+        {
+            var stopwatch = DataAccessBase.StartStopwatch();
+
+            var serviceResponse = new contracts::ServiceResponse();
+
+            using (var context = this.contextCreator())
+            {
+                const string sql = @"
+                                            insert into [Runbook].[RunbookStepPbi]
+                                            (
+                                                  [RunbookStepId], 
+                                                  [PbiNumber]
+                                            )
+                                           select @NewRunbookStepId, 
+                                                  [PbiNumber]
+                                             from [Runbook].[RunbookStepPbi]
+                                            where [RunbookStepId] = @OldRunbookStepId
+                                    ";
+
+                object[] parameters =
+                {
+                        new SqlParameter { ParameterName = "@NewRunbookStepId", Value = request.NewRunbookStepId },
+                        new SqlParameter { ParameterName = "@OldRunbookStepId", Value = request.OldRunbookStepId }
+                    };
+
+                serviceResponse.RecordsAffected = await this.ExecuteAsync(entities => entities.Database.ExecuteSqlCommandAsync(sql, parameters));
+                serviceResponse.IsSuccessful = true;
+
+                serviceResponse.RecordsAffected = await context.SaveChangesAsync().ConfigureAwait(false);
+                serviceResponse.IsSuccessful = true;
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Template: {0}.", request.TemplateId), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+            }
+
+            return serviceResponse;
+        }
+        #endregion InsertRunbookStepPbisAsync
+
+        #region InsertRunbookStepResourcesAsync
+        public async Task<contracts::ServiceResponse> InsertRunbookStepResourcesAsync(contracts::TemplateStepsRequest request)
+        {
+            var stopwatch = DataAccessBase.StartStopwatch();
+
+            var serviceResponse = new contracts::ServiceResponse();
+
+            using (var context = this.contextCreator())
+            {
+                const string sql = @"
+                                            insert into [Runbook].[RunbookStepResource]
+                                            (
+                                                  [RunbookStepId], 
+                                                  [ContactId]
+                                            )
+                                           select @NewRunbookStepId, 
+                                                  [ContactId]
+                                             from [Runbook].[RunbookStepResource]
+                                            where [RunbookStepId] = @OldRunbookStepId
+                                    ";
+
+                object[] parameters =
+                {
+                        new SqlParameter { ParameterName = "@NewRunbookStepId", Value = request.NewRunbookStepId },
+                        new SqlParameter { ParameterName = "@OldRunbookStepId", Value = request.OldRunbookStepId }
+                    };
+
+                serviceResponse.RecordsAffected = await this.ExecuteAsync(entities => entities.Database.ExecuteSqlCommandAsync(sql, parameters));
+                serviceResponse.IsSuccessful = true;
+
+                serviceResponse.RecordsAffected = await context.SaveChangesAsync().ConfigureAwait(false);
+                serviceResponse.IsSuccessful = true;
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Template: {0}.", request.TemplateId), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+            }
+
+            return serviceResponse;
+        }
+        #endregion InsertRunbookStepResourcesAsync
+
+        #region InsertRunbookStepTeamsAsync
+        public async Task<contracts::ServiceResponse> InsertRunbookStepTeamsAsync(contracts::TemplateStepsRequest request)
+        {
+            var stopwatch = DataAccessBase.StartStopwatch();
+
+            var serviceResponse = new contracts::ServiceResponse();
+
+            using (var context = this.contextCreator())
+            {
+                const string sql = @"
+                                            insert into [Runbook].[RunbookStepTeam]
+                                            (
+                                                   [RunbookStepId], 
+                                                   [TeamId]
+                                            )
+                                            select @NewRunbookStepId, 
+                                                   [TeamId]
+                                              from [Runbook].[RunbookStepTeam]
+                                             where [RunbookStepId] = @OldRunbookStepId
+                                    ";
+
+                object[] parameters =
+                {
+                        new SqlParameter { ParameterName = "@NewRunbookStepId", Value = request.NewRunbookStepId },
+                        new SqlParameter { ParameterName = "@OldRunbookStepId", Value = request.OldRunbookStepId }
+                    };
+
+                serviceResponse.RecordsAffected = await this.ExecuteAsync(entities => entities.Database.ExecuteSqlCommandAsync(sql, parameters));
+                serviceResponse.IsSuccessful = true;
+
+                serviceResponse.RecordsAffected = await context.SaveChangesAsync().ConfigureAwait(false);
+                serviceResponse.IsSuccessful = true;
+
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Template: {0}.", request.TemplateId), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+            }
+
+            return serviceResponse;
+        }
+        #endregion InsertRunbookStepTeamsAsync
 
         #endregion Methods
 

@@ -9,7 +9,7 @@ namespace STAR.Originations.MegaRunbook.Contracts.Data
     [DebuggerDisplay("{DebuggerDisplay}")]
     public class ApplicationLink : RequestBase
     {
-        [DataMember] public int ID { get; set; }
+        [DataMember] public int Id { get; set; }
         [DataMember] public int ApplicationGroupId { get; set; }
 
         [DataMember] public string Name { get; set; }

@@ -140,14 +140,14 @@ export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
 
     clearSelectedTemplateClicked(template: RunbookTemplate): void {
 
-        //let item = this.rfc.Templates.filter(x => x.ID === template.ID)[0];
+        //let item = this.rfc.Templates.filter(x => x.Id === template.Id)[0];
 
         //let exists = item === undefined ? false : true;
 
         let index = -1;
 
         for (let i = 0; i < this.rfc.Templates.length; i++) {
-            if (this.rfc.Templates[i].ID === template.ID) {
+            if (this.rfc.Templates[i].Id === template.Id) {
                 index = i;
                 break;
             }
@@ -284,14 +284,14 @@ export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     editRunbookStep(step: RunbookStep): void {
-        let link = ['/runbookStepForm', step.ID];
+        let link = ['/runbookStepForm', step.Id];
         this.router.navigate(link);
     }
 
     // Data Access
 
     private getRunbookTemplate(): void {
-        let id = this.selectedRunbookTemplate.ID;
+        let id = this.selectedRunbookTemplate.Id;
         this.templateService.getRunbookTemplate(id)
             .subscribe(response => this.getRunbookTemplateOnSuccess(response), response => this.getRunbookTemplateOnError(response));
     }
@@ -302,7 +302,7 @@ export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
             this.rfc.Name = response.Name;
         }
 
-        let item = this.rfc.Templates.filter(x => x.ID === response.ID)[0];
+        let item = this.rfc.Templates.filter(x => x.Id === response.Id)[0];
 
         let exists = item === undefined ? false : true;
 
@@ -531,6 +531,7 @@ export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
     newRfc(): void {
 
         this.rfc = new RFC();
+        this.rfc.Name = '';
 
         this.rfc.Templates = new Array<RunbookTemplate>();
 

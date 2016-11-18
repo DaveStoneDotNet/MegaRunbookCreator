@@ -5,7 +5,7 @@ import { Team }            from './team.entity';
 import { RunbookTemplate } from './runbook-template.entity';
 
 export class RunbookStep {
-    ID: number;
+    Id: number;
     GroupNumber: number;
     StepNumber: number;
     Duration: number;

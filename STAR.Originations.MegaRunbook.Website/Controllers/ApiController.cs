@@ -54,6 +54,26 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         }
         #endregion GetLookups
 
+        #region GetRfcs
+        [System.Web.Http.HttpGet]
+        public async Task<JsonResult> GetRfcs(contracts::Rfc request)
+        {
+            request.Paging = request.Paging ?? BaseController.GetDefaultPaging("Name");
+            request.Paging.SortInfo = request.Paging.SortInfo ?? BaseController.GetDefaultSortInfo("Name");
+            var response = await this.MrcDataAccess.GetRfcsAsync(request);
+            return this.JsonDateResult(response);
+        }
+        #endregion GetRfcs
+
+        #region GetRfc
+        [System.Web.Http.HttpGet]
+        public async Task<JsonResult> GetRfc(int id)
+        {
+            var response = await this.MrcDataAccess.GetRfcAsync(new contracts::Rfc { Id = id });
+            return this.JsonDateResult(response);
+        }
+        #endregion GetRfc
+
         #region GetRunbookTemplates
         [System.Web.Http.HttpGet]
         public async Task<JsonResult> GetRunbookTemplates(contracts::RunbookTemplate request)
@@ -61,7 +81,7 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             request.Paging = request.Paging ?? BaseController.GetDefaultPaging("Name");
             request.Paging.SortInfo = request.Paging.SortInfo ?? BaseController.GetDefaultSortInfo("Name");
             var response = await this.MrcDataAccess.GetRunbookTemplatesAsync(request);
-            return this.Json(response);
+            return this.JsonDateResult(response);
         }
         #endregion GetRunbookTemplates
 
@@ -69,7 +89,7 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         [System.Web.Http.HttpGet]
         public async Task<JsonResult> GetRunbookTemplate(int id)
         {
-            var runbookTemplate = await this.MrcDataAccess.GetRunbookTemplateAsync(new contracts.RunbookTemplate { ID = id });
+            var runbookTemplate = await this.MrcDataAccess.GetRunbookTemplateAsync(new contracts.RunbookTemplate { Id = id });
             return this.JsonDateResult(runbookTemplate);
         }
         #endregion GetRunbookTemplate
@@ -80,9 +100,9 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         public async Task<JsonResult> GetRunbookSteps()
         {
             var runbookSteps = await this.LoadJson<contracts::RunbookStep>(@"runbook-steps.json");
-            runbookSteps = (from o in runbookSteps select o).OrderBy(o => o.ID).ToList();
+            runbookSteps = (from o in runbookSteps select o).OrderBy(o => o.Id).ToList();
 
-            return this.Json(runbookSteps);
+            return this.JsonDateResult(runbookSteps);
         }
         #endregion GetRunbookSteps
 
@@ -90,7 +110,7 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         [System.Web.Http.HttpGet]
         public async Task<JsonResult> GetRunbookStep(int id)
         {
-            var runbookTemplate = await this.MrcDataAccess.GetRunbookStepAsync(new contracts.RunbookStep { ID = id });
+            var runbookTemplate = await this.MrcDataAccess.GetRunbookStepAsync(new contracts.RunbookStep { Id = id });
             return this.JsonDateResult(runbookTemplate);
         }
         #endregion GetRunbookStep
@@ -103,7 +123,7 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             request.Paging.SortInfo = request.Paging.SortInfo ?? BaseController.GetDefaultSortInfo("Name");
             var applicationGroups = this.MrcDataAccess.GetApplicationGroupsAsync(request);
 
-            return this.Json(applicationGroups);
+            return this.JsonDateResult(applicationGroups);
         }
         #endregion GetApplicationGroups
 
@@ -115,7 +135,7 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             request.Paging.SortInfo = request.Paging.SortInfo ?? BaseController.GetDefaultSortInfo("Name");
             var response = await this.MrcDataAccess.GetApplicationLinksAsync(request);
 
-            return this.Json(response);
+            return this.JsonDateResult(response);
         }
         #endregion GetApplicationLinks
 
@@ -125,9 +145,20 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         {
             var response = await this.MrcDataAccess.GetContactsAsync(request);
 
-            return this.Json(response);
+            return this.JsonDateResult(response);
         }
         #endregion GetContacts
+
+        // ---
+
+        #region InsertRfc
+        [System.Web.Http.HttpPost]
+        public async Task<JsonResult> InsertRfc(contracts::Rfc request)
+        {
+            var data = await this.MrcDataAccess.InsertRfcAsync(request);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        #endregion InsertRfc
 
         // ---
 
@@ -248,14 +279,5 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
             return this.Json(crisis);
         }
         #endregion GetCrisis
-
-        #region InsertRfc
-        [System.Web.Http.HttpPost]
-        public async Task<JsonResult> InsertRfc(contracts::Rfc request)
-        {
-            var data = await this.MrcDataAccess.InsertRfcAsync(request);
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-        #endregion InsertRfc
     }
 }

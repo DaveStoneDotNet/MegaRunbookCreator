@@ -50,6 +50,7 @@
     <Compile Include="Data\Developer.cs" />
     <Compile Include="Data\Environment.cs" />
     <Compile Include="Data\EnvironmentLink.cs" />
+    <Compile Include="Data\TemplateStepsRequest.cs" />
     <Compile Include="Data\RequestBase.cs" />
     <Compile Include="Data\Rfc.cs" />
     <Compile Include="Data\RunbookStepDeveloper.cs" />

@@ -351,6 +351,7 @@
     <TypeScriptCompile Include="app\entities\paged-application-link.entity.ts" />
     <TypeScriptCompile Include="app\entities\paged-base.ts" />
     <TypeScriptCompile Include="app\entities\paged-runbook-template.entity.ts" />
+    <TypeScriptCompile Include="app\entities\paged-rfc.entity.ts" />
     <TypeScriptCompile Include="app\entities\paging.entity.ts" />
     <TypeScriptCompile Include="app\entities\rfc.entity.ts" />
     <TypeScriptCompile Include="app\entities\runbook-step-pbi.entity.ts" />

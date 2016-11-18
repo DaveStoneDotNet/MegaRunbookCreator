@@ -53,7 +53,7 @@ export class TemplateListComponent implements OnInit, OnDestroy {
     }
 
     runbookTemplateClicked(selectedRunbookTemplate: RunbookTemplate): void {
-        let link = ['/templatedetail', selectedRunbookTemplate.ID];
+        let link = ['/templatedetail', selectedRunbookTemplate.Id];
         this.router.navigate(link);
     }
 

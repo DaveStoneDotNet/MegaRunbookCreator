@@ -2,7 +2,7 @@
 import { RunbookStep } from './runbook-step.entity';
 
 export class RunbookTemplate {
-    ID: number;
+    Id: number;
     Number: number;
     Name: string;
     RunbookSteps: RunbookStep[];

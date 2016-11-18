@@ -20,14 +20,17 @@ export class TemplateService {
     }
 
     getRunbookTemplate(id: number): Observable<any> {
+        this.isWorkingService.startWorking('Getting Runbook Template...');
         return this.httpService.httpPost({ id: id }, 'api/GetRunbookTemplate');
     }
 
     getRunbookSteps(): Observable<any> {
+        this.isWorkingService.startWorking('Getting Runbook Steps...');
         return this.httpService.httpGet('api/GetRunbookSteps');
     }
 
     getRunbookStep(id: number): Observable<any> {
+        this.isWorkingService.startWorking('Getting Runbook Step...');
         return this.httpService.httpPost({ id: id }, 'api/GetRunbookStep');
     }
 }

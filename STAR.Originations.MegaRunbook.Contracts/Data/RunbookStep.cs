@@ -9,7 +9,7 @@ namespace STAR.Originations.MegaRunbook.Contracts.Data
     [DebuggerDisplay("{DebuggerDisplay}")]
     public class RunbookStep
     {
-        [DataMember] public int ID { get; set; }
+        [DataMember] public int Id { get; set; }
         [DataMember] public int GroupNumber { get; set; }
         [DataMember] public int StepNumber { get; set; }
         [DataMember] public int Duration { get; set; }
