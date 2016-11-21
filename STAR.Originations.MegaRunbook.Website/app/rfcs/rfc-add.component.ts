@@ -12,25 +12,24 @@ import { QueryList }            from '@angular/core';
 
 import { Router }               from '@angular/router';
 
+import { MessageService }       from '../services/message.service';
+
 import { RfcService }           from './rfc.service';
 
-import { MessageService }       from '../services/message.service';
+import { MrcFocusDirective }   from '../common/mrc-focus.directive';
+
+import { TimePickerInfo }       from '../common/timepicker/timepicker.entity';
+import { DurationPickerInfo }   from '../common/timepicker/durationpicker.entity';
 
 import { RunbookTemplate }      from '../entities/runbook-template.entity';
 import { PagedRunbookTemplate } from '../entities/paged-runbook-template.entity';
 import { RunbookStep }          from '../entities/runbook-step.entity';
 import { Contact }              from '../entities/contact.entity';
 import { ServiceResponse }      from '../entities/service-response.entity';
+import { RFC }                  from '../entities/rfc.entity';
 
 import { TemplateService }      from '../templates/template.service';
 import { UserService }          from '../services/user.service';
-
-import { TimePickerInfo }       from '../common/timepicker/timepicker.entity';
-import { DurationPickerInfo }   from '../common/timepicker/durationpicker.entity';
-
-import { MrcFocusDirective }   from '../common/mrc-focus.directive';
-
-import { RFC }                  from '../entities/rfc.entity';
 
 import { Subscription }         from 'rxjs/Subscription';
 
@@ -74,7 +73,12 @@ export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('RfcNumber') rfcNumberInputElement: ElementRef;
     @ViewChildren('RfcNumber') children: QueryList<any>;
 
-    constructor(private templateService: TemplateService, private messageService: MessageService, private userService: UserService, private rfcService: RfcService, private router: Router, private renderer: Renderer) {
+    constructor(private templateService: TemplateService,
+                private messageService: MessageService,
+                private userService: UserService,
+                private rfcService: RfcService,
+                private router: Router,
+                private renderer: Renderer) {
 
         this.newRfc();
 
@@ -95,14 +99,16 @@ export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngAfterViewInit() {
 
-        // This Works...
+        // This Works... 
+        // ...must subscribe to children when the parent container is * ngIF
         this.children.changes.subscribe((comps: QueryList<any>) => {
+            console.log('MONKEY A')
             this.rfcNumberInputElement = comps.first;
             if (this.rfcNumberInputElement) {
+                console.log('MONKEY A-01')
                 this.renderer.invokeElementMethod(this.rfcNumberInputElement.nativeElement, 'focus');
             }
         });
-
 
         // This doesn't work... it's always UNDEFINED...
         if (this.rfcNumberInputElement) {
@@ -116,6 +122,7 @@ export class RfcAddComponent implements OnInit, OnDestroy, AfterViewInit {
     setFocus(): void {
         this.focusSettingEventEmitter.emit(true);
     }
+
     // -------------------------------------------------------------------------------------------------------------------------
 
     // TEMPLATES

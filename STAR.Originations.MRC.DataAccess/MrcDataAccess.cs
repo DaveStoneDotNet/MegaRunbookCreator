@@ -168,6 +168,14 @@ namespace STAR.Originations.MRC.DataAccess
             using (var context = this.contextCreator())
             {
                 var query = context.Rfcs.AsQueryable();
+
+                var number = Conversion.GetInt(request.Name);
+                if (number > 0)
+                {
+                    request.Number = number;
+                    request.Name = String.Empty;
+                }
+
                 if (request.Number > 0)
                 {
                     query = query.Where(p => p.Number == request.Number);
@@ -198,10 +206,8 @@ namespace STAR.Originations.MRC.DataAccess
         #endregion GetRfcsAsync
 
         #region GetRfcAsync
-        public async Task<contracts::Rfc> GetRfcAsync(contracts::Rfc request)
+        public async Task<contracts::Rfc> GetRfcAsync(int id)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
-
             var stopwatch = DataAccessBase.StartStopwatch();
             using (var context = this.contextCreator())
             {
@@ -216,17 +222,14 @@ namespace STAR.Originations.MRC.DataAccess
                                    .Include("RunbookSteps.Resources")
                                    .AsQueryable();
 
-                if (request.Id > 0)
-                {
-                    query = query.Where(p => p.Id == request.Id);
-                }
+                query = query.Where(p => p.Id == id);
 
                 var data = await query.Select(a => a).FirstOrDefaultAsync().ConfigureAwait(false);
                 data.RunbookSteps = (from o in data.RunbookSteps select o).OrderBy(o => o.GroupNumber).ThenBy(o => o.StepNumber).ToList();
 
                 var mapped = Mapper.Map<entities::Rfc, contracts::Rfc>(data);
 
-                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: Name: {0}.", Text.GetStringInfo(request.Name)), stopwatch.Elapsed, TraceStatus.Success, new Dictionary<String, object> { { "Request", request } });
+                this.TraceSource.TraceEvent(TraceEventType.Information, String.Format("COMPLETE: ID: {0}.", id), stopwatch.Elapsed, TraceStatus.Success);
 
                 return mapped;
             }

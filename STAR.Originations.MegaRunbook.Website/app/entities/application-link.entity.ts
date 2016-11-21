@@ -22,5 +22,4 @@ export class ApplicationLink {
         this.ServiceLinks    = new Array<ServiceLink>();
         this.Paging          = new Paging();
     }
-
 }

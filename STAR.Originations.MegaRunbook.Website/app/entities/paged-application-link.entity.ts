@@ -9,5 +9,4 @@ export class PagedApplicationLink {
     RecordsPerPage: number;
     TotalPageCount: number;
     TotalRecordCount: number;
-
 }

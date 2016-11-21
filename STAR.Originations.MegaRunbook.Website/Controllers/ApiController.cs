@@ -69,7 +69,7 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         [System.Web.Http.HttpGet]
         public async Task<JsonResult> GetRfc(int id)
         {
-            var response = await this.MrcDataAccess.GetRfcAsync(new contracts::Rfc { Id = id });
+            var response = await this.MrcDataAccess.GetRfcAsync(id);
             return this.JsonDateResult(response);
         }
         #endregion GetRfc

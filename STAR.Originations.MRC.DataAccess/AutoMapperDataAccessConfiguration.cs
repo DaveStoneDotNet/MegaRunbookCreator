@@ -27,6 +27,7 @@ namespace STAR.Originations.MRC.DataAccess
             Mapper.CreateMap<entities::ApplicationType, contracts::Lookup>();
             Mapper.CreateMap<entities::RunbookStepStatus, contracts::Lookup>();
             Mapper.CreateMap<entities::RunbookStepType, contracts::Lookup>();
+            Mapper.CreateMap<entities::Rfc, contracts::Rfc>();
 
             Mapper.CreateMap<entities::ApplicationGroup, contracts::Lookup>()
                 .ForMember(dest => dest.Code, opt => opt.MapFrom(src => src.Id))

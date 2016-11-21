@@ -1,55 +1,183 @@
 ﻿<div class="align-right margin-right-10 margin-top-2">
     <button class="btn btn-primary btn-sm" (click)="addRfcClick()">Add New RFC</button>
 </div>
+
 <div class="inner-body-content">
-    <div class="fat-header">RFC's</div>
+
+    <!-- SEARCH -->
     <div class="row">
-        <div class="col-md-6">
-            <div class="pad-10 border-right-a-10">
-                <div>
-                    <table class="fixed-font pointer width-100">
-                        <tr>
-                            <th class="pad-5 border-bottom-a-10 nowrap">RFC #</th>
-                            <th class="pad-5 border-bottom-a-10 width-100">Name</th>
-                            <th class="pad-5 border-bottom-a-10"></th>
-                            <th class="pad-5 border-bottom-a-10"></th>
-                        </tr>
-                        <tr>
-                            <td class="pad-5">10363</td>
-                            <td class="pad-5">Install Chef (Phase 2)</td>
-                            <td class="pad-5"><button class="btn btn-xs btn-default">delete</button></td>
-                            <td class="pad-5"><button class="btn btn-xs btn-info" (click)="editRfcClick()">edit</button></td>
-                        </tr>
-                        <tr>
-                            <td class="pad-5 gray-4-bg">10391</td>
-                            <td class="pad-5 gray-4-bg nowrap">CMA, ETL</td>
-                            <td class="pad-5 gray-4-bg"><button class="btn btn-xs btn-default">delete</button></td>
-                            <td class="pad-5 gray-4-bg"><button class="btn btn-xs btn-info">edit</button></td>
-                        </tr>
-                        <tr>
-                            <td class="pad-5">10498</td>
-                            <td class="pad-5 nowrap">USAA</td>
-                            <td class="pad-5"><button class="btn btn-xs btn-default">delete</button></td>
-                            <td class="pad-5"><button class="btn btn-xs btn-info">edit</button></td>
-                        </tr>
-                        <tr>
-                            <td class="pad-5 gray-4-bg">10436</td>
-                            <td class="pad-5 gray-4-bg nowrap">Filenet</td>
-                            <td class="pad-5 gray-4-bg"><button class="btn btn-xs btn-default">delete</button></td>
-                            <td class="pad-5 gray-4-bg"><button class="btn btn-xs btn-info">edit</button></td>
-                        </tr>
-                        <tr>
-                            <td class="pad-5">10406</td>
-                            <td class="pad-5 nowrap">NationstarMtg</td>
-                            <td class="pad-5"><button class="btn btn-xs btn-default">delete</button></td>
-                            <td class="pad-5"><button class="btn btn-xs btn-info">edit</button></td>
-                        </tr>
-                    </table>
+        <div class="col-md-12 border-bottom-a-10 margin-bottom-10">
+            <div class="float-right Lato font-1-60 opacity-50">
+                RFC's
+            </div>
+            <form class="mrc-forms">
+                <table *ngIf="searchCriteria">
+                    <tr>
+                        <td class="td">
+                            <input type="text"
+                                   name="Search"
+                                   placeholder="search..."
+                                   class="width-100"
+                                   autocomplete="off"
+                                   #RfcSearchInput
+                                   [(ngModel)]="searchCriteria.Name"
+                                   (ngModelChange)="onRfcNameChanged($event)"
+                                   [focus]="focusSettingEventEmitter"/>
+                        </td>
+
+                        <td>
+                            <div>
+                                <button class="btn btn-sm btn-primary" (click)="onClearSearchCriteria()">Clear</button>
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+
+            <div>
+                <div *ngIf="pagedApplicationLink" class="float-right align-right">
+                    {{ pagedRfcs.TotalRecordCount | plural: 'rfc' }}
+                    <div class="small-caps opacity-50">
+                        <span *ngIf="selectedRfc">{{ selectedRfc.Name }}</span> <span *ngIf="selectedApplicationType">{{ selectedApplicationType.Description }}</span>
+                    </div>
+                </div>
+                <div class="fat-header">
+                    RFC's
                 </div>
             </div>
+
+            <table class="mrc-data-table" [mrc-data-input]="pagedRfcs" #mrcDataTable="mrcDataTable" [mrc-records-per-page]="10" (onDataRequested)="onDataRequested($event)">
+                <thead>
+                    <tr>
+                        <th class="pad-5 border-bottom-a-10 nowrap" style="width: 10%;"><mrc-table-sorter PropertyName="Number">RFC #</mrc-table-sorter></th>
+                        <th class="pad-5 border-bottom-a-10" style="width: 81%;"><mrc-table-sorter PropertyName="Name">Name</mrc-table-sorter></th>
+                        <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
+                        <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
+                        <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
+                        <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of mrcDataTable.mrcDataInput.Items;" (click)="onRfcSelected(item)" [class.selected]="item.IsSelected">
+                        <td class="pad-5 align-right">{{ item.Number }}</td>
+                        <td class="pad-5">{{ item.Name }}</td>
+                        <td class="pad-5 align-right nowrap">{{ item.StartTime | date: 'hh:mm a' }}</td>
+                        <td class="pad-5 align-right nowrap"> - {{ item.EndTime | date: 'hh:mm a' }}</td>
+                        <td class="pad-5"><button class="btn btn-xs btn-default">delete</button></td>
+                        <td class="pad-5"><button class="btn btn-xs btn-info" (click)="editRfcClick()">edit</button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <mrcBootstrapPaginator *ngIf="mrcDataTable.hasItems()" [rowsOnPageSet]="[10,50,100]"></mrcBootstrapPaginator>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
         </div>
-        <div class="col-md-6">
-            
+        <div class="col-md-7">
+
+            <!-- SELECTED RFC -->
+            <div *ngIf="selectedRfc">
+
+                <!-- HEADER -->
+                <div class="thin-header" [hidden]="selectedRfc.Name.length == 0">
+                    <div *ngIf="selectedRfc">{{ selectedRfc.Name }}</div>
+                </div>
+
+                <div class="table bordered" *ngIf="selectedRfc">
+                    <div class="thead">
+                        <div class="th">&nbsp;</div>
+                        <div class="th align-right">Group</div>
+                        <div class="th align-right">Step</div>
+                        <div class="th">Team</div>
+                        <div class="th">Description</div>
+                        <div class="th">Developer</div>
+                        <div class="th">PBIs</div>
+                        <div class="th">Notes</div>
+                        <div class="th">Duration</div>
+                        <div class="th">Resource</div>
+                        <div class="th">Comments</div>
+                    </div>
+                    <div class="tr" *ngFor="let step of selectedRfc.RunbookSteps; let i = index">
+                        <div style="width: 2%;" class="td align-right">
+                            <div class="pad-top-5">
+                                <button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button>
+                            </div>
+                        </div>
+                        <div style="width: 3%;" class="td align-right">
+                            <div class="pad-top-5">{{ step.GroupNumber }}</div>
+                        </div>
+                        <div style="width: 3%;" class="td align-right">
+                            <div class="pad-top-5">{{ step.StepNumber }}</div>
+                        </div>
+                        <div style="width: 5%;" class="td">
+                            <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                <div>{{ step.Teams ? step.Teams[0].Name : '' }}</div>
+                            </div>
+                            <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                <div *ngFor="let team of step.Teams">{{ team.Name }}</div>
+                            </div>
+                        </div>
+                        <div style="width: 25%;" class="td">
+                            <div class="pad-top-5">
+                                <div *ngIf="!step.IsNotCollapsed">{{ step.Name }}</div>
+                            </div>
+                            <div>
+                                <code *ngIf="step.IsNotCollapsed">{{ step.Description }}</code>
+                            </div>
+                        </div>
+                        <div style="width: 5%;" class="td nowrap">
+                            <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                <div>{{ step.Developers ? step.Developers[0].DisplayName : '' }}</div>
+                            </div>
+                            <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                <div *ngFor="let contact of step.Developers">{{ contact.DisplayName }}</div>
+                            </div>
+                        </div>
+                        <div style="width: 3%;" class="td">
+                            <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                <div>{{ step.RunbookStepPbis ? step.RunbookStepPbis[0].PbiNumber : '' }}</div>
+                            </div>
+                            <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                <div *ngFor="let pbi of step.RunbookStepPbis">{{ pbi.PbiNumber }}</div>
+                            </div>
+                        </div>
+                        <div style="width: 10%;" class="td">
+                            <div class="pad-top-5">
+                                <code *ngIf="step.IsNotCollapsed">{{ step.Notes }}</code>
+                            </div>
+                        </div>
+
+                        <div style="width: 3%;" class="td">
+                            <div class="pad-top-5">
+                                <code *ngIf="step.IsNotCollapsed">{{ step.Duration }}</code>
+                            </div>
+                        </div>
+                        <div style="width: 5%;" class="td">
+                            <div class="pad-top-5">
+                                <div *ngFor="let resource of step.Resources">{{ resource.DisplayName }}</div>
+                            </div>
+                        </div>
+                        <div style="width: 5%;" class="td">
+                            <div class="pad-top-5">
+                                <code *ngIf="step.IsNotCollapsed"></code>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </div>
 
