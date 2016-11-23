@@ -212,6 +212,7 @@
     <Content Include="app\links\link-list.component.html" />
     <Content Include="app\release\release.component.html" />
     <Content Include="app\rfcs\rfc-add.component.html" />
+    <Content Include="app\rfcs\rfc-edit.component.css" />
     <Content Include="app\rfcs\rfc-edit.component.html" />
     <Content Include="app\rfcs\rfc-list.component.html" />
     <Content Include="app\templates\template-detail.component.html" />

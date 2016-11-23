@@ -38,6 +38,7 @@
     </div>
 
     <div class="row">
+
         <div class="col-md-5">
 
             <div>
@@ -54,43 +55,44 @@
 
             <table class="mrc-data-table" [mrc-data-input]="pagedRfcs" #mrcDataTable="mrcDataTable" [mrc-records-per-page]="10" (onDataRequested)="onDataRequested($event)">
                 <thead>
-                    <tr>
-                        <th class="pad-5 border-bottom-a-10 nowrap" style="width: 10%;"><mrc-table-sorter PropertyName="Number">RFC #</mrc-table-sorter></th>
-                        <th class="pad-5 border-bottom-a-10" style="width: 81%;"><mrc-table-sorter PropertyName="Name">Name</mrc-table-sorter></th>
-                        <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
-                        <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
-                        <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
-                        <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
-                    </tr>
+                <tr>
+                    <th class="pad-5 border-bottom-a-10 nowrap" style="width: 10%;"><mrc-table-sorter PropertyName="Number">RFC #</mrc-table-sorter></th>
+                    <th class="pad-5 border-bottom-a-10" style="width: 81%;"><mrc-table-sorter PropertyName="Name">Name</mrc-table-sorter></th>
+                    <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
+                    <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
+                    <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
+                    <th class="pad-5 border-bottom-a-10" style="width: 1%;"></th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of mrcDataTable.mrcDataInput.Items;" (click)="onRfcSelected(item)" [class.selected]="item.IsSelected">
-                        <td class="pad-5 align-right">{{ item.Number }}</td>
-                        <td class="pad-5">{{ item.Name }}</td>
-                        <td class="pad-5 align-right nowrap">{{ item.StartTime | date: 'hh:mm a' }}</td>
-                        <td class="pad-5 align-right nowrap"> - {{ item.EndTime | date: 'hh:mm a' }}</td>
-                        <td class="pad-5"><button class="btn btn-xs btn-default">delete</button></td>
-                        <td class="pad-5"><button class="btn btn-xs btn-info" (click)="editRfcClick()">edit</button></td>
-                    </tr>
+                <tr *ngFor="let item of mrcDataTable.mrcDataInput.Items;" (click)="onRfcSelected(item)" [class.selected]="item.IsSelected">
+                    <td class="pad-5 align-right">{{ item.Number }}</td>
+                    <td class="pad-5">{{ item.Name }}</td>
+                    <td class="pad-5 align-right nowrap">{{ item.StartTime | date: 'hh:mm a' }}</td>
+                    <td class="pad-5 align-right nowrap"> - {{ item.EndTime | date: 'hh:mm a' }}</td>
+                    <td class="pad-5"><button class="btn btn-xs btn-default">delete</button></td>
+                    <td class="pad-5"><button class="btn btn-xs btn-info" (click)="editRfcClick(item)">edit</button></td>
+                </tr>
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <td colspan="2">
-                            <mrcBootstrapPaginator *ngIf="mrcDataTable.hasItems()" [rowsOnPageSet]="[10,50,100]"></mrcBootstrapPaginator>
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="2">
+                        <mrcBootstrapPaginator *ngIf="mrcDataTable.hasItems()" [rowsOnPageSet]="[10,50,100]"></mrcBootstrapPaginator>
+                    </td>
+                </tr>
                 </tfoot>
             </table>
 
         </div>
+
         <div class="col-md-7">
 
             <!-- SELECTED RFC -->
             <div *ngIf="selectedRfc">
 
                 <!-- HEADER -->
-                <div class="thin-header" [hidden]="selectedRfc.Name.length == 0">
-                    <div *ngIf="selectedRfc">{{ selectedRfc.Name }}</div>
+                <div class="thin-header pointer" [hidden]="selectedRfc.Name.length == 0">
+                    <div *ngIf="selectedRfc" (click)="editRfcClick(selectedRfc)">{{ selectedRfc.Name }}</div>
                 </div>
 
                 <div class="table bordered" *ngIf="selectedRfc">
@@ -159,7 +161,7 @@
 
                         <div style="width: 3%;" class="td">
                             <div class="pad-top-5">
-                                <code *ngIf="step.IsNotCollapsed">{{ step.Duration }}</code>
+                                <code>{{ step.Duration }}</code>
                             </div>
                         </div>
                         <div style="width: 5%;" class="td">

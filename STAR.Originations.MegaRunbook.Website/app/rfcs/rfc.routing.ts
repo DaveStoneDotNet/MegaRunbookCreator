@@ -8,9 +8,9 @@ import { RfcAddComponent }     from './rfc-add.component';
 import { RfcEditComponent }    from './rfc-edit.component';
 
 const rfcRoutes: Routes = [
-    { path: 'rfcs',     component: RfcListComponent }, 
-    { path: 'add-rfc',  component: RfcAddComponent  }, 
-    { path: 'edit-rfc', component: RfcEditComponent }
+    { path: 'rfcs',         component: RfcListComponent }, 
+    { path: 'add-rfc',      component: RfcAddComponent  }, 
+    { path: 'edit-rfc/:id', component: RfcEditComponent }
 ];
 
 export const rfcRouting: ModuleWithProviders = RouterModule.forChild(rfcRoutes);

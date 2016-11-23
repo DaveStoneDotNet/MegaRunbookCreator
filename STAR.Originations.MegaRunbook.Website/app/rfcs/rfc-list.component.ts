@@ -249,8 +249,8 @@ export class RfcListComponent implements OnInit, OnDestroy, AfterViewInit {
         this.router.navigate(['add-rfc']);
     }
 
-    editRfcClick() {
-        this.router.navigate(['edit-rfc']);
+    editRfcClick(rfc: RFC) {
+        this.router.navigate(['edit-rfc', rfc.Id]);
     }
 
     // -------------------------------------------------------------------------------------------------------------------------
