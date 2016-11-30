@@ -17,8 +17,10 @@ export class MrcFocusDirective {
     }
 
     ngOnInit() {
-        this.focusEvent.subscribe(event => {
-            this.renderer.invokeElementMethod(this.element.nativeElement, 'focus', []);
-        });
+        if (this.focusEvent && this.focusEvent !== undefined) {
+            this.focusEvent.subscribe(event => {
+                this.renderer.invokeElementMethod(this.element.nativeElement, 'focus', []);
+            });
+        }
     }
 }

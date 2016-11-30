@@ -115,6 +115,14 @@ namespace STAR.Originations.MegaRunbook.Website.Controllers
         }
         #endregion GetRunbookStep
 
+        #region UpdateRunbookStep
+        [System.Web.Http.HttpGet]
+        public async Task<JsonResult> UpdateRunbookStep(contracts::RunbookStep runbookStep)
+        {
+            return this.JsonDateResult(runbookStep);
+        }
+        #endregion UpdateRunbookStep
+
         #region GetApplicationGroups
         [System.Web.Http.HttpGet]
         public JsonResult GetApplicationGroups(contracts::ApplicationGroup request)

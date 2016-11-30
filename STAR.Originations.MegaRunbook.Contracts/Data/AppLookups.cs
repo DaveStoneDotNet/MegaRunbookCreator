@@ -14,6 +14,8 @@ namespace STAR.Originations.MegaRunbook.Contracts.Data
         [DataMember] public List<Lookup> RunbookStetpTypes { get; set; }
         [DataMember] public List<Lookup> RunbookStepStatuses { get; set; }
 
+        [DataMember] public List<Team> Teams { get; set; }
+
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string DebuggerDisplay => String.Format("{0} ", this.GetType().Name);
     }

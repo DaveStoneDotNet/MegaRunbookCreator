@@ -4,6 +4,7 @@ import { Http }             from '@angular/http';
 import { Response }         from '@angular/http';
 
 import { RFC }              from '../entities/rfc.entity';
+import { RunbookStep }      from '../entities/runbook-step.entity';
 
 import { IsWorkingService } from '../services/is-working.service';
 import { HttpService }      from '../services/http.service';
@@ -28,5 +29,10 @@ export class RfcService {
     insertRfc(rfc: RFC): Observable<any> {
         this.isWorkingService.startWorking('Saving RFC...');
         return this.httpService.httpPost(rfc, 'api/InsertRfc');
+    }
+
+    updateRunbookStep(runbookStep: RunbookStep): Observable<any> {
+        this.isWorkingService.startWorking('Saving Runbook Step...');
+        return this.httpService.httpPost(runbookStep, 'api/UpdateRunbookStep');
     }
 }

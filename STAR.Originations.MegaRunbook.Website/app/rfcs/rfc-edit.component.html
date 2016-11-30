@@ -4,301 +4,338 @@
 </div>
 <div class="inner-body-content">
 
-    <div>
-        <div *ngIf="rfc">
+<table>
+    <tr>
+        <td class="align-top">
+            <div>
 
-            <!-- HEADER -->
-            <div [hidden]="rfc.Name.length == 0">
-                <span class="thin-header" *ngIf="rfc">{{ rfc.Name }}</span>
-            </div>
+                <div *ngIf="rfc">
 
-            <div class="table bordered" *ngIf="rfc">
-                <div class="thead">
-                    <div class="th">&nbsp;</div>
-                    <div class="th align-right">Group</div>
-                    <div class="th align-right">Step</div>
-                    <div class="th">Team</div>
-                    <div class="th">Description</div>
-                    <div class="th">Developer</div>
-                    <div class="th">PBIs</div>
-                    <div class="th">Notes</div>
-                    <div class="th">Duration</div>
-                    <div class="th">Resource</div>
-                    <div class="th">Comments</div>
+                    <!-- HEADER -->
+                    <div [hidden]="rfc.Name.length == 0">
+                        <span class="thin-header" *ngIf="rfc">{{ rfc.Name }}</span>
+                    </div>
 
-                    <div class="th"></div>
-                    <div class="th"></div>
-                    <div class="th"></div>
-                    <div class="th"></div>
-                </div>
-                <div class="tr" *ngFor="let step of rfc.RunbookSteps; let i = index">
-                    <div style="width: 2%;" class="td align-right">
-                        <div class="pad-top-5">
-                            <button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button>
+                    <div class="table bordered" *ngIf="rfc">
+                        <div class="thead">
+                            <div class="th">&nbsp;</div>
+                            <div class="th align-right">Group</div>
+                            <div class="th align-right">Step</div>
+                            <div class="th">Team</div>
+                            <div class="th">Description</div>
+                            <div class="th">Developer</div>
+                            <div class="th">PBIs</div>
+                            <div class="th">Notes</div>
+                            <div class="th">Duration</div>
+                            <div class="th">Resource</div>
+                            <div class="th">Comments</div>
+
+                            <div class="th"></div>
+                            <div class="th"></div>
+                            <div class="th"></div>
+                            <div class="th"></div>
                         </div>
-                    </div>
-                    <div style="width: 3%;" class="td align-right">
-                        <div class="pad-top-5">{{ step.GroupNumber }}</div>
-                    </div>
-                    <div style="width: 3%;" class="td align-right">
-                        <div class="pad-top-5">{{ step.StepNumber }}</div>
-                    </div>
-                    <div style="width: 5%;" class="td">
-                        <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
-                            <div>{{ step.Teams ? step.Teams[0].Name : '' }}</div>
-                        </div>
-                        <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
-                            <div *ngFor="let team of step.Teams">{{ team.Name }}</div>
-                        </div>
-                    </div>
-                    <div style="width: 21%;" class="td">
-                        <div class="pad-top-5">
-                            <div *ngIf="!step.IsNotCollapsed">{{ step.Name }}</div>
-                        </div>
-                        <div>
-                            <code *ngIf="step.IsNotCollapsed">{{ step.Description }}</code>
-                        </div>
-                    </div>
-                    <div style="width: 5%;" class="td nowrap">
-                        <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
-                            <div>{{ step.Developers ? step.Developers[0].DisplayName : '' }}</div>
-                        </div>
-                        <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
-                            <div *ngFor="let contact of step.Developers">{{ contact.DisplayName }}</div>
-                        </div>
-                    </div>
-                    <div style="width: 3%;" class="td">
-                        <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
-                            <div>{{ step.RunbookStepPbis ? step.RunbookStepPbis[0].PbiNumber : '' }}</div>
-                        </div>
-                        <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
-                            <div *ngFor="let pbi of step.RunbookStepPbis">{{ pbi.PbiNumber }}</div>
-                        </div>
-                    </div>
-                    <div style="width: 10%;" class="td">
-                        <div class="pad-top-5">
+                        <div class="tr" *ngFor="let step of rfc.RunbookSteps; let i = index">
+                            <div style="width: 2%;" class="td align-right">
+                                <div class="pad-top-5">
+                                    <button class="btn btn-default btn-xs" (click)="toggleCollapse(step)" title="Collapse All"><i class="fa" [class.fa-chevron-down]="step.IsNotCollapsed" [class.fa-chevron-up]="!step.IsNotCollapsed"></i></button>
+                                </div>
+                            </div>
+                            <div style="width: 3%;" class="td align-right">
+                                <div class="pad-top-5">{{ step.GroupNumber }}</div>
+                            </div>
+                            <div style="width: 3%;" class="td align-right">
+                                <div class="pad-top-5">{{ step.StepNumber }}</div>
+                            </div>
+                            <div style="width: 5%;" class="td">
+                                <div>
+                                    <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                        <div  *ngIf="!step.Teams">{{ step.Teams ? step.Teams[0].Name : '' }}</div>
+                                    </div>
+                                    <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                        <div *ngFor="let team of step.Teams">{{ team.Name }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 21%;" class="td">
+                                <div class="pad-top-5">
+                                    <div *ngIf="!step.IsNotCollapsed">{{ step.Name }}</div>
+                                </div>
+                                <div>
+                                    <code *ngIf="step.IsNotCollapsed">{{ step.Description }}</code>
+                                </div>
+                            </div>
+                            <div style="width: 5%;" class="td nowrap">
+                                <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                    <div>{{ step.Developers ? step.Developers[0].DisplayName : '' }}</div>
+                                </div>
+                                <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                    <div *ngFor="let contact of step.Developers">{{ contact.DisplayName }}</div>
+                                </div>
+                            </div>
+                            <div style="width: 3%;" class="td">
+                                <div class="pad-top-5" *ngIf="!step.IsNotCollapsed">
+                                    <div>{{ step.RunbookStepPbis ? step.RunbookStepPbis[0].PbiNumber : '' }}</div>
+                                </div>
+                                <div class="pad-top-5" *ngIf="step.IsNotCollapsed">
+                                    <div *ngFor="let pbi of step.RunbookStepPbis">{{ pbi.PbiNumber }}</div>
+                                </div>
+                            </div>
+                            <div style="width: 10%;" class="td">
+                                <div class="pad-top-5">
+                                    <div style="width: 5%;" class="td">
+                                        <div class="pad-top-5">
+                                            <code *ngIf="step.IsNotCollapsed"></code>
+                                        </div>
+                                    </div>
+                                    <code *ngIf="step.IsNotCollapsed">{{ step.Notes }}</code>
+                                </div>
+                            </div>
+
+                            <div style="width: 3%;" class="td">
+                                <div class="pad-top-5">
+                                    <code>{{ step.Duration }}</code>
+                                </div>
+                            </div>
+                            <div style="width: 5%;" class="td">
+                                <div class="pad-top-5">
+                                    <div *ngFor="let resource of step.Resources">{{ resource.DisplayName }}</div>
+                                </div>
+                            </div>
                             <div style="width: 5%;" class="td">
                                 <div class="pad-top-5">
                                     <code *ngIf="step.IsNotCollapsed"></code>
                                 </div>
                             </div>
-                            <code *ngIf="step.IsNotCollapsed">{{ step.Notes }}</code>
+
+                            <div style="width: 1%;" class="td">
+                                <div class="pad-top-5">
+                                    <i class="fa fa-arrow-up"></i>
+                                </div>
+                            </div>
+                            <div style="width: 1%;" class="td">
+                                <div class="pad-top-5">
+                                    <i class="fa fa-arrow-down"></i>
+                                </div>
+                            </div>
+                            <div style="width: 1%;" class="td">
+                                <div class="pad-top-5">
+                                    <button class="btn btn-xs btn-danger">delete</button>
+                                </div>
+                            </div>
+                            <div style="width: 1%;" class="td">
+                                <div class="pad-top-5">
+                                    <button class="btn btn-xs btn-info" (click)="editRunbookStep(step)">edit</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div style="width: 3%;" class="td">
-                        <div class="pad-top-5">
-                            <code>{{ step.Duration }}</code>
-                        </div>
-                    </div>
-                    <div style="width: 5%;" class="td">
-                        <div class="pad-top-5">
-                            <div *ngFor="let resource of step.Resources">{{ resource.DisplayName }}</div>
-                        </div>
-                    </div>
-                    <div style="width: 5%;" class="td">
-                        <div class="pad-top-5">
-                            <code *ngIf="step.IsNotCollapsed"></code>
-                        </div>
-                    </div>
-
-                    <div style="width: 1%;" class="td">
-                        <div class="pad-top-5">
-                            <i class="fa fa-arrow-up"></i>
-                        </div>
-                    </div>
-                    <div style="width: 1%;" class="td">
-                        <div class="pad-top-5">
-                            <i class="fa fa-arrow-down"></i>
-                        </div>
-                    </div>
-                    <div style="width: 1%;" class="td">
-                        <div class="pad-top-5">
-                            <button class="btn btn-xs btn-danger">delete</button>
-                        </div>
-                    </div>
-                    <div style="width: 1%;" class="td">
-                        <div class="pad-top-5">
-                            <button class="btn btn-xs btn-info" (click)="editRunbookStep(step)">edit</button>
-                        </div>
-                    </div>
                 </div>
+
             </div>
+        </td>
+    <td class="align-top">
+        
+        <div>
 
-        </div>
+            <div *ngIf="selectedRunbookStep" class="mrc-forms edit-runbook-step">
+                <div class="BebasNeue gray-5-bg gray-9 pad-5 font-1-40">
+                    <div class="float-right pad-right-10">
+                        <i class="fa fa-chevron-left"></i> <i class="fa fa-chevron-right"></i>
+                    </div>
+                    <span class="pad-left-10">group {{ selectedRunbookStep.GroupNumber }} </span> <span class="font-0-75">-</span> <span>step {{ selectedRunbookStep.StepNumber }}</span>
+                </div>
+                <div class="thin-header pad-left-10" style="border-bottom: dotted 1px #666666;">
+                    <span>{{ selectedRunbookStep.Name }}</span>
+                </div>
 
-    </div>
-
-    <div *ngIf="selectedRunbookStep" class="mrc-forms edit-runbook-step gray-3-bg white pad-40">
-        <div class="thin-header" style="border-bottom: dotted 1px #666666;">
-            <span class="small-caps">group </span>{{ selectedRunbookStep.GroupNumber }} : <span class="small-caps">step</span> {{ selectedRunbookStep.StepNumber }} : {{ selectedRunbookStep.Name }}
-        </div>
-
-        <form id="editRunbookStepForm" name="editRunbookStepForm" #editRunbookStepForm="ngForm"
+                <form id="editRunbookStepForm" name="editRunbookStepForm" #editRunbookStepForm="ngForm"
                       class="mrc-form"
                       (ngSubmit)="onSubmit(editRunbookStepForm.value)">
 
-            <table>
-                <tr>
-                    <td class="align-right align-top pad-5">Name</td>
-                    <td class="pad-5">
-                        <input type="text"
-                               name="Name"
-                               required
-                               class="width-100"
-                               autocomplete="off"
-                               #runbookStepName
-                               #Name="ngModel"
-                               [(ngModel)]="selectedRunbookStep.Name"
-                               />
-                    </td>
-                    <td class="pad-5"></td>
-                </tr>
-                <tr>
-                    <td class="align-right align-top pad-5">Group</td>
-                    <td class="pad-5">
-                        <input type="text"
-                               name="GroupNumber"
-                               required
-                               class="width-100"
-                               autocomplete="off"
-                               #RunbookStepGroupNumber
-                               #GroupNumber="ngModel"
-                               [(ngModel)]="selectedRunbookStep.GroupNumber"/>
-                    </td>
-                    <td class="pad-5"></td>
-                </tr>
-                <tr>
-                    <td class="align-right align-top pad-5">Step</td>
-                    <td class="pad-5">
-                        <input type="text"
-                               name="Number"
-                               required
-                               class="width-100"
-                               autocomplete="off"
-                               #RunbookStepNumber
-                               #StepNumber="ngModel"
-                               [(ngModel)]="selectedRunbookStep.StepNumber"/>
-                    </td>
-                    <td class="pad-5"></td>
-                </tr>
-                <tr>
-                    <td class="align-right align-top pad-5">Team</td>
-                    <td class="pad-5">
-                        <div class="opacity-20">
-                            drop-down <i class="fa fa-chevron-down"></i>
-                        </div>
-                    </td>
-                    <td class="pad-5"></td>
-                </tr>
-                <tr>
-                    <td class="align-right align-top pad-5">Description</td>
-                    <td class="pad-5">
-                        <textarea name="Description"
-                                  #RunbookStepDescription
-                                  #Description="ngModel"
-                                  rows="10"
-                                  cols="100"
-                                  [(ngModel)]="selectedRunbookStep.Description">
-                        </textarea>
-                        <div class="font-0-75 gray-6 small-caps">
-                            {{ selectedRunbookStep.Description.length }} of 2,000 characters
-                        </div>
-                    </td>
-                    <td class="pad-5"></td>
-                </tr>
-                <tr>
-                    <td class="align-right align-top pad-5">Developer</td>
-                    <td class="pad-5">
-                        <!-- Typeahead Contact Template -->
-                        <template #customItemTemplate let-model="item" let-index="index">
-                            <div class="pad-5">
-                                <div class="BebasNeue font-2-00">{{ model.DisplayName }}</div>
-                                <div class="opacity-50" style="margin-top: -10px;">{{ model.UserId }}</div>
-                            </div>
-                        </template>
+                    <table>
+                        <tr>
+                            <td class="align-right pad-5">Name</td>
+                            <td class="pad-5">
+                                <input type="text"
+                                       name="Name"
+                                       required
+                                       class="width-100"
+                                       autocomplete="off"
+                                       #runbookStepName
+                                       #Name="ngModel"
+                                       [(ngModel)]="selectedRunbookStep.Name"/>
+                            </td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right pad-5">Group</td>
+                            <td class="pad-5">
+                                <input type="text"
+                                       name="GroupNumber"
+                                       required
+                                       class="width-100"
+                                       autocomplete="off"
+                                       #RunbookStepGroupNumber
+                                       #GroupNumber="ngModel"
+                                       [(ngModel)]="selectedRunbookStep.GroupNumber"/>
+                            </td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right pad-5">Step</td>
+                            <td class="pad-5">
+                                <input type="text"
+                                       name="Number"
+                                       required
+                                       class="width-100"
+                                       autocomplete="off"
+                                       #RunbookStepNumber
+                                       #StepNumber="ngModel"
+                                       [(ngModel)]="selectedRunbookStep.StepNumber"/>
+                            </td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right align-top pad-right-5 pad-top-20">Team</td>
+                            <td class="pad-5">
+                                <select name="Team"
+                                        #Team
+                                        class="runbook"
+                                        [ngModel]="selectedTeam"
+                                        (change)="onTeamChanged($event)">
+                                    <option></option>
+                                    <option *ngFor="let team of appLookups.Teams" [ngValue]="selectedTeam" [value]="team.Id">{{ team.Name }}</option>
+                                </select>
+                                <div class="pad-5" *ngIf="selectedRunbookStep.Teams">
+                                    <table class="margin-5 border-a-10">
+                                        <tr *ngFor="let team of selectedRunbookStep.Teams; let i = index;">
+                                            <td class="border-bottom-a-10"><span class="gray-6">{{ i+1 }}</span>{{ team.Id }} {{ team.Name }}</td>
+                                            <td class="border-bottom-a-10"><button type="button" class="btn btn-xs btn-default" (click)="onTeamCleared(team)">clear</button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right pad-5">Developer</td>
+                            <td class="pad-5">
+                                
+                                <!-- Typeahead Developer Template -->
+                                <template #customItemTemplate let-model="item" let-index="index">
+                                    <div class="pad-5">
+                                        <div class="BebasNeue font-2-00">{{ model.DisplayName }}</div>
+                                        <div class="opacity-50" style="margin-top: -10px;">{{ model.UserId }}</div>
+                                    </div>
+                                </template>
 
-                        <!-- Typeahead -->
-                        <input Name="Contact"
-                               placeholder="Search by Contact Name..."
-                               class="width-100"
-                               autocomplete="off"
-                               [(ngModel)]="userTypedContactName"
-                               [ngModelOptions]="{standalone: true}"
-                               [typeaheadItemTemplate]="customItemTemplate"
-                               [typeahead]="contacts"
-                               (typeaheadLoading)="changeTypeaheadLoading($event)"
-                               (typeaheadNoResults)="changeTypeaheadNoResults($event)"
-                               (typeaheadOnSelect)="typeaheadOnSelect($event)"
-                               [typeaheadOptionsLimit]="5"
-                               [typeaheadWaitMs]="500"
-                               [typeaheadOptionField]="'DisplayName'"
-                               [typeaheadMinLength]="2">
-                        <div *ngIf="typeaheadLoading===true" class="opacity-50 pad-10">
-                            searching...
-                        </div>
-                        <div *ngIf="typeaheadNoResults===true" class="pad-10">
-                            <span class="opacity-50 small-caps font-1-00">no results found for </span><span class="font-1-40" *ngIf="userTypedContactName">{{ userTypedContactName }}</span>
-                        </div>
-                    </td>
-                    <td class="pad-5"><button class="btn btn-default btn-xs" style="width: 50px;" (click)="clearSelectedContactClicked()">clear</button></td>
-                </tr>
-                <tr><td class="align-right align-top pad-5">PBIs</td><td class="pad-5"></td><td class="pad-5"></td></tr>
-                <tr>
-                    <td class="align-right align-top pad-5">Notes</td>
-                    <td class="pad-5">
-                        <textarea name="Notes"
-                                  #RunbookStepNotes
-                                  #Notes="ngModel"
-                                  rows="10"
-                                  cols="100"
-                                  [(ngModel)]="selectedRunbookStep.Notes"></textarea>
-                        <div class="font-0-75 gray-6 small-caps">
+                                <!-- Typeahead -->
+                                <input Name="Contact"
+                                       placeholder="Search by Contact Name..."
+                                       class="width-100"
+                                       autocomplete="off"
+                                       [(ngModel)]="userTypedDeveloperName"
+                                       [ngModelOptions]="{standalone: true}"
+                                       [typeaheadItemTemplate]="customItemTemplate"
+                                       [typeahead]="contacts"
+                                       (typeaheadLoading)="developerTypeaheadLoading($event)"
+                                       (typeaheadNoResults)="developerTypeaheadNoResults($event)"
+                                       (developerTypeaheadOnSelect)="developerTypeaheadOnSelect($event)"
+                                       [typeaheadOptionsLimit]="5"
+                                       [typeaheadWaitMs]="500"
+                                       [typeaheadOptionField]="'DisplayName'"
+                                       [typeaheadMinLength]="2">
+                                <div *ngIf="typeaheadLoading===true" class="opacity-50 pad-10">
+                                    searching...
+                                </div>
+                                <div *ngIf="typeaheadNoResults===true" class="pad-10">
+                                    <span class="opacity-50 small-caps font-1-00">no results found for </span><span class="font-1-40" *ngIf="userTypedDeveloperName">{{ userTypedDeveloperName }}</span>
+                                </div>
+                            </td>
+                            <td class="pad-5"><button type="button" class="btn btn-default btn-xs" style="width: 50px;" (click)="clearSelectedContactClicked()">clear</button></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right align-top pad-5">Resource</td>
+                            <td class="pad-5">
+                                <div class="opacity-20">
+                                    drop-down <i class="fa fa-chevron-down"></i>
+                                </div>
+                            </td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right pad-5">PBIs</td>
+                            <td class="pad-5"><input style="width: 75px;" /> <button type="button" class="btn btn-default btn-xs">add</button></td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right pad-5">Duration</td>
+                            <td class="pad-5"><input style="width: 50px;" /> <span class="gray-9 pad-right-10">hours</span> <input style="width: 50px;" /> <span class="gray-9">minutes</span></td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right align-top" style="padding-top: 10px; padding-left: 5px; padding-right: 5px;">Description</td>
+                            <td class="pad-5">
+                                <textarea name="Description"
+                                          #RunbookStepDescription
+                                          #Description="ngModel"
+                                          spellcheck="false"
+                                          (focus)="onDescriptionHasFocused()"
+                                          (blur)="onDescriptionHasBlurred()"
+                                          rows="10"
+                                          cols="100"
+                                          [(ngModel)]="selectedRunbookStep.Description"></textarea>
+                                <div class="font-0-75 gray-6 small-caps" *ngIf="visibility.descriptionCount">
+                                    {{ selectedRunbookStep.Description.length }} of 2,000 characters
+                                </div>
+                            </td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right align-top" style="padding-top: 10px; padding-left: 5px; padding-right: 5px;">Notes</td>
+                            <td class="pad-5">
+                                <textarea name="Notes"
+                                          #RunbookStepNotes
+                                          #Notes="ngModel"
+                                          rows="10"
+                                          cols="100"
+                                          [(ngModel)]="selectedRunbookStep.Notes"></textarea>
+                                <div class="font-0-75 gray-6 small-caps">
 
-                        </div>
-                    </td>
-                    <td class="pad-5"></td>
-                </tr>
-                <tr>
-                    <td class="align-right align-top pad-5">Duration</td>
-                    <td class="pad-5"><input style="width: 50px;"/> <span class="gray-9 pad-right-10">hours</span> <input style="width: 50px;" /> <span class="gray-9">minutes</span></td>
-                    <td class="pad-5"></td>
-                </tr>
-                <tr>
-                    <td class="align-right align-top pad-5">Resource</td>
-                    <td class="pad-5">
-                        <div class="opacity-20">
-                            drop-down <i class="fa fa-chevron-down"></i>
-                        </div>
-                    </td>
-                    <td class="pad-5"></td>
-                </tr>
-                <tr>
-                    <td class="align-right align-top pad-5">Comment</td>
-                    <td class="pad-5">
-                        <textarea name="Comments"
-                                  #RunbookStepComments
-                                  #Comments="ngModel"
-                                  rows="10"
-                                  cols="100"
-                                  [(ngModel)]="selectedRunbookStep.Comments"></textarea>
-                        <div class="font-0-75 gray-6 small-caps">
-                            
-                        </div>
-                    </td>
-                    <td class="pad-5"></td>
-                </tr>
-                <tr>
-                    <td class="align-right align-top pad-5"></td>
-                    <td><button class="btn btn-sm btn-default" (click)="hideEditing()">Cancel</button> <button class="btn btn-sm btn-primary">Save</button></td>
-                    <td class="pad-5"></td>
-                </tr>
-            </table>
-        </form>
-        <div>
-            <button class="btn btn-sm btn-default" (click)="hideEditing()">Cancel</button>
+                                </div>
+                            </td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right align-top" style="padding-top: 10px; padding-left: 5px; padding-right: 5px;">Comment</td>
+                            <td class="pad-5">
+                                <textarea name="Comments"
+                                          #RunbookStepComments
+                                          #Comments="ngModel"
+                                          rows="10"
+                                          cols="100"
+                                          [(ngModel)]="selectedRunbookStep.Comments"></textarea>
+                                <div class="font-0-75 gray-6 small-caps">
+
+                                </div>
+                            </td>
+                            <td class="pad-5"></td>
+                        </tr>
+                        <tr>
+                            <td class="align-right align-top pad-5"></td>
+                            <td><button type="button" class="btn btn-sm btn-default" (click)="hideEditing()">Cancel</button> <button type="button" class="btn btn-sm btn-primary" (click)="updateRunbookStepClick()">Save</button></td>
+                            <td class="pad-5"></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
         </div>
-    </div>
+    </td>
+    </tr>
+</table>
 
     <div class="opacity-10">
         <ul>
@@ -308,4 +345,5 @@
             <li>Not sure of the workflow here. For example, perhaps someone like Noor go in, select a Template, which would copy the Template into the RFC. She would then ask a developer to approve and/or modify the selected template.</li>
         </ul>
     </div>
+
 </div>

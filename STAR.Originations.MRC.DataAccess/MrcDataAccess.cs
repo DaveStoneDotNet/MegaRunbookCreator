@@ -339,11 +339,13 @@ namespace STAR.Originations.MRC.DataAccess
                 var applicationTypes = await context.ApplicationTypes.OrderBy(o => o.SortOrder).ToListAsync().ConfigureAwait(false);
                 var runbookStepStatuses = await context.RunbookStepStatus.OrderBy(o => o.SortOrder).ToListAsync().ConfigureAwait(false);
                 var runbookStepTypes = await context.RunbookStepTypes.OrderBy(o => o.SortOrder).ToListAsync().ConfigureAwait(false);
+                var teams = await context.Teams.OrderBy(o => o.Name).ToListAsync().ConfigureAwait(false);
 
                 appLookups.ApplicationGroups = Mapper.Map<List<entities::ApplicationGroup>, List<contracts::Lookup>>(applicationGroups);
                 appLookups.ApplicationTypes = Mapper.Map<List<entities::ApplicationType>, List<contracts::Lookup>>(applicationTypes);
                 appLookups.RunbookStepStatuses = Mapper.Map<List<entities::RunbookStepStatus>, List<contracts::Lookup>>(runbookStepStatuses);
                 appLookups.RunbookStetpTypes = Mapper.Map<List<entities::RunbookStepType>, List<contracts::Lookup>>(runbookStepTypes);
+                appLookups.Teams = Mapper.Map<List<entities::Team>, List<contracts::Team>>(teams);
 
                 this.TraceSource.TraceEvent(TraceEventType.Information, "COMPLETE", stopwatch.Elapsed, TraceStatus.Success);
 
